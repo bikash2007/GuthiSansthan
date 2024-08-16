@@ -30,6 +30,7 @@ export const NepalFlagSlider = ({ content }) => {
   const homePageDetail = useSelector((state) => state.homePageDetail);
   const { t } = useTranslation();
   const isMobile = useMediaQuery("(max-width:1000px)");
+  const [x, setx] = useState();
   useEffect(() => {
     const fetchData = async () => {
       addLanguage({
@@ -44,7 +45,14 @@ export const NepalFlagSlider = ({ content }) => {
     };
     if (!homePageDetail["slider-img"].isFetched && homePageDetail.isFetched)
       fetchData();
+    const id = homePageDetail["details"]["welcome-to-guthi-sansthan"];
+    if (id) {
+      setx(id);
+    } else {
+      console.log("x is undefined or null");
+    }
   });
+
   return (
     <>
       {/* {isMobile && <div className="w-full h-[20vh] "></div>} */}
@@ -65,9 +73,15 @@ export const NepalFlagSlider = ({ content }) => {
               : `${isHover ? "left-[-100%] opacity-0 " : ""}`
           }  absolute left-0  text-white font-bold   transition-left duration-500 font-reggaeOne`}
         >
-          <EditText keyName={"welcome-to-guthi-sansthans"}>
-            {t("welcome-to-guthi-sansthans")}
-          </EditText>
+          {x && (
+            <EditText
+              textId={x.id}
+              keyName={"welcome-to-guthi-sansthan"}
+              styling={x.styling}
+            >
+              {t("welcome-to-guthi-sansthan")}
+            </EditText>
+          )}
         </div>
         <div
           className={`${

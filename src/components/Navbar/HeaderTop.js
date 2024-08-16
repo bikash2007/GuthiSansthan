@@ -70,7 +70,7 @@ export const HeaderTop = () => {
     <div
       className={`${
         isMobile ? "h-[80px] flex-wrap w-full" : "flex-row px-20 h-[100px]"
-      } flex w-full bg-neutral-100/50 lg:bg-neutral-200/30 lg:backdrop-blur-lg backdrop-blur-xl top-0 justify-between items-center p-2`}
+      } flex w-full bg-neutral-100/50 lg:bg-neutral-200/30 dark:bg-neutral-100/50 lg:backdrop-blur-lg backdrop-blur-xl top-0 justify-between items-center p-2`}
     >
       <Link
         to="/"

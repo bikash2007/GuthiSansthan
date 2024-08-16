@@ -40,37 +40,40 @@ export const EditText = ({
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (prevTextData && Object.keys(prevTextData).length > 0) {
-      setTextData(prevTextData);
-    }
+    setTextData((prev) => ({
+      ...prev,
+      ...prevTextData,
+    }));
   }, [prevTextData]);
 
   useEffect(() => {
-    if (styling && Object.keys(styling).length > 0) {
-      setStyle((prevStyle) => ({
-        ...prevStyle,
-        ...styling,
-      }));
-    }
+    setStyle((prev) => ({
+      ...prev,
+      ...styling,
+    }));
   }, [styling]);
 
   useEffect(() => {
-    if (textData[language] !== editorData) {
-      setEditorData(textData[language] || "");
-    }
-  }, [language, textData, editorData]);
+    setEditorData(textData[language] || "");
+  }, [language, textData]);
 
   const handleChange = (value, language) => {
     setTextData((prevData) => ({ ...prevData, [language]: value }));
   };
 
   const handleSubmit = async () => {
+    if (!textId) {
+      console.error("textId is undefined");
+      return;
+    }
+
     try {
       activate_loader(true);
       const response = await axios.patch(
         `${baseUrl}api/components/${textId}/`,
         { text: textData, styling: style }
       );
+      //   console.log("text id===", textid);
       dispatch(setNewData({ text: textData, styling: style }));
       addLanguage({ key: keyName, lngs: textData });
       setActivateEdit(false);
@@ -80,6 +83,7 @@ export const EditText = ({
       activate_loader(false);
     }
   };
+  console.log(style);
 
   const removeUpdate = () => {
     setActivateEdit(false);

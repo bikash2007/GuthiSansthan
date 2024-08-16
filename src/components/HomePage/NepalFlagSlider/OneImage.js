@@ -6,6 +6,7 @@ import axios from "axios";
 import { addLanguage, fetchImageToURL } from "../../ReuseableFunctions";
 import { EditImage } from "../../EditComponents";
 import { setNewTabDetail } from "../../../state/HomePageSlices/HomePageSlice";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 export const OneImage = ({ name, activateEdit }) => {
   const { t } = useTranslation();
   const homePageDetail = useSelector((state) => state.homePageDetail);
@@ -56,6 +57,7 @@ export const OneImage = ({ name, activateEdit }) => {
           <h1 className="text-base font-semibold z-10 lg:text-4xl tracking-tighter leading-none">
             {t(name)}
           </h1>
+          {/* <FontAwesomeIcon icon={faright} */}
         </div>
       )}
     </>

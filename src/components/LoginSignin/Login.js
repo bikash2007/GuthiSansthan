@@ -113,11 +113,11 @@ export const Login = () => {
                 <div className="mx-3 text-white"> Or</div>
                 <div className="bg-zinc-800 h-[1px] w-1/3"></div>
               </div>
-              <div className="w-full flex justify-center my-2 items-center bg-white hover:bg-blue-500 h-24">
+              {/* <div className="w-full flex justify-center my-2 items-center bg-white hover:bg-blue-500 h-24">
                 <button className="text-black px-3 h-fit border border-black rounded-md py-2 items-center justify-center gap-2 flex">
                   <FontAwesomeIcon icon={faGoogle} /> Sign In with Google
                 </button>
-              </div>
+              </div> */}
               <div className="items-end justify-end">
                 <button
                   onClick={handleSubmit}
