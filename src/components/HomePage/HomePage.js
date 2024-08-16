@@ -91,7 +91,7 @@ export const HomePage = () => {
           <h3 className="absolute left-0 top-0 bg-[#00ADEF] backdrop-blur-3xl text-white py-1 font-semibold text-base flex justify-center items-center h-[40px] px-2  z-40">
             Notice:
           </h3>
-          <div className="absolute left-[70px] top-0 bg-[#00ADEF] backdrop-blur-3xl text-white py-1 font-semibold text-base flex justify-center items-center h-[40px] px-1  z-40"></div>
+          <div className="absolute left-[70px] top-0 bg-[#00ADEF] backdrop-blur-3xl text-white py-1 font-semibold text-base flex justify-center items-center h-[40px] px-1  z-30"></div>
           <marquee className="w-[80%] lg:w-[95%] absolute right-0 bg-red-500/40 backdrop-blur-sm py-2 text-white font-semibold">
             At Guthi Sanstha, we honor the rich cultural heritage and
             philanthropic spirit of Nepal. Founded with the vision to preserve

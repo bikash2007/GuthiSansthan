@@ -50,8 +50,8 @@ export const NepalFlagSlider = ({ content }) => {
       {/* {isMobile && <div className="w-full h-[20vh] "></div>} */}
       <div
         className={` ${
-          isMobile ? "h-[80vh]" : "h-[50vh]"
-        } flex flex-row items-center relative w-full   m-2 overflow-hidden`}
+          isMobile ? "h-[70vh]" : "h-[70vh]"
+        } flex flex-row items-center relative w-[100vw]   m-2 overflow-hidden`}
         onMouseLeave={() => {
           setIsHover(false);
         }}
@@ -102,21 +102,21 @@ export const NepalFlagSlider = ({ content }) => {
         <div
           className={`${
             activateEdit
-              ? "left-[0%]"
+              ? "left-[25%]"
               : `${
                   isHover
                     ? `${isMobile ? "left-[0%] " : "left-[25%]"}`
                     : ` left-[100%]`
                 }`
-          } ${isMobile ? "w-[100%] " : "max-w-[90%] "}px-2 py-3 absolute ${
+          } ${isMobile ? "w-[100%] " : "w-[100%]"}px-2 py-3 absolute ${
             isEditing ? "" : ""
-          } px-2 transition-all bg-red-500   h-[90%] duration-300 ease-in-out flex flex-wrap bg-neutral-300/10 backdrop-blur-sm items-start justify-center gap-5 lg:gap-10  rounded-lg  backdrop:blur-sm overflow-auto `}
+          } px-2 transition-all bg-red-500/10  mt-5   h-[90%] duration-300 ease-in-out flex flex-wrap  backdrop-blur-sm overflow-auto items-start justify-center gap-5 lg:gap-5  rounded-lg  backdrop:blur-sm `}
         >
           {/* <TemplesDisplayMain/> */}
           {isEditing && !activateEdit && (
             <div
               onClick={() => setActivateEdit(true)}
-              className=" absolute top-1 flex bg-gray-300 hover:bg-gray-400 px-2 py-1 rounded-md cursor-pointer"
+              className=" absolute top-1 flex z-50 bg-gray-300 hover:bg-gray-400 px-2 py-1 rounded-md cursor-pointer"
             >
               Edit
             </div>

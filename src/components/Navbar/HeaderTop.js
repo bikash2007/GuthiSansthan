@@ -125,15 +125,6 @@ export const HeaderTop = () => {
         </>
       )}
 
-      {loc.pathname !== "/" && !isMobile && (
-        <div
-          className={`${
-            isMobile ? "h-[100px]" : ""
-          } w-[40%] flex items-center justify-center`}
-        >
-          <HeaderButtom />
-        </div>
-      )}
       <div
         className={`${
           isMobile ? "gap-1 w-[50%]" : "gap-7 w-[30%]"
