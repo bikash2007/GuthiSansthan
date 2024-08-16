@@ -110,7 +110,7 @@ export const NepalFlagSlider = ({ content }) => {
                 }`
           } ${isMobile ? "w-[100%] " : "w-[100%]"}px-2 py-3 absolute ${
             isEditing ? "" : ""
-          } px-2 transition-all bg-red-500/10  mt-5   h-[90%] duration-300 ease-in-out flex flex-wrap  backdrop-blur-sm overflow-auto items-start justify-center gap-5 lg:gap-5  rounded-lg  backdrop:blur-sm `}
+          } px-4 transition-all bg-red-500/10  mt-5   h-[90%] duration-300 ease-in-out flex flex-wrap  backdrop-blur-sm overflow-auto items-start justify-center gap-5 lg:gap-5  rounded-lg  backdrop:blur-sm `}
         >
           {/* <TemplesDisplayMain/> */}
           {isEditing && !activateEdit && (

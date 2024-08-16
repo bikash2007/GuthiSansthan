@@ -40,27 +40,25 @@ export const EditText = ({
   const dispatch = useDispatch();
 
   useEffect(() => {
-    setTextData((prevTextData) => ({
-      nepali: "",
-      english: "",
-      newari: "",
-      mithila: "",
-      ...prevTextData,
-    }));
+    if (prevTextData && Object.keys(prevTextData).length > 0) {
+      setTextData(prevTextData);
+    }
   }, [prevTextData]);
 
   useEffect(() => {
-    setStyle((prevStyle) => ({
-      ...prevStyle,
-      ...styling,
-    }));
+    if (styling && Object.keys(styling).length > 0) {
+      setStyle((prevStyle) => ({
+        ...prevStyle,
+        ...styling,
+      }));
+    }
   }, [styling]);
 
   useEffect(() => {
-    if (textData && textData[language]) {
-      setEditorData(textData[language]);
+    if (textData[language] !== editorData) {
+      setEditorData(textData[language] || "");
     }
-  }, [language, textData]);
+  }, [language, textData, editorData]);
 
   const handleChange = (value, language) => {
     setTextData((prevData) => ({ ...prevData, [language]: value }));

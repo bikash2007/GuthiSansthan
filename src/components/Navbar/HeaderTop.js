@@ -64,6 +64,7 @@ export const HeaderTop = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+  const superUser = sessionStorage.getItem("superUser");
 
   return (
     <div
@@ -105,7 +106,7 @@ export const HeaderTop = () => {
           />
         </EditImage>
       </Link>
-      {!isMobile && (
+      {superUser && (
         <>
           {isEditing ? (
             <div
@@ -200,8 +201,8 @@ export const HeaderTop = () => {
           <Link
             to="/sign-up"
             className={`${
-              isMobile ? "text-[12px] " : " px-5 py-1"
-            } no-underline  bg-red-600 py-1 text-white flex items-center justify-center mx-2 rounded-full hover:bg-red-700 cursor-pointer shadow-sm font-bold`}
+              isMobile ? "text-[12px] " : " px-1 py-1"
+            } no-underline  bg-red-600  text-white flex items-center justify-center gap-1  rounded-full hover:bg-red-700 cursor-pointer shadow-sm font-bold`}
           >
             {t("sign-up")}
             <FontAwesomeIcon icon={faUserCircle} size="2x" />

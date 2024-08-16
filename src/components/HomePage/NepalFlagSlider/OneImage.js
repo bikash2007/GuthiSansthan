@@ -37,7 +37,7 @@ export const OneImage = ({ name, activateEdit }) => {
           name={name}
         >
           <div
-            className=" flex justify-center items-center bg-cover relative bg-center hover:scale-110 transition-all duration-100 ease-in-out shadow-2xl  hover:shadow-red-600  h-44 w-32 lg:w-44 lg:h-56 rounded-lg overflow-hidden"
+            className=" flex justify-center items-center bg-cover relative bg-center hover:scale-110 transition-all duration-100 ease-in-out shadow-2xl  hover:shadow-red-600  h-44 w-32 lg:w-44 lg:h-64 rounded-lg overflow-hidden"
             style={{ backgroundImage: `url(${homePageDetail[name].imgSrc})` }}
           >
             <div className="bg-zinc-800/40 absolute top-0  h-full w-full"></div>
@@ -49,7 +49,7 @@ export const OneImage = ({ name, activateEdit }) => {
       )}
       {!activateEdit && (
         <div
-          className=" flex justify-center items-center bg-cover relative bg-center hover:scale-110 transition-all duration-100 ease-in-out shadow-2xl  hover:shadow-red-600  h-44 w-32 lg:w-[15vw] lg:h-56 rounded-lg overflow-hidden  "
+          className=" flex justify-center items-center bg-cover relative bg-center hover:scale-110 transition-all duration-100 ease-in-out shadow-2xl  hover:shadow-red-600  h-44 w-32 lg:w-44 lg:h-64 rounded-lg overflow-hidden  "
           style={{ backgroundImage: `url(${homePageDetail[name].imgSrc})` }}
         >
           <div className="bg-zinc-900/40 backdrop-blur-[0.1px] absolute top-0  h-full w-full"></div>
