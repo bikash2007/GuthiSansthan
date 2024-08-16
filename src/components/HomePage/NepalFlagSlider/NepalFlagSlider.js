@@ -61,7 +61,7 @@ export const NepalFlagSlider = ({ content }) => {
             isMobile ? "text-[30px] w-[50%]" : "text-[80px] p-[10%] w-[60%]"
           } ${
             activateEdit
-              ? "left-[-100%]"
+              ? "left-[100%]"
               : `${isHover ? "left-[-100%] opacity-0 " : ""}`
           }  absolute left-0  text-white font-bold   transition-left duration-500 font-reggaeOne`}
         >
@@ -102,15 +102,15 @@ export const NepalFlagSlider = ({ content }) => {
         <div
           className={`${
             activateEdit
-              ? "left-[25%]"
+              ? "left-[0%]"
               : `${
                   isHover
                     ? `${isMobile ? "left-[0%] " : "left-[25%]"}`
                     : ` left-[100%]`
                 }`
           } ${isMobile ? "w-[100%] " : "max-w-[90%] "}px-2 py-3 absolute ${
-            isEditing ? "pt-5" : ""
-          } px-2 transition-all   h-[90%] duration-300 ease-in-out flex flex-wrap bg-neutral-300/10 backdrop-blur-sm items-start justify-center gap-5 lg:gap-10  rounded-lg  backdrop:blur-sm overflow-auto `}
+            isEditing ? "" : ""
+          } px-2 transition-all bg-red-500   h-[90%] duration-300 ease-in-out flex flex-wrap bg-neutral-300/10 backdrop-blur-sm items-start justify-center gap-5 lg:gap-10  rounded-lg  backdrop:blur-sm overflow-auto `}
         >
           {/* <TemplesDisplayMain/> */}
           {isEditing && !activateEdit && (

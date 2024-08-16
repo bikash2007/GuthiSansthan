@@ -37,7 +37,7 @@ export const OneImage = ({ name, activateEdit }) => {
           name={name}
         >
           <div
-            className=" flex justify-center items-center bg-cover absolute bg-center  bg-red-500 h-44 lg:h-24 rounded-lg  "
+            className=" flex justify-center items-center bg-cover relative bg-center hover:scale-110 transition-all duration-100 ease-in-out shadow-2xl  hover:shadow-red-600  h-44 w-36 lg:w-56 lg:h-64 rounded-lg overflow-hidden"
             style={{ backgroundImage: `url(${homePageDetail[name].imgSrc})` }}
           >
             <div className="bg-zinc-800/40 absolute top-0  h-full w-full"></div>
