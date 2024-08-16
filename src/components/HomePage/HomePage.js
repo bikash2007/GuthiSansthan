@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useMediaQuery } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { NepalFlagSlider } from "./NepalFlagSlider/NepalFlagSlider";
