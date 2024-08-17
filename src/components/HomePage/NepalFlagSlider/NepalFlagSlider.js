@@ -59,7 +59,7 @@ export const NepalFlagSlider = ({ content }) => {
       <div
         className={` ${
           isMobile ? "h-[70vh]" : "h-[70vh]"
-        } flex flex-row items-center relative w-[100vw]   m-2 overflow-hidden`}
+        } flex flex-row items-center relative w-[100vw] z-30   m-2 overflow-hidden`}
         onMouseLeave={() => {
           setIsHover(false);
         }}
@@ -94,7 +94,7 @@ export const NepalFlagSlider = ({ content }) => {
                 }`
           }  ${
             isMobile ? "w-[20vh]" : "w-[30vh]"
-          } absolute   h-full z-10 flex items-center transition-all duration-300 ease-in-out`}
+          } absolute   h-full flex items-center transition-all duration-300 ease-in-out`}
           onMouseEnter={() => {
             setIsHover(true);
           }}
@@ -137,7 +137,7 @@ export const NepalFlagSlider = ({ content }) => {
           )}
           <Link
             to="/parva"
-            className="feature-div"
+            className="feature-div z-50"
             onClick={(e) => {
               isEditing && activateEdit && e.preventDefault();
             }}
@@ -146,7 +146,7 @@ export const NepalFlagSlider = ({ content }) => {
           </Link>
           <Link
             to="/about-us"
-            className="feature-div"
+            className="feature-div z-50"
             onClick={(e) => {
               isEditing && activateEdit && e.preventDefault();
             }}
@@ -155,7 +155,7 @@ export const NepalFlagSlider = ({ content }) => {
           </Link>
           <Link
             to="/contact-us"
-            className="feature-div"
+            className="feature-div z-50"
             onClick={(e) => {
               isEditing && activateEdit && e.preventDefault();
             }}
@@ -164,7 +164,7 @@ export const NepalFlagSlider = ({ content }) => {
           </Link>
           <Link
             to="/articles"
-            className="feature-div"
+            className="feature-div z-50"
             onClick={(e) => {
               isEditing && activateEdit && e.preventDefault();
             }}

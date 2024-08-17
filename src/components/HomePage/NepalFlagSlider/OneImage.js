@@ -7,6 +7,7 @@ import { addLanguage, fetchImageToURL } from "../../ReuseableFunctions";
 import { EditImage } from "../../EditComponents";
 import { setNewTabDetail } from "../../../state/HomePageSlices/HomePageSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
 export const OneImage = ({ name, activateEdit }) => {
   const { t } = useTranslation();
   const homePageDetail = useSelector((state) => state.homePageDetail);
@@ -50,14 +51,17 @@ export const OneImage = ({ name, activateEdit }) => {
       )}
       {!activateEdit && (
         <div
-          className=" flex justify-center items-center bg-cover relative bg-center hover:scale-110 transition-all duration-100 ease-in-out shadow-2xl  hover:shadow-red-600  h-44 w-32 lg:w-44 lg:h-64 rounded-lg overflow-hidden  "
+          className=" flex justify-center items-center bg-cover relative bg-center z-50 hover:scale-110 transition-all duration-100 ease-in-out shadow-2xl  hover:shadow-red-600  h-44 w-32 lg:w-44 lg:h-64 rounded-lg overflow-hidden  "
           style={{ backgroundImage: `url(${homePageDetail[name].imgSrc})` }}
         >
           <div className="bg-zinc-900/40 backdrop-blur-[0.1px] absolute top-0  h-full w-full"></div>
           <h1 className="text-base font-semibold z-10 lg:text-4xl tracking-tighter leading-none">
             {t(name)}
           </h1>
-          {/* <FontAwesomeIcon icon={faright} */}
+          <FontAwesomeIcon
+            icon={faAngleRight}
+            className="absolute right-3 bottom-3"
+          />
         </div>
       )}
     </>

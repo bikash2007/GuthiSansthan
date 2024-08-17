@@ -73,7 +73,6 @@ export const EditText = ({
         `${baseUrl}api/components/${textId}/`,
         { text: textData, styling: style }
       );
-      //   console.log("text id===", textid);
       dispatch(setNewData({ text: textData, styling: style }));
       addLanguage({ key: keyName, lngs: textData });
       setActivateEdit(false);
@@ -83,7 +82,6 @@ export const EditText = ({
       activate_loader(false);
     }
   };
-  console.log(style);
 
   const removeUpdate = () => {
     setActivateEdit(false);
