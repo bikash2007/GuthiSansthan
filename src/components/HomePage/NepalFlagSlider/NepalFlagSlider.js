@@ -59,7 +59,7 @@ export const NepalFlagSlider = ({ content }) => {
       <div
         className={` ${
           isMobile ? "h-[70vh]" : "h-[70vh]"
-        } flex flex-row items-center relative w-[100vw] z-30   m-2 overflow-hidden`}
+        } flex flex-row items-center relative w-[100vw]    m-2 overflow-hidden`}
         onMouseLeave={() => {
           setIsHover(false);
         }}
@@ -107,7 +107,7 @@ export const NepalFlagSlider = ({ content }) => {
                     > */}
           {/* <img src={homePageDetail['slider-img']['gif']} className={`${isEditing?'':''} h-full flexitems-center justify-center`} ></img> */}
           <FontAwesomeIcon
-            className="h-20 touchme text-white"
+            className="h-14 lg:h-20 touchme text-white"
             icon={faArrowAltCircleRight}
           />
           {/* </EditGif> */}
