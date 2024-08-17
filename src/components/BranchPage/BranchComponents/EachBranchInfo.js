@@ -10,6 +10,7 @@ export const EachBranchInfo = () => {
   const isMobile = useMediaQuery("(max-width:800px)");
   const [section, setSection] = useState("article");
   const loc = useLocation();
+  console.log(loc.state.festivals);
   return (
     <div className="flex flex-col items-center gap-3">
       <BranchHeader branchName={loc.state.name} branchImg={loc.state.img} />
@@ -47,9 +48,17 @@ export const EachBranchInfo = () => {
               branchName={loc.state.name}
             />
           )}
-          {section === "notice" && <BranchNotice branchName={loc.state.name} />}
+          {section === "notice" && (
+            <BranchNotice
+              notices={loc.state.notices}
+              branchName={loc.state.name}
+            />
+          )}
           {section === "festival" && (
-            <BranchFestival branchName={loc.state.name} />
+            <BranchFestival
+              festival={loc.state.festivals}
+              branchName={loc.state.name}
+            />
           )}
         </div>
       </div>

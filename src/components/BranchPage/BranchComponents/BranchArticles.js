@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { useEditing } from "../../../context/EditingProvider";
 export const BranchArticles = ({ branchName, articles }) => {
   const { isEditing, setIsEditing } = useEditing();
-  console.log(articles);
+
   return (
     <div className="w-full rounded-lg">
       {isEditing && (
