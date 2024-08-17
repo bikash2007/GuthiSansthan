@@ -35,6 +35,7 @@ import Report from './components/Report/Report';
 import { ProfileSection } from './components/User/Profile/ProfileSection';
 import { SettingMainPage } from './components/User/Setting/SettingMainPage';
 import Darbandi from './components/Darbandi/Darbandi';
+import Headquarters from './components/Headquaters/Headquaters';
 
 function App() {
   const location=useLocation()
@@ -88,6 +89,7 @@ function App() {
             <Route path='/jatra-form' element={<JatraMain/>}/>
             <Route path='/parva' element={<Parva/>}/>
             <Route path='/report' element={<Report/>} />
+            <Route path='/headquaters' element={<Headquarters/>} />
 
             <Route path='/employee-details' element={<EmployeeDetailsMain/>}/>
             <Route path='/branches' element={<BranchMainPage/>}/>
