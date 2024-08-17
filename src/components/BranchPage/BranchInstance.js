@@ -5,6 +5,7 @@ export const BranchInstance = ({
   festivals,
   notices,
   articles,
+  branchHead,
 }) => {
   return (
     <>
@@ -16,6 +17,7 @@ export const BranchInstance = ({
           festivals: festivals,
           notices: notices,
           articles: articles,
+          branchHead: branchHead,
         }}
         className="relative flex items-center justify-center border border-black rounded-md w-[150px] md:w-[300px] h-[100px] md:h-[200px] bg-cover bg-center hover:scale-105 m-1 transition-all duration-300 cursor-pointer  "
         style={{ backgroundImage: `url(${imgUrl})` }}

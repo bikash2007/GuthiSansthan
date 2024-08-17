@@ -18,7 +18,7 @@ export const BranchMainPage = () => {
           "https://ingnepal.org.np/api/branches/"
         );
         setData(response.data);
-        console.log(response.data);
+        console.log(response.data[0].branch_head_info);
       } catch (error) {
         toast.error("Failed to fetch data");
         console.error(error);
@@ -49,6 +49,7 @@ export const BranchMainPage = () => {
             festivals={item.festivals}
             notices={item.notices}
             articles={item.articles}
+            branchHead={item.branch_head_info}
           />
         ))}
 

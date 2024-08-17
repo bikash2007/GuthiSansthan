@@ -13,7 +13,11 @@ export const EachBranchInfo = () => {
   console.log(loc.state.festivals);
   return (
     <div className="flex flex-col items-center gap-3">
-      <BranchHeader branchName={loc.state.name} branchImg={loc.state.img} />
+      <BranchHeader
+        branchName={loc.state.name}
+        branchImg={loc.state.img}
+        branchHead={loc.state.branchHead}
+      />
       <div className="w-full">
         <div className="w-full py-4 flex justify-start bg-gray-600/80  gap-8 pl-16 shadow-sm blur-border">
           <button
