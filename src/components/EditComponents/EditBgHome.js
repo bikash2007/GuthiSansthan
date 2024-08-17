@@ -110,7 +110,7 @@ export const EditBgHome = ({
     <>
       {children}
       {isEditing && (
-        <div className="relative z-50 w-full max-h-full flex items-center justify-center h-[60px]">
+        <div className="relative z-30 w-full max-h-full flex items-center justify-center h-[60px]">
           {!contentHidden && (
             <>
               {!image && (
@@ -118,7 +118,7 @@ export const EditBgHome = ({
                   className="h-full w-full flex items-center justify-center"
                   onClick={() => setContentHidden(true)}
                 >
-                  <div className="w-[80%] h-[80%] flex items-center justify-center bg-slate-600 rounded-lg cursor-pointer  text-white px-5 py-3   fill-zinc-100 z-10 text-xl">
+                  <div className="w-[80%] h-[80%] flex items-center justify-center bg-slate-600 rounded-lg cursor-pointer  text-white px-5 py-3   fill-zinc-100 z-50 text-xl">
                     Click to Edit
                   </div>
                 </div>
@@ -137,7 +137,7 @@ export const EditBgHome = ({
                     icon={faAdd}
                     className="text-white"
                   ></FontAwesomeIcon>
-                  <div className="text-white text-[10px]  md:text-[20px]">
+                  <div className="text-white text-[10px] z-50 md:text-[20px]">
                     Upload BackGround video or Image
                   </div>
                 </label>

@@ -1,90 +1,102 @@
-import { useState,useEffect} from "react"
-import { TemplateMain } from "./Template/TemplateMain"
-import { ArticlePreviewMain } from "../ArticlePreview/ArticlePreviewMain"
-import { showAlert } from "../../AlertLoader"
-import axios from "axios"
-import {useSelector} from 'react-redux'
+import { useState } from "react";
+import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
-export const ArticleAddition=()=>{
-    const [data,setData]=useState({})
-    const [tag,setTag]=useState('')
-    const [title,setTitle]=useState('')
-    const [isPreview,setIsPreview]=useState(false)
-    const baseUrl=useSelector(state=>state.baseUrl).backend
-    const articlePageDetail=useSelector(state=>state.articlePageDetail)
-    const loc=useLocation()
-    useEffect(()=>{
-        console.log(loc.state)
-    })
-    const publishArticle=async()=>{
-        try{
-            console.log(data)
-            const articleTextData=[]
-            const articleList=[]
-            Object.keys(data).map((key)=>{
-                articleList.push(data[key])
-            })  
-            const formImageData=new FormData()
-            articleList.map((value,index)=>{
-                if(value?.image??false) formImageData.append(index,value.image)
-                const data={}
-                data['order']=index
-                data['templateName']=value.templateName
-                data['text']=value.text
-                articleTextData.push(data)
-            })
-            const finalFormData=new FormData()
-            finalFormData.append('article',articleTextData)
-            finalFormData.append('image',formImageData)
-            const postingData={title:title,detail:articleTextData,tags:[tag],'created_by':1}
-            console.log(postingData)
-            const response=await axios.post(baseUrl+articlePageDetail.dynamicUrl,finalFormData)
-            console.log('respose',response.data)
-            // console.log(response.data)
-        }
-        catch(error){
-            showAlert(error,'red');
-            console.log(error)
-        }
-    }
-    return(
-        <>
-        {!isPreview&&
-        <>
-        <div className="w-full flex flex-row items-center justify-center gap-2">
-            <div className="flex items-center justify-center">
-            <h1>Title: </h1>
-            <input type="text" 
-                onChange={(e)=>{setTitle(e.target.value)}}
-                className="flex border border-black h-[40px] p-2 rounded-md w-[300px]"
-                value={title}
-                ></input>
-            </div>
-            <div className="flex items-center justify-center">
-            <h3>Tag: </h3>
-            <input type="text" 
-            className="flex border border-black h-[40px] p-2 rounded-md "
-            onChange={(e)=>{setTag(e.target.value)}}
-            ></input>
-            </div>
-            
-        </div>
-        <TemplateMain name={'article'} data={data} setData={setData}/>
-        <div className="w-full flex flex-items-center justify-center m-2 gap-2">
-            <div className="bg-blue-700 hover:bg-blue-800 hover:scale-105 transition-all cursor-pointer flex border  rounded-md px-5 py-4 h-[30px] w-fit items-center justify-center text-white" 
-                onClick={()=>setIsPreview(true)}>Preview</div>
-            <div className="bg-green-700 hover:bg-green-800 hover:scale-105 transition-all cursor-pointer flex border  rounded-md px-5 py-4 h-[30px] w-fit items-center justify-center text-white" onClick={publishArticle}>Submit</div>
-        </div>
-        </>
-        }
+import axios from "axios";
+import { showAlert } from "../../AlertLoader";
 
-        {isPreview&&<div className="flex flex-col items-center justify-center w-full">
-        <div className="bg-gray-700 hover:bg-gray-800 hover:scale-105 transition-all cursor-pointer flex border  rounded-md px-5 py-4 h-[30px] w-fit items-center justify-center text-white"
-            onClick={()=>setIsPreview(false)}>
-            Edit</div>
-            <ArticlePreviewMain data={data} title={title}/>
-        </div>
+export const ArticleAddition = () => {
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [image, setImage] = useState(null);
+  const baseUrl = useSelector((state) => state.baseUrl).backend;
+  const articlePageDetail = useSelector((state) => state.articlePageDetail);
+  const loc = useLocation();
+  const token = sessionStorage.getItem("token");
+
+  const handleImageChange = (e) => {
+    setImage(e.target.files[0]);
+  };
+
+  const publishArticle = async (e) => {
+    e.preventDefault();
+
+    try {
+      const finalFormData = new FormData();
+      finalFormData.append("title", title);
+      finalFormData.append("text", description);
+      finalFormData.append("image", image);
+      finalFormData.append("created_by", 1); // Replace with the actual user ID
+
+      const response = await axios.post(
+        baseUrl + articlePageDetail.dynamicUrl,
+        finalFormData,
+        {
+          headers: {
+            Authorization: `Token ${token}`,
+          },
         }
-        </>
-    )
-}
+      );
+
+      console.log("Response", response.data);
+      showAlert("Article published successfully!", "green");
+    } catch (error) {
+      showAlert(error.message, "red");
+      console.error(error);
+    }
+  };
+
+  return (
+    <div className="flex justify-center items-center min-h-screen bg-gray-100">
+      <div className="w-full max-w-xl bg-white rounded-lg shadow-md p-6">
+        <h1 className="text-2xl font-semibold text-gray-800 mb-6">
+          Add New Article
+        </h1>
+        <form onSubmit={publishArticle} className="space-y-6">
+          <div>
+            <label className="block text-sm font-medium text-gray-700">
+              Title
+            </label>
+            <input
+              type="text"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-[#30D5C8] focus:border-[#30D5C8]"
+              placeholder="Enter article title"
+              required
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">
+              Description
+            </label>
+            <textarea
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-[#30D5C8] focus:border-[#30D5C8] h-32"
+              placeholder="Enter article description"
+              required
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">
+              Image
+            </label>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleImageChange}
+              className="mt-1 block w-full text-gray-700 px-4 py-2 border border-gray-300 rounded-md shadow-sm cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#30D5C8]"
+              required
+            />
+          </div>
+          <button
+            type="submit"
+            className="w-full bg-[#30D5C8] hover:bg-[#2ab2aa] text-white font-semibold py-2 px-4 rounded-md shadow-lg transition-all duration-300 ease-in-out"
+          >
+            Publish Article
+          </button>
+        </form>
+      </div>
+    </div>
+  );
+};

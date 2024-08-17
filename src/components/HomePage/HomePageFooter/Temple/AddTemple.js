@@ -24,7 +24,7 @@ export const AddTemple = ({ fetchTemple }) => {
     const location = locationRef.current.value.trim();
     const des = desRef.current.value.trim();
 
-    if (!name || !location || !image || !qrCode || !des) {
+    if (!name || !location || !des) {
       showAlert("Enter all data", "red");
       return;
     }

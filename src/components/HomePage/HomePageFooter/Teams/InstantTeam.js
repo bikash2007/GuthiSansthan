@@ -16,7 +16,7 @@ const InstantTeam = ({ name, image, post, number }) => {
         className={` flex-col relative h-full w-[70%] flex justify-center gap-1 items-center  text-white overflow-hidden`}
       >
         <q className=" text-xl lg:text-5xl font-bold text-yellow-500/90">
-          Zero toleraction in guthi {post}
+          Zero tolerance in guthi {post}
         </q>
         <h1 className="text-lg font-semibold text-white">{name}</h1>
         <h2 className="font-semibold text-base">{post}</h2>

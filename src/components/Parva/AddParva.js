@@ -12,6 +12,7 @@ export const AddParva = ({ fetchAllParva, parvaAddingUrl }) => {
   const photoRef = useRef();
   const desRef = useRef();
   const qrRef = useRef();
+  const token = sessionStorage.getItem("token");
 
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
@@ -46,7 +47,7 @@ export const AddParva = ({ fetchAllParva, parvaAddingUrl }) => {
     const description = desRef.current.value.trim();
 
     // Validate if all fields are filled
-    if (!name || !startDate || !endDate || !image || !description || !qrcode) {
+    if (!name || !startDate || !endDate || !image || !qrcode || !description) {
       showAlert("Please fill out all fields.", "red");
       return;
     }
@@ -64,6 +65,9 @@ export const AddParva = ({ fetchAllParva, parvaAddingUrl }) => {
       const response = await fetch(parvaAddingUrl, {
         method: "POST",
         body: formData,
+        headers: {
+          Authorization: `Token ${token}`,
+        },
       });
 
       if (!response.ok) {
