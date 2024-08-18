@@ -53,7 +53,11 @@ export default function AdminForm() {
   };
 
   return (
+<<<<<<< HEAD
     <div className="max-w-4xl mx-auto p-8 bg-gray-100 rounded-lg shadow-lg">
+=======
+    <div className="max-w-4xl mx-auto p-8 bg-gray-100 rounded-lg shadow-xl transition-shadow duration-300 ease-in-out hover:shadow-2xl">
+>>>>>>> 997c049aaef6048a443df0095315356ab1e25d66
       <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-y-6 md:grid-cols-2 md:gap-x-6">
         <h2 className="col-span-full text-3xl font-extrabold text-gray-900 mb-6">Admin Form</h2>
 
@@ -67,7 +71,11 @@ export default function AdminForm() {
             placeholder="Enter your username"
             value={formData.username} 
             onChange={handleChange}
+<<<<<<< HEAD
             className="block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-150 ease-in-out"
+=======
+            className="block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-transform duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg"
+>>>>>>> 997c049aaef6048a443df0095315356ab1e25d66
           />
           {errors.username && <p className="mt-1 text-red-600 text-sm">{errors.username}</p>}
         </div>
@@ -82,7 +90,11 @@ export default function AdminForm() {
             placeholder="Enter your password"
             value={formData.password} 
             onChange={handleChange}
+<<<<<<< HEAD
             className="block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-150 ease-in-out"
+=======
+            className="block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-transform duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg"
+>>>>>>> 997c049aaef6048a443df0095315356ab1e25d66
           />
           {errors.password && <p className="mt-1 text-red-600 text-sm">{errors.password}</p>}
         </div>
@@ -97,7 +109,11 @@ export default function AdminForm() {
             placeholder="Enter your first name"
             value={formData.first_name} 
             onChange={handleChange}
+<<<<<<< HEAD
             className="block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-150 ease-in-out"
+=======
+            className="block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-transform duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg"
+>>>>>>> 997c049aaef6048a443df0095315356ab1e25d66
           />
           {errors.first_name && <p className="mt-1 text-red-600 text-sm">{errors.first_name}</p>}
         </div>
@@ -112,7 +128,11 @@ export default function AdminForm() {
             placeholder="Enter your last name"
             value={formData.last_name} 
             onChange={handleChange}
+<<<<<<< HEAD
             className="block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-150 ease-in-out"
+=======
+            className="block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-transform duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg"
+>>>>>>> 997c049aaef6048a443df0095315356ab1e25d66
           />
           {errors.last_name && <p className="mt-1 text-red-600 text-sm">{errors.last_name}</p>}
         </div>
@@ -127,7 +147,11 @@ export default function AdminForm() {
             placeholder="Enter your email"
             value={formData.email} 
             onChange={handleChange}
+<<<<<<< HEAD
             className="block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-150 ease-in-out"
+=======
+            className="block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-transform duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg"
+>>>>>>> 997c049aaef6048a443df0095315356ab1e25d66
           />
           {errors.email && <p className="mt-1 text-red-600 text-sm">{errors.email}</p>}
         </div>
@@ -142,7 +166,11 @@ export default function AdminForm() {
             placeholder="Enter your contact number"
             value={formData.Contact_no} 
             onChange={handleChange}
+<<<<<<< HEAD
             className="block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-150 ease-in-out"
+=======
+            className="block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-transform duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg"
+>>>>>>> 997c049aaef6048a443df0095315356ab1e25d66
           />
           {errors.Contact_no && <p className="mt-1 text-red-600 text-sm">{errors.Contact_no}</p>}
         </div>
@@ -154,10 +182,17 @@ export default function AdminForm() {
             type="text" 
             id="branch" 
             name="branch" 
+<<<<<<< HEAD
             placeholder="Enter branch name"
             value={formData.branch} 
             onChange={handleChange}
             className="block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-150 ease-in-out"
+=======
+            placeholder="Enter branch number"
+            value={formData.branch} 
+            onChange={handleChange}
+            className="block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-transform duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg"
+>>>>>>> 997c049aaef6048a443df0095315356ab1e25d66
           />
         </div>
 
@@ -169,7 +204,11 @@ export default function AdminForm() {
             id="photo" 
             name="photo"
             onChange={handleChange}
+<<<<<<< HEAD
             className="block w-full text-sm text-gray-500 border border-gray-300 rounded-md cursor-pointer focus:outline-none focus:ring-2 focus:ring-indigo-500"
+=======
+            className="block w-full text-sm text-gray-500 border border-gray-300 rounded-md cursor-pointer transition-shadow duration-300 ease-in-out hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+>>>>>>> 997c049aaef6048a443df0095315356ab1e25d66
           />
           {errors.photo && <p className="mt-1 text-red-600 text-sm">{errors.photo}</p>}
         </div>
@@ -178,7 +217,11 @@ export default function AdminForm() {
         <div className="col-span-full">
           <button 
             type="submit" 
+<<<<<<< HEAD
             className="w-full py-3 px-4 border border-transparent rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out"
+=======
+            className="w-full py-3 px-4 border border-transparent rounded-md shadow-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-transform duration-300 ease-in-out transform hover:scale-105 hover:shadow-2xl"
+>>>>>>> 997c049aaef6048a443df0095315356ab1e25d66
           >
             Submit
           </button>
