@@ -32,67 +32,75 @@ export default function Headquarters() {
   return (
     <>
       <div className="container">
-        <div className="mt-4 flex justify-between items-center">
-          <div className="flex flex-col items-center justify-center">
-            <div className="bg-gradient-to-r from-gray-700 to-black p-2 rounded-full">
-              <img
-                src={guthi}
-                alt="Placeholder"
-                className="rounded-full w-[270px] h-[270px]  shadow-lg"
-              />
-            </div>
-            <h1 className="text-[25px] font-bold p-0 m-0 mt-3">
-              सैलेश राज कुँवर
-            </h1>
-            <h1 className="text-[25px] font-bold p-0 m-0">व्यवस्थापक</h1>
-          </div>
-          <div className="flex flex-col items-center justify-center">
-            <div className=" rounded-full">
-              <img
-                src={logo}
-                alt="Placeholder"
-                className="rounded-full w-[220px] h-[220px] object-contain shadow-lg"
-              />
-            </div>
-            <h1 className="text-[40px] font-bold p-0 m-0 mt-3">गुठी संस्थान</h1>
-            <h1 className="text-[40px] font-bold p-0 m-0">प्रधान कार्यालय</h1>
-          </div>
-          <div className="flex items-center justify-center">
-            <div className="bg-gradient-to-r from-gray-700 to-black p-2 rounded-full">
-              <img
-                src={head}
-                alt="Placeholder"
-                className="rounded-full w-[270px] h-[270px] object-contain shadow-lg"
-              />
-            </div>
-          </div>
-        </div>
+      <div className="mt-4 flex flex-col md:flex-row justify-between items-center">
+
+  <div className="flex flex-col items-center justify-center mb-4 md:mb-0">
+    <div className="bg-gradient-to-r from-gray-700 to-black p-2 rounded-full">
+      <img
+        src={guthi}
+        alt="Placeholder"
+        className="rounded-full w-[200px] h-[200px] md:w-[270px] md:h-[270px] shadow-lg"
+      />
+    </div>
+    <h1 className="text-[20px] md:text-[25px] font-bold p-0 m-0 mt-3">
+      सैलेश राज कुँवर
+    </h1>
+    <h1 className="text-[20px] md:text-[25px] font-bold p-0 m-0">व्यवस्थापक</h1>
+  </div>
+ 
+  <div className="flex flex-col items-center justify-center mb-4 md:mb-0">
+    <div className="rounded-full">
+      <img
+        src={logo}
+        alt="Placeholder"
+        className="rounded-full w-[150px] h-[150px] md:w-[220px] md:h-[220px] object-contain shadow-lg"
+      />
+    </div>
+    <h1 className="text-[30px] md:text-[40px] font-bold p-0 m-0 mt-3">गुठी संस्थान</h1>
+    <h1 className="text-[30px] md:text-[40px] font-bold p-0 m-0">प्रधान कार्यालय</h1>
+  </div>
+  
+
+  <div className="flex items-center justify-center">
+    <div className="bg-gradient-to-r from-gray-700 to-black p-2 rounded-full">
+      <img
+        src={head}
+        alt="Placeholder"
+        className="rounded-full w-[200px] h-[200px] md:w-[270px] md:h-[270px] object-contain shadow-lg"
+      />
+    </div>
+  </div>
+</div>
+
 
         <hr className="mt-5 border-black border-solid border-3" />
 
-        <div className="row">
-          <div className="flex flex-col items-start justify-center md:justify-start col-md-6">
-            <button
-              onClick={toggleDetails}
-              className="p-2 bg-gray-200 rounded hover:scale-105"
-            >
-              <h1 className="font-bold text-[25px] text-[#00ACEE]">
-                श्रोत व्यवस्थापन तथा अनुगमन महाशाखा
-              </h1>
-            </button>
-          </div>
+        <div className="flex flex-col md:flex-row">
 
-          <div className="flex items-start justify-center md:justify-end col-md-6">
-            <button
-              onClick={toggleDetail}
-              className="p-2 bg-gray-200 rounded hover:scale-105"
-            >
-              <h1 className="font-bold text-[25px] text-[#EE4200]">
-                आन्तरिक व्यवस्थापन महाशाखा
-              </h1>
-            </button>
-          </div>
-        </div>
+  <div className="flex flex-col items-start justify-center md:items-start md:w-1/2 p-2">
+    <button
+      onClick={toggleDetails}
+      className="p-4 bg-gray-200 rounded hover:scale-105 transition-transform duration-300"
+    >
+      <h1 className="font-bold text-lg md:text-xl text-[#00ACEE]">
+        श्रोत व्यवस्थापन तथा अनुगमन महाशाखा
+      </h1>
+    </button>
+  </div>
+
+
+  <div className="flex flex-col items-center justify-center md:items-end md:w-1/2 p-2">
+    <button
+      onClick={toggleDetail}
+      className="p-4  bg-gray-200 text-center rounded hover:scale-105 transition-transform duration-300"
+    >
+      <h1 className="font-bold text-lg md:text-xl text-[#EE4200]">
+        आन्तरिक व्यवस्थापन महाशाखा         
+      </h1>
+    </button>
+  </div>
+</div>
+
 
         {showDetails && (
           <div className="row details1">
@@ -125,7 +133,7 @@ export default function Headquarters() {
             </div>
 
             <div className="row col-sm-12">
-              <div className="flex flex-wrap justify-center gap-4 col-md-3">
+              <div className="flex flex-wrap justify-center gap-4 col-md-3 ">
                 <table className="w-full overflow-hidden border border-gray-300 rounded-lg shadow-lg">
                   <tbody>
                     <tr className="transition-colors duration-300 bg-white hover:bg-gray-50">
@@ -185,7 +193,7 @@ export default function Headquarters() {
                   <tbody>
                     <tr className="transition-colors duration-300 bg-white hover:bg-gray-50">
                       <td className="h-[60px] w-[350px] px-4 py-3">
-                        <h1 className="text-[19px] font-bold text-[#00ACEE]">
+                        <h1 className="text-[19px] font-bold text-[#00ACEE]  sm:mt-4; md:mt-0">
                           धार्मिक तथा सांस्कृतिक सम्पदा व्यवस्था शाखा (1)
                         </h1>
                       </td>

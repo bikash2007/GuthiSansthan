@@ -41,6 +41,7 @@ import { SettingMainPage } from "./components/User/Setting/SettingMainPage";
 import Darbandi from "./components/Darbandi/Darbandi";
 import Headquarters from "./components/Headquaters/Headquaters";
 import { InstanceNotice } from "./components/Articles/NoticeSection/InstanceNotice";
+import AdminForm from "./components/AdminForm/AdminForm";
 
 function App() {
   const location = useLocation();
