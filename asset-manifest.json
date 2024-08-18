@@ -1,12 +1,13 @@
 {
   "files": {
-    "main.css": "/GuthiSansthan/static/css/main.6db88a49.css",
-    "main.js": "/GuthiSansthan/static/js/main.430ca9af.js",
+    "main.css": "/GuthiSansthan/static/css/main.82e251e2.css",
+    "main.js": "/GuthiSansthan/static/js/main.f8962525.js",
     "static/media/bg.png": "/GuthiSansthan/static/media/bg.165d9ea365d7974edd34.png",
     "static/media/p2.png": "/GuthiSansthan/static/media/p2.05cf421a1e1566f8bc38.png",
     "static/media/jatra.png": "/GuthiSansthan/static/media/jatra.f14bec51ef0e8ac27908.png",
-    "static/media/p1.png": "/GuthiSansthan/static/media/p1.41523af98c5c0737be59.png",
+    "static/media/p1.png": "/GuthiSansthan/static/media/p1.27c68a1b5e3f56b643bb.png",
     "static/media/patandurbarsquare.png": "/GuthiSansthan/static/media/patandurbarsquare.05c078c3648671d1815e.png",
+    "static/media/0S3A9842 2.png": "/GuthiSansthan/static/media/0S3A9842 2.ee57b6bec2c1206720c4.png",
     "static/media/logo.gif": "/GuthiSansthan/static/media/logo.ee44f7108b492b75a0d3.gif",
     "static/media/nepalLandmark.png": "/GuthiSansthan/static/media/nepalLandmark.f4a649f5f4a01c8375fa.png",
     "static/media/shechen-tennyi-dargyeling-golden-temple-in-kathmandu-nepal.jpg": "/GuthiSansthan/static/media/shechen-tennyi-dargyeling-golden-temple-in-kathmandu-nepal.15e861379f2109d01a22.jpg",
@@ -27,22 +28,21 @@
     "static/media/sagar_shrestha_Resume (1).pdf": "/GuthiSansthan/static/media/sagar_shrestha_Resume (1).90503f7889d533156f0d.pdf",
     "static/media/image.png": "/GuthiSansthan/static/media/image.b845c19e932b8813e42d.png",
     "static/media/images.png": "/GuthiSansthan/static/media/images.ee152c6ab1c273a47fd8.png",
+    "static/media/guthi_head office.jpg": "/GuthiSansthan/static/media/guthi_head office.ae61038b6a364bc0b320.jpg",
     "static/media/nepalLogo.png": "/GuthiSansthan/static/media/nepalLogo.db8d98d425bbf1ce8a0d.png",
-    "static/media/p3.png": "/GuthiSansthan/static/media/p3.91c86e9b8072689b481a.png",
     "static/media/bouddhanath.jpeg": "/GuthiSansthan/static/media/bouddhanath.b89fdb2d9a9bf0765691.jpeg",
     "static/media/images.jpeg": "/GuthiSansthan/static/media/images.b89fdb2d9a9bf0765691.jpeg",
     "static/media/janaki.jpeg": "/GuthiSansthan/static/media/janaki.a0edb29d221bd73918a5.jpeg",
-    "static/media/p4.png": "/GuthiSansthan/static/media/p4.3bb1617ab84a2f530565.png",
     "static/media/pashupati.jpeg": "/GuthiSansthan/static/media/pashupati.97c239635bca085a3ba7.jpeg",
     "static/media/NewariDescription.txt": "/GuthiSansthan/static/media/NewariDescription.1675dbb35312ff2a8622.txt",
     "static/media/EnglishDescription.txt": "/GuthiSansthan/static/media/EnglishDescription.d2c323a9768069872a06.txt",
     "index.html": "/GuthiSansthan/index.html",
     "static/media/getFetch.cjs": "/GuthiSansthan/static/media/getFetch.c4cca45e22bc1b2c7d0d.cjs",
-    "main.6db88a49.css.map": "/GuthiSansthan/static/css/main.6db88a49.css.map",
-    "main.430ca9af.js.map": "/GuthiSansthan/static/js/main.430ca9af.js.map"
+    "main.82e251e2.css.map": "/GuthiSansthan/static/css/main.82e251e2.css.map",
+    "main.f8962525.js.map": "/GuthiSansthan/static/js/main.f8962525.js.map"
   },
   "entrypoints": [
-    "static/css/main.6db88a49.css",
-    "static/js/main.430ca9af.js"
+    "static/css/main.82e251e2.css",
+    "static/js/main.f8962525.js"
   ]
 }
