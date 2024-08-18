@@ -98,8 +98,9 @@ function App() {
           <Route path="/log-in" element={<Login />} />
           <Route path="/sign-up" element={<Signin />} />
           <Route path="/articles" element={<ArticleMainSection />} />
-          <Route path="/show-article" element={<ShowArticle />} />
           <Route path="/show-notice" element={<ShowNotice />} />
+
+          <Route path="/show-article" element={<ShowArticle />} />
           <Route path="/jatra-form" element={<JatraMain />} />
           <Route path="/parva" element={<Parva />} />
           <Route path="/report" element={<Report />} />

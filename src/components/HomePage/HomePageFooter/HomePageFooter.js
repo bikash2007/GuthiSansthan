@@ -10,6 +10,7 @@ import {
   faUsers,
   faClose,
   faUserGear,
+  faCodeBranch,
 } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -20,6 +21,7 @@ import { EditBgImage } from "../../EditComponents/EditBgImage";
 import Temple from "./Temple/Temple";
 import { useTranslation } from "react-i18next";
 import TempleManagment from "./TempleManagment/TempleManagment";
+import { Link } from "react-router-dom";
 
 export const HomePageFooter = () => {
   const [selectedSection, setSelectedSection] = useState("");
@@ -30,6 +32,7 @@ export const HomePageFooter = () => {
   const dispatch = useDispatch();
   const baseUrl = useSelector((state) => state.baseUrl).backend;
   const token = sessionStorage.getItem("token");
+
   useEffect(() => {
     const fetchFooterImg = async () => {
       dispatch(
@@ -51,14 +54,6 @@ export const HomePageFooter = () => {
     { icon: faUserGear, label: "Service", section: "service" },
     { icon: faUsers, label: "Teams", section: "teams" },
   ];
-
-  //   if (token) {
-  //     sections.push({
-  //       icon: faGopuram,
-  //       label: "Temple managment  Community",
-  //       section: "templemanagment",
-  //     });
-  //   }
 
   return (
     <>
@@ -86,6 +81,17 @@ export const HomePageFooter = () => {
               : ""
           } z-10 absolute bottom-0 w-full justify-evenly items-center flex flex-row text-white font-bold`}
         >
+          <Link
+            to="/branches"
+            className={`${
+              isMobile ? "px-3" : "px-16"
+            } home-footer-div text-white no-underline flex flex-col items-center justify-center hover:scale-150 hover:text-cyan-300 transition-transform duration-75 ease-in hover:-translate-y-3`}
+          >
+            <>
+              <FontAwesomeIcon icon={faCodeBranch} size="2x" />
+              <h2 className="text-base">Branches</h2>
+            </>
+          </Link>
           {sections.map(({ icon, label, section }) => (
             <div
               key={section}

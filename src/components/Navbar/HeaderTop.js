@@ -106,18 +106,22 @@ export const HeaderTop = () => {
           />
         </EditImage>
       </Link>
-      {superUser && !isMobile && (
+      {!superUser && (
         <>
           {isEditing ? (
             <div
-              className="bg-red-700 flex items-center justify-center py-2 px-3 cursor-pointer rounded-md"
+              className={`${
+                isMobile ? "hidden" : ""
+              }bg-red-700 flex items-center  justify-center py-2 px-3 cursor-pointer rounded-md`}
               onClick={() => setIsEditing(false)}
             >
               Deactivate Editing
             </div>
           ) : (
             <div
-              className="bg-green-700 flex items-center justify-center py-2 px-3 cursor-pointer rounded-md"
+              className={`${
+                isMobile ? "hidden" : ""
+              }bg-green-700 flex items-center justify-center py-2 px-3 cursor-pointer rounded-md`}
               onClick={() => setIsEditing(true)}
             >
               Activate Editing
