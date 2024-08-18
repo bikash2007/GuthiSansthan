@@ -106,7 +106,7 @@ function App() {
           <Route path="/parva" element={<Parva />} />
           <Route path="/report" element={<Report />} />
           <Route path="/headquaters" element={<Headquarters />} />
-
+          <Route path="/Adminform" element={<AdminForm />} />
           <Route path="/employee-details" element={<EmployeeDetailsMain />} />
           <Route path="/branches" element={<BranchMainPage />} />
           <Route path="/branche-full-info" element={<EachBranchInfo />} />
