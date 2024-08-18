@@ -106,7 +106,7 @@ export const HeaderTop = () => {
           />
         </EditImage>
       </Link>
-      {!superUser && (
+      {superUser && (
         <>
           {isEditing ? (
             <div
