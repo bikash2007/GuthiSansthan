@@ -6,6 +6,7 @@ const InstantTeam = ({ name, image, post, number, quotes }) => {
   const { isEditing } = useEditing();
 
   return (
+
     <div className="py-4 w-full flex flex-col lg:flex-row p-4 items-center justify-center border-b border-neutral-400/20 bg-neutral-900/50">
       <div className="flex justify-center relative w-full lg:w-1/3">
         <img
@@ -23,6 +24,7 @@ const InstantTeam = ({ name, image, post, number, quotes }) => {
           {post}
         </h2>
         <h4 className="text-md lg:text-lg text-gray-400">{number}</h4>
+
       </div>
     </div>
   );
