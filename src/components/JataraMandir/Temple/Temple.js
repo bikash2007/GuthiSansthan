@@ -37,7 +37,7 @@ const Temple = () => {
     <div className="w-full h-full  pb-3 flex flex-col relative ">
       <h1 className="text-white text-[60px]">Temple</h1>
       <div className="flex w-full h-full justify-center overflow-auto">
-        <div className=" w-[90%] lg:w-[85%] flex  flex-wrap flex-row items-start justify-center gap-8">
+        <div className=" w-[90%] lg:w-[85%] min-h-96 flex  flex-wrap flex-row items-start justify-center gap-8">
           {templeDetail.dynamicDetails.map((festivals, index) => (
             <InstanceTemple
               index={index}

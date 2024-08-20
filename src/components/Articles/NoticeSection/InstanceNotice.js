@@ -1,19 +1,17 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import { ViewEditButton } from "./ViewEditButton";
-import { useEditing } from "../../../context/EditingProvider";
+import React from "react"; // Add this if not already present
+import { useEditing } from "../../../context/EditingProvider"; // Adjust the path based on your project structure
+import { ViewEditButton } from "./ViewEditButton"; // Adjust the path based on your project structure
 
-export const InstanceNotice = ({ title, text, image }) => {
-  const [data] = useState("notice section");
+export const InstanceNotice = ({ title, text, image, id, onDelete }) => {
   const { isEditing } = useEditing();
 
   return (
-    <a href={`${image}`} target="_main">
-      <div
-        className={`relative p-3 w-full  bg-gray-900 rounded-lg shadow-lg ${
-          isEditing ? "ml-16" : ""
-        } mb-2 hover:shadow-xl transition-shadow duration-300 ease-in-out`}
-      >
+    <div
+      className={` p-3 w-full relative  bg-gray-900 rounded-lg shadow-lg ${
+        isEditing ? "" : ""
+      } mb-2 hover:shadow-xl  transition-shadow duration-300 ease-in-out`}
+    >
+      <a href={`${image}`} target="_main">
         <div className="flex w-full flex-col-reverse md:flex-row items-center md:items-start justify-start gap-3">
           <img
             src={image}
@@ -24,12 +22,12 @@ export const InstanceNotice = ({ title, text, image }) => {
             <p className="text-gray-400 text-sm mt-2">{text}</p>
           </div>
         </div>
-        {isEditing && (
-          <div className="absolute top-2 right-2">
-            <ViewEditButton />
-          </div>
-        )}
-      </div>
-    </a>
+      </a>
+      {isEditing && (
+        <div className="absolute top-2 right-2">
+          <ViewEditButton onDelete={() => onDelete(id)} />
+        </div>
+      )}
+    </div>
   );
 };

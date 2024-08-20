@@ -20,7 +20,6 @@ import {
   setGuthiSansthanLogo,
 } from "./state/GlobalSlice";
 import { fetchImageToURL } from "./components/ReuseableFunctions";
-import JatraMain from "./components/JatrasForm/JatraMain";
 import { ArticleAddition } from "./components/Articles/ArticleAddition/ArticleAddition";
 import { NoticeAddition } from "./components/Articles/ArticleAddition/NoticeAddition";
 import { ShowArticle } from "./components/Articles/ArticleSection/ShowArticle";
@@ -105,7 +104,6 @@ function App() {
           <Route path="/show-notice" element={<ShowNotice />} />
 
           <Route path="/show-article" element={<ShowArticle />} />
-          <Route path="/jatra-form" element={<JatraMain />} />
           <Route path="/jatra-parva" element={<JatraMandir />} />
           <Route path="/report" element={<Report />} />
           <Route path="/headquaters" element={<Headquarters />} />
@@ -114,7 +112,7 @@ function App() {
           <Route path="/branches" element={<BranchMainPage />} />
           <Route path="/branche-full-info" element={<EachBranchInfo />} />
           <Route path="/addteam" element={<Teams />} />
-          
+
           <>
             <Route
               path="/super-user/add-articles"
