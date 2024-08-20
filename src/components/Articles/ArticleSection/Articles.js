@@ -12,6 +12,7 @@ import { InstanceArticles } from "./InstanceArticles"; // Import the InstanceArt
 export const Articles = () => {
   const [data, setData] = useState([]);
   const baseUrl = useSelector((state) => state.baseUrl).backend;
+
   const articleSectionDetail = useSelector(
     (state) => state.articelSectionDetail
   );
