@@ -2,14 +2,17 @@ import React, { useRef, useState } from "react";
 import { useMediaQuery } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faClose } from "@fortawesome/free-solid-svg-icons";
-import { showAlert } from "../../../AlertLoader";
-import { activate_loader } from "../../../AlertLoader/LoaderBox";
+import { showAlert } from "../../AlertLoader";
+import { activate_loader } from "../../AlertLoader/LoaderBox";
 import { useSelector } from "react-redux";
+import axios from "axios";
 
 export const AddTemple = ({ fetchTemple }) => {
   const nameRef = useRef();
   const locationRef = useRef();
   const desRef = useRef();
+  const [temple_image_to_api, setTemple_image_to_api] = useState();
+  const [qrImage_to_api, setQr_to_api] = useState();
 
   const [isAddTempleActivate, setIsAddTempleActivate] = useState(false);
   const [image, setImage] = useState(null);
@@ -32,17 +35,19 @@ export const AddTemple = ({ fetchTemple }) => {
     const formData = new FormData();
     formData.append("name", name);
     formData.append("location", location);
-    formData.append("image", image);
-    formData.append("qr_code", qrCode);
+    formData.append("image", temple_image_to_api);
+    formData.append("qr_code", qrImage_to_api);
     formData.append("details", des);
+    console.log(image);
 
     try {
       setIsAddTempleActivate(false);
       activate_loader(true);
-      const response = await fetch(baseUrl + templeDetail.dynamicUrl, {
-        method: "POST",
-        body: formData,
-      });
+      console.log(formData);
+      const response = await axios.post(
+        baseUrl + templeDetail.dynamicUrl,
+        formData
+      );
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
@@ -60,6 +65,7 @@ export const AddTemple = ({ fetchTemple }) => {
   const handleImage = (event) => {
     const file = event.target.files[0];
     if (file) {
+      setTemple_image_to_api(file);
       const reader = new FileReader();
       reader.onload = (e) => setImage(e.target.result);
       reader.readAsDataURL(file);
@@ -69,6 +75,7 @@ export const AddTemple = ({ fetchTemple }) => {
   const handleQrCode = (event) => {
     const file = event.target.files[0];
     if (file) {
+      setQr_to_api(file);
       const reader = new FileReader();
       reader.onload = (e) => setQrCode(e.target.result);
       reader.readAsDataURL(file);

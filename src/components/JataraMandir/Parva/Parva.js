@@ -3,21 +3,20 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { ParvaInstance } from "./ParvaInstance";
 
-import jatraimg from "../../media/Jatraform/jatra.png";
-import { fetchImageToURL } from "../ReuseableFunctions";
+import { fetchImageToURL } from "../../ReuseableFunctions";
 import { useDispatch, useSelector } from "react-redux";
-import { showAlert } from "../AlertLoader";
+import { showAlert } from "../../AlertLoader";
 import {
   setDynamicParvaPageWholeDetails,
   setParvaPageWholeDetails,
   setBgImg,
   setNewBgImg,
-} from "../../state/ParvaPageSlice";
-import { addLanguage } from "../ReuseableFunctions";
-import { useEditing } from "../../context/EditingProvider";
+} from "../../../state/ParvaPageSlice";
+import { addLanguage } from "../../ReuseableFunctions";
+import { useEditing } from "../../../context/EditingProvider";
 import { AddParva } from "./AddParva";
 import { useTranslation } from "react-i18next";
-import { EditBgImage } from "../EditComponents/EditBgImage";
+import { EditBgImage } from "../../EditComponents/EditBgImage";
 export const Parva = () => {
   const baseUrl = useSelector((state) => state.baseUrl).backend;
   const parvaPageDetail = useSelector((state) => state.parvaPageDetail);

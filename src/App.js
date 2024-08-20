@@ -26,7 +26,6 @@ import { NoticeAddition } from "./components/Articles/ArticleAddition/NoticeAddi
 import { ShowArticle } from "./components/Articles/ArticleSection/ShowArticle";
 import { ShowNotice } from "./components/Articles/NoticeSection/ShowNotice";
 import NoticeForm from "./components/Articles/NoticeSection/NoticeForm";
-import { Parva } from "./components/Parva/Parva";
 import Popup from "./components/HomePage/Popup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
@@ -42,6 +41,7 @@ import Darbandi from "./components/Darbandi/Darbandi";
 import Headquarters from "./components/Headquaters/Headquaters";
 import { InstanceNotice } from "./components/Articles/NoticeSection/InstanceNotice";
 import AdminForm from "./components/AdminForm/AdminForm";
+import JatraMandir from "./components/JataraMandir/JatraMandir";
 
 function App() {
   const location = useLocation();
@@ -103,10 +103,10 @@ function App() {
 
           <Route path="/show-article" element={<ShowArticle />} />
           <Route path="/jatra-form" element={<JatraMain />} />
-          <Route path="/parva" element={<Parva />} />
+          <Route path="/jatra-parva" element={<JatraMandir />} />
           <Route path="/report" element={<Report />} />
           <Route path="/headquaters" element={<Headquarters />} />
-          <Route path="/Adminform" element={<AdminForm />} />
+          <Route path="/admin-form" element={<AdminForm />} />
           <Route path="/employee-details" element={<EmployeeDetailsMain />} />
           <Route path="/branches" element={<BranchMainPage />} />
           <Route path="/branche-full-info" element={<EachBranchInfo />} />
@@ -121,7 +121,6 @@ function App() {
             <Route path="/user/profile" element={<ProfileSection />} />
             <Route path="/user/setting" element={<SettingMainPage />} />
             <Route path="/darbandi" element={<Darbandi />} />
-            <Route path="/d" element={<InstanceNotice />} />
           </>
         </Routes>
       </div>

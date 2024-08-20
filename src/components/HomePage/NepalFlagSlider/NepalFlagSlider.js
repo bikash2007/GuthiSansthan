@@ -136,7 +136,7 @@ export const NepalFlagSlider = ({ content }) => {
             </div>
           )}
           <Link
-            to="/parva"
+            to="/jatra-parva"
             className="feature-div z-50"
             onClick={(e) => {
               isEditing && activateEdit && e.preventDefault();
