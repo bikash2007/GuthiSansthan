@@ -65,7 +65,7 @@ export const EditBgImage = ({
     <>
       {!isEditing && <>{children}</>}
       {isEditing && (
-        <div className="relative w-full z-50 max-h-full flex items-center justify-center h-[60px]">
+        <div className="relative w-full  max-h-full flex items-center justify-center h-[60px]">
           {!contentHidden && (
             <>
               {!image && (
@@ -73,7 +73,7 @@ export const EditBgImage = ({
                   className="h-full w-full flex items-center justify-center"
                   onClick={() => setContentHidden(true)}
                 >
-                  <div className="w-[50%] h-[80%] flex items-center justify-center bg-slate-600 rounded-lg cursor-pointer  text-white px-5 py-3   fill-zinc-100 z-10 text-xl">
+                  <div className=" w-[50%] h-[80%] flex items-center justify-center bg-slate-600 rounded-lg cursor-pointer  text-white px-5 py-3   fill-zinc-100 z-10 text-xl">
                     Click to edit background image
                   </div>
                 </div>

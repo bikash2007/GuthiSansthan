@@ -3,6 +3,7 @@ import { useMediaQuery } from "@mui/material";
 import { Calendar } from "./Calender/Calender";
 import { Service } from "./Service/Service";
 import { Teams } from "./Teams/Teams";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCalendarAlt,
@@ -10,6 +11,8 @@ import {
   faUsers,
   faClose,
   faUserGear,
+  faCodeBranch,
+  faBug,
 } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -17,9 +20,10 @@ import {
   setNewFooterBgImg,
 } from "../../../state/HomePageSlices/HomePageSlice";
 import { EditBgImage } from "../../EditComponents/EditBgImage";
-import Temple from "./Temple/Temple";
 import { useTranslation } from "react-i18next";
 import TempleManagment from "./TempleManagment/TempleManagment";
+import { Link } from "react-router-dom";
+import Report from "./Report/Report";
 
 export const HomePageFooter = () => {
   const [selectedSection, setSelectedSection] = useState("");
@@ -30,6 +34,7 @@ export const HomePageFooter = () => {
   const dispatch = useDispatch();
   const baseUrl = useSelector((state) => state.baseUrl).backend;
   const token = sessionStorage.getItem("token");
+
   useEffect(() => {
     const fetchFooterImg = async () => {
       dispatch(
@@ -47,18 +52,11 @@ export const HomePageFooter = () => {
 
   const sections = [
     { icon: faCalendarAlt, label: "Calendar", section: "calender" },
-    { icon: faGopuram, label: "Temple", section: "temple" },
+
     { icon: faUserGear, label: "Service", section: "service" },
     { icon: faUsers, label: "Teams", section: "teams" },
+    { icon: faBug, label: "Report", section: "report" },
   ];
-
-  //   if (token) {
-  //     sections.push({
-  //       icon: faGopuram,
-  //       label: "Temple managment  Community",
-  //       section: "templemanagment",
-  //     });
-  //   }
 
   return (
     <>
@@ -86,16 +84,35 @@ export const HomePageFooter = () => {
               : ""
           } z-10 absolute bottom-0 w-full justify-evenly items-center flex flex-row text-white font-bold`}
         >
+          <Link
+            to="/branches"
+            className={`${
+              isMobile ? "px-3" : "px-16"
+            } home-footer-div text-white no-underline flex flex-col items-center justify-center hover:scale-150 hover:text-cyan-300 transition-transform duration-75 ease-in hover:-translate-y-3`}
+          >
+            <>
+              <FontAwesomeIcon
+                icon={faCodeBranch}
+                size="2x"
+                className="scale-50 lg:scale-105"
+              />
+              <h2 className="text-sm lg:text-base">Branches</h2>
+            </>
+          </Link>
           {sections.map(({ icon, label, section }) => (
             <div
               key={section}
               className={`${
                 isMobile ? "px-3" : "px-16"
-              } home-footer-div flex flex-col items-center justify-center hover:scale-150 hover:text-cyan-300 transition-transform duration-75 ease-in hover:-translate-y-3`}
+              } home-footer-div flex flex-col items-center  justify-center hover:scale-150 hover:text-cyan-300 transition-transform duration-75 ease-in hover:-translate-y-3`}
               onClick={() => setSelectedSection(section)}
             >
-              <FontAwesomeIcon icon={icon} size="2x" />
-              <h2 className="text-base">{t(label)}</h2>
+              <FontAwesomeIcon
+                icon={icon}
+                size="2x"
+                className="scale-50 lg:scale-105"
+              />
+              <h2 className="text-sm lg:text-base">{t(label)}</h2>
             </div>
           ))}
         </div>
@@ -104,20 +121,21 @@ export const HomePageFooter = () => {
         {[
           { component: Calendar, section: "calender" },
           { component: Service, section: "service" },
-          { component: Temple, section: "temple" },
+
           { component: TempleManagment, section: "templemanagment" },
           { component: Teams, section: "teams" },
+          { component: Report, section: "report" },
         ].map(({ component: Component, section }) => (
           <div
             key={section}
             className={`${
               selectedSection === section ? "bottom-0" : "bottom-[-300%]"
-            } absolute backdrop-blur-lg w-full h-[80vh] transition-all ease-in-out duration-500 rounded-xl z-20`}
+            } absolute backdrop-blur-lg w-full h-[80vh] transition-all overflow-auto ease-in-out duration-500 rounded-xl z-20`}
           >
             <FontAwesomeIcon
               icon={faClose}
-              size={"2x"}
-              className="cursor-pointer absolute top-0 right-3 text-red-600 z-50"
+              size={"1x"}
+              className="cursor-pointer scale-50 lg:scale-100 absolute top-0 right-3 text-red-600 z-50"
               onClick={() => setSelectedSection("")}
             />
             {selectedSection === section && <Component />}
