@@ -3,14 +3,14 @@ import { useMediaQuery } from "@mui/material";
 import { Calendar } from "./Calender/Calender";
 import { Service } from "./Service/Service";
 import { Teams } from "./Teams/Teams";
+import newErrorImage from '../../../media/HomePage/error.png'; // Updated import
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCalendarAlt,
-  faGopuram,
+  faUserGear,
   faUsers,
   faClose,
-  faUserGear,
   faCodeBranch,
   faBug,
 } from "@fortawesome/free-solid-svg-icons";
@@ -52,10 +52,9 @@ export const HomePageFooter = () => {
 
   const sections = [
     { icon: faCalendarAlt, label: "Calendar", section: "calender" },
-
     { icon: faUserGear, label: "Service", section: "service" },
     { icon: faUsers, label: "Teams", section: "teams" },
-    { icon: faBug, label: "Report", section: "report" },
+    { icon: null, label: "Report", section: "report", image: newErrorImage },
   ];
 
   return (
@@ -99,7 +98,7 @@ export const HomePageFooter = () => {
               <h2 className="text-sm lg:text-base">Branches</h2>
             </>
           </Link>
-          {sections.map(({ icon, label, section }) => (
+          {sections.map(({ icon, label, section, image }) => (
             <div
               key={section}
               className={`${
@@ -107,11 +106,19 @@ export const HomePageFooter = () => {
               } home-footer-div flex flex-col items-center  justify-center hover:scale-150 hover:text-cyan-300 transition-transform duration-75 ease-in hover:-translate-y-3`}
               onClick={() => setSelectedSection(section)}
             >
-              <FontAwesomeIcon
-                icon={icon}
-                size="2x"
-                className="scale-50 lg:scale-105"
-              />
+              {image ? (
+                <img
+                  src={image}
+                  alt={label}
+                  className="w-12 h-10 lg:w-12 lg:h-10"
+                />
+              ) : (
+                <FontAwesomeIcon
+                  icon={icon}
+                  size="2x"
+                  className="scale-50 lg:scale-105"
+                />
+              )}
               <h2 className="text-sm lg:text-base">{t(label)}</h2>
             </div>
           ))}
@@ -121,7 +128,6 @@ export const HomePageFooter = () => {
         {[
           { component: Calendar, section: "calender" },
           { component: Service, section: "service" },
-
           { component: TempleManagment, section: "templemanagment" },
           { component: Teams, section: "teams" },
           { component: Report, section: "report" },
