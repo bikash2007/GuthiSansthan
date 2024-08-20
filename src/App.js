@@ -34,7 +34,7 @@ import { ConfirmBox } from "./components/AlertLoader/ConfirmBox";
 import { useEditing } from "./context/EditingProvider";
 import { BranchMainPage } from "./components/BranchPage/BranchMainPage";
 import { EachBranchInfo } from "./components/BranchPage/BranchComponents/EachBranchInfo";
-import Report from "./components/Report/Report";
+import Report from "./components/HomePage/HomePageFooter/Report/Report";
 import { ProfileSection } from "./components/User/Profile/ProfileSection";
 import { SettingMainPage } from "./components/User/Setting/SettingMainPage";
 import Darbandi from "./components/Darbandi/Darbandi";
