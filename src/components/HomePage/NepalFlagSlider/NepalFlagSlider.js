@@ -7,12 +7,15 @@ import { OneImage } from "./OneImage";
 import { useDispatch, useSelector } from "react-redux";
 import { addLanguage } from "../../ReuseableFunctions";
 import {
-  setNewSliderImg,
   setSliderImg,
 } from "../../../state/HomePageSlices/HomePageSlice";
 import { useEditing } from "../../../context/EditingProvider";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import { faArrowAltCircleRight } from "@fortawesome/free-solid-svg-icons";
+
+
+
 import { EditText } from "../../EditComponents/TextEditor/EditText";
 
 export const NepalFlagSlider = ({ content }) => {
@@ -24,9 +27,12 @@ export const NepalFlagSlider = ({ content }) => {
   const homePageDetail = useSelector((state) => state.homePageDetail);
   const { t } = useTranslation();
   const isMobile = useMediaQuery("(max-width:1000px)");
-  const [x, setX] = useState();
   const [currentSlide, setCurrentSlide] = useState(0);
   const [touchStartX, setTouchStartX] = useState(null);
+
+  const [touchEndX, setTouchEndX] = useState(null);
+  const [x, setX] = useState(null); // Initialize x state
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -55,11 +61,17 @@ export const NepalFlagSlider = ({ content }) => {
   };
 
   const handleTouchEnd = (e) => {
-    const touchEndX = e.changedTouches[0].screenX;
-    if (touchStartX - touchEndX > 50) {
-      setCurrentSlide(1);
-    } else if (touchEndX - touchStartX > 50) {
-      setCurrentSlide(0);
+
+    setTouchEndX(e.changedTouches[0].screenX);
+    const distance = touchStartX - touchEndX;
+    const threshold = 50; // Minimum swipe distance to consider a swipe gesture
+    if (distance > threshold) {
+      // Swiped left
+      setCurrentSlide((prev) => Math.min(prev + 1, 1)); // Change 1 to the number of slides
+    } else if (distance < -threshold) {
+      // Swiped right
+      setCurrentSlide((prev) => Math.max(prev - 1, 0)); // Change 0 to the minimum slide index
+
     }
   };
 
@@ -118,10 +130,16 @@ export const NepalFlagSlider = ({ content }) => {
         className={`absolute px-2 py-3 mt-5 h-[60%] w-[100%] flex flex-wrap items-start justify-center gap-5 lg:gap-5 rounded-lg backdrop-blur-sm overflow-auto transition-all duration-300 ease-in-out ${
           activateEdit
             ? "left-[25%]"
-            : isHover || currentSlide === 1
-            ? `${isMobile ? "left-[0%]" : "left-[25%]"}`
-            : "left-[100%]"
-        }`}
+
+            : `${
+                isHover || currentSlide === 1
+                  ? `${isMobile ? "left-[0%]" : "left-[25%]"}`
+                  : "left-[100%]"
+              }`
+        } ${isMobile ? "w-[100%] sm:w-[80%]" : "sm:w-[80%] w-[100%]"} px-2 py-3 absolute ${
+          isEditing ? "" : ""
+        } transition-all bg-red-500/10 mt-5 h-[60%] duration-300 ease-in-out flex flex-wrap backdrop-blur-sm overflow-auto items-start justify-center gap-5 lg:gap-5 rounded-lg`}
+
       >
         {/* Editing Controls */}
         {isEditing && !activateEdit && (
@@ -136,7 +154,11 @@ export const NepalFlagSlider = ({ content }) => {
         <Link
           to="/jatra-parva"
           className="z-50 feature-div"
-          onClick={(e) => isEditing && activateEdit && e.preventDefault()}
+
+          onClick={(e) => {
+            isEditing && activateEdit && e.preventDefault();
+          }}
+
         >
           <OneImage name={"Parav-tab"} activateEdit={activateEdit} />
         </Link>
@@ -167,7 +189,11 @@ export const NepalFlagSlider = ({ content }) => {
             className="absolute flex px-2 py-1 bg-gray-300 rounded-md cursor-pointer top-1 hover:bg-gray-400"
             onClick={() => setActivateEdit(false)}
           >
-            No Edit
+
+            <div className="flex px-2 py-1 bg-gray-300 rounded-md cursor-pointer hover:bg-gray-400">
+              No Edit
+            </div>
+
           </div>
         )}
       </div>
