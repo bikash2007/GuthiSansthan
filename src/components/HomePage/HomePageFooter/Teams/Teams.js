@@ -20,16 +20,18 @@ export const Teams = () => {
         </div>
         <div className="h-full w-full flex flex-col overflow-auto px-2">
           <InstantTeam
-            image={firstPerson}
-            name={"Sailesh Raj Kunwar"}
-            post={"Chairman"}
-            number={"9851072032"}
-          />
-          <InstantTeam
             image={secondPerson}
             name={"Dr.Shiva Raj Pandit"}
             post={"Chairman"}
             number={"9851072032"}
+            quotes={"Faith Unites, Love Guides"}
+          />
+          <InstantTeam
+            image={firstPerson}
+            name={"Sailesh Raj Kunwar"}
+            post={"Administrator"}
+            number={"9851072032"}
+            quotes={"Integrity First, Change Forever."}
           />
           {isEditing && <AddTeam />}
         </div>
