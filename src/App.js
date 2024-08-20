@@ -42,6 +42,9 @@ import Headquarters from "./components/Headquaters/Headquaters";
 import { InstanceNotice } from "./components/Articles/NoticeSection/InstanceNotice";
 import AdminForm from "./components/AdminForm/AdminForm";
 import JatraMandir from "./components/JataraMandir/JatraMandir";
+import { AddTeam } from "./components/HomePage/HomePageFooter/Teams/AddTeam";
+import InstantTeam from "./components/HomePage/HomePageFooter/Teams/InstantTeam";
+import { Teams } from "./components/HomePage/HomePageFooter/Teams/Teams";
 
 function App() {
   const location = useLocation();
@@ -110,6 +113,8 @@ function App() {
           <Route path="/employee-details" element={<EmployeeDetailsMain />} />
           <Route path="/branches" element={<BranchMainPage />} />
           <Route path="/branche-full-info" element={<EachBranchInfo />} />
+          <Route path="/addteam" element={<Teams />} />
+          
           <>
             <Route
               path="/super-user/add-articles"

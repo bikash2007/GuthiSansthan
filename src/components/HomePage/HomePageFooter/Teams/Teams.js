@@ -14,11 +14,11 @@ export const Teams = () => {
   const { isEditing, setIsEditing } = useEditing();
   return (
     <>
-      <div className="w-full h-full pb-5 flex flex-col bg-black/40 items-center">
-        <div className="w-full py-1 flex justify-center bg-neutral-200/30 ">
+      <div className="flex flex-col items-center w-full h-full pb-5 bg-black/40">
+        <div className="flex justify-center w-full py-1 bg-neutral-200/30 ">
           <img src={logo} height={200} width={200} />
         </div>
-        <div className="h-full w-full flex flex-col overflow-auto px-2">
+        <div className="flex flex-col w-full h-full px-2 overflow-auto">
           <InstantTeam
             image={firstPerson}
             name={"Sailesh Raj Kunwar"}
