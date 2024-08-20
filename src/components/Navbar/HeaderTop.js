@@ -21,7 +21,7 @@ import {
 export const HeaderTop = () => {
   const globalDetail = useSelector((state) => state.globalDetail);
   const isMobile = useMediaQuery("(max-width:800px)");
-  const { isEditing, setIsEditing } = useEditing();
+  const { isEditing, setIsEditing } = useEditing(false);
   const { selectLanguage, setSelectLanguage } = useSelectLanguage();
   const { i18n, t } = useTranslation();
   const loc = useLocation();
@@ -106,22 +106,18 @@ export const HeaderTop = () => {
           />
         </EditImage>
       </Link>
-      {superUser && (
+      {superUser == "true" && (
         <>
           {isEditing ? (
             <div
-              className={`${
-                isMobile ? "hidden" : ""
-              }bg-red-700 flex items-center  justify-center py-2 px-3 cursor-pointer rounded-md`}
+              className={`bg-red-700  lg:flex items-center  justify-center py-2 px-3 cursor-pointer rounded-md`}
               onClick={() => setIsEditing(false)}
             >
               Deactivate Editing
             </div>
           ) : (
             <div
-              className={`${
-                isMobile ? "hidden" : ""
-              }bg-green-700 flex items-center justify-center py-2 px-3 cursor-pointer rounded-md`}
+              className={`bg-green-700 hidden lg:flex items-center justify-center py-2 px-3 cursor-pointer rounded-md`}
               onClick={() => setIsEditing(true)}
             >
               Activate Editing

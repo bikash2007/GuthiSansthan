@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { activate_loader } from "../AlertLoader/LoaderBox";
+import { activate_loader } from "../../AlertLoader/LoaderBox";
 import axios from "axios";
 import { useSelector } from "react-redux";
-import { showAlert } from "../AlertLoader";
+import { showAlert } from "../../AlertLoader";
+
 import { useMediaQuery } from "@mui/material";
 import { NepaliDatePicker } from "nepali-datepicker-reactjs";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -73,7 +74,7 @@ export const EditParva = ({
       if (qrCodeFile) formData.append("qr_code", qrCodeFile);
 
       await axios.patch(
-        baseUrl + parvaPageDetail.dynamicUrl + parvaId,
+        `${baseUrl}${parvaPageDetail.dynamicUrl}${parvaId}/`,
         formData,
         {
           headers: {

@@ -1,9 +1,9 @@
 import { useEditing } from "../../../context/EditingProvider";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import { AddParva } from "../../Parva/AddParva";
 import { useSelector } from "react-redux";
-import { ParvaInstance } from "../../Parva/ParvaInstance";
+import { AddParva } from "../../JataraMandir/Parva/AddParva";
+import { ParvaInstance } from "../../JataraMandir/Parva/ParvaInstance";
 export const BranchFestival = ({ branchName, festival }) => {
   const { isEditing, setIsEditing } = useEditing();
   const baseUrl = useSelector((state) => state.baseUrl).backend;

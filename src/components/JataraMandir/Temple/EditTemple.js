@@ -1,8 +1,8 @@
 import { faClose, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
-import { showAlert } from "../../../AlertLoader";
-import { activate_loader } from "../../../AlertLoader/LoaderBox";
+import { showAlert } from "../../AlertLoader";
+import { activate_loader } from "../../AlertLoader/LoaderBox";
 import { useState } from "react";
 import { useMediaQuery } from "@mui/material";
 import { useSelector } from "react-redux";

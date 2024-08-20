@@ -4,7 +4,7 @@ import "nepali-datepicker-reactjs/dist/index.css";
 import { useMediaQuery } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faClose } from "@fortawesome/free-solid-svg-icons";
-import { showAlert } from "../AlertLoader";
+import { showAlert } from "../../AlertLoader";
 
 export const AddParva = ({ fetchAllParva, parvaAddingUrl }) => {
   const nameRef = useRef();

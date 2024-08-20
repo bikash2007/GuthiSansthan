@@ -18,7 +18,6 @@ import {
   setNewFooterBgImg,
 } from "../../../state/HomePageSlices/HomePageSlice";
 import { EditBgImage } from "../../EditComponents/EditBgImage";
-import Temple from "./Temple/Temple";
 import { useTranslation } from "react-i18next";
 import TempleManagment from "./TempleManagment/TempleManagment";
 import { Link } from "react-router-dom";
@@ -50,7 +49,7 @@ export const HomePageFooter = () => {
 
   const sections = [
     { icon: faCalendarAlt, label: "Calendar", section: "calender" },
-    { icon: faGopuram, label: "Temple", section: "temple" },
+
     { icon: faUserGear, label: "Service", section: "service" },
     { icon: faUsers, label: "Teams", section: "teams" },
   ];
@@ -110,7 +109,7 @@ export const HomePageFooter = () => {
         {[
           { component: Calendar, section: "calender" },
           { component: Service, section: "service" },
-          { component: Temple, section: "temple" },
+
           { component: TempleManagment, section: "templemanagment" },
           { component: Teams, section: "teams" },
         ].map(({ component: Component, section }) => (

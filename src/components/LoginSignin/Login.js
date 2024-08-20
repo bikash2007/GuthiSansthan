@@ -40,14 +40,15 @@ export const Login = () => {
       }
 
       const result = await response.json();
+      sessionStorage.setItem("token", result.token);
+      console.log("token", result.token);
       console.log(result);
       sessionStorage.setItem("username", result.username);
       sessionStorage.setItem("email", result.email);
       sessionStorage.setItem("firstname", result.first_name);
       sessionStorage.setItem("lastname", result.last_name);
       sessionStorage.setItem("superUser", result.is_superuser);
-      sessionStorage.setItem("token", result.token);
-      console.log("User response:", result.group);
+
       toast.success("Login successful");
       navigate("/");
     } catch (error) {
