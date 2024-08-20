@@ -32,10 +32,10 @@ export default function Headquarters() {
   return (
     <>
       <div className="container">
-      <div className="mt-4 flex flex-col md:flex-row justify-between items-center">
+      <div className="flex flex-col items-center justify-between mt-4 md:flex-row">
 
   <div className="flex flex-col items-center justify-center mb-4 md:mb-0">
-    <div className="bg-gradient-to-r from-gray-700 to-black p-2 rounded-full">
+    <div className="p-2 rounded-full bg-gradient-to-r from-gray-700 to-black">
       <img
         src={guthi}
         alt="Placeholder"
@@ -62,7 +62,7 @@ export default function Headquarters() {
   
 
   <div className="flex items-center justify-center">
-    <div className="bg-gradient-to-r from-gray-700 to-black p-2 rounded-full">
+    <div className="p-2 rounded-full bg-gradient-to-r from-gray-700 to-black">
       <img
         src={head}
         alt="Placeholder"
@@ -75,12 +75,12 @@ export default function Headquarters() {
 
         <hr className="mt-5 border-black border-solid border-3" />
 
-        <div className="flex flex-col md:flex-row">
+        <div className="flex flex-col items-center justify-center md:flex-row">
 
-  <div className="flex flex-col items-start justify-center md:items-start md:w-1/2 p-2">
+  <div className="flex flex-col items-start justify-center p-2 md:items-start md:w-1/2">
     <button
       onClick={toggleDetails}
-      className="p-4 bg-gray-200 rounded hover:scale-105 transition-transform duration-300"
+      className="p-4 transition-transform duration-300 bg-gray-200 rounded hover:scale-105"
     >
       <h1 className="font-bold text-lg md:text-xl text-[#00ACEE]">
         श्रोत व्यवस्थापन तथा अनुगमन महाशाखा
@@ -89,10 +89,10 @@ export default function Headquarters() {
   </div>
 
 
-  <div className="flex flex-col items-center justify-center md:items-end md:w-1/2 p-2">
+  <div className="flex flex-col items-center justify-center p-2 md:items-end md:w-1/2">
     <button
       onClick={toggleDetail}
-      className="p-4  bg-gray-200 text-center rounded hover:scale-105 transition-transform duration-300"
+      className="p-4 text-center transition-transform duration-300 bg-gray-200 rounded hover:scale-105"
     >
       <h1 className="font-bold text-lg md:text-xl text-[#EE4200]">
         आन्तरिक व्यवस्थापन महाशाखा         
@@ -459,7 +459,7 @@ export default function Headquarters() {
                   </tbody>
                 </table>
               </div>
-              <div className="flex  justify-center col-md-3">
+              <div className="flex justify-center col-md-3">
                 <table className="w-full overflow-hidden border border-gray-300 rounded-lg shadow-lg">
                   <tbody>
                     <tr className="transition-colors duration-300 border-t border-gray-300 hover:bg-gray-100">
@@ -684,9 +684,10 @@ export default function Headquarters() {
                     </tr>
                     <tr className="transition-colors duration-300 border-t border-gray-300 hover:bg-gray-100">
                       <td>
-                        <h1 className="text-[19px] h-[50px] text-[#EE4200] "></h1>
+                        <h1 className="text-[19px] h-[80px] text-[#EE4200] "></h1>
                       </td>
                     </tr>
+                  
                   </tbody>
                 </table>
               </div>
