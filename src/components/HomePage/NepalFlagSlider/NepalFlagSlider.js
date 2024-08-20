@@ -150,6 +150,90 @@ export const NepalFlagSlider = ({ content }) => {
           }}
         >
 
+          {/* <EditGif 
+                        isActualUploadedSame={homePageDetail['slider-img'].gif===homePageDetail['slider-img'].actualGif} 
+                        setNewGif={setNewSliderImg} 
+                        url={homePageDetail['slider-img'].gif} 
+                        gifId={homePageDetail['slider-img'].id}
+                    > */}
+          {/* <img src={homePageDetail['slider-img']['gif']} className={`${isEditing?'':''} h-full flexitems-center justify-center`} ></img> */}
+          <FontAwesomeIcon
+            className="text-white h-14 lg:h-20 touchme"
+            icon={faArrowAltCircleRight}
+          />
+          {/* </EditGif> */}
+        </div>
+
+        <div
+          className={`${
+            activateEdit
+              ? "left-[25%]"
+              : `${
+              
+                  isHover
+                    ? `${isMobile ? "left-[0%] " : "left-[25%]"}`
+                    : ` left-[100%]`
+                }`
+          } ${isMobile ? "w-[100%] " : "w-[100%]"}px-2 py-3 absolute ${
+            isEditing ? "" : ""
+          } px-4 transition-all bg-red-500/10  mt-5   h-[90%] duration-300 ease-in-out flex flex-wrap  backdrop-blur-sm overflow-auto items-start justify-center gap-5 lg:gap-5  rounded-lg  backdrop:blur-sm `}
+        >
+          {/* <TemplesDisplayMain/> */}
+          {isEditing && !activateEdit && (
+            <div
+              onClick={() => setActivateEdit(true)}
+              className="absolute z-50 flex px-2 py-1 bg-gray-300 rounded-md cursor-pointer top-1 hover:bg-gray-400"
+            >
+              Edit
+            </div>
+          )}
+          <Link
+            to="/parva"
+            className="z-50 feature-div"
+            onClick={(e) => {
+              isEditing && activateEdit && e.preventDefault();
+            }}
+          >
+            <OneImage name={"Parav-tab"} activateEdit={activateEdit} />
+          </Link>
+          <Link
+            to="/about-us"
+            className="z-50 feature-div"
+            onClick={(e) => {
+              isEditing && activateEdit && e.preventDefault();
+            }}
+          >
+            <OneImage name={"About-us-tab"} activateEdit={activateEdit} />
+          </Link>
+          <Link
+            to="/contact-us"
+            className="z-50 feature-div"
+            onClick={(e) => {
+              isEditing && activateEdit && e.preventDefault();
+            }}
+          >
+            <OneImage name={"Contact-us-tab"} activateEdit={activateEdit} />
+          </Link>
+          
+          <Link
+            to="/articles"
+            className="z-50 feature-div"
+            onClick={(e) => {
+              isEditing && activateEdit && e.preventDefault();
+            }}
+          >
+            <OneImage name={"Article-tab"} activateEdit={activateEdit} />
+          </Link>
+          {isEditing && activateEdit && (
+            <div
+              className="absolute flex px-2 py-1 bg-gray-300 rounded-md cursor-pointer top-1 hover:bg-gray-400"
+              onClick={() => setActivateEdit(false)}
+            >
+              <div className="flex px-2 py-1 bg-gray-300 rounded-md cursor-pointer hover:bg-gray-400">
+                No Edit
+              </div>
+
+
 
           <OneImage name={"Parav-tab"} activateEdit={activateEdit} />
         </Link>
@@ -187,6 +271,7 @@ export const NepalFlagSlider = ({ content }) => {
           >
             <div className="flex px-2 py-1 bg-gray-300 rounded-md cursor-pointer hover:bg-gray-400">
               No Edit
+
             </div>
           </div>
         )}
