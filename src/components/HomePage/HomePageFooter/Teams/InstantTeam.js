@@ -15,7 +15,7 @@ const InstantTeam = ({ name, image, post, number, quotes }) => {
         />
       </div>
       <div className="flex flex-col relative h-full w-full lg:w-2/3 justify-center items-center lg:items-start text-white mt-4 lg:mt-0 lg:ml-8 text-center lg:text-left">
-        <q className="text-3xl lg:text-6xl font-extrabold text-yellow-500/90">
+        <q className="text-3xl lg:text-4xl font-extrabold text-yellow-500/90">
           {quotes}
         </q>
         <h1 className="text-xl lg:text-3xl font-semibold mt-2">{name}</h1>
