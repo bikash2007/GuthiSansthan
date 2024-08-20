@@ -1,9 +1,6 @@
-import { useEffect, useState } from "react";
-
+import { useEffect } from "react";
 import axios from "axios";
 import { ParvaInstance } from "./ParvaInstance";
-
-import { fetchImageToURL } from "../../ReuseableFunctions";
 import { useDispatch, useSelector } from "react-redux";
 import { showAlert } from "../../AlertLoader";
 import {
@@ -17,14 +14,14 @@ import { useEditing } from "../../../context/EditingProvider";
 import { AddParva } from "./AddParva";
 import { useTranslation } from "react-i18next";
 import { EditBgImage } from "../../EditComponents/EditBgImage";
+
 export const Parva = () => {
   const baseUrl = useSelector((state) => state.baseUrl).backend;
   const parvaPageDetail = useSelector((state) => state.parvaPageDetail);
-  console.log("parava::", parvaPageDetail);
-  console.log("d", parvaPageDetail["details"].imgSrc);
-  const { isEditing, setIsEditing } = useEditing();
+  const { isEditing } = useEditing();
   const dispatch = useDispatch();
   const { t } = useTranslation();
+
   useEffect(() => {
     try {
       if (!parvaPageDetail.isDynamicFetched) fetchDynamicParva();
@@ -34,6 +31,7 @@ export const Parva = () => {
       showAlert(error, "red");
     }
   }, []);
+
   const fetchParvaContent = async () => {
     try {
       const response = await axios.get(baseUrl + parvaPageDetail.url);
@@ -53,6 +51,7 @@ export const Parva = () => {
       showAlert(error, "red");
     }
   };
+
   const fetchDynamicParva = async () => {
     try {
       const response = await axios.get(baseUrl + parvaPageDetail.dynamicUrl);
@@ -83,10 +82,12 @@ export const Parva = () => {
 
       <div className="bg-cover bg-center bg-zinc-800/20 fixed -z-10 w-full h-screen top-0"></div>
 
-      <div className="w-full h-full pb-3 flex flex-col relative ">
-        <h1 className="text-white z-10 text-[60px]">{t("parva")}</h1>
+      <div className="w-full h-full pb-3 flex flex-col relative">
+        <h1 className="text-white z-10 text-4xl sm:text-5xl lg:text-[60px] text-center">
+          {t("parva")}
+        </h1>
         <div className="flex w-full h-full justify-center overflow-auto">
-          <div className="w-[95%] flex flex-wrap  px-1 items-center justify-center gap-12 overflow-auto">
+          <div className="w-[95%] flex flex-wrap px-1 items-center justify-center gap-4 sm:gap-6 lg:gap-12 overflow-auto">
             {parvaPageDetail.dynamicDetails.map((festival) => (
               <ParvaInstance
                 parvaId={festival.id}
@@ -102,12 +103,10 @@ export const Parva = () => {
               />
             ))}
             {isEditing && (
-              <>
-                <AddParva
-                  fetchAllParva={fetchDynamicParva}
-                  parvaAddingUrl={baseUrl + parvaPageDetail.dynamicUrl}
-                />
-              </>
+              <AddParva
+                fetchAllParva={fetchDynamicParva}
+                parvaAddingUrl={baseUrl + parvaPageDetail.dynamicUrl}
+              />
             )}
           </div>
         </div>
