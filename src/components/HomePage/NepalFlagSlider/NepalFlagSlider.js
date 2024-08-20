@@ -107,7 +107,7 @@ export const NepalFlagSlider = ({ content }) => {
                     > */}
           {/* <img src={homePageDetail['slider-img']['gif']} className={`${isEditing?'':''} h-full flexitems-center justify-center`} ></img> */}
           <FontAwesomeIcon
-            className="h-14 lg:h-20 touchme text-white"
+            className="text-white h-14 lg:h-20 touchme"
             icon={faArrowAltCircleRight}
           />
           {/* </EditGif> */}
@@ -118,6 +118,7 @@ export const NepalFlagSlider = ({ content }) => {
             activateEdit
               ? "left-[25%]"
               : `${
+              
                   isHover
                     ? `${isMobile ? "left-[0%] " : "left-[25%]"}`
                     : ` left-[100%]`
@@ -130,14 +131,14 @@ export const NepalFlagSlider = ({ content }) => {
           {isEditing && !activateEdit && (
             <div
               onClick={() => setActivateEdit(true)}
-              className=" absolute top-1 flex z-50 bg-gray-300 hover:bg-gray-400 px-2 py-1 rounded-md cursor-pointer"
+              className="absolute z-50 flex px-2 py-1 bg-gray-300 rounded-md cursor-pointer top-1 hover:bg-gray-400"
             >
               Edit
             </div>
           )}
           <Link
             to="/parva"
-            className="feature-div z-50"
+            className="z-50 feature-div"
             onClick={(e) => {
               isEditing && activateEdit && e.preventDefault();
             }}
@@ -146,7 +147,7 @@ export const NepalFlagSlider = ({ content }) => {
           </Link>
           <Link
             to="/about-us"
-            className="feature-div z-50"
+            className="z-50 feature-div"
             onClick={(e) => {
               isEditing && activateEdit && e.preventDefault();
             }}
@@ -155,16 +156,17 @@ export const NepalFlagSlider = ({ content }) => {
           </Link>
           <Link
             to="/contact-us"
-            className="feature-div z-50"
+            className="z-50 feature-div"
             onClick={(e) => {
               isEditing && activateEdit && e.preventDefault();
             }}
           >
             <OneImage name={"Contact-us-tab"} activateEdit={activateEdit} />
           </Link>
+          
           <Link
             to="/articles"
-            className="feature-div z-50"
+            className="z-50 feature-div"
             onClick={(e) => {
               isEditing && activateEdit && e.preventDefault();
             }}
@@ -173,10 +175,10 @@ export const NepalFlagSlider = ({ content }) => {
           </Link>
           {isEditing && activateEdit && (
             <div
-              className=" absolute top-1 flex bg-gray-300 hover:bg-gray-400 px-2 py-1 rounded-md cursor-pointer"
+              className="absolute flex px-2 py-1 bg-gray-300 rounded-md cursor-pointer top-1 hover:bg-gray-400"
               onClick={() => setActivateEdit(false)}
             >
-              <div className=" flex bg-gray-300 hover:bg-gray-400 px-2 py-1 rounded-md cursor-pointer">
+              <div className="flex px-2 py-1 bg-gray-300 rounded-md cursor-pointer hover:bg-gray-400">
                 No Edit
               </div>
             </div>
