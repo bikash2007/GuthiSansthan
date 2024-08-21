@@ -10,7 +10,7 @@ import { Language } from "./Language";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchImageToURL } from "../ReuseableFunctions";
 import { setNewGuthiSansthanLogo, setLngLogo } from "../../state/GlobalSlice";
-import { EditImage } from "../EditComponents";
+import { EditLogoImage } from "../EditComponents";
 import { useEditing } from "../../context/EditingProvider";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -70,7 +70,7 @@ export const HeaderTop = () => {
     <div
       className={`${
         isMobile ? "h-[80px] flex-wrap w-full" : "flex-row px-20 h-[100px]"
-      } flex w-full bg-neutral-100/50 lg:bg-neutral-200/30 dark:bg-neutral-100/50 lg:backdrop-blur-lg backdrop-blur-xl top-0 justify-between items-center p-2`}
+      } flex w-full  bg-neutral-100/50 lg:bg-neutral-200/30 dark:bg-neutral-100/50 lg:backdrop-blur-lg backdrop-blur-xl  justify-between items-center p-2`}
     >
       <Link
         to="/"
@@ -88,7 +88,7 @@ export const HeaderTop = () => {
           src={nepalLogo}
           alt="Nepal Logo"
         />
-        <EditImage
+        <EditLogoImage
           imageId={globalDetail["guthi-sansthan-logo"].id}
           url={baseUrl + globalDetail.url}
           setNewImage={setNewGuthiSansthanLogo}
@@ -104,7 +104,7 @@ export const HeaderTop = () => {
             src={globalDetail["guthi-sansthan-logo"].imgSrc}
             alt="Guthi Sansthan Logo"
           />
-        </EditImage>
+        </EditLogoImage>
       </Link>
       {superUser == "true" && (
         <>

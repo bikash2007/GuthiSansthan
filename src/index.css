@@ -81,7 +81,7 @@ ul, li {
 .scrolling-text {
   
   white-space: nowrap;
-  animation: scrollText 25s linear infinite;
+  animation: scrollText 30s linear infinite;
 }
 
 @keyframes scrollText {

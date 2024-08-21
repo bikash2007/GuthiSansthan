@@ -19,6 +19,8 @@ import {
 } from "../../state/HomePageSlices/HomePageSlice";
 import { EditBgHome } from "../EditComponents/EditBgHome";
 import { useEditing } from "../../context/EditingProvider";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAdd } from "@fortawesome/free-solid-svg-icons";
 
 export const HomePage = () => {
   const { t } = useTranslation();
@@ -110,7 +112,7 @@ export const HomePage = () => {
           <div className="absolute left-[70px] top-0 bg-[#00ADEF] backdrop-blur-3xl text-white py-1 font-semibold text-base flex justify-center items-center h-[40px] px-1  z-30"></div>
         </Link>
         <div className="w-full h-[40px] bg-red-400/50 relative overflow-hidden">
-          <div className="scrolling-text  absolute right-0 flex flex-row gap-6  py-2 text-white font-semibold">
+          <div className="w-full scrolling-text  absolute right-0 flex flex-row gap-6  py-2 text-white font-semibold">
             {notices.map((item) => (
               <a
                 href={`${item.image}`}
@@ -123,6 +125,14 @@ export const HomePage = () => {
             ))}
           </div>
         </div>
+        {isEditing && (
+          <Link
+            to={"/super-user/add-notices"}
+            className="absolute top-10 left-2 h-6 w-6 flex justify-center items-center z-30 bg-white rounded-full"
+          >
+            <FontAwesomeIcon icon={faAdd} />
+          </Link>
+        )}
 
         <div
           style={{ height: `${isEditing ? "calc(100vh - 100px)" : "100%"}` }}

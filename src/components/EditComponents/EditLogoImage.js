@@ -8,7 +8,7 @@ import { setGuthiSansthanLogo } from "../../state/GlobalSlice";
 import { useSelector } from "react-redux";
 import { showAlert } from "../AlertLoader";
 import { activate_loader } from "../AlertLoader/LoaderBox";
-export const EditImage = ({
+export const EditLogoImage = ({
   name,
   imageId,
   url,
@@ -65,7 +65,7 @@ export const EditImage = ({
       console.log(baseUrl + "api/components/" + imageId + "/");
 
       const apiResponse = await axios.patch(
-        baseUrl + "api/components/" + imageId + "/",
+        baseUrl + "api/global-components/" + imageId + "/",
         imageForm
       );
       setContentHidden(false);
