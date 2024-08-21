@@ -23,7 +23,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAdd } from "@fortawesome/free-solid-svg-icons";
 
 export const HomePage = () => {
-  const { t } = useTranslation();
+  const { i18n, t } = useTranslation();
   const isMobile = useMediaQuery("(max-width:800px)");
   const baseUrl = useSelector((state) => state.baseUrl).backend;
   const homePageDetail = useSelector((state) => state.homePageDetail);
@@ -107,7 +107,7 @@ export const HomePage = () => {
         <div className="absolute top-0 left-0 w-full h-full bg-black opacity-20 -z-10"></div>
         <Link to={"/articles"} className="relative z-30 w-full">
           <h3 className="absolute left-0 top-0 bg-[#00ADEF] backdrop-blur-3xl text-white py-1 font-semibold text-base flex justify-center items-center h-[40px] px-2  z-40">
-            Notice:
+            {t("notice")}
           </h3>
           <div className="absolute left-[70px] top-0 bg-[#00ADEF] backdrop-blur-3xl text-white py-1 font-semibold text-base flex justify-center items-center h-[40px] px-1  z-30"></div>
         </Link>

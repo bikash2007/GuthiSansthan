@@ -17,5 +17,7 @@
     "password":"पासवर्ड",
     "confirm-password":"पासवर्ड पुष्टि करू",
     "already-have-an-account":"पहिने खाता छै",
-    "sign-up":"साइन अप करू"
+    "sign-up":"साइन अप करू",
+     "notice":"सूचना",
+     "calendar":" कैलेंडर",  "service": "सेवा", "teams":"टीम ", "report":"गुनास" ,"branches":" डाल "
 }

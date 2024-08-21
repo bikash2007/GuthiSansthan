@@ -26,5 +26,7 @@
     "calender":"Calendaer",
     "temple":"Temple",
     "parva":"Festival",
-    "teams":"Teams"
+    "teams":"Teams",
+    "notice":"Notice",
+       "calendar":"Calender",  "service": "Service",  "report":"Report" ,"branches":"Branches"
 }

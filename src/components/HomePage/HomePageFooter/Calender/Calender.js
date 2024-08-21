@@ -1,4 +1,3 @@
-// src/components/HomePage/HomePageFooter/Calender/Calender.js
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -7,9 +6,11 @@ import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 export const Calendar = () => {
   const [calendarData, setCalendarData] = useState(null);
   const [error, setError] = useState(null);
-  const [year, setYear] = useState(2081);
-  const [month, setMonth] = useState(4);
+  const [year, setYear] = useState(null);
+  const [month, setMonth] = useState(null);
   const [selectedEvent, setSelectedEvent] = useState(null);
+  const [today, setToday] = useState(null);
+
   const nepaliMonth = [
     "",
     "Baisakh",
@@ -25,6 +26,28 @@ export const Calendar = () => {
     "Falgun",
     "Chaitra",
   ];
+
+  useEffect(() => {
+    const fetchInitialData = async () => {
+      try {
+        const response = await axios.get(
+          `https://ingnepal.org.np/api/calendar/?year=2081&month=5`
+        );
+        const data = response.data;
+        const [todayYear, todayMonth, todayDay] = data.today
+          .split("/")
+          .map(Number);
+        setYear(todayYear);
+        setMonth(todayMonth);
+        setToday(todayDay);
+        fetchCalendarData(todayYear, todayMonth);
+      } catch (error) {
+        setError("Error fetching initial calendar data");
+      }
+    };
+
+    fetchInitialData();
+  }, []);
 
   const handlePrev = async () => {
     if (month === 1) {
@@ -56,17 +79,12 @@ export const Calendar = () => {
     }
   };
 
-  useEffect(() => {
-    fetchCalendarData(year, month);
-  }, [year, month]);
-
   const fetchCalendarData = async (fetchYear, fetchMonth) => {
     try {
       const response = await axios.get(
         `https://ingnepal.org.np/api/calendar/?year=${fetchYear}&month=${fetchMonth}`
       );
       setCalendarData(response.data);
-      console.log(response.data);
     } catch (error) {
       setError("Error fetching calendar data");
     }
@@ -123,9 +141,9 @@ export const Calendar = () => {
       calendarGrid.push(
         <div
           key={day}
-          className={`text-center py-1 border border-black bg-white hover:bg-cyan-200  rounded-md cursor-pointer ${
-            eventDates[day] ? " text-red-600 font-bold " : ""
-          }`}
+          className={`text-center py-1 border border-black bg-white hover:bg-cyan-200 rounded-md cursor-pointer ${
+            eventDates[day] ? "text-red-600 font-bold" : ""
+          } ${day === today ? "bg-yellow-300" : ""}`}
           onClick={() => handleDateClick(day)}
         >
           {day}
@@ -138,7 +156,7 @@ export const Calendar = () => {
         {daysOfWeek.map((day) => (
           <div
             key={day}
-            className="text-center font-semibold  border-2 border-cyan-400 rounded-md backdrop-blur-lg text-lg "
+            className="text-center font-semibold border-2 border-cyan-400 rounded-md backdrop-blur-lg text-lg"
           >
             {day.slice(0, 3)}
           </div>
@@ -149,9 +167,9 @@ export const Calendar = () => {
   };
 
   return (
-    <div className="bg-zinc-600/15  backdrop-blur-sm flex items-start md:items-center py-1 justify-center h-screen ">
-      <div className="w-full flex flex-wrap items-start  justify-center  mx-auto p-4 overflow-auto">
-        <div className="bg-neutral-200 shadow-lg rounded-lg overflow-hidden w-[90%] text-black font-bold flex md:w-1/2 h-96 flex-col ">
+    <div className="bg-zinc-600/15 backdrop-blur-sm flex items-start md:items-center py-1 justify-center h-screen">
+      <div className="w-full flex flex-wrap items-start justify-center mx-auto p-4 overflow-auto">
+        <div className="bg-neutral-200 shadow-lg rounded-lg overflow-hidden w-[90%] text-black font-bold flex md:w-1/2 h-96 flex-col">
           <div className="flex items-center justify-between px-6 py-3 bg-gray-700/50">
             <div>
               <FontAwesomeIcon
@@ -178,14 +196,14 @@ export const Calendar = () => {
           {renderCalendar()}
         </div>
         {selectedEvent && (
-          <div className="p-2  bg-gray-800 text-white rounded-lg h-96 mt-4 w-full aspect-video md:w-96 overflow-auto flex flex-col items-center justify-start">
+          <div className="p-2 bg-gray-800 text-white rounded-lg h-96 mt-4 w-full aspect-video md:w-96 overflow-auto flex flex-col items-center justify-start">
             <h3 className="text-lg font-bold">{selectedEvent.name}</h3>
             <img
               src={`${selectedEvent.image}`}
               alt={selectedEvent.name}
               className="w-1/2 h-auto mt-2"
             />
-            <p className="mt-2 tracking-tighter   leading-tight">
+            <p className="mt-2 tracking-tighter leading-tight">
               {selectedEvent.description}
             </p>
           </div>
