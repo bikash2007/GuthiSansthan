@@ -9,7 +9,9 @@ const AdminForm = () => {
     last_name: "",
     branch: "",
     password: "",
-    confirm_password: "", // Used only for validation
+    confirm_password: "",
+    contact_number: "", // New field for contact number
+    photo: null, // New field for photo
   });
 
   const [branches, setBranches] = useState([]);
@@ -26,10 +28,10 @@ const AdminForm = () => {
   }, []);
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value, type, files } = e.target;
     setFormData({
       ...formData,
-      [name]: value,
+      [name]: type === "file" ? files[0] : value,
     });
   };
 
@@ -43,8 +45,26 @@ const AdminForm = () => {
 
     const { confirm_password, ...dataToPost } = formData; // Exclude confirm_password
 
+    const formDataToSend = new FormData();
+    Object.keys(dataToPost).forEach((key) => {
+      if (key === "contact_number") {
+        formDataToSend.append("contact_no", dataToPost[key]); // Rename contact_number to contact_no
+      } else {
+        formDataToSend.append(key, dataToPost[key]);
+      }
+    });
+
+    // Append photo separately
+    if (dataToPost.photo) {
+      formDataToSend.append("photo", dataToPost.photo);
+    }
+
     axios
-      .post("https://ingnepal.org.np/api/users/create-admin/", dataToPost)
+      .post("https://ingnepal.org.np/api/users/create-admin/", formDataToSend, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
       .then((response) => {
         alert("Admin created successfully!");
         // Optionally reset form or redirect
@@ -60,6 +80,7 @@ const AdminForm = () => {
       <form
         onSubmit={handleSubmit}
         className="w-full max-w-lg bg-white shadow-lg rounded-lg p-8 space-y-6"
+        encType="multipart/form-data" // Important for file upload
       >
         <h2 className="text-2xl font-bold text-gray-800 text-center">
           Create Employee
@@ -148,6 +169,35 @@ const AdminForm = () => {
                 </option>
               ))}
             </select>
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700">
+              Contact Number
+            </label>
+            <input
+              type="tel"
+              name="contact_number"
+              value={formData.contact_number}
+              onChange={handleChange}
+              className="mt-1 block w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              placeholder="Enter contact number"
+              required
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700">
+              Photo
+            </label>
+            <input
+              type="file"
+              name="photo"
+              onChange={handleChange}
+              className="mt-1 block w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              accept="image/*"
+              required
+            />
           </div>
 
           <div>

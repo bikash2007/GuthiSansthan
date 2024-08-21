@@ -8,102 +8,134 @@ const NoticeForm = () => {
   const titleRef = useRef();
   const textRef = useRef();
   const photoRef = useRef();
-  const urgentRef = useRef();
-  const popUpRef = useRef();
-  const branchRef = useRef();
+  // const urgentRef = useRef(false);
+  // const popUpRef = useRef(false);
+  // const branchRef = useRef();
   const navigate = useNavigate();
   const token = sessionStorage.getItem("token");
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault(); // Prevent default form submission
+
     const title = titleRef.current.value;
     const text = textRef.current.value;
     const image = photoRef.current.files[0];
-    const urgent = urgentRef.current.checked;
-    const display_popup = popUpRef.current.checked;
+    // const urgent = urgentRef.current.checked;
+    // const display_popup = popUpRef.current.checked;
     // const branch = branchRef.current.value;
 
     const formData = new FormData();
     formData.append("title", title);
     formData.append("text", text);
     formData.append("image", image);
-    formData.append("urgent", urgent);
-    formData.append("display_popup", display_popup);
+    // formData.append("urgent", urgent);
+    // formData.append("display_popup", display_popup);
     // formData.append('branch', branch);
 
     try {
       const response = await axios.post(
         "https://ingnepal.org.np/api/notices/",
-        formData, // This is the request body
+        formData,
         {
           headers: {
-            Authorization: `Token ${token}`, // Correct way to set the Authorization header
+            Authorization: `Token ${token}`,
+            "Content-Type": "multipart/form-data",
           },
         }
       );
 
-      if (response.ok) {
-        // Handle successful response
-        toast.success("sucessfully added");
+      if (response.status === 201) {
+        toast.success("Successfully added!");
         navigate("/");
       } else {
-        // Handle error response
-        console.error("Form submission failed");
+        toast.error("Failed to add notice.");
       }
     } catch (error) {
-      // Handle network error
-      console.error("Network error:", error);
+      toast.error("Network error. Please try again.");
+      console.error("Error:", error);
     }
   };
 
   return (
-    <div className="w-full flex flex-col items-center justify-center">
-      <h1>Notice Form</h1>
-      <div className="flex lg:w-1/2 w-[90%] flex-col p-4 gap-4 bg-zinc-600">
-        <div className="flex gap-2">
-          <label className="font-semibold text-lg text-white">Title</label>
-          <input
-            ref={titleRef}
-            type="text"
-            className="px-2 py-1 h-10 w-1/2 rounded-md"
-            placeholder="Title"
-          />
-        </div>
-        <div className="flex gap-2">
-          <label className="font-semibold text-lg text-white">Text</label>
-          <input
-            ref={textRef}
-            type="text"
-            className="px-2 py-1 h-10 w-1/2 rounded-md"
-            placeholder="Text"
-          />
-        </div>
-        <div className="flex gap-2">
-          <label className="font-semibold text-lg text-white">
-            Upload photo
-          </label>
-          <input ref={photoRef} type="file" className="h-10 px-2 w-[70%]" />
-        </div>
-        <div className="flex gap-2 items-center">
-          <label className="font-semibold text-lg text-white">Urgent:</label>
-          <input ref={urgentRef} type="checkbox" className="scale-150" />
-        </div>
-        <div className="flex gap-2 items-center">
-          <label className="font-semibold text-lg text-white">Pop up:</label>
-          <input ref={popUpRef} type="checkbox" className="scale-150" />
-        </div>
-        {/* <div className='flex gap-2'>
-          <label className='font-semibold text-lg text-white'>Branch</label>
-          <input ref={branchRef} type='text' className='px-2 py-1 h-10 w-1/2 rounded-md' placeholder='Branch' />
-        </div> */}
-        <div className="w-full justify-center">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
+      <h1 className="text-3xl font-bold text-gray-800 mb-6">Notice Form</h1>
+      <form
+        onSubmit={handleSubmit}
+        className="w-full max-w-lg bg-white shadow-md rounded-lg p-6 space-y-4"
+      >
+        <div className="flex flex-col gap-4">
+          <div>
+            <label className="block text-sm font-semibold text-gray-700 mb-2">
+              Title
+            </label>
+            <input
+              ref={titleRef}
+              type="text"
+              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              placeholder="Enter title"
+              required
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-semibold text-gray-700 mb-2">
+              Text
+            </label>
+            <textarea
+              ref={textRef}
+              rows="4"
+              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              placeholder="Enter text"
+              required
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-semibold text-gray-700 mb-2">
+              Upload Photo
+            </label>
+            <input
+              ref={photoRef}
+              type="file"
+              className="w-full text-gray-700 border border-gray-300 rounded-md file:bg-gray-100 file:border-0 file:mr-4 file:py-2 file:px-4 file:text-gray-800 file:font-medium hover:file:bg-gray-200"
+              accept="image/*"
+              required
+            />
+          </div>
+
+          {/* Uncomment if needed
+          <div className="flex items-center gap-2">
+            <label className="flex items-center text-sm font-semibold text-gray-700">
+              <input ref={urgentRef} type="checkbox" className="mr-2" />
+              Urgent
+            </label>
+          </div>
+          <div className="flex items-center gap-2">
+            <label className="flex items-center text-sm font-semibold text-gray-700">
+              <input ref={popUpRef} type="checkbox" className="mr-2" />
+              Pop up
+            </label>
+          </div>
+          <div>
+            <label className="block text-sm font-semibold text-gray-700 mb-2">Branch</label>
+            <input
+              ref={branchRef}
+              type="text"
+              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              placeholder="Enter branch"
+              required
+            />
+          </div> */}
+
           <button
-            onClick={handleSubmit}
-            className="px-6 py-1 rounded-md text-white font- bg-red-600 hover:bg-red-800"
+            type="submit"
+            className="w-full py-3 bg-red-600 text-white font-semibold rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500"
           >
             Submit
           </button>
         </div>
-      </div>
+      </form>
+      <ToastContainer />
     </div>
   );
 };

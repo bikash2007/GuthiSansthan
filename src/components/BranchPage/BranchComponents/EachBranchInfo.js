@@ -5,6 +5,7 @@ import { BranchHeader } from "./BranchHeader";
 import { BranchNotice } from "./BranchNotice";
 import { useMediaQuery } from "@mui/material";
 import { useLocation } from "react-router-dom";
+import BranchTeams from "./BranchTeams";
 
 export const EachBranchInfo = () => {
   const isMobile = useMediaQuery("(max-width:800px)");
@@ -44,6 +45,14 @@ export const EachBranchInfo = () => {
           >
             Festivals
           </button>
+          <button
+            onClick={() => setSection("teams")}
+            className={`font-bold border-b-2  hover:border-red-600 transition-all duration-200 ease-linear text-white text-xl ${
+              section === "teams" ? " border-red-600 " : "border-none"
+            } `}
+          >
+            teams
+          </button>
         </div>
         <div className="w-full flex items-center justify-center">
           {section === "article" && (
@@ -64,6 +73,7 @@ export const EachBranchInfo = () => {
               branchName={loc.state.name}
             />
           )}
+          {section === "teams" && <BranchTeams branchName={loc.state.name} />}
         </div>
       </div>
     </div>
