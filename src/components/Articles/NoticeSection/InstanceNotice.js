@@ -7,22 +7,41 @@ export const InstanceNotice = ({ title, text, image, id, onDelete }) => {
 
   return (
     <div
-      className={` p-3 w-full relative  bg-gray-900 rounded-lg shadow-lg ${
-        isEditing ? "" : ""
-      } mb-2 hover:shadow-xl  transition-shadow duration-300 ease-in-out`}
+      className={` p-3 w-full relative  ${isEditing ? "" : ""
+        } mb-2  transition-shadow duration-300 ease-in-out`}
     >
       <a href={`${image}`} target="_main">
-        <div className="flex w-full flex-col-reverse md:flex-row items-center md:items-start justify-start gap-3">
-          <img
-            src={image}
-            className="lg:w-3/5 md:w-1/2 w-[90%] aspect-auto object-cover rounded-lg border-2 border-gray-700 shadow-sm"
-          />
-          <div className="flex flex-col justify-between flex-1">
-            <h3 className="font-bold text-white text-2xl">{title}</h3>
-            <p className="text-gray-400 text-sm mt-2">{text}</p>
+        <div className="flex flex-col gap-3">
+
+
+          <div className="w-full md:w-[55%] h-[30px]  border-2 border-slate-500 rounded-xl  md:ms-8  hover:shadow-gray-800 shadow-md hover:scale-105 bg-gray-300">
+            <div className=" row">
+
+  <span className="flex justify-start col-md-6">
+  <h1 className="text-[16px] ms-2">{text}</h1>
+  </span>
+
+<span className="flex justify-end col-md-6">
+<h1 className="text-[15px]   me-2">Date: 2024-12-12{}</h1>
+    </span>   
+            </div>
           </div>
+
+    
+
+
+
+
+
+
+
+
+
+
         </div>
       </a>
+
+      
       {isEditing && (
         <div className="absolute top-2 right-2">
           <ViewEditButton onDelete={() => onDelete(id)} />
@@ -31,3 +50,5 @@ export const InstanceNotice = ({ title, text, image, id, onDelete }) => {
     </div>
   );
 };
+
+
