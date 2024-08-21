@@ -46,12 +46,10 @@ export const Notices = () => {
   };
 
   return (
-    <div className="w-full flex justify-center h-full">
-      <div className="flex flex-col h-full w-full border ml-5 border-red-600 rounded-lg backdrop-blur-lg">
-        <div className="w-full flex justify-center items-center h-20 bg-yellow-600 rounded-lg">
-          <h1 className="font-semibold text-white underline">NOTICE</h1>
-        </div>
-        <div className="flex flex-wrap relative flex-col px-3 gap-2 bg-zinc-900/40 text-white h-full">
+    <div className="flex justify-center w-full h-full">
+      <div className="flex flex-col w-full h-full ml-5 ">
+       
+        <div className="relative flex flex-col flex-wrap h-full gap-2 px-3 text-white">
           {notices.length > 0 ? (
             notices.map((item) => (
               <InstanceNotice
@@ -64,7 +62,7 @@ export const Notices = () => {
               />
             ))
           ) : (
-            <h1 className="font-semibold text-cyan-600 text-center text-4xl">
+            <h1 className="text-4xl font-semibold text-center text-cyan-600">
               No notices at this moment
             </h1>
           )}

@@ -40,7 +40,7 @@ export const Articles = () => {
       initial={{ y: 200, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 1.2, delay: 0.5 }}
-      className="w-full bg-white p-1 rounded-md overflow-hidden mt-2"
+      className="w-full p-1 mt-2 overflow-hidden rounded-md"
     >
       {articleSectionDetail.details.length ? (
         articleSectionDetail.details.map((item) => (

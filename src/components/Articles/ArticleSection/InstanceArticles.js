@@ -22,24 +22,47 @@ export const InstanceArticles = ({
       {isEditing && (
         <ViewEditButton articleId={articleId} data={data} setData={setData} />
       )}
-      <Link
-        to={{
-          pathname: "/show-article",
-        }}
-        state={{ img: img, desc: desc, title: title }}
-        className="w-[98%] flex flex-wrap bg-white p-6 px-6 border-b-2 border-zinc-900 justify-between no-underline"
-      >
-        <div className="w-2/3 flex flex-col items-start px-3">
-          <img src={img} height={100} width={100} alt="logo" />
-          <h1>{title}</h1>
-          <p className="max-h-6 overflow-clip tracking-tighter text-sm text-neutral-600">
-            {desc}
-          </p>
+
+      <div className="flex flex-col gap-3">
+
+<div className="w-full md:w-[75%]  border-2 border-slate-500 rounded-3xl p-4 md:ms-8  hover:shadow-gray-800 shadow-md hover:scale-105 bg-gray-300">
+  <Link
+    to={{
+      pathname: "/show-article",
+    }}
+    state={{ img: img, desc: desc, title: title }}
+  >
+    <div className="flex flex-col items-center md:flex-row">
+      <div className="w-full mb-1 md:w-10/12 md:mb-0">
+        <div className="flex items-center">
+          <img src={img} className="w-12 h-12 mr-4 rounded-full" alt="logo" />
+          <h1 className="text-center text-[20px] sm:text-[25px] md:text-[30px] font-bold text-black flex-grow">
+            {title}
+          </h1>
         </div>
-        <div className="w-1/3 h-full flex items-center justify-center aspect-video">
-          <img src={img} className="full aspect-video" alt="article" />
-        </div>
-      </Link>
+        <p className="mt-2 overflow-hidden text-sm leading-snug text-center md:text-base text-neutral-600 max-h-12">
+          {desc}
+        </p>
+      </div>
+      <div className="flex items-end justify-center w-full md:w-2/12">
+        <img
+          src={img}
+          className="object-cover w-24 h-24 rounded-lg sm:w-28 sm:h-28"
+          alt="article"
+        />
+      </div>
+    </div>
+  </Link>
+</div>
+
+
+
+</div>
+
+
+
+
+
     </motion.div>
   );
 };

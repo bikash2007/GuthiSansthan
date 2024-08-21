@@ -14,7 +14,7 @@ export const ShowArticle = () => {
   console.log(data);
 
   return (
-    <div className="max-w-4xl mx-auto p-6 bg-gradient-to-r from-gray-50 to-gray-200 shadow-md rounded-lg">
+    <div className="max-w-4xl p-6 mx-auto rounded-lg shadow-md bg-gradient-to-r from-gray-50 to-gray-200">
       {/* Article Title */}
       <div className="mb-8 text-center">
         <h1 className="text-4xl font-bold text-gray-800">
@@ -23,9 +23,9 @@ export const ShowArticle = () => {
       </div>
 
       {/* Main Content and Image */}
-      <div className="flex flex-col md:flex-row gap-8 my-10">
+      <div className="flex flex-col gap-8 my-10 md:flex-row">
         <div className="flex-1">
-          <p className="text-gray-700 text-lg leading-relaxed">
+          <p className="text-lg leading-relaxed text-gray-700">
             {data?.desc || "Placeholder text for the article description."}
           </p>
         </div>
@@ -33,7 +33,7 @@ export const ShowArticle = () => {
           <img
             src={data?.img || "https://via.placeholder.com/300"}
             alt={data?.title || "Article image"}
-            className="border-2 border-gray-300 rounded-lg shadow-lg h-72 w-72 object-cover"
+            className="object-cover border-2 border-gray-300 rounded-lg shadow-lg h-72 w-72"
           />
         </div>
       </div>
