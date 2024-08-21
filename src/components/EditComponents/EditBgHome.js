@@ -110,7 +110,7 @@ export const EditBgHome = ({
     <>
       {children}
       {isEditing && (
-        <div className="relative z-30 w-full max-h-full flex items-center justify-center h-[60px]">
+        <div className="relative  w-full max-h-full flex items-center justify-center h-[60px]">
           {!contentHidden && (
             <>
               {!image && (
@@ -137,7 +137,7 @@ export const EditBgHome = ({
                     icon={faAdd}
                     className="text-white"
                   ></FontAwesomeIcon>
-                  <div className="text-white text-[10px] z-50 md:text-[20px]">
+                  <div className="text-white text-[10px] z-20  md:text-[20px]">
                     Upload BackGround video or Image
                   </div>
                 </label>

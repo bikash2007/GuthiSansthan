@@ -1,6 +1,6 @@
 import { faAdd, faClose, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useEditing } from "../../../context/EditingProvider";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -8,199 +8,210 @@ import { toast } from "react-toastify";
 export const BranchHeader = ({ branchHead, branchName, branchImg }) => {
   const [isHeaderEditing, setIsHeaderEditing] = useState(false);
   const [branchImage, setBranchImage] = useState(branchImg);
-  const [img1, setImg1] = useState(branchHead.profile.photo);
+  const [img1, setImg1] = useState(branchHead?.profile?.photo || "");
   const { isEditing, setIsEditing } = useEditing();
   const [branchDetail, setBranchDetail] = useState({
     name: branchName,
     address: "",
     contact: "",
-    branchHeadName: `${branchHead.first_name} ${branchHead.last_name}`,
+    branchHeadName: `${branchHead?.first_name || ""} ${
+      branchHead?.last_name || ""
+    }`,
     branchHeadPost: "Branch Head",
   });
-  const handelimg1 = () => {
+
+  const handleImg1 = () => {
     const file = document.getElementById("branch-addition-head-1").files[0];
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      const url = URL.createObjectURL(new Blob([e.target.result]));
-      setImg1(url);
-    };
-    reader.readAsArrayBuffer(file);
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const url = URL.createObjectURL(new Blob([e.target.result]));
+        setImg1(url);
+      };
+      reader.readAsArrayBuffer(file);
+    }
   };
+
   const handleChange = (key, e) => {
     setBranchDetail((prevData) => ({ ...prevData, [key]: e.target.value }));
   };
 
   const handleSubmit = () => {};
+
   return (
-    <div className="relative w-full py-4 px-4 flex-wrap flex-col gap-2 mb-3">
-      {/* {isEditing && (
+    <div className="relative w-full p-4 flex flex-col gap-4 mb-6">
+      {isEditing && (
         <>
-          <div className="top-1 left-1 absolute flex flex-col gap-1">
+          <div className="absolute top-4 left-4 flex gap-2">
             {!isHeaderEditing && (
-              <div
+              <button
                 onClick={() => setIsHeaderEditing(true)}
-                className="py-1 px-3 bg-gray-500 rounded-md cursor-pointer  hover:bg-gray-600 text-white"
+                className="py-2 px-4 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
               >
                 Edit
-              </div>
+              </button>
             )}
             {isHeaderEditing && (
-              <div
+              <button
                 onClick={() => setIsHeaderEditing(false)}
-                className="py-1 px-3 bg-green-500 rounded-md cursor-pointer  hover:bg-green-600 text-white"
+                className="py-2 px-4 bg-green-600 text-white rounded-md hover:bg-green-700 transition"
               >
                 View
-              </div>
+              </button>
             )}
-            {!isHeaderEditing && (
-              <div
-                className=" px-3 py-1 bg-green-700 text-white¯ hover:bg-green-800 rounded-md cursor-pointer"
+            {isHeaderEditing && (
+              <button
+                className="py-2 px-4 bg-yellow-600 text-white rounded-md hover:bg-yellow-700 transition"
                 onClick={handleSubmit}
               >
                 Save
-              </div>
+              </button>
             )}
           </div>
 
-          <div className={`${isHeaderEditing ? "" : "hidden"}`}>
-            <div className="w-full flex flex-col items-center justify-center">
+          <div
+            className={`${isHeaderEditing ? "" : "hidden"} flex flex-col gap-6`}
+          >
+            <div className="flex flex-col items-center">
               <input
                 placeholder="Office Name"
                 value={branchDetail.name}
-                className="border rounded-md m-1 p-2 border-black"
+                className="border border-gray-300 rounded-md p-2 mb-2 w-full max-w-xs"
                 onChange={(e) => handleChange("name", e)}
-              ></input>
+              />
               <input
                 placeholder="Office Address"
                 value={branchDetail.address}
-                className="border rounded-md m-1 p-2 border-black"
+                className="border border-gray-300 rounded-md p-2 mb-2 w-full max-w-xs"
                 onChange={(e) => handleChange("address", e)}
-              ></input>
+              />
               <input
                 placeholder="Contact Number"
                 value={branchDetail.contact}
-                className="border rounded-md m-1 p-2 border-black"
+                className="border border-gray-300 rounded-md p-2 mb-2 w-full max-w-xs"
                 onChange={(e) => handleChange("contact", e)}
-              ></input>
+              />
             </div>
-            <div className="w-full flex  items-start">
-              <div className="flex w-1/2  justify-center gap-2 flex-col  items-center">
+
+            <div className="flex gap-6">
+              <div className="flex flex-col items-center">
                 {img1 && (
-                  <div
-                    className="px-2 py-1 bg-red-700 text-white rounded-md hover:bg-red-800 cursor-pointer"
-                    onClick={() => setImg1()}
+                  <button
+                    className="mb-2 py-1 px-3 bg-red-600 text-white rounded-md hover:bg-red-700 transition"
+                    onClick={() => setImg1("")}
                   >
                     Remove
-                  </div>
+                  </button>
                 )}
-                <div className="relative rounded-full bg-gray-600 bg-cover bg-center flex flex-col h-24 w-24 md:h-36 md:w-36 justify-center items-center m-1 hover:scale-105 transition-all duration-200 overflow-hidden ">
-                  {!img1 && (
-                    <>
-                      <label
-                        htmlFor="branch-addition-head-1"
-                        className="hcursor-pointer"
-                      >
-                        <FontAwesomeIcon
-                          icon={faAdd}
-                          size="4x"
-                          className="text-white"
-                        />
-                      </label>
-                    </>
+                <label
+                  htmlFor="branch-addition-head-1"
+                  className="relative flex items-center justify-center w-24 h-24 md:w-36 md:h-36 bg-gray-200 border border-gray-300 rounded-full overflow-hidden cursor-pointer hover:bg-gray-300 transition"
+                >
+                  {img1 ? (
+                    <img
+                      src={img1}
+                      className="object-cover w-full h-full"
+                      alt="Branch Head"
+                    />
+                  ) : (
+                    <FontAwesomeIcon
+                      icon={faAdd}
+                      size="3x"
+                      className="text-gray-500"
+                    />
                   )}
-                  {img1 && (
-                    <>
-                      <img src={img1} className="z-30"></img>
-                    </>
-                  )}
-                </div>
+                </label>
                 <input
                   type="file"
                   accept=".png,.jpg,.jpeg"
                   id="branch-addition-head-1"
                   className="hidden"
-                  onChange={() => handelimg1()}
+                  onChange={handleImg1}
                 />
                 <input
                   type="text"
                   onChange={(e) => handleChange("branchHeadName", e)}
-                  className=" p-2 text-xl w-fit border border-cyan-300 rounded-md outline-none"
-                  placeholder="Person Post"
+                  className="p-2 text-lg border border-gray-300 rounded-md outline-none mt-2"
+                  placeholder="Branch Head Name"
                 />
                 <input
                   type="text"
                   onChange={(e) => handleChange("branchHeadPost", e)}
-                  className="p-2  text-xl w-fit border border-cyan-300 rounded-md outline-none"
-                  placeholder="Person Post"
+                  className="p-2 text-lg border border-gray-300 rounded-md outline-none mt-2"
+                  placeholder="Branch Head Post"
                 />
               </div>
-              <div className="flex  w-1/2 items-center justify-center ">
+
+              <div className="flex items-center justify-center w-full">
                 <div
-                  className=" relative flex items-center justify-center rounded-md overflow-hidden w-[150px] h-[100px] md:w-[300px] md:h-[200px] bg-cover bg-center m-1 hover:scale-105 transition-all duration-200"
+                  className="relative w-[150px] h-[100px] md:w-[300px] md:h-[200px] bg-cover bg-center rounded-md overflow-hidden border border-gray-300"
                   style={{ backgroundImage: `url(${branchImage})` }}
                 >
-                  {branchImage && (
-                    <FontAwesomeIcon
-                      icon={faClose}
-                      className="absolute top-1 right-1 items-center justify-center text-red-700 cursor-pointer"
-                      size="2x"
-                      onClick={() => setBranchImage()}
-                    ></FontAwesomeIcon>
-                  )}
                   {!branchImage && (
                     <label
                       htmlFor="branch-new-image"
-                      className="w-full h-full bg-gray-500 flex items-center justify-center"
+                      className="flex items-center justify-center w-full h-full bg-gray-300 opacity-75 cursor-pointer"
                     >
                       <FontAwesomeIcon
                         icon={faPlus}
                         size="3x"
-                        className="text-white"
+                        className="text-gray-500"
                       />
                     </label>
                   )}
-                  <input
-                    id="branch-new-image"
-                    className="hidden"
-                    type="file"
-                    accept=".png,.jpg,.jpeg"
-                    onChange={(e) =>
-                      setBranchImage(URL.createObjectURL(e.target.files[0]))
-                    }
-                  ></input>
+                  {branchImage && (
+                    <button
+                      className="absolute top-2 right-2 text-red-600 hover:text-red-700"
+                      onClick={() => setBranchImage("")}
+                    >
+                      <FontAwesomeIcon icon={faClose} size="2x" />
+                    </button>
+                  )}
                 </div>
+                <input
+                  id="branch-new-image"
+                  className="hidden"
+                  type="file"
+                  accept=".png,.jpg,.jpeg"
+                  onChange={(e) =>
+                    setBranchImage(URL.createObjectURL(e.target.files[0]))
+                  }
+                />
               </div>
             </div>
           </div>
         </>
-      )} */}
+      )}
 
       {!isHeaderEditing && (
-        <>
-          <div className="w-full flex flex-col items-center justify-center">
-            <h1>{branchDetail.name}</h1>
-            <h4>{branchDetail.address}</h4>
-            <p>{branchDetail.contact}</p>
-          </div>
-          <div className="w-full flex  items-center justify-center">
-            <div className="flex w-1/2  justify-center gap-2 flex-col  items-center">
-              <div className="relative rounded-full  bg-cover bg-center flex flex-col h-24 w-24 md:h-36 md:w-36 justify-center items-center overflow-hidden">
-                <img
-                  src={img1}
-                  className="z-50 rounded-full border-black border"
-                ></img>
+        <div className="flex flex-col items-center gap-4">
+          <h1 className="text-2xl font-semibold">{branchDetail.name}</h1>
+          <h4 className="text-xl text-gray-700">{branchDetail.address}</h4>
+          <p className="text-lg text-gray-500">{branchDetail.contact}</p>
+          <div className="flex gap-6">
+            <div className="flex flex-col items-center">
+              <div className="relative w-24 h-24 md:w-36 md:h-36 bg-gray-200 border border-gray-300 rounded-full overflow-hidden">
+                {img1 && (
+                  <img
+                    src={img1}
+                    className="object-cover w-full h-full"
+                    alt="Branch Head"
+                  />
+                )}
               </div>
-              <h3>{branchDetail.branchHeadName}</h3>
-              <h4>{branchDetail.branchHeadPost}</h4>
+              <h3 className="mt-2 text-xl font-medium">
+                {branchDetail.branchHeadName}
+              </h3>
+              <h4 className="text-lg text-gray-700">
+                {branchDetail.branchHeadPost}
+              </h4>
             </div>
-            <div className="flex w-1/2 items-center justify-center ">
-              <div
-                className="flex items-center justify-center rounded-md overflow-hidden w-[150px] h-[100px] md:w-[300px] md:h-[200px] bg-cover bg-center "
-                style={{ backgroundImage: `url(${branchImage})` }}
-              ></div>
-            </div>
+            <div
+              className="relative w-[150px] h-[100px] md:w-[300px] md:h-[200px] bg-cover bg-center rounded-md overflow-hidden border border-gray-300"
+              style={{ backgroundImage: `url(${branchImage})` }}
+            ></div>
           </div>
-        </>
+        </div>
       )}
     </div>
   );
