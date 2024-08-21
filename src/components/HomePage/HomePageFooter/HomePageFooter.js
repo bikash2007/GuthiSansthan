@@ -3,7 +3,7 @@ import { useMediaQuery } from "@mui/material";
 import { Calendar } from "./Calender/Calender";
 import { Service } from "./Service/Service";
 import { Teams } from "./Teams/Teams";
-import newErrorImage from '../../../media/HomePage/error.png'; // Updated import
+import newErrorImage from "../../../media/HomePage/error.png"; // Updated import
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -13,6 +13,8 @@ import {
   faClose,
   faCodeBranch,
   faBug,
+  faExclamation,
+  faFileCircleExclamation,
 } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -54,7 +56,7 @@ export const HomePageFooter = () => {
     { icon: faCalendarAlt, label: "Calendar", section: "calender" },
     { icon: faUserGear, label: "Service", section: "service" },
     { icon: faUsers, label: "Teams", section: "teams" },
-    { icon: null, label: "Report", section: "report", image: newErrorImage },
+    { icon: faFileCircleExclamation, label: "Report", section: "report" },
   ];
 
   return (
@@ -106,19 +108,12 @@ export const HomePageFooter = () => {
               } home-footer-div flex flex-col items-center  justify-center hover:scale-150 hover:text-cyan-300 transition-transform duration-75 ease-in hover:-translate-y-3`}
               onClick={() => setSelectedSection(section)}
             >
-              {image ? (
-                <img
-                  src={image}
-                  alt={label}
-                  className="w-12 h-10 lg:w-12 lg:h-10"
-                />
-              ) : (
-                <FontAwesomeIcon
-                  icon={icon}
-                  size="2x"
-                  className="scale-50 lg:scale-105"
-                />
-              )}
+              <FontAwesomeIcon
+                icon={icon}
+                size="2x"
+                className="scale-50 lg:scale-105"
+              />
+
               <h2 className="text-sm lg:text-base">{t(label)}</h2>
             </div>
           ))}
@@ -140,7 +135,7 @@ export const HomePageFooter = () => {
           >
             <FontAwesomeIcon
               icon={faClose}
-              size={"1x"}
+              size={"2x"}
               className="cursor-pointer scale-50 lg:scale-100 absolute top-0 right-3 text-red-600 z-50"
               onClick={() => setSelectedSection("")}
             />
