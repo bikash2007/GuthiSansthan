@@ -6,20 +6,15 @@ import "./NepalFlagSlider.css";
 import { OneImage } from "./OneImage";
 import { useDispatch, useSelector } from "react-redux";
 import { addLanguage } from "../../ReuseableFunctions";
-import {
-  setSliderImg,
-} from "../../../state/HomePageSlices/HomePageSlice";
+import { setSliderImg } from "../../../state/HomePageSlices/HomePageSlice";
 import { useEditing } from "../../../context/EditingProvider";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
 import { faArrowAltCircleRight } from "@fortawesome/free-solid-svg-icons";
-
-
-
 import { EditText } from "../../EditComponents/TextEditor/EditText";
 
 export const NepalFlagSlider = ({ content }) => {
   const [isHover, setIsHover] = useState(false);
+  const [hoverTimer, setHoverTimer] = useState(null);
   const { isEditing } = useEditing();
   const [activateEdit, setActivateEdit] = useState(false);
   const dispatch = useDispatch();
@@ -29,10 +24,8 @@ export const NepalFlagSlider = ({ content }) => {
   const isMobile = useMediaQuery("(max-width:1000px)");
   const [currentSlide, setCurrentSlide] = useState(0);
   const [touchStartX, setTouchStartX] = useState(null);
-
   const [touchEndX, setTouchEndX] = useState(null);
-  const [x, setX] = useState(null); // Initialize x state
-
+  const [x, setX] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -55,24 +48,39 @@ export const NepalFlagSlider = ({ content }) => {
     else console.log("x is undefined or null");
   }, [dispatch, baseUrl, homePageDetail]);
 
+  // Handle hover start
+  const handleMouseEnter = () => {
+    const timer = setTimeout(() => {
+      setIsHover(true);
+    }, 500); // 1 second delay
+    setHoverTimer(timer);
+  };
+
+  // Handle hover end
+  const handleMouseLeave = () => {
+    clearTimeout(hoverTimer); // Clear the timer if the user stops hovering
+    setIsHover(false);
+  };
+
   // Mobile swipe logic
   const handleTouchStart = (e) => {
     setTouchStartX(e.changedTouches[0].screenX);
   };
 
   const handleTouchEnd = (e) => {
-
     setTouchEndX(e.changedTouches[0].screenX);
     const distance = touchStartX - touchEndX;
     const threshold = 50; // Minimum swipe distance to consider a swipe gesture
     if (distance > threshold) {
-      // Swiped left
       setCurrentSlide((prev) => Math.min(prev + 1, 1)); // Change 1 to the number of slides
     } else if (distance < -threshold) {
-      // Swiped right
       setCurrentSlide((prev) => Math.max(prev - 1, 0)); // Change 0 to the minimum slide index
-
     }
+  };
+
+  // Handle slide change when arrow is clicked
+  const handleSlideChange = () => {
+    setCurrentSlide((prev) => (prev + 1) % 2); // Assuming there are 2 slides (0 and 1)
   };
 
   return (
@@ -80,22 +88,20 @@ export const NepalFlagSlider = ({ content }) => {
       className={`${
         isMobile ? "h-[70vh]" : "h-[70vh]"
       } flex flex-row items-center relative w-[100vw] m-2 overflow-hidden`}
-      onMouseLeave={() => setIsHover(false)}
+      onMouseLeave={handleMouseLeave}
       onTouchStart={isMobile ? handleTouchStart : null}
       onTouchEnd={isMobile ? handleTouchEnd : null}
     >
       {/* Left Side */}
       <div
         className={`${
-          isMobile ? "text-[30px] w-[50%]" : "text-[80px] p-[10%] w-[60%]"
-        } absolute left-0 text-white font-bold transition-left duration-500 font-reggaeOne ${
+          isMobile ? "text-[30px] w-[40%]" : "text-[80px] w-[50%]"
+        } ${
           activateEdit
             ? "left-[100%]"
-            : isHover || currentSlide === 1
-            ? "left-[-100%] opacity-0"
-            : ""
-        }`}
-        onMouseEnter={() => !isMobile && setIsHover(true)}
+            : `${isHover || currentSlide === 1 ? "left-[-100%] opacity-0 " : ""}`
+        } absolute left-0 text-white font-bold transition-left duration-500 font-reggaeOne flex flex-col items-center jus`}
+        onMouseEnter={handleMouseEnter}
       >
         {x && (
           <EditText
@@ -110,36 +116,35 @@ export const NepalFlagSlider = ({ content }) => {
 
       {/* Right Side */}
       <div
-        className={`absolute h-full flex items-center transition-all duration-300 ease-in-out ${
+        className={`${
           activateEdit
             ? "left-[10%]"
-            : isHover || currentSlide === 1
-            ? `${isMobile ? "left-[-100%]" : "left-[10%]"}`
-            : "left-[60%]"
-        } ${isMobile ? "w-[20vh]" : "w-[30vh]"}`}
-        onMouseEnter={() => !isMobile && setIsHover(true)}
+            : `${
+                isHover || currentSlide === 1
+                  ? `${isMobile ? "left-[-100%]" : "left-[5%]"}`
+                  : "left-[50%]"
+              }`
+        } ${isMobile ? "w-[20vh]" : "w-[25vh]"} absolute h-full flex items-center justify-end transition-all duration-300 ease-in-out`}
+        onMouseEnter={handleMouseEnter}
       >
         <FontAwesomeIcon
-          className="text-white h-14 lg:h-20 touchme"
+          className="text-white h-14 lg:h-20"
           icon={faArrowAltCircleRight}
+          onClick={() => setCurrentSlide((prev) => (prev === 0 ? 1 : 0))}
         />
       </div>
 
       {/* Content Slider */}
       <div
-        className={`absolute px-2 py-3 mt-5 h-[60%] w-[100%] flex flex-wrap items-start justify-center gap-5 lg:gap-5 rounded-lg backdrop-blur-sm overflow-auto transition-all duration-300 ease-in-out ${
+        className={`${
           activateEdit
             ? "left-[25%]"
-
             : `${
                 isHover || currentSlide === 1
-                  ? `${isMobile ? "left-[0%]" : "left-[25%]"}`
+                  ? `${isMobile ? "left-[0%]" : "left-[20%]"}`
                   : "left-[100%]"
               }`
-        } ${isMobile ? "w-[100%] sm:w-[80%]" : "sm:w-[80%] w-[100%]"} px-2 py-3 absolute ${
-          isEditing ? "" : ""
-        } transition-all bg-red-500/10 mt-5 h-[60%] duration-300 ease-in-out flex flex-wrap backdrop-blur-sm overflow-auto items-start justify-center gap-5 lg:gap-5 rounded-lg`}
-
+        } ${isMobile ? "w-[100%]" : "w-[70%]"} absolute px-2 py-3 bg-red-500/10 mt-5 h-[60%] duration-300 ease-in-out flex flex-wrap backdrop-blur-sm overflow-auto items-start justify-center rounded-lg flex-container`}
       >
         {/* Editing Controls */}
         {isEditing && !activateEdit && (
@@ -154,32 +159,36 @@ export const NepalFlagSlider = ({ content }) => {
         <Link
           to="/jatra-parva"
           className="z-50 feature-div"
-
           onClick={(e) => {
-            isEditing && activateEdit && e.preventDefault();
+            if (isEditing && activateEdit) e.preventDefault();
           }}
-
         >
           <OneImage name={"Parav-tab"} activateEdit={activateEdit} />
         </Link>
         <Link
           to="/about-us"
           className="z-50 feature-div"
-          onClick={(e) => isEditing && activateEdit && e.preventDefault()}
+          onClick={(e) => {
+            if (isEditing && activateEdit) e.preventDefault();
+          }}
         >
           <OneImage name={"About-us-tab"} activateEdit={activateEdit} />
         </Link>
         <Link
           to="/contact-us"
           className="z-50 feature-div"
-          onClick={(e) => isEditing && activateEdit && e.preventDefault()}
+          onClick={(e) => {
+            if (isEditing && activateEdit) e.preventDefault();
+          }}
         >
           <OneImage name={"Contact-us-tab"} activateEdit={activateEdit} />
         </Link>
         <Link
           to="/articles"
           className="z-50 feature-div"
-          onClick={(e) => isEditing && activateEdit && e.preventDefault()}
+          onClick={(e) => {
+            if (isEditing && activateEdit) e.preventDefault();
+          }}
         >
           <OneImage name={"Article-tab"} activateEdit={activateEdit} />
         </Link>
@@ -189,11 +198,9 @@ export const NepalFlagSlider = ({ content }) => {
             className="absolute flex px-2 py-1 bg-gray-300 rounded-md cursor-pointer top-1 hover:bg-gray-400"
             onClick={() => setActivateEdit(false)}
           >
-
             <div className="flex px-2 py-1 bg-gray-300 rounded-md cursor-pointer hover:bg-gray-400">
               No Edit
             </div>
-
           </div>
         )}
       </div>

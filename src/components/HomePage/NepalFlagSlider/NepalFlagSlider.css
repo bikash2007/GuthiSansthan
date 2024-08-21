@@ -1,8 +1,121 @@
-.feature-div{
-
-    font-size:25px;
+.feature-div {
+    font-size: 25px;
     font-weight: bold;
     color: white;
     cursor: pointer;
     text-decoration: none;
 }
+
+@media screen and (min-width: 768px) {
+    .feature-div {
+        width: 23vw; /* Adjust width to fit all images */
+        margin: 0;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .feature-div {
+        width: 20vw; /* Adjust width to fit all images */
+        margin: 0;
+        padding: 0;
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+}
+
+.flex-container {
+    gap: 2vw; /* Adjust the gap between images */
+}
+
+@media screen and (min-width: 768px) {
+    .flex-container {
+        gap: 2vw; /* Adjust the gap between images */
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .flex-container {
+        gap: 1.5vw; /* Adjust the gap between images */
+    }
+}
+.feature-div {
+    font-size: 25px;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    text-decoration: none;
+    flex: 1; /* Allow the boxes to stretch evenly */
+    margin: 0.5vw; /* Adjust margins to control spacing */
+}
+
+@media screen and (min-width: 768px) {
+    .flex-container {
+        display: flex;
+        flex-direction: row; /* Align items horizontally */
+        justify-content: space-between; /* Space between the boxes */
+        gap: 1vw; /* Adjust gap between the boxes */
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .flex-container {
+        display: flex;
+        flex-direction: row; /* Align items horizontally */
+        justify-content: space-between; /* Space between the boxes */
+        gap: 1vw; /* Adjust gap between the boxes */
+    }
+}
+
+.feature-div {
+    font-size: 25px;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    text-decoration: none;
+    flex: 1;
+    margin: 0.5vw;
+}
+
+.flex-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 1vw;
+}
+
+@media screen and (min-width: 768px) {
+    .feature-div {
+        width: 23vw;
+    }
+    .flex-container {
+        gap: 2vw;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .feature-div {
+        width: 20vw;
+    }
+    .flex-container {
+        gap: 1.5vw;
+    }
+}
+/* Adjusted CSS for arrows */
+.arrow-button {
+   
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    z-index: 10;
+}
+
+.arrow-left {
+    left: 10px;
+}
+
+.arrow-right {
+    right: 10px;
+}
+
