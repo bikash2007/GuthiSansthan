@@ -14,7 +14,7 @@ export const TempleDescription = ({
   const [isDonation, setIsDonation] = useState(false);
   return (
     <>
-      <div className="w-full py-2 bg-slate-300/40 flex flex-col items-center">
+      <div className="w-full py-2  bg-slate-300/40 flex flex-col items-center">
         <h1
           className={`${
             isMobile ? "text-[30px]" : "text-[50px]"
@@ -24,20 +24,22 @@ export const TempleDescription = ({
         </h1>
         <h3>{location}</h3>
       </div>
-      <div className="flex flex-wrap w-full">
+      <div className="flex flex-wrap min-h-64 w-full">
         <div className="w-full lg:w-1/3 flex items-center p-2 flex-col h-[30vh]">
           <img src={img} className="max-h-full max-w-full" />
         </div>
         <div className="w-full mt-2 lg:w-2/3 flex flex-col items-center px-2">
           <p className="text-preety text-neutral-200 font-medium">{detail}</p>
+          <div className="w-full absolute bottom-0 right-0 flex justify-end px-4">
+            <button
+              onClick={() => setIsDonation(true)}
+              className={`   py-2 no-underline px-5 text-lg bg-red-600 text-white flex items-center justify-center mx-2 rounded-full hover:bg-red-700 cursor-pointer shadow-sm font-bold`}
+            >
+              Donate
+            </button>
+          </div>
         </div>
       </div>
-      <button
-        onClick={() => setIsDonation(true)}
-        className={`absolute bottom-2 right-2 py-2 no-underline px-5 text-lg bg-red-600 text-white flex items-center justify-center mx-2 rounded-full hover:bg-red-700 cursor-pointer shadow-sm font-bold`}
-      >
-        Donate
-      </button>
       {isDonation && (
         <div className="w-[95%] h-[95%] z-50 flex justify-center items-center bg-black/20 backdrop-blur-xl absolute">
           <img src={templeDetail.dynamicDetails[index]["qr_code"]} />

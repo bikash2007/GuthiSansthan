@@ -37,17 +37,6 @@ export const ShowArticle = () => {
           />
         </div>
       </div>
-
-      {/* Additional Content Area */}
-      <div className="mt-8">
-        <h2 className="text-2xl font-semibold text-gray-700 mb-4">
-          More About This Article
-        </h2>
-        <p className="text-gray-600 text-base leading-relaxed">
-          {data?.additionalInfo ||
-            "Additional content about the article can be added here."}
-        </p>
-      </div>
     </div>
   );
 };

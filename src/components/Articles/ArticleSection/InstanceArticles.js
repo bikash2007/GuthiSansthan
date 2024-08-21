@@ -1,6 +1,7 @@
 import { easeInOut, motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ViewEditButton } from "./ViewEditButton";
+import { useEditing } from "../../../context/EditingProvider";
 
 export const InstanceArticles = ({
   img,
@@ -10,6 +11,7 @@ export const InstanceArticles = ({
   data,
   setData,
 }) => {
+  const { isEditing } = useEditing();
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -17,7 +19,9 @@ export const InstanceArticles = ({
       transition={{ duration: 1 }}
       className="relative"
     >
-      <ViewEditButton articleId={articleId} data={data} setData={setData} />
+      {isEditing && (
+        <ViewEditButton articleId={articleId} data={data} setData={setData} />
+      )}
       <Link
         to={{
           pathname: "/show-article",
