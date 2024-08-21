@@ -99,7 +99,9 @@ export const NepalFlagSlider = ({ content }) => {
         } ${
           activateEdit
             ? "left-[100%]"
-            : `${isHover || currentSlide === 1 ? "left-[-100%] opacity-0 " : ""}`
+            : `${
+                isHover || currentSlide === 1 ? "left-[-100%] opacity-0 " : ""
+              }`
         } absolute left-0 text-white font-bold transition-left duration-500 font-reggaeOne flex flex-col items-center jus`}
         onMouseEnter={handleMouseEnter}
       >
@@ -124,7 +126,9 @@ export const NepalFlagSlider = ({ content }) => {
                   ? `${isMobile ? "left-[-100%]" : "left-[5%]"}`
                   : "left-[50%]"
               }`
-        } ${isMobile ? "w-[20vh]" : "w-[25vh]"} absolute h-full flex items-center justify-end transition-all duration-300 ease-in-out`}
+        } ${
+          isMobile ? "w-[20vh]" : "w-[25vh]"
+        } absolute h-full flex items-center justify-end transition-all duration-300 ease-in-out`}
         onMouseEnter={handleMouseEnter}
       >
         <FontAwesomeIcon
@@ -144,7 +148,9 @@ export const NepalFlagSlider = ({ content }) => {
                   ? `${isMobile ? "left-[0%]" : "left-[20%]"}`
                   : "left-[100%]"
               }`
-        } ${isMobile ? "w-[100%]" : "w-[70%]"} absolute px-2 py-3 bg-red-500/10 mt-5 h-[60%] duration-300 ease-in-out flex flex-wrap backdrop-blur-sm overflow-auto items-start justify-center rounded-lg flex-container`}
+        } ${
+          isMobile ? "w-[100%]" : "w-[70%]"
+        } absolute px-2 py-3  mt-5 h-[70%] duration-300 ease-in-out flex flex-wrap  overflow-auto items-start justify-center rounded-lg flex-container`}
       >
         {/* Editing Controls */}
         {isEditing && !activateEdit && (
