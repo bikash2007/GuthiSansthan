@@ -53,10 +53,10 @@ export const HomePageFooter = () => {
   }, [dispatch, baseUrl, homePageDetail]);
 
   const sections = [
-    { icon: faCalendarAlt, label: "Calendar", section: "calender" },
-    { icon: faUserGear, label: "Service", section: "service" },
-    { icon: faUsers, label: "Teams", section: "teams" },
-    { icon: faFileCircleExclamation, label: "Report", section: "report" },
+    { icon: faCalendarAlt, label: "calendar", section: "calender" },
+    { icon: faUserGear, label: "service", section: "service" },
+    { icon: faUsers, label: "teams", section: "teams" },
+    { icon: faFileCircleExclamation, label: "report", section: "report" },
   ];
 
   return (
@@ -97,7 +97,7 @@ export const HomePageFooter = () => {
                 size="2x"
                 className="scale-50 lg:scale-105"
               />
-              <h2 className="text-sm lg:text-base">Branches</h2>
+              <h2 className="text-sm lg:text-base">{t("branches")}</h2>
             </>
           </Link>
           {sections.map(({ icon, label, section, image }) => (

@@ -38,7 +38,7 @@ export const HeaderButtom = () => {
           {t("home")}
         </Link>
         <Link
-          to="/parva"
+          to="/jatra-parva"
           className={`flex flex-col no-underline font-bold md:text-xl text-[15px] hover:scale-125 transition-transform duration-100 ease-in ${
             loc.pathname === "/parva" ? "text-yellow-300" : "text-white"
           }`}

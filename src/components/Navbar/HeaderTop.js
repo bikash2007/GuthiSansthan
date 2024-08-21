@@ -70,7 +70,7 @@ export const HeaderTop = () => {
     <div
       className={`${
         isMobile ? "h-[80px] flex-wrap w-full" : "flex-row px-20 h-[100px]"
-      } flex w-full  bg-neutral-100/50 lg:bg-neutral-200/30 dark:bg-neutral-100/50 lg:backdrop-blur-lg backdrop-blur-xl  justify-between items-center p-2`}
+      } flex w-full  bg-neutral-100/30 lg:bg-neutral-200/10 dark:bg-neutral-100/10 lg:backdrop-blur-lg backdrop-blur-xl  justify-between items-center p-2`}
     >
       <Link
         to="/"
@@ -148,30 +148,34 @@ export const HeaderTop = () => {
               <div className="z-30 p-2 overflow-hidden h-full w-full items-center flex justify-center">
                 {selectLanguage === "nepali" && (
                   <img
-                    sizes="2x"
+                    sizes="4x"
                     src={globalDetail["lng-logo"]["nepali"]}
                     alt="Nepali Language"
+                    className="scale-150 lg:scale-100"
                   />
                 )}
                 {selectLanguage === "newari" && (
                   <img
-                    sizes="2x"
+                    sizes="4x"
                     src={globalDetail["lng-logo"]["newari"]}
                     alt="Newari Language"
+                    className="scale-150 lg:scale-100"
                   />
                 )}
                 {selectLanguage === "english" && (
                   <img
-                    sizes="2x"
+                    sizes="4x"
                     src={globalDetail["lng-logo"]["english"]}
                     alt="English Language"
+                    className="scale-150 lg:scale-100"
                   />
                 )}
                 {selectLanguage === "mithila" && (
                   <img
-                    sizes="2x"
+                    sizes="4x"
                     src={globalDetail["lng-logo"]["mithila"]}
                     alt="Mithila Language"
+                    className="scale-150 lg:scale-100"
                   />
                 )}
               </div>
