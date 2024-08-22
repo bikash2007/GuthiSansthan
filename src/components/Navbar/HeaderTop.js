@@ -83,11 +83,11 @@ export const HeaderTop = () => {
           isEditing && e.preventDefault();
         }}
       >
-        <img
+        {/* <img
           className={`${isMobile ? "h-[50px]" : "h-[80px]"}`}
           src={nepalLogo}
           alt="Nepal Logo"
-        />
+        /> */}
         <EditLogoImage
           imageId={globalDetail["guthi-sansthan-logo"].id}
           url={baseUrl + globalDetail.url}
