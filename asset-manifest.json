@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/GuthiSansthan/static/css/main.ff7d67c3.css",
-    "main.js": "/GuthiSansthan/static/js/main.6e2e74db.js",
+    "main.js": "/GuthiSansthan/static/js/main.d31e9476.js",
     "static/media/bg.png": "/GuthiSansthan/static/media/bg.165d9ea365d7974edd34.png",
     "static/media/HariPrasadSubedi.png": "/GuthiSansthan/static/media/HariPrasadSubedi.94638a455d9c371ff5b3.png",
     "static/media/patandurbarsquare.png": "/GuthiSansthan/static/media/patandurbarsquare.05c078c3648671d1815e.png",
@@ -37,10 +37,10 @@
     "index.html": "/GuthiSansthan/index.html",
     "static/media/getFetch.cjs": "/GuthiSansthan/static/media/getFetch.c4cca45e22bc1b2c7d0d.cjs",
     "main.ff7d67c3.css.map": "/GuthiSansthan/static/css/main.ff7d67c3.css.map",
-    "main.6e2e74db.js.map": "/GuthiSansthan/static/js/main.6e2e74db.js.map"
+    "main.d31e9476.js.map": "/GuthiSansthan/static/js/main.d31e9476.js.map"
   },
   "entrypoints": [
     "static/css/main.ff7d67c3.css",
-    "static/js/main.6e2e74db.js"
+    "static/js/main.d31e9476.js"
   ]
 }
