@@ -61,12 +61,12 @@ export const ParvaInstance = ({
       <div
         className={`${
           isMobile ? "h-[100px] w-[150px]" : "h-[150px] w-[200px]"
-        } rounded-md`}
+        } rounded-md mb-4`}
       >
         <div
           className={`${
             isEditing ? "" : ""
-          } rounded-md overflow-hidden relative h-full w-full flex items-center justify-center bg-cover bg-center bg-red-500`}
+          }  overflow-hidden relative h-full w-full flex items-center justify-center bg-cover bg-center bg-red-500`}
           style={{ backgroundImage: `url(${img})` }}
         >
           {isEditing && (
@@ -85,15 +85,14 @@ export const ParvaInstance = ({
               </div>
             </>
           )}
-          <div
-            className={`${
-              isMobile ? "text-[15px]" : "text-[30px]"
-            } absolute h-full w-full items-center justify-center flex text-white font-bold z-10`}
-            onClick={handleContent}
-          >
-            {name}
-          </div>
-          <div className="absolute bg-gray-900/50 h-full w-full"></div>
+        </div>
+        <div
+          className={`${
+            isMobile ? "text-[15px]" : "text-[20px]"
+          }   items-center bg-orange-700 backdrop-blur-lg mb-4 justify-center flex text-white font-bold z-10`}
+          onClick={handleContent}
+        >
+          {name}
         </div>
       </div>
       {

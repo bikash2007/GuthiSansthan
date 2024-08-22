@@ -88,23 +88,28 @@ export const HeaderTop = () => {
           src={nepalLogo}
           alt="Nepal Logo"
         /> */}
-        <EditLogoImage
-          imageId={globalDetail["guthi-sansthan-logo"].id}
-          url={baseUrl + globalDetail.url}
-          setNewImage={setNewGuthiSansthanLogo}
-          isActualUploadedSame={
-            globalDetail["guthi-sansthan-logo"].imgSrc ===
-            globalDetail["guthi-sansthan-logo"].actualImgSrc
-          }
-        >
-          <img
-            className={`${
-              isMobile ? "h-[50px] pr-4" : "h-[80px] pr-10"
-            } rounded-full `}
-            src={globalDetail["guthi-sansthan-logo"].imgSrc}
-            alt="Guthi Sansthan Logo"
-          />
-        </EditLogoImage>
+        <div className="flex items-center no-underline">
+          <EditLogoImage
+            imageId={globalDetail["guthi-sansthan-logo"].id}
+            url={baseUrl + globalDetail.url}
+            setNewImage={setNewGuthiSansthanLogo}
+            isActualUploadedSame={
+              globalDetail["guthi-sansthan-logo"].imgSrc ===
+              globalDetail["guthi-sansthan-logo"].actualImgSrc
+            }
+          >
+            <img
+              className={`${
+                isMobile ? "h-[50px] " : "h-[80px] "
+              } rounded-full `}
+              src={globalDetail["guthi-sansthan-logo"].imgSrc}
+              alt="Guthi Sansthan Logo"
+            />
+          </EditLogoImage>
+          <h4 className="font-bold text-white text-3xl no-underline border-none">
+            {t("logo")}
+          </h4>
+        </div>
       </Link>
       {superUser == "true" && (
         <>
