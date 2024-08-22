@@ -8,12 +8,12 @@ export const ServiceDescription=({img,name,detail})=>{
             {name}
         </h1>
     </div>
-    <div className="flex flex-wrap mt-2 w-full">
+    <div className="flex flex-wrap w-full mt-2">
         <div className="w-full lg:w-1/3 flex items-center flex-col h-[30vh]">
             <img src={img} className="max-w-full max-h-full" alt={name} />
         </div>
-        <div className="w-full mt-2 lg:w-2/3 flex flex-col px-2">
-            <p className="text-preety text-neutral-200 font-medium">{detail}</p>
+        <div className="flex flex-col w-full px-2 mt-2 lg:w-2/3">
+            <p className="font-medium text-preety text-neutral-200">{detail}</p>
         </div>
     </div>
         </>

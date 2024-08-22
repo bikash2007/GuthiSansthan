@@ -109,40 +109,52 @@ export const ContactUs = () => {
           isMobile ? "flex-col" : "flex-row "
         } flex   rounded-lg justify-center align-center gap-10 mb-44`}
       >
-        <div id="map" className="flex justify-center w-full lg:w-1/3">
-          <LoadScript googleMapsApiKey="AIzaSyDR-Piy7y9bIfz9HzE_dN_TAXJbM9UtA24">
-            <GoogleMap
-              mapContainerStyle={mapStyles}
-              zoom={15}
-              center={defaultCenter}
-              onLoad={handleLoad}
-            >
-              {mapLoaded && <Marker position={defaultCenter} />}
-            </GoogleMap>
-          </LoadScript>
-        </div>
-        <div className="flex items-center justify-center w-full gap-2 md:w-1/2">
-          <div className="flex flex-col items-start justify-center  h-[60%] px-5 py-2 font-bold bg-white rounded-lg sm:mt-6">
-            <div className="flex gap-4 px-5 text-md ">
-              <IoLocationSharp className="w-8 h-8 " />
-              <p className="hover:underline">{t("head-office-address")}</p>
-            </div>
-            <div className="flex gap-4 px-5 text-md ">
-              <MdAddCall className="w-6 h-6" />
-              <p className="hover:underline">9851082057</p>
-            </div>
-            <div className="flex gap-4 px-5 text-md ">
-              <MdOutlineMail className="w-6 h-6" />
-              <p className="hover:underline">subedihari33@gmail.com</p>
-            </div>
-          </div>
-          <div className="flex flex-col items-center justify-center h-[87%] px-5 py-2 text-lg font-bold bg-white rounded-lg md:w-1/2 sm:mt-6"> 
-            <p className="p-0 m-0 text-md"> Spokesperson</p>
-              <p>Hari Prasad Subedi</p>
-              <img src={hariparshad} />
+        
+        <div className="flex flex-col-reverse items-center justify-center w-full md:flex-row">
+  <div className="flex flex-col items-center justify-center order-last w-full gap-4 p-4 md:order-last md:flex-row sm:gap-2 sm:flex-col md:w-1/2 sm:col-12 lg:w-2/3">
+    <div className="flex flex-col items-start justify-center w-full h-auto px-4 py-2 font-bold bg-white rounded-lg sm:mt-6 sm:w-full md:w-1/2">
+      <div className="flex gap-4 px-5 text-md">
+        <IoLocationSharp className="w-8 h-8" />
+        <p className="hover:underline">{t("head-office-address")}</p>
+      </div>
+      <div className="flex gap-4 px-5 text-md">
+        <MdAddCall className="w-6 h-6" />
+        <p className="hover:underline">9851082057</p>
+      </div>
+      <div className="flex gap-4 px-5 text-md">
+        <MdOutlineMail className="w-6 h-6" />
+        <p className="hover:underline">subedihari33@gmail.com</p>
+      </div>
+    </div>
 
-          </div>
-          </div>
+    <div className="flex flex-col items-center justify-center w-full h-auto px-5 py-2 text-lg font-bold text-white rounded-lg backdrop-blur-md sm:mt-6 md:w-1/2">
+    <p className="p-1 px-5 m-1 text-black border-black rounded-md text-md bg-gradient-to-r from-gray-500 via-gray-300 to-gray-500 border-1">
+        Spokesperson</p>
+      <img src={hariparshad} alt="Hari Prasad Subedi" className="h-auto max-w-full rounded-full " />
+      <p className="p-1 px-5 m-1 text-black border-black rounded-md text-md bg-gradient-to-r from-gray-500 via-gray-300 to-gray-500 border-1">
+  Hari Prasad Subedi
+</p>
+
+
+    </div>
+  </div>
+
+  <div id="map" className="flex justify-center w-full sm:order-last sm:w-full lg:w-1/3 sm:col-12 md:order-first">
+    <LoadScript googleMapsApiKey="AIzaSyDR-Piy7y9bIfz9HzE_dN_TAXJbM9UtA24">
+      <GoogleMap
+        mapContainerStyle={mapStyles}
+        zoom={15}
+        center={defaultCenter}
+        onLoad={handleLoad}
+      >
+        {mapLoaded && <Marker position={defaultCenter} />}
+      </GoogleMap>
+    </LoadScript>
+  </div>
+</div>
+
+
+    
           <div className="flex w-full gap-2 p-2 bg-white rounded-lg d-none ">
             <div className="w-1/2">
               <EditImage
