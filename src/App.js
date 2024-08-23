@@ -88,7 +88,7 @@ function App() {
       <LoaderBox />
       <ArticleDisplay />
       <MoreDescriptionDiv />
-      {/* <PopInfo information={'hello my name is sajan shrestha'}/> */}
+      {popup && <Popup />}
       <HeaderMain />
       <div
         className={`${location.pathname === "/" ? "" : "mb-[100px]"} h-full `}

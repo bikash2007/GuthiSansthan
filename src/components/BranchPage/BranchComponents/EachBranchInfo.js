@@ -11,13 +11,14 @@ export const EachBranchInfo = () => {
   const isMobile = useMediaQuery("(max-width:800px)");
   const [section, setSection] = useState("article");
   const loc = useLocation();
-  console.log(loc.state.festivals);
+
   return (
     <div className="flex flex-col items-center gap-3">
       <BranchHeader
         branchName={loc.state.name}
         branchImg={loc.state.img}
         branchHead={loc.state.branchHead}
+        branchId={loc.state.branchId}
       />
       <div className="w-full">
         <div className="w-full py-4 flex justify-start bg-gray-600/80  gap-8 pl-16 shadow-sm blur-border">
@@ -51,7 +52,7 @@ export const EachBranchInfo = () => {
               section === "teams" ? " border-red-600 " : "border-none"
             } `}
           >
-            teams
+            Teams
           </button>
         </div>
         <div className="w-full flex items-center justify-center">
