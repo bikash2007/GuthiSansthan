@@ -49,7 +49,7 @@ export const Notices = () => {
     <div className="flex justify-center w-full h-full">
       <div className="flex flex-col w-full h-full ml-5 ">
        
-        <div className="relative flex flex-col flex-wrap h-full gap-2 px-3 text-white">
+        <div className="relative flex flex-col flex-wrap h-full gap-2 px-3 mt-3 text-white">
           {notices.length > 0 ? (
             notices.map((item) => (
               <InstanceNotice

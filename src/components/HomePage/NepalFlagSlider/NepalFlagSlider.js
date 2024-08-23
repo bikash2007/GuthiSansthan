@@ -52,7 +52,7 @@ export const NepalFlagSlider = ({ content }) => {
   const handleMouseEnter = () => {
     const timer = setTimeout(() => {
       setIsHover(true);
-    }, 500); // 1 second delay
+    }, 100); 
     setHoverTimer(timer);
   };
 
