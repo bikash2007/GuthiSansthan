@@ -147,7 +147,7 @@ export const BranchHeader = ({
                   {img1 ? (
                     <img
                       src={img1}
-                      className="object-cover w-full h-full"
+                      className=" w-full h-full"
                       alt="Branch Head"
                     />
                   ) : (
@@ -228,14 +228,19 @@ export const BranchHeader = ({
           <p className="text-lg text-gray-400">{branchDetail.contact}</p>
           <div className="flex gap-6">
             <div className="flex flex-col items-center">
-              <div className="relative w-24 h-24 md:w-36 md:h-36 bg-gray-200 border border-gray-300 rounded-full overflow-hidden">
-                {img1 && (
+              <div
+                className="relative w-24 h-24 md:w-36 md:h-36 bg-ce bg-cover bg-gray-200 border border-gray-300 rounded-full overflow-hidden"
+                style={{
+                  backgroundImage: ` ${img1 ? `url(${img1})` : ""}`,
+                }}
+              >
+                {/* {img1 && (
                   <img
                     src={img1}
-                    className="object-cover w-full h-full"
+                    className=" w-full h-full"
                     alt="Branch Head"
                   />
-                )}
+                )} */}
               </div>
               <h3 className="mt-2 text-2xl font-bold text-white">
                 {branchDetail.branchHeadName}

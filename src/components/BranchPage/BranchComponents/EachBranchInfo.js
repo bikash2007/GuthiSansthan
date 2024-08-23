@@ -14,6 +14,7 @@ export const EachBranchInfo = () => {
 
   return (
     <div className="flex flex-col items-center gap-3">
+      <div className="bg-cyan-700 h-20 absolute top-0"></div>
       <BranchHeader
         branchName={loc.state.name}
         branchImg={loc.state.img}
@@ -55,7 +56,7 @@ export const EachBranchInfo = () => {
             Teams
           </button>
         </div>
-        <div className="w-full flex items-center justify-center">
+        <div className="w-full flex items-center justify-center pt-8">
           {section === "article" && (
             <BranchArticles
               articles={loc.state.articles}
