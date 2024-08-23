@@ -106,9 +106,6 @@ export const HeaderTop = () => {
               alt="Guthi Sansthan Logo"
             />
           </EditLogoImage>
-          <h4 className="font-bold text-white text-3xl no-underline border-none">
-            {t("logo")}
-          </h4>
         </div>
       </Link>
       {superUser == "true" && (
