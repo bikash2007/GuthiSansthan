@@ -11,14 +11,9 @@ import { useMediaQuery } from "@mui/material";
 import loc1 from "../media/ContactUs/lalitpur.jpeg";
 import loc2 from "../media/ContactUs/patan.jpeg";
 import bg from "../media/ContactUs/bg.png";
-<<<<<<< Updated upstream
-import  hariparshad from '../media/ContactUs/HariPrasadSubedi.png'
-=======
 
 import Image from './Contact US/AddImage'
 import Map from './Contact US/Map'
-import Addtop from "./Contact US/Addtop";
->>>>>>> Stashed changes
 
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -89,8 +84,6 @@ export const ContactUs = () => {
       showAlert(error, "red");
     }
   });
-<<<<<<< Updated upstream
-=======
 
 // chage the location name 
 const [contactInfo, setContactInfo] = useState({
@@ -110,29 +103,6 @@ useEffect(() => {
 }, []);
 //end
 
-
-// const handleInputChange = (e) => {
-//   const { name, value } = e.target;
-//   setContactInfo((prevInfo) => ({
-//     ...prevInfo,
-//     [name]: value
-//   }));
-// };
-
-// const handleSubmit = (e) => {
-//   e.preventDefault();
-//   // Logic to save the updated information can be added here, such as sending it to a backend or local storage.
-//   alert('Contact information updated successfully!');
-// };
-
-
-
-
-
-
-
-
->>>>>>> Stashed changes
   return (
     <div className="flex flex-col items-center justify-center bg-center bg-cover verflow-hidden">
       <EditBgImage
@@ -160,42 +130,10 @@ useEffect(() => {
           isMobile ? "flex-col" : "flex-row "
         } flex   rounded-lg justify-center align-center gap-10 mb-44`}
       >
-        <div id="map" className="flex justify-center w-full lg:w-1/3">
-          <LoadScript googleMapsApiKey="AIzaSyDR-Piy7y9bIfz9HzE_dN_TAXJbM9UtA24">
-            <GoogleMap
-              mapContainerStyle={mapStyles}
-              zoom={15}
-              center={defaultCenter}
-              onLoad={handleLoad}
-            >
-              {mapLoaded && <Marker position={defaultCenter} />}
-            </GoogleMap>
-          </LoadScript>
-        </div>
-        <div className="flex items-center justify-center w-full gap-2 md:w-1/2">
-          <div className="flex flex-col items-start justify-center  h-[60%] px-5 py-2 font-bold bg-white rounded-lg sm:mt-6">
-            <div className="flex gap-4 px-5 text-md ">
-              <IoLocationSharp className="w-8 h-8 " />
-              <p className="hover:underline">{t("head-office-address")}</p>
-            </div>
-            <div className="flex gap-4 px-5 text-md ">
-              <MdAddCall className="w-6 h-6" />
-              <p className="hover:underline">9851082057</p>
-            </div>
-            <div className="flex gap-4 px-5 text-md ">
-              <MdOutlineMail className="w-6 h-6" />
-              <p className="hover:underline">subedihari33@gmail.com</p>
-            </div>
-          </div>
-          <div className="flex flex-col items-center justify-center h-[87%] px-5 py-2 text-lg font-bold bg-white rounded-lg md:w-1/2 sm:mt-6"> 
-            <p className="p-0 m-0 text-md"> Spokesperson</p>
-              <p>Hari Prasad Subedi</p>
-              <img src={hariparshad} />
+        
+        
+        <div className="flex flex-col justify-center items-center">
 
-<<<<<<< Updated upstream
-          </div>
-          </div>
-=======
         <div className="flex flex-col items-center justify-center w-full h-auto px-6 py-4 font-bold bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out">
   <div className="flex items-center gap-4 px-5 py-2 text-md">
     <IoLocationSharp className="w-8 h-8 text-green-600" />
@@ -216,52 +154,6 @@ useEffect(() => {
     </p>
   </div>
 </div>
-<Addtop/>
-
-{/* <form onSubmit={handleSubmit} className="mt-6 p-4 bg-gray-100 rounded-lg shadow-md">
-<div className="flex items-center gap-4 px-5 py-2 text-md">
-    <IoLocationSharp className="w-8 h-8 text-green-600" />
-    <input
-            type="text"
-            id="address"
-            name="address"
-            value={contactInfo.address}
-            onChange={handleInputChange}
-            className="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none"
-          />
-  </div>
-
-  <div className="flex items-center gap-4 px-5 py-2 text-md">
-        <MdAddCall className="w-6 h-6 text-blue-600" />
-          <input
-            type="text"
-            id="phone"
-            name="phone"
-            value={contactInfo.phone}
-            onChange={handleInputChange}
-            className="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none"
-          />
-        </div>
-
-        <div className="flex items-center gap-4 px-5 py-2 text-md">
-        <MdOutlineMail className="w-6 h-6 text-red-600" />
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={contactInfo.email}
-            onChange={handleInputChange}
-            className="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none"
-          />
-        </div>
-
-        <button
-          type="submit"
-          className="px-4 py-2 bg-blue-600 text-white font-bold rounded-lg shadow-md hover:bg-blue-700 transition-colors duration-200 ease-in-out"
-        >
-          Save Changes
-        </button>
-      </form> */}
 
   <Image/>
   <button className="px-6 py-3 bg-green-600 text-white font-bold rounded-3 text-xl shadow-lg transform transition-transform duration-300 ease-in-out hover:bg-green-700 hover:shadow-2xl hover:scale-105">
@@ -274,7 +166,6 @@ useEffect(() => {
 
 
     
->>>>>>> Stashed changes
           <div className="flex w-full gap-2 p-2 bg-white rounded-lg d-none ">
             <div className="w-1/2">
               <EditImage
