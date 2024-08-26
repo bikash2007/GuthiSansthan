@@ -14,7 +14,7 @@ export const EachBranchInfo = () => {
 
   return (
     <div className="flex flex-col items-center gap-3">
-      <div className="bg-cyan-700 h-20 absolute top-0"></div>
+      <div className="bg-neutral-500 h-20 absolute top-0 w-full"></div>
       <BranchHeader
         branchName={loc.state.name}
         branchImg={loc.state.img}
@@ -22,35 +22,39 @@ export const EachBranchInfo = () => {
         branchId={loc.state.branchId}
       />
       <div className="w-full">
-        <div className="w-full py-4 flex justify-start bg-gray-600/80  gap-8 pl-16 shadow-sm blur-border">
+        <div
+          className={`w-full py-4 flex ${
+            isMobile ? "justify-evenly" : "justify-start gap-8 pl-16"
+          } bg-gray-600/80 shadow-sm blur-border`}
+        >
           <button
             onClick={() => setSection("article")}
-            className={`font-bold border-b-2  hover:border-red-600 transition-all duration-200 ease-linear text-white text-xl ${
-              section === "article" ? " border-red-600 " : "border-none"
+            className={`font-bold border-b-2 hover:border-red-600 transition-all duration-200 ease-linear text-white text-base lg:text-xl ${
+              section === "article" ? "border-red-600" : "border-none"
             } `}
           >
             Article
           </button>
           <button
             onClick={() => setSection("notice")}
-            className={`font-bold border-b-2  hover:border-red-600 transition-all duration-200 ease-linear text-white text-xl ${
-              section === "notice" ? " border-red-600 " : "border-none"
+            className={`font-bold border-b-2 hover:border-red-600 transition-all duration-200 ease-linear text-white text-base lg:text-xl ${
+              section === "notice" ? "border-red-600" : "border-none"
             } `}
           >
             Notices
           </button>
           <button
             onClick={() => setSection("festival")}
-            className={`font-bold border-b-2  hover:border-red-600 transition-all duration-200 ease-linear text-white text-xl ${
-              section === "festival" ? " border-red-600 " : "border-none"
+            className={`font-bold border-b-2 hover:border-red-600 transition-all duration-200 ease-linear text-white text-base lg:text-xl ${
+              section === "festival" ? "border-red-600" : "border-none"
             } `}
           >
             Festivals
           </button>
           <button
             onClick={() => setSection("teams")}
-            className={`font-bold border-b-2  hover:border-red-600 transition-all duration-200 ease-linear text-white text-xl ${
-              section === "teams" ? " border-red-600 " : "border-none"
+            className={`font-bold border-b-2 hover:border-red-600 transition-all duration-200 ease-linear text-white text-base lg:text-xl ${
+              section === "teams" ? "border-red-600" : "border-none"
             } `}
           >
             Teams

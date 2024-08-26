@@ -10,7 +10,8 @@ const JatraMandir = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center p-4 bg-gray-100 dark:bg-gray-800 rounded-lg shadow-lg">
+    <div className="flex flex-col items-center justify-center p-4  rounded-lg shadow-lg">
+      <div className="w-full h-screen fixed top-0 -z-30 bg-gray-100 dark:bg-gray-800"></div>
       <div className="w-full flex justify-center mb-4">
         <button
           onClick={() => handleTabSwitch("parva")}

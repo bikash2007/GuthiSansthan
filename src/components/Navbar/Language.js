@@ -1,5 +1,6 @@
 import { useMediaQuery } from "@mui/material";
 import { useSelectLanguage } from "../../context/LanguageChoice";
+
 export const Language = ({
   name,
   img,
@@ -7,28 +8,20 @@ export const Language = ({
   no,
   languageOptionHidden,
 }) => {
-  const { selectLanguage, setSelectLanguage } = useSelectLanguage();
+  const { selectLanguage } = useSelectLanguage();
   const isMobile = useMediaQuery("(max-width:1000px)");
+
   return (
-    <>
-      <div
-        className={`${
-          selectLanguage === name
-            ? "hidden "
-            : `${isMobile ? "h-[15px]" : "h-[50px] "}`
-        } shadow-lg hover:bg-cyan-400/30 cursor-pointer  items-center flex justify-centeroverflow-hidden px-2 py-1`}
-        onClick={() => {
-          handleLanguageClick(name);
-        }}
-        style={{ right: `${(no / 5) * 100}%` }}
-      >
-        <img
-          src={img}
-          className={`${selectLanguage === name ? "hidden " : ``}  ${
-            languageOptionHidden ? "h-0" : "h-full"
-          }`}
-        />
-      </div>
-    </>
+    <div
+      className={`${
+        selectLanguage === name ? "hidden" : ""
+      } shadow-lg hover:bg-cyan-400/30 cursor-pointer flex items-center justify-center overflow-hidden 
+        ${isMobile ? "h-4 px-1" : "h-12 px-4"} 
+        transition-all duration-200 ease-linear`}
+      onClick={() => handleLanguageClick(name)}
+      style={{ right: `${(no / 5) * 100}%` }}
+    >
+      <p className="text-sm font-medium">{name}</p>
+    </div>
   );
 };
