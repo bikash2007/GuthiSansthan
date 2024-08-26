@@ -44,6 +44,10 @@ import JatraMandir from "./components/JataraMandir/JatraMandir";
 import { AddTeam } from "./components/HomePage/HomePageFooter/Teams/AddTeam";
 import InstantTeam from "./components/HomePage/HomePageFooter/Teams/InstantTeam";
 import { Teams } from "./components/HomePage/HomePageFooter/Teams/Teams";
+import Adminadd from "./webpage/Contact US/Adminaddimage";
+import Show from "./webpage/Contact US/Show";
+import Addtop from "./webpage/Contact US/Addtop";
+import Map from "./webpage/Contact US/Map";
 
 function App() {
   const location = useLocation();
@@ -112,6 +116,10 @@ function App() {
           <Route path="/branches" element={<BranchMainPage />} />
           <Route path="/branche-full-info" element={<EachBranchInfo />} />
           <Route path="/addteam" element={<Teams />} />
+          <Route path="/add" element={<Adminadd />} />
+          <Route path="/show" element={<Show />} />
+          <Route path="/addtop" element={<Addtop />} />
+          <Route path="/map" element={<Map />} />
 
           <>
             <Route

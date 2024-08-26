@@ -11,7 +11,14 @@ import { useMediaQuery } from "@mui/material";
 import loc1 from "../media/ContactUs/lalitpur.jpeg";
 import loc2 from "../media/ContactUs/patan.jpeg";
 import bg from "../media/ContactUs/bg.png";
+<<<<<<< Updated upstream
 import  hariparshad from '../media/ContactUs/HariPrasadSubedi.png'
+=======
+
+import Image from './Contact US/AddImage'
+import Map from './Contact US/Map'
+import Addtop from "./Contact US/Addtop";
+>>>>>>> Stashed changes
 
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -82,6 +89,50 @@ export const ContactUs = () => {
       showAlert(error, "red");
     }
   });
+<<<<<<< Updated upstream
+=======
+
+// chage the location name 
+const [contactInfo, setContactInfo] = useState({
+  address: "",
+  phone: "",
+  email: ""
+});
+
+useEffect(() => {
+  axios.get('/api/contact-info')
+    .then(response => {
+      setContactInfo(response.data);
+    })
+    .catch(error => {
+      console.error("There was an error fetching the contact info!", error);
+    });
+}, []);
+//end
+
+
+// const handleInputChange = (e) => {
+//   const { name, value } = e.target;
+//   setContactInfo((prevInfo) => ({
+//     ...prevInfo,
+//     [name]: value
+//   }));
+// };
+
+// const handleSubmit = (e) => {
+//   e.preventDefault();
+//   // Logic to save the updated information can be added here, such as sending it to a backend or local storage.
+//   alert('Contact information updated successfully!');
+// };
+
+
+
+
+
+
+
+
+>>>>>>> Stashed changes
   return (
     <div className="flex flex-col items-center justify-center bg-center bg-cover verflow-hidden">
       <EditBgImage
@@ -141,8 +192,89 @@ export const ContactUs = () => {
               <p>Hari Prasad Subedi</p>
               <img src={hariparshad} />
 
+<<<<<<< Updated upstream
           </div>
           </div>
+=======
+        <div className="flex flex-col items-center justify-center w-full h-auto px-6 py-4 font-bold bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out">
+  <div className="flex items-center gap-4 px-5 py-2 text-md">
+    <IoLocationSharp className="w-8 h-8 text-green-600" />
+    <p className="hover:underline cursor-pointer transition-colors duration-200 ease-in-out">
+      {contactInfo.address} 
+    </p>
+  </div>
+  <div className="flex items-center gap-4 px-5 py-2 text-md">
+    <MdAddCall className="w-6 h-6 text-blue-600" />
+    <p className="hover:underline cursor-pointer transition-colors duration-200 ease-in-out">
+      {contactInfo.phone}
+    </p>
+  </div>
+  <div className="flex items-center gap-4 px-5 py-2 text-md">
+    <MdOutlineMail className="w-6 h-6 text-red-600" />
+    <p className="hover:underline cursor-pointer transition-colors duration-200 ease-in-out">
+      {contactInfo.email}
+    </p>
+  </div>
+</div>
+<Addtop/>
+
+{/* <form onSubmit={handleSubmit} className="mt-6 p-4 bg-gray-100 rounded-lg shadow-md">
+<div className="flex items-center gap-4 px-5 py-2 text-md">
+    <IoLocationSharp className="w-8 h-8 text-green-600" />
+    <input
+            type="text"
+            id="address"
+            name="address"
+            value={contactInfo.address}
+            onChange={handleInputChange}
+            className="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none"
+          />
+  </div>
+
+  <div className="flex items-center gap-4 px-5 py-2 text-md">
+        <MdAddCall className="w-6 h-6 text-blue-600" />
+          <input
+            type="text"
+            id="phone"
+            name="phone"
+            value={contactInfo.phone}
+            onChange={handleInputChange}
+            className="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none"
+          />
+        </div>
+
+        <div className="flex items-center gap-4 px-5 py-2 text-md">
+        <MdOutlineMail className="w-6 h-6 text-red-600" />
+          <input
+            type="email"
+            id="email"
+            name="email"
+            value={contactInfo.email}
+            onChange={handleInputChange}
+            className="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none"
+          />
+        </div>
+
+        <button
+          type="submit"
+          className="px-4 py-2 bg-blue-600 text-white font-bold rounded-lg shadow-md hover:bg-blue-700 transition-colors duration-200 ease-in-out"
+        >
+          Save Changes
+        </button>
+      </form> */}
+
+  <Image/>
+  <button className="px-6 py-3 bg-green-600 text-white font-bold rounded-3 text-xl shadow-lg transform transition-transform duration-300 ease-in-out hover:bg-green-700 hover:shadow-2xl hover:scale-105">
+  Location
+</button>
+
+
+  
+    </div>
+
+
+    
+>>>>>>> Stashed changes
           <div className="flex w-full gap-2 p-2 bg-white rounded-lg d-none ">
             <div className="w-1/2">
               <EditImage
