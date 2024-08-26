@@ -138,7 +138,7 @@ useEffect(() => {
   <div className="flex items-center gap-4 px-5 py-2 text-md">
     <IoLocationSharp className="w-8 h-8 text-green-600" />
     <p className="hover:underline cursor-pointer transition-colors duration-200 ease-in-out">
-      {contactInfo.address}
+      {contactInfo.address} 
     </p>
   </div>
   <div className="flex items-center gap-4 px-5 py-2 text-md">
