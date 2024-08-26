@@ -11,7 +11,9 @@ import { useMediaQuery } from "@mui/material";
 import loc1 from "../media/ContactUs/lalitpur.jpeg";
 import loc2 from "../media/ContactUs/patan.jpeg";
 import bg from "../media/ContactUs/bg.png";
-import  hariparshad from '../media/ContactUs/HariPrasadSubedi.png'
+
+import Image from './Contact US/AddImage'
+import Map from './Contact US/Map'
 
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -82,6 +84,25 @@ export const ContactUs = () => {
       showAlert(error, "red");
     }
   });
+
+// chage the location name 
+const [contactInfo, setContactInfo] = useState({
+  address: "",
+  phone: "",
+  email: ""
+});
+
+useEffect(() => {
+  axios.get('/api/contact-info')
+    .then(response => {
+      setContactInfo(response.data);
+    })
+    .catch(error => {
+      console.error("There was an error fetching the contact info!", error);
+    });
+}, []);
+//end
+
   return (
     <div className="flex flex-col items-center justify-center bg-center bg-cover verflow-hidden">
       <EditBgImage
@@ -110,48 +131,38 @@ export const ContactUs = () => {
         } flex   rounded-lg justify-center align-center gap-10 mb-44`}
       >
         
-        <div className="flex flex-col-reverse items-center justify-center w-full md:flex-row">
-  <div className="flex flex-col items-center justify-center order-last w-full gap-4 p-4 md:order-last md:flex-row sm:gap-2 sm:flex-col md:w-1/2 sm:col-12 lg:w-2/3">
-    <div className="flex flex-col items-start justify-center w-full h-auto px-4 py-2 font-bold bg-white rounded-lg sm:mt-6 sm:w-full md:w-1/2">
-      <div className="flex gap-4 px-5 text-md">
-        <IoLocationSharp className="w-8 h-8" />
-        <p className="hover:underline">{t("head-office-address")}</p>
-      </div>
-      <div className="flex gap-4 px-5 text-md">
-        <MdAddCall className="w-6 h-6" />
-        <p className="hover:underline">9851082057</p>
-      </div>
-      <div className="flex gap-4 px-5 text-md">
-        <MdOutlineMail className="w-6 h-6" />
-        <p className="hover:underline">subedihari33@gmail.com</p>
-      </div>
-    </div>
+        
+        <div className="flex flex-col justify-center items-center">
 
-    <div className="flex flex-col items-center justify-center w-full h-auto px-5 py-2 text-lg font-bold text-white rounded-lg backdrop-blur-md sm:mt-6 md:w-1/2">
-    <p className="p-1 px-5 m-1 text-black border-black rounded-md text-md bg-gradient-to-r from-gray-500 via-gray-300 to-gray-500 border-1">
-        Spokesperson</p>
-      <img src={hariparshad} alt="Hari Prasad Subedi" className="h-auto max-w-full rounded-full " />
-      <p className="p-1 px-5 m-1 text-black border-black rounded-md text-md bg-gradient-to-r from-gray-500 via-gray-300 to-gray-500 border-1">
-  Hari Prasad Subedi
-</p>
-
-
-    </div>
+        <div className="flex flex-col items-center justify-center w-full h-auto px-6 py-4 font-bold bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out">
+  <div className="flex items-center gap-4 px-5 py-2 text-md">
+    <IoLocationSharp className="w-8 h-8 text-green-600" />
+    <p className="hover:underline cursor-pointer transition-colors duration-200 ease-in-out">
+      {contactInfo.address}
+    </p>
   </div>
-
-  <div id="map" className="flex justify-center w-full sm:order-last sm:w-full lg:w-1/3 sm:col-12 md:order-first">
-    <LoadScript googleMapsApiKey="AIzaSyDR-Piy7y9bIfz9HzE_dN_TAXJbM9UtA24">
-      <GoogleMap
-        mapContainerStyle={mapStyles}
-        zoom={15}
-        center={defaultCenter}
-        onLoad={handleLoad}
-      >
-        {mapLoaded && <Marker position={defaultCenter} />}
-      </GoogleMap>
-    </LoadScript>
+  <div className="flex items-center gap-4 px-5 py-2 text-md">
+    <MdAddCall className="w-6 h-6 text-blue-600" />
+    <p className="hover:underline cursor-pointer transition-colors duration-200 ease-in-out">
+      {contactInfo.phone}
+    </p>
+  </div>
+  <div className="flex items-center gap-4 px-5 py-2 text-md">
+    <MdOutlineMail className="w-6 h-6 text-red-600" />
+    <p className="hover:underline cursor-pointer transition-colors duration-200 ease-in-out">
+      {contactInfo.email}
+    </p>
   </div>
 </div>
+
+  <Image/>
+  <button className="px-6 py-3 bg-green-600 text-white font-bold rounded-3 text-xl shadow-lg transform transition-transform duration-300 ease-in-out hover:bg-green-700 hover:shadow-2xl hover:scale-105">
+  Location
+</button>
+
+
+  
+    </div>
 
 
     
