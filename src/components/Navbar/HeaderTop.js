@@ -6,7 +6,9 @@ import logo from "../../media/guthi.png";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { HeaderButtom } from "./HeaderButtom";
 import { useEffect, useRef, useState } from "react";
+import { Language } from "./Language";
 import { useSelector, useDispatch } from "react-redux";
+import { fetchImageToURL } from "../ReuseableFunctions";
 import { setNewGuthiSansthanLogo, setLngLogo } from "../../state/GlobalSlice";
 import { EditLogoImage } from "../EditComponents";
 import { useEditing } from "../../context/EditingProvider";
@@ -22,15 +24,29 @@ export const HeaderTop = () => {
   const { isEditing, setIsEditing } = useEditing(false);
   const { selectLanguage, setSelectLanguage } = useSelectLanguage();
   const { i18n, t } = useTranslation();
-  const navigate = useNavigate();
+  const loc = useLocation();
+  const [isOpen, setIsOpen] = useState(false);
+  const divRef = useRef();
+  const dropdownRef = useRef();
   const dispatch = useDispatch();
+  const baseUrl = useSelector((state) => state.baseUrl).backend;
+  const navigate = useNavigate();
   const token = sessionStorage.getItem("token");
-  const superUser = sessionStorage.getItem("superUser");
 
-  const handleLanguageChange = (event) => {
-    const lang = event.target.value;
+  const handleClickOutside = (event) => {
+    if (divRef.current && !divRef.current.contains(event.target)) {
+      setIsOpen(false);
+    }
+  };
+
+  const handleLanguageChange = (e) => {
+    const lang = e.target.value;
     setSelectLanguage(lang);
     i18n.changeLanguage(lang);
+  };
+
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
   };
 
   const handleLogOut = () => {
@@ -38,10 +54,19 @@ export const HeaderTop = () => {
     navigate("/");
   };
 
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  const superUser = sessionStorage.getItem("superUser");
+
   return (
     <div
       className={`${
-        isMobile ? "h-[80px] flex-wrap" : "h-[100px] flex-row px-10"
+        isMobile ? "h-[80px] flex-wrap" : "h-[100px] flex-row px-4 lg:px-10"
       } flex w-full bg-neutral-100/30 lg:bg-neutral-200/10 dark:bg-neutral-100/10 lg:backdrop-blur-lg backdrop-blur-xl justify-between items-center p-2`}
     >
       <Link
@@ -58,7 +83,7 @@ export const HeaderTop = () => {
         <div className="flex items-center no-underline">
           <EditLogoImage
             imageId={globalDetail["guthi-sansthan-logo"].id}
-            url={globalDetail.url}
+            url={baseUrl + globalDetail.url}
             setNewImage={setNewGuthiSansthanLogo}
             isActualUploadedSame={
               globalDetail["guthi-sansthan-logo"].imgSrc ===
@@ -73,15 +98,21 @@ export const HeaderTop = () => {
           </EditLogoImage>
         </div>
       </Link>
-      <div className="flex flex-col items-center justify-center">
-        <p className="text-white font-semibold">यतो धर्म स्ततो जय:</p>
-        <h4 className="text-white font-bold text-3xl">{t("logo")}</h4>
+
+      <div className=" hidden lg:flex flex-col  items-center justify-center text-center">
+        <p className="text-white font-semibold text-sm lg:text-base">
+          यतो धर्म स्ततो जय:
+        </p>
+        <h4 className="text-white font-bold text-lg lg:text-3xl">
+          {t("logo")}
+        </h4>
       </div>
+
       {superUser === "true" && (
         <>
           {isEditing ? (
             <div
-              className="bg-red-700 lg:flex items-center justify-center py-2 px-3 cursor-pointer rounded-md"
+              className="bg-red-700 hidden lg:flex items-center justify-center py-2 px-3 cursor-pointer rounded-md"
               onClick={() => setIsEditing(false)}
             >
               Deactivate Editing
@@ -99,19 +130,24 @@ export const HeaderTop = () => {
 
       <div
         className={`${
-          isMobile ? "gap-1 w-[50%]" : "gap-7"
-        } relative flex h-full items-center justify-start`}
+          isMobile ? "gap-1 w-[50%]" : "gap-7 "
+        } relative flex h-full items-center justify-end`}
       >
-        <select
-          value={selectLanguage}
-          onChange={handleLanguageChange}
-          className="bg-gray-300/70 text-black rounded-md p-2 cursor-pointer"
+        <div
+          ref={divRef}
+          className="relative flex gap-1 items-center w-full lg:w-auto"
         >
-          <option value="nepali">Nepali</option>
-          <option value="newari">Newari</option>
-          <option value="english">English</option>
-          <option value="mithila">Mithila</option>
-        </select>
+          <select
+            value={selectLanguage}
+            onChange={handleLanguageChange}
+            className="bg-gray-300/70 text-black rounded-md px-2 py-1 cursor-pointer w-full lg:w-auto"
+          >
+            <option value="nepali">Nepali</option>
+            <option value="newari">Newari</option>
+            <option value="english">English</option>
+            <option value="mithila">Mithila</option>
+          </select>
+        </div>
 
         {!token && (
           <Link
@@ -125,32 +161,35 @@ export const HeaderTop = () => {
           </Link>
         )}
         {token && (
-          <div className="relative text-left text-white">
+          <div className="relative text-left text-white" ref={dropdownRef}>
             <FontAwesomeIcon
               icon={faUserCircle}
               size="3x"
               className="text-white hover:text-blue-500 cursor-pointer"
+              onClick={toggleDropdown}
             />
-            <div className="absolute right-0 mt-2 w-48 bg-zinc-700/30 backdrop-blur-sm border border-gray-300 rounded-lg shadow-lg z-10">
-              <Link
-                to="/user/profile"
-                className="block px-4 py-2 text-sm text-white hover:text-red-500"
-              >
-                Profile
-              </Link>
-              <Link
-                to="/user/setting"
-                className="block px-4 py-2 text-sm text-white hover:text-red-500"
-              >
-                Setting
-              </Link>
-              <button
-                onClick={handleLogOut}
-                className="w-full text-left px-4 py-2 text-sm text-white hover:text-red-500"
-              >
-                Logout <FontAwesomeIcon icon={faRightFromBracket} />
-              </button>
-            </div>
+            {isOpen && (
+              <div className="absolute right-0 mt-2 w-48 bg-zinc-700/30 backdrop-blur-sm border border-gray-300 rounded-lg shadow-lg z-10">
+                <Link
+                  to="/user/profile"
+                  className="block px-4 py-2 text-sm text-white hover:text-red-500"
+                >
+                  Profile
+                </Link>
+                <Link
+                  to="/user/setting"
+                  className="block px-4 py-2 text-sm text-white hover:text-red-500"
+                >
+                  Setting
+                </Link>
+                <button
+                  onClick={handleLogOut}
+                  className="w-full text-left px-4 py-2 text-sm text-white hover:text-red-500"
+                >
+                  Logout <FontAwesomeIcon icon={faRightFromBracket} />
+                </button>
+              </div>
+            )}
           </div>
         )}
       </div>
