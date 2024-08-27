@@ -37,24 +37,17 @@ export const Teams = () => {
       <div className="w-full py-1 flex justify-center bg-neutral-200/30 ">
         <img src={logo} height={200} width={200} alt="Logo" />
       </div>
-
       <div className="h-full w-full flex flex-col items-center overflow-auto px-2">
-        <InstantTeam
-          image={teamData[0].user_detail.profile.photo}
-          post={"chairman"}
-        />
-        <div className="w-full flex gap-4 ">
-          {teamData.map((teamMember) => (
-            <InstantTeam
-              key={teamMember.id}
-              image={teamMember.user_detail.profile.photo}
-              name={`${teamMember.user_detail.first_name} ${teamMember.user_detail.last_name}`}
-              post={teamMember.position}
-              number={teamMember.user_detail.profile.contact_no || "N/A"}
-              // Adjust based on selected language
-            />
-          ))}
-        </div>
+        {teamData.map((teamMember) => (
+          <InstantTeam
+            key={teamMember.id}
+            image={teamMember.user_detail.profile.photo}
+            name={`${teamMember.user_detail.first_name} ${teamMember.user_detail.last_name}`}
+            post={teamMember.position}
+            number={teamMember.user_detail.profile.contact_no || "N/A"}
+            quotes={teamMember.quote.English} // Adjust based on selected language
+          />
+        ))}
         {isEditing && <AddTeam />}
       </div>
     </div>

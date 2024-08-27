@@ -9,8 +9,12 @@ import { addLanguage } from "../../ReuseableFunctions";
 import { setSliderImg } from "../../../state/HomePageSlices/HomePageSlice";
 import { useEditing } from "../../../context/EditingProvider";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowAltCircleRight } from "@fortawesome/free-solid-svg-icons";
+import {
+  faAngleRight,
+  faArrowAltCircleRight,
+} from "@fortawesome/free-solid-svg-icons";
 import { EditText } from "../../EditComponents/TextEditor/EditText";
+import image from "../../../media/Jatraform/jatra.png";
 
 export const NepalFlagSlider = ({ content }) => {
   const [isHover, setIsHover] = useState(false);
@@ -26,7 +30,6 @@ export const NepalFlagSlider = ({ content }) => {
   const [touchStartX, setTouchStartX] = useState(null);
   const [touchEndX, setTouchEndX] = useState(null);
   const [x, setX] = useState(null);
-
 
   useEffect(() => {
     const fetchData = async () => {
@@ -48,21 +51,20 @@ export const NepalFlagSlider = ({ content }) => {
     if (id) setX(id);
     else console.log("x is undefined or null");
   }, [dispatch, baseUrl, homePageDetail]);
-// Handle hover start
-const handleMouseEnter = () => {
-  const timer = setTimeout(() => {
-    setIsHover(true);
-  }, 1000); 
-  setHoverTimer(timer); // Save the timer ID so it can be cleared later
-};
+  // Handle hover start
+  const handleMouseEnter = () => {
+    const timer = setTimeout(() => {
+      setIsHover(true);
+    }, 1000);
+    setHoverTimer(timer); // Save the timer ID so it can be cleared later
+  };
 
-// Handle hover end
-const handleMouseLeave = () => {
-  // Clear the timer if the user stops hovering
-  clearTimeout(hoverTimer); // Clear the timer using the ID saved in state
-  setIsHover(false); // Set hover state to false
-};
-
+  // Handle hover end
+  const handleMouseLeave = () => {
+    // Clear the timer if the user stops hovering
+    clearTimeout(hoverTimer); // Clear the timer using the ID saved in state
+    setIsHover(false); // Set hover state to false
+  };
 
   // Mobile swipe logic
   const handleTouchStart = (e) => {
@@ -105,7 +107,6 @@ const handleMouseLeave = () => {
                 isHover || currentSlide === 1 ? "left-[-100%] opacity-0 " : ""
               }`
         } absolute left-0 text-white font-bold transition-left duration-500 font-reggaeOne flex flex-col items-center jus`}
-       
       >
         {x && (
           <EditText
@@ -152,7 +153,7 @@ const handleMouseLeave = () => {
               }`
         } ${
           isMobile ? "w-[100%]" : "w-[70%]"
-        } absolute px-2 py-3  mt-5 h-[70%] duration-300 ease-in-out flex flex-wrap  overflow-auto items-start justify-center rounded-lg flex-container`}
+        } absolute px-2 py-3  mt-5 h-[70%] duration-300 ease-in-out flex flex-wrap  overflow-y-auto items-start justify-center rounded-lg `}
       >
         {/* Editing Controls */}
         {isEditing && !activateEdit && (
@@ -164,44 +165,60 @@ const handleMouseLeave = () => {
           </div>
         )}
 
-
-    <Link
-      to="/jatra-parva"
-      className="z-[10]  feature-div"
-      onClick={(e) => {
-        if (isEditing && activateEdit) e.preventDefault();
-      }}
-    >
-      <OneImage name={"Parav-tab"} activateEdit={activateEdit} />
-    </Link>
-    <Link
-      to="/about-us"
-      className="z-[10]  feature-div"
-      onClick={(e) => {
-        if (isEditing && activateEdit) e.preventDefault();
-      }}
-    >
-      <OneImage name={"About-us-tab"} activateEdit={activateEdit} />
-    </Link>
-    <Link
-      to="/contact-us"
-      className="z-[10]  feature-div"
-      onClick={(e) => {
-        if (isEditing && activateEdit) e.preventDefault();
-      }}
-    >
-      <OneImage name={"Contact-us-tab"} activateEdit={activateEdit} />
-    </Link>
-    <Link
-      to="/articles"
-      className="z-[10]  feature-div"
-      onClick={(e) => {
-        if (isEditing && activateEdit) e.preventDefault();
-      }}
-    >
-      <OneImage name={"Article-tab"} activateEdit={activateEdit} />
-    </Link>
-
+        <Link
+          to="/jatra-parva"
+          className="z-[10]  feature-div"
+          onClick={(e) => {
+            if (isEditing && activateEdit) e.preventDefault();
+          }}
+        >
+          <OneImage name={"Parav-tab"} activateEdit={activateEdit} />
+        </Link>
+        <Link
+          to="/about-us"
+          className="z-[10]  feature-div"
+          onClick={(e) => {
+            if (isEditing && activateEdit) e.preventDefault();
+          }}
+        >
+          <OneImage name={"About-us-tab"} activateEdit={activateEdit} />
+        </Link>
+        <Link
+          to="/contact-us"
+          className="z-[10]  feature-div"
+          onClick={(e) => {
+            if (isEditing && activateEdit) e.preventDefault();
+          }}
+        >
+          <OneImage name={"Contact-us-tab"} activateEdit={activateEdit} />
+        </Link>
+        <Link
+          to="/articles"
+          className="z-[10]  feature-div"
+          onClick={(e) => {
+            if (isEditing && activateEdit) e.preventDefault();
+          }}
+        >
+          <OneImage name={"Article-tab"} activateEdit={activateEdit} />
+        </Link>
+        <a
+          target="_main"
+          href="https://ingnepal.org.np/media/%E0%A4%97%E0%A4%A0-%E0%A4%A4%E0%A4%A8%E0%A4%A5-%E0%A4%98%E0%A4%B0-%E0%A4%9C%E0%A4%97%E0%A4%97%E0%A4%95-%E0%A4%B2%E0%A4%9C%E0%A4%AE-%E0%A4%A6%E0%A4%A8-%E0%A4%B8%E0%A4%AE%E0%A4%AC%E0%A4%A8%E0%A4%A7-%E0%A4%A8%E0%A4%B0%E0%A4%A6%E0%A4%B6%E0%A4%95-%E0%A5%A8%E0%A5%A6%E0%A5%AD%E0%A5%AE.pdf"
+        >
+          <div
+            className=" flex justify-center items-start bg-cover relative bg-center z-50 hover:scale-110 transition-all duration-100 ease-in-out shadow-2xl  hover:shadow-red-600  h-44 w-32 lg:w-44 lg:h-64 rounded-lg overflow-hidden  "
+            style={{ backgroundImage: `url(${image})` }}
+          >
+            <div className="bg-zinc-900/40 backdrop-blur-[0.1px] absolute top-0  h-full w-full"></div>
+            <h1 className="text-base font-semibold z-10 lg:text-xl tracking-tighter text-white leading-none">
+              Rules&Regulation
+            </h1>
+            <FontAwesomeIcon
+              icon={faAngleRight}
+              className="absolute right-3 bottom-3"
+            />
+          </div>
+        </a>
 
         {isEditing && activateEdit && (
           <div

@@ -9,6 +9,7 @@ import { setNewTabDetail } from "../../../state/HomePageSlices/HomePageSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
 export const OneImage = ({ name, activateEdit }) => {
+  console.log(name);
   const { t } = useTranslation();
   const homePageDetail = useSelector((state) => state.homePageDetail);
   const dispatch = useDispatch();
@@ -26,6 +27,7 @@ export const OneImage = ({ name, activateEdit }) => {
     if (!homePageDetail[name].isFetched && homePageDetail.isFetched)
       fetchData();
   });
+  console.log("heee", homePageDetail[name].imgSrc);
   return (
     <>
       {activateEdit && (

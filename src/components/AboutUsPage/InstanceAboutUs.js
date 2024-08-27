@@ -9,24 +9,27 @@ const InstanceAboutUs = ({ title, text, img, onRemove }) => {
 
   return (
     <>
-      <div
-        onClick={() => setOpen(true)}
-        className="relative h-[100px] w-[150px] rounded-md overflow-hidden cursor-pointer lg:w-[200px] lg:h-[150px] bg-center bg-cover flex justify-center items-end"
-        style={{ backgroundImage: `url(${img})` }}
-      >
-        <div className="bg-zinc-900/40 w-full h-full absolute"></div>
-        <p className="text-white font-semibold z-10 p-2">{title}</p>
-        {isEditing && (
-          <button
-            className="absolute z-20 top-0 right-0 px-2 bg-red-500 text-white"
-            onClick={(e) => {
-              e.stopPropagation(); // Prevent click from also opening the modal
-              if (onRemove) onRemove();
-            }}
-          >
-            Remove
-          </button>
-        )}
+      <div className="relative  w-[150px] rounded-md overflow-hidden cursor-pointer lg:w-[200px] bg-center bg-cover flex flex-col justify-center items-end">
+        <div
+          onClick={() => setOpen(true)}
+          className="w-full bg-center bg-cover h-[100px] lg:h-[150px] "
+          style={{ backgroundImage: `url(${img})` }}
+        >
+          {isEditing && (
+            <button
+              className="absolute z-20 top-0 right-0 px-2 bg-red-500 text-white"
+              onClick={(e) => {
+                e.stopPropagation(); // Prevent click from also opening the modal
+                if (onRemove) onRemove();
+              }}
+            >
+              Remove
+            </button>
+          )}
+        </div>
+        <p className="w-full bg-blue-900 text-white font-semibold z-10 p-2">
+          {title}
+        </p>
       </div>
 
       {isOpen && (
