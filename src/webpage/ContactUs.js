@@ -3,17 +3,7 @@ import { MdAddCall } from "react-icons/md";
 import { IoLocationSharp } from "react-icons/io5";
 import { MdOutlineMail } from "react-icons/md";
 import { useMediaQuery } from "@mui/material";
-<<<<<<< HEAD
 import axios from "axios";
-=======
-import loc1 from "../media/ContactUs/lalitpur.jpeg";
-import loc2 from "../media/ContactUs/patan.jpeg";
-import bg from "../media/ContactUs/bg.png";
-
-import Image from './Contact US/AddImage'
-import Map from './Contact US/Map'
-
->>>>>>> 079976b28df1d1448e0007ab9415ff4b98caaa6a
 import { useDispatch, useSelector } from "react-redux";
 import { showAlert } from "../components/AlertLoader/index";
 import { useTranslation } from "react-i18next";
@@ -94,7 +84,6 @@ export const ContactUs = () => {
     email: "",
   });
 
-<<<<<<< HEAD
   useEffect(() => {
     axios
       .get("https://ingnepal.org.np/api/guthi-contact/1/")
@@ -135,25 +124,6 @@ export const ContactUs = () => {
       showAlert("Failed to remove spokesperson", "red");
     }
   };
-=======
-// chage the location name 
-const [contactInfo, setContactInfo] = useState({
-  address: "",
-  phone: "",
-  email: ""
-});
-
-useEffect(() => {
-  axios.get('/api/contact-info')
-    .then(response => {
-      setContactInfo(response.data);
-    })
-    .catch(error => {
-      console.error("There was an error fetching the contact info!", error);
-    });
-}, []);
-//end
->>>>>>> 079976b28df1d1448e0007ab9415ff4b98caaa6a
 
   return (
     <div className="flex flex-col items-center justify-center bg-center bg-cover overflow-hidden">
@@ -182,7 +152,6 @@ useEffect(() => {
           isMobile ? "flex-col" : "flex-row "
         } flex   rounded-lg justify-center align-center gap-10 mb-44`}
       >
-<<<<<<< HEAD
         <div className="flex flex-col items-center justify-center">
           <div className="flex flex-col items-center justify-center w-full relative h-auto px-6 py-4 font-bold transition-shadow duration-300 ease-in-out bg-white rounded-lg shadow-md hover:shadow-xl">
             <a
@@ -240,74 +209,6 @@ useEffect(() => {
             </div>
           ))}
           {isEditing && <AddContactPerson />}
-=======
-        
-        
-        <div className="flex flex-col justify-center items-center">
-
-        <div className="flex flex-col items-center justify-center w-full h-auto px-6 py-4 font-bold bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out">
-  <div className="flex items-center gap-4 px-5 py-2 text-md">
-    <IoLocationSharp className="w-8 h-8 text-green-600" />
-    <p className="hover:underline cursor-pointer transition-colors duration-200 ease-in-out">
-      {contactInfo.address} 
-    </p>
-  </div>
-  <div className="flex items-center gap-4 px-5 py-2 text-md">
-    <MdAddCall className="w-6 h-6 text-blue-600" />
-    <p className="hover:underline cursor-pointer transition-colors duration-200 ease-in-out">
-      {contactInfo.phone}
-    </p>
-  </div>
-  <div className="flex items-center gap-4 px-5 py-2 text-md">
-    <MdOutlineMail className="w-6 h-6 text-red-600" />
-    <p className="hover:underline cursor-pointer transition-colors duration-200 ease-in-out">
-      {contactInfo.email}
-    </p>
-  </div>
-</div>
-
-  <Image/>
-  <button className="px-6 py-3 bg-green-600 text-white font-bold rounded-3 text-xl shadow-lg transform transition-transform duration-300 ease-in-out hover:bg-green-700 hover:shadow-2xl hover:scale-105">
-  Location
-</button>
-
-
-  
-    </div>
-
-
-    
-          <div className="flex w-full gap-2 p-2 bg-white rounded-lg d-none ">
-            <div className="w-1/2">
-              <EditImage
-                isActualUploadedSame={
-                  contactUsPageDetail["extra-image-1"].imgSrc ===
-                  contactUsPageDetail["extra-image-1"].actualImgSrc
-                }
-                url={contactUsPageDetail["extra-image-1"].imgSrc}
-                name={"extra-image-1"}
-                setNewImage={setNewExtraImage}
-                imageId={contactUsPageDetail["extra-image-1"].id}
-              >
-                <img src={contactUsPageDetail["extra-image-1"].imgSrc} />
-              </EditImage>
-            </div>
-            <div className="w-1/2">
-              <EditImage
-                isActualUploadedSame={
-                  contactUsPageDetail["extra-image-2"].imgSrc ===
-                  contactUsPageDetail["extra-image-2"].actualImgSrc
-                }
-                url={contactUsPageDetail["extra-image-2"].imgSrc}
-                name={"extra-image-2"}
-                setNewImage={setNewExtraImage}
-                imageId={contactUsPageDetail["extra-image-2"].id}
-              >
-                <img src={contactUsPageDetail["extra-image-2"].imgSrc} />
-              </EditImage>
-           
-          </div>
->>>>>>> 079976b28df1d1448e0007ab9415ff4b98caaa6a
         </div>
       </div>
     </div>
