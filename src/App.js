@@ -44,6 +44,7 @@ import JatraMandir from "./components/JataraMandir/JatraMandir";
 import { AddTeam } from "./components/HomePage/HomePageFooter/Teams/AddTeam";
 import InstantTeam from "./components/HomePage/HomePageFooter/Teams/InstantTeam";
 import { Teams } from "./components/HomePage/HomePageFooter/Teams/Teams";
+import Add from "./webpage/Contact US/Add";
 
 function App() {
   const location = useLocation();
@@ -112,6 +113,7 @@ function App() {
           <Route path="/branches" element={<BranchMainPage />} />
           <Route path="/branche-full-info" element={<EachBranchInfo />} />
           <Route path="/addteam" element={<Teams />} />
+          <Route path="/addcontact" element={<Add />} />
 
           <>
             <Route

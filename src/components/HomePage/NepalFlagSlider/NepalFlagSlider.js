@@ -27,6 +27,7 @@ export const NepalFlagSlider = ({ content }) => {
   const [touchEndX, setTouchEndX] = useState(null);
   const [x, setX] = useState(null);
 
+
   useEffect(() => {
     const fetchData = async () => {
       addLanguage({
@@ -47,20 +48,21 @@ export const NepalFlagSlider = ({ content }) => {
     if (id) setX(id);
     else console.log("x is undefined or null");
   }, [dispatch, baseUrl, homePageDetail]);
+// Handle hover start
+const handleMouseEnter = () => {
+  const timer = setTimeout(() => {
+    setIsHover(true);
+  }, 1000); 
+  setHoverTimer(timer); // Save the timer ID so it can be cleared later
+};
 
-  // Handle hover start
-  const handleMouseEnter = () => {
-    const timer = setTimeout(() => {
-      setIsHover(true);
-    }, 1000); 
-    setHoverTimer(timer);
-  };
+// Handle hover end
+const handleMouseLeave = () => {
+  // Clear the timer if the user stops hovering
+  clearTimeout(hoverTimer); // Clear the timer using the ID saved in state
+  setIsHover(false); // Set hover state to false
+};
 
-  // Handle hover end
-  const handleMouseLeave = () => {
-    // Clear the timer if the user stops hovering
-    setIsHover(false);
-  };
 
   // Mobile swipe logic
   const handleTouchStart = (e) => {
@@ -103,7 +105,7 @@ export const NepalFlagSlider = ({ content }) => {
                 isHover || currentSlide === 1 ? "left-[-100%] opacity-0 " : ""
               }`
         } absolute left-0 text-white font-bold transition-left duration-500 font-reggaeOne flex flex-col items-center jus`}
-        onMouseEnter={handleMouseEnter}
+       
       >
         {x && (
           <EditText

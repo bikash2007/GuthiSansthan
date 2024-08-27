@@ -12,9 +12,6 @@ import loc1 from "../media/ContactUs/lalitpur.jpeg";
 import loc2 from "../media/ContactUs/patan.jpeg";
 import bg from "../media/ContactUs/bg.png";
 
-import Image from "./Contact US/AddImage";
-import Map from "./Contact US/Map";
-
 import { useDispatch, useSelector } from "react-redux";
 import {
   setBgImg,
@@ -85,7 +82,7 @@ export const ContactUs = () => {
     }
   });
 
-  // chage the location name
+
   const [contactInfo, setContactInfo] = useState({
     address: "",
     phone: "",
@@ -102,8 +99,29 @@ export const ContactUs = () => {
         console.error("There was an error fetching the contact info!", error);
       });
   }, []);
-  //end
 
+  const [spokesperson, setSpokesperson] = useState({
+    role: '',
+    name: '',
+    phone: '',
+    image: ''
+  });
+
+  useEffect(() => {
+    axios.get('/api/spokesperson')
+      .then(response => {
+        setSpokesperson(response.data);
+      })
+      .catch(error => {
+        console.error("There was an error fetching the spokesperson data!", error);
+      });
+  }, []);
+
+
+
+
+
+  
   return (
     <div className="flex flex-col items-center justify-center bg-center bg-cover verflow-hidden">
       <EditBgImage
@@ -131,30 +149,45 @@ export const ContactUs = () => {
           isMobile ? "flex-col" : "flex-row "
         } flex   rounded-lg justify-center align-center gap-10 mb-44`}
       >
-        <div className="flex flex-col justify-center items-center">
-          <div className="flex flex-col items-center justify-center w-full h-auto px-6 py-4 font-bold bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out">
+        <div className="flex flex-col items-center justify-center">
+          <div className="flex flex-col items-center justify-center w-full h-auto px-6 py-4 font-bold transition-shadow duration-300 ease-in-out bg-white rounded-lg shadow-md hover:shadow-xl">
             <div className="flex items-center gap-4 px-5 py-2 text-md">
               <IoLocationSharp className="w-8 h-8 text-green-600" />
-              <p className="hover:underline cursor-pointer transition-colors duration-200 ease-in-out">
+              <p className="transition-colors duration-200 ease-in-out cursor-pointer hover:underline">
                 {contactInfo.address}
               </p>
             </div>
             <div className="flex items-center gap-4 px-5 py-2 text-md">
               <MdAddCall className="w-6 h-6 text-blue-600" />
-              <p className="hover:underline cursor-pointer transition-colors duration-200 ease-in-out">
+              <p className="transition-colors duration-200 ease-in-out cursor-pointer hover:underline">
                 {contactInfo.phone}
               </p>
             </div>
             <div className="flex items-center gap-4 px-5 py-2 text-md">
               <MdOutlineMail className="w-6 h-6 text-red-600" />
-              <p className="hover:underline cursor-pointer transition-colors duration-200 ease-in-out">
+              <p className="transition-colors duration-200 ease-in-out cursor-pointer hover:underline">
                 {contactInfo.email}
               </p>
             </div>
           </div>
 
-          <Image />
-          <button className="px-6 py-3 bg-green-600 text-white font-bold rounded-3 text-xl shadow-lg transform transition-transform duration-300 ease-in-out hover:bg-green-700 hover:shadow-2xl hover:scale-105">
+          <div className="flex flex-col items-center justify-center w-full max-w-sm p-6 m-4 space-y-4 transition-shadow duration-300 ease-in-out bg-white rounded-lg shadow-lg hover:shadow-xl">
+  <p className="px-4 py-2 text-lg font-semibold text-gray-800 rounded-md bg-gradient-to-r from-purple-400 via-pink-300 to-purple-400">
+    {spokesperson.role}
+  </p>
+  <img 
+    src={spokesperson.image} 
+    alt={spokesperson.name} 
+    className="w-40 h-40 border-4 rounded-full shadow-lg border-gradient-to-r from-purple-400 via-pink-300 to-purple-400"
+  />
+  <p className="px-4 py-2 mb-2 text-xl font-bold text-gray-900 bg-white border border-gray-200 rounded-md shadow-lg">
+    {spokesperson.name}
+  </p>
+  <p className="px-4 py-2 text-lg font-medium text-gray-800 bg-white border border-gray-200 rounded-md shadow-lg">
+    {spokesperson.phone}
+  </p>
+</div>
+          <button className="px-6 py-3 text-xl font-bold text-white transition-transform duration-300 ease-in-out transform bg-green-600 shadow-lg rounded-3 hover:bg-green-700 hover:shadow-2xl hover:scale-105">
             Location
           </button>
         </div>
