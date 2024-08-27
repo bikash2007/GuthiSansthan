@@ -1,19 +1,17 @@
 {
   "files": {
-    "main.css": "/GuthiSansthan/static/css/main.4604f4b5.css",
-    "main.js": "/GuthiSansthan/static/js/main.f45deca0.js",
+    "main.css": "/GuthiSansthan/static/css/main.a87c261d.css",
+    "main.js": "/GuthiSansthan/static/js/main.2b1f738f.js",
     "static/media/bg.png": "/GuthiSansthan/static/media/bg.165d9ea365d7974edd34.png",
+    "static/media/jatra.png": "/GuthiSansthan/static/media/jatra.f14bec51ef0e8ac27908.png",
     "static/media/patandurbarsquare.png": "/GuthiSansthan/static/media/patandurbarsquare.05c078c3648671d1815e.png",
     "static/media/0S3A9842 2.png": "/GuthiSansthan/static/media/0S3A9842 2.ee57b6bec2c1206720c4.png",
-    "static/media/logo.gif": "/GuthiSansthan/static/media/logo.ee44f7108b492b75a0d3.gif",
     "static/media/nepalLandmark.png": "/GuthiSansthan/static/media/nepalLandmark.f4a649f5f4a01c8375fa.png",
     "static/media/2.png": "/GuthiSansthan/static/media/2.12159d43b381ad6fd57c.png",
     "static/media/guthi.png": "/GuthiSansthan/static/media/guthi.78f5dfb1bebce1d3aaff.png",
-    "static/media/lalitpur.jpeg": "/GuthiSansthan/static/media/lalitpur.12fc5d0220566fccef58.jpeg",
     "static/media/pasupatibg.jpg": "/GuthiSansthan/static/media/pasupatibg.986ac5ce1c0cad175e67.jpg",
-    "static/media/patan.jpeg": "/GuthiSansthan/static/media/patan.3ecb34c93924e7b97793.jpeg",
     "static/media/sajan shrestha  MIT  Resume.pdf": "/GuthiSansthan/static/media/sajan shrestha  MIT  Resume.22614ff7954a36f76d0c.pdf",
-    "static/media/logo192.png": "/GuthiSansthan/static/media/logo192.8c15471e4186158935a5.png",
+    "static/media/logo192.png": "/GuthiSansthan/static/media/logo192.0d3302e463fe6e0bfd2a.png",
     "static/media/rectangle.png": "/GuthiSansthan/static/media/rectangle.075a923544428c431939.png",
     "static/media/sagar_shrestha_Resume (1).pdf": "/GuthiSansthan/static/media/sagar_shrestha_Resume (1).90503f7889d533156f0d.pdf",
     "static/media/image.png": "/GuthiSansthan/static/media/image.b845c19e932b8813e42d.png",
@@ -26,14 +24,14 @@
     "static/media/janaki.jpeg": "/GuthiSansthan/static/media/janaki.a0edb29d221bd73918a5.jpeg",
     "static/media/pashupati.jpeg": "/GuthiSansthan/static/media/pashupati.97c239635bca085a3ba7.jpeg",
     "static/media/NewariDescription.txt": "/GuthiSansthan/static/media/NewariDescription.1675dbb35312ff2a8622.txt",
-    "static/media/EnglishDescription.txt": "/GuthiSansthan/static/media/EnglishDescription.d2c323a9768069872a06.txt",
     "index.html": "/GuthiSansthan/index.html",
+    "static/media/EnglishDescription.txt": "/GuthiSansthan/static/media/EnglishDescription.d2c323a9768069872a06.txt",
     "static/media/getFetch.cjs": "/GuthiSansthan/static/media/getFetch.c4cca45e22bc1b2c7d0d.cjs",
-    "main.4604f4b5.css.map": "/GuthiSansthan/static/css/main.4604f4b5.css.map",
-    "main.f45deca0.js.map": "/GuthiSansthan/static/js/main.f45deca0.js.map"
+    "main.a87c261d.css.map": "/GuthiSansthan/static/css/main.a87c261d.css.map",
+    "main.2b1f738f.js.map": "/GuthiSansthan/static/js/main.2b1f738f.js.map"
   },
   "entrypoints": [
-    "static/css/main.4604f4b5.css",
-    "static/js/main.f45deca0.js"
+    "static/css/main.a87c261d.css",
+    "static/js/main.2b1f738f.js"
   ]
 }
