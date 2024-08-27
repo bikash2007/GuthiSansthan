@@ -101,9 +101,9 @@ export const HeaderTop = () => {
 
       <div className=" hidden lg:flex flex-col  items-center justify-center text-center">
         <p className="text-white font-semibold text-sm lg:text-base">
-          यतो धर्म स्ततो जय:
+          यतो धर्म: स्ततो जय:
         </p>
-        <h4 className="text-white font-bold text-lg lg:text-3xl">
+        <h4 className="text-white font-bold text-lg lg:text-5xl">
           {t("logo")}
         </h4>
       </div>
@@ -140,7 +140,7 @@ export const HeaderTop = () => {
           <select
             value={selectLanguage}
             onChange={handleLanguageChange}
-            className="bg-gray-300/70 text-black rounded-md px-2 py-1 cursor-pointer w-full lg:w-auto"
+            className="bg-gray-300/30 text-black rounded-md px-2 py-1 cursor-pointer w-full lg:w-auto"
           >
             <option value="nepali">Nepali</option>
             <option value="newari">Newari</option>
@@ -164,7 +164,7 @@ export const HeaderTop = () => {
           <div className="relative text-left text-white" ref={dropdownRef}>
             <FontAwesomeIcon
               icon={faUserCircle}
-              size="3x"
+              size="2x"
               className="text-white hover:text-blue-500 cursor-pointer"
               onClick={toggleDropdown}
             />
