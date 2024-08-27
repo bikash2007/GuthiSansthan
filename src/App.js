@@ -44,14 +44,7 @@ import JatraMandir from "./components/JataraMandir/JatraMandir";
 import { AddTeam } from "./components/HomePage/HomePageFooter/Teams/AddTeam";
 import InstantTeam from "./components/HomePage/HomePageFooter/Teams/InstantTeam";
 import { Teams } from "./components/HomePage/HomePageFooter/Teams/Teams";
-<<<<<<< HEAD
 import Add from "./webpage/Contact US/EditLocation";
-=======
-import Adminadd from "./webpage/Contact US/Adminaddimage";
-import Show from "./webpage/Contact US/Show";
-import Addtop from "./webpage/Contact US/Addtop";
-import Map from "./webpage/Contact US/Map";
->>>>>>> 079976b28df1d1448e0007ab9415ff4b98caaa6a
 
 function App() {
   const location = useLocation();
@@ -120,22 +113,13 @@ function App() {
           <Route path="/branches" element={<BranchMainPage />} />
           <Route path="/branche-full-info" element={<EachBranchInfo />} />
           <Route path="/addteam" element={<Teams />} />
-<<<<<<< HEAD
-          <Route path="/addcontact" element={<Add />} />
-=======
-          <Route path="/add" element={<Adminadd />} />
-          <Route path="/show" element={<Show />} />
-          <Route path="/addtop" element={<Addtop />} />
-          <Route path="/map" element={<Map />} />
->>>>>>> 079976b28df1d1448e0007ab9415ff4b98caaa6a
 
-          <>
-            <Route
-              path="/super-user/add-articles"
-              element={<ArticleAddition />}
-            />
-            <Route path="/super-user/add-notices" element={<NoticeForm />} />
-          </>
+          <Route
+            path="/super-user/add-articles"
+            element={<ArticleAddition />}
+          />
+          <Route path="/super-user/add-notices" element={<NoticeForm />} />
+
           <>
             <Route path="/user/profile" element={<ProfileSection />} />
             <Route path="/user/setting" element={<SettingMainPage />} />
