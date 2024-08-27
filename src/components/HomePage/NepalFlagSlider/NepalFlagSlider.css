@@ -70,3 +70,7 @@
 .arrow-right {
     right: 10px;
 }
+
+.feature-div:hover{
+    color:white;
+}

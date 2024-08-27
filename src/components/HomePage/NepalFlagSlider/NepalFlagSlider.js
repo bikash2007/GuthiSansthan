@@ -165,7 +165,7 @@ export const NepalFlagSlider = ({ content }) => {
 
     <Link
       to="/jatra-parva"
-      className="z-[-10]  feature-div"
+      className="z-[10]  feature-div"
       onClick={(e) => {
         if (isEditing && activateEdit) e.preventDefault();
       }}
@@ -174,7 +174,7 @@ export const NepalFlagSlider = ({ content }) => {
     </Link>
     <Link
       to="/about-us"
-      className="z-[-10]  feature-div"
+      className="z-[10]  feature-div"
       onClick={(e) => {
         if (isEditing && activateEdit) e.preventDefault();
       }}
@@ -183,7 +183,7 @@ export const NepalFlagSlider = ({ content }) => {
     </Link>
     <Link
       to="/contact-us"
-      className="z-[-10]  feature-div"
+      className="z-[10]  feature-div"
       onClick={(e) => {
         if (isEditing && activateEdit) e.preventDefault();
       }}
@@ -192,7 +192,7 @@ export const NepalFlagSlider = ({ content }) => {
     </Link>
     <Link
       to="/articles"
-      className="z-[-10]  feature-div"
+      className="z-[10]  feature-div"
       onClick={(e) => {
         if (isEditing && activateEdit) e.preventDefault();
       }}
