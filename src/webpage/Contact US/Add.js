@@ -33,7 +33,7 @@ export default function Add() {
   return (
     <div className="flex flex-col items-center justify-center">
       <form onSubmit={handleSubmit} className="w-full max-w-lg p-6 bg-white rounded-lg shadow-lg">
-        <h2 className="mb-4 text-2xl font-bold text-gray-800">Admin Input Form</h2>
+        <h2 className="mb-4 text-2xl font-bold text-gray-800">Contact US</h2>
 
         <div className="mb-4">
           <label className="block mb-2 font-bold text-gray-700 text-md" htmlFor="address">
@@ -124,7 +124,7 @@ export default function Add() {
             Spokesperson Image URL
           </label>
           <input
-            type="text"
+            type="file"
             name="image"
             id="image"
             value={spokesperson.image}
