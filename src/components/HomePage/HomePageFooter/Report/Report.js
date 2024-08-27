@@ -44,8 +44,8 @@ export default function Report() {
   };
 
   return (
-    <div className="p-6 max-w-4xl mx-auto bg-gray-100 rounded-lg shadow-lg">
-      <h1 className="text-3xl font-bold text-center text-gray-800 mb-6">
+    <div className="max-w-4xl p-6 mx-auto bg-gray-100 rounded-lg shadow-lg">
+      <h1 className="mb-6 text-3xl font-bold text-center text-gray-800">
         Complaint Form
       </h1>
       <form onSubmit={handleSubmit} className="space-y-6">
@@ -53,7 +53,7 @@ export default function Report() {
         <div>
           <label
             htmlFor="firstName"
-            className="block text-lg font-semibold text-gray-700 mb-2"
+            className="block mb-2 text-lg font-semibold text-gray-700"
           >
             Full Name
           </label>
@@ -77,7 +77,7 @@ export default function Report() {
         <div>
           <label
             htmlFor="email"
-            className="block text-lg font-semibold text-gray-700 mb-2"
+            className="block mb-2 text-lg font-semibold text-gray-700"
           >
             Email Address
           </label>
@@ -101,7 +101,7 @@ export default function Report() {
         <div>
           <label
             htmlFor="phone"
-            className="block text-lg font-semibold text-gray-700 mb-2"
+            className="block mb-2 text-lg font-semibold text-gray-700"
           >
             Phone Number
           </label>
@@ -122,12 +122,12 @@ export default function Report() {
         </div>
 
         {/* Branch and Department Fields */}
-        <div className="flex flex-col md:flex-row gap-4">
+        <div className="flex flex-col gap-4 md:flex-row">
           {/* Branch Field */}
-          <div className="w-full md:w-1/2">
+          <div className="w-full md:w-1/1">
             <label
               htmlFor="subject"
-              className="block text-lg font-semibold text-gray-700 mb-2"
+              className="block mb-2 text-lg font-semibold text-gray-700"
             >
               Branch
             </label>
@@ -153,40 +153,14 @@ export default function Report() {
           </div>
 
           {/* Department Field */}
-          <div className="w-full md:w-1/2">
-            <label
-              htmlFor="department"
-              className="block text-lg font-semibold text-gray-700 mb-2"
-            >
-              Department
-            </label>
-            <select
-              name="department"
-              id="department"
-              className={`w-full p-3 border rounded-md ${
-                errors.department ? "border-red-500" : "border-gray-300"
-              } focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300`}
-              value={formData.department}
-              onChange={handleChange}
-            >
-              <option value="" disabled>
-                Select Department
-              </option>
-              <option value="Department1">Department 1</option>
-              <option value="Department2">Department 2</option>
-              <option value="Department3">Department 3</option>
-            </select>
-            {errors.department && (
-              <p className="mt-1 text-sm text-red-500">{errors.department}</p>
-            )}
-          </div>
+          
         </div>
 
         {/* Reason Field */}
         <div>
           <label
             htmlFor="reason"
-            className="block text-lg font-semibold text-gray-700 mb-2"
+            className="block mb-2 text-lg font-semibold text-gray-700"
           >
             Reason For Complaint
           </label>
@@ -210,7 +184,7 @@ export default function Report() {
         <div>
           <label
             htmlFor="message"
-            className="block text-lg font-semibold text-gray-700 mb-2"
+            className="block mb-2 text-lg font-semibold text-gray-700"
           >
             Complaint Details
           </label>

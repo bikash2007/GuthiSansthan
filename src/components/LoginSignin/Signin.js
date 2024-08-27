@@ -64,17 +64,17 @@ export const Signin = () => {
 
     return (
         <>
-            <div className="fixed h-screen w-screen -z-10 top-0" style={{ backgroundImage: `url(${bgImage})` }}></div>
+            <div className="fixed top-0 w-screen h-screen -z-10" style={{ backgroundImage: `url(${bgImage})` }}></div>
             <div className={`bg-cover bg-center`}>
                 <div className={`${isMobile ? '' : 'h-[80vh]'} flex items-center justify-center gap-3 flex-col md:flex-row lg:flex-row mx-[20px]`}>
                     <div className={`${isMobile ? 'w-[200px]' : 'w-[500px]'}`}>
                         <img src={nepalLandmark} alt="Nepal Landmark" />
                     </div>
                     <div className='flex flex-col items-center justify-center p-3'>
-                        <div className='text-white flex items-center justify-center'>
-                            <h1 className='text-yellow-400 text-5xl mb-6 border-b-2 border-red-500'>Create an Account</h1>
+                        <div className='flex items-center justify-center text-white'>
+                            <h1 className='mb-6 text-5xl text-yellow-400 border-b-2 border-red-500'>Create an Account</h1>
                         </div>
-                        <form onSubmit={handleSubmit} className='flex flex-col text-white gap-3'>
+                        <form onSubmit={handleSubmit} className='flex flex-col gap-3 text-white'>
                             <div className='flex gap-3'>
                                 <div className='flex flex-col w-full'>
                                     <label><h5>First Name</h5></label>
@@ -107,7 +107,7 @@ export const Signin = () => {
                                     type="email"
                                     name="email"
                                     required
-                                    className='border  rounded-md focus:outline-cyan-600 border-black p-2 w-full text-black'
+                                    className='w-full p-2 text-black border border-black rounded-md focus:outline-cyan-600'
                                     placeholder="Email"
                                     value={formData.email}
                                     onChange={handleChange}
@@ -119,7 +119,7 @@ export const Signin = () => {
                                 <input
                                     type="text"
                                     name="username"
-                                    className='border  rounded-md focus:outline-cyan-600 border-black p-2 w-full  text-black'
+                                    className='w-full p-2 text-black border border-black rounded-md focus:outline-cyan-600'
                                     placeholder="Username"
                                     value={formData.username}
                                     onChange={handleChange}
@@ -154,8 +154,8 @@ export const Signin = () => {
                                 </div>
                             </div>
                             <Link to='/log-in' className='text-lg text-cyan-500 hover:text-cyan-400'>Already have an account?</Link>
-                            <div className='flex justify-center lg:justify-end mt-5'>
-                                <button type="submit" className='rounded-full px-6 py-1 font-bold text-white bg-blue-600'>
+                            <div className='flex justify-center mt-1 me-2 lg:justify-end'>
+                                <button type="submit" className='px-6 py-2 font-bold text-center text-white bg-blue-600 rounded-full shadow-lg hover:shadow-blue-900 hover:scale-110' >
                                     <h5>{t('sign-up')}</h5>
                                 </button>
                             </div>

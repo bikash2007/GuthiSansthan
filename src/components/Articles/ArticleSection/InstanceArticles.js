@@ -25,14 +25,15 @@ export const InstanceArticles = ({
 
       <div className="flex flex-col gap-3">
 
-<div className="w-full md:w-[75%]  border-2 border-slate-500 rounded-3xl p-4 md:ms-8  hover:shadow-gray-800 shadow-md hover:scale-105 bg-gray-300">
+<div className="w-full md:w-[75%]  border-2 border-slate-500 rounded-3xl p-4 md:ms-8 flex flex-col gap-[100px] mt-2  hover:shadow-gray-800 shadow-md hover:scale-105 bg-gray-300">
   <Link
+
     to={{
       pathname: "/show-article",
     }}
     state={{ img: img, desc: desc, title: title }}
   >
-    <div className="flex flex-col items-center md:flex-row">
+    <div className="flex flex-col items-center md:flex-row text-decoration-none">
       <div className="w-full mb-1 md:w-10/12 md:mb-0">
         <div className="flex items-center">
           <img src={img} className="w-12 h-12 mr-4 rounded-full" alt="logo" />

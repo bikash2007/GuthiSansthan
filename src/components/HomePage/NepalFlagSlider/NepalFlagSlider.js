@@ -52,13 +52,13 @@ export const NepalFlagSlider = ({ content }) => {
   const handleMouseEnter = () => {
     const timer = setTimeout(() => {
       setIsHover(true);
-    }, 100); 
+    }, 1000); 
     setHoverTimer(timer);
   };
 
   // Handle hover end
   const handleMouseLeave = () => {
-    clearTimeout(hoverTimer); // Clear the timer if the user stops hovering
+    // Clear the timer if the user stops hovering
     setIsHover(false);
   };
 
@@ -70,7 +70,7 @@ export const NepalFlagSlider = ({ content }) => {
   const handleTouchEnd = (e) => {
     setTouchEndX(e.changedTouches[0].screenX);
     const distance = touchStartX - touchEndX;
-    const threshold = 50; // Minimum swipe distance to consider a swipe gesture
+    const threshold = 5; // Minimum swipe distance to consider a swipe gesture
     if (distance > threshold) {
       setCurrentSlide((prev) => Math.min(prev + 1, 1)); // Change 1 to the number of slides
     } else if (distance < -threshold) {
@@ -95,7 +95,7 @@ export const NepalFlagSlider = ({ content }) => {
       {/* Left Side */}
       <div
         className={`${
-          isMobile ? "text-[30px] w-[40%]" : "text-[80px] w-[50%]"
+          isMobile ? "text-[30px] w-[45%]" : "text-[80px] w-[50%]"
         } ${
           activateEdit
             ? "left-[100%]"
@@ -162,42 +162,44 @@ export const NepalFlagSlider = ({ content }) => {
           </div>
         )}
 
-        <Link
-          to="/jatra-parva"
-          className="z-50 feature-div"
-          onClick={(e) => {
-            if (isEditing && activateEdit) e.preventDefault();
-          }}
-        >
-          <OneImage name={"Parav-tab"} activateEdit={activateEdit} />
-        </Link>
-        <Link
-          to="/about-us"
-          className="z-50 feature-div"
-          onClick={(e) => {
-            if (isEditing && activateEdit) e.preventDefault();
-          }}
-        >
-          <OneImage name={"About-us-tab"} activateEdit={activateEdit} />
-        </Link>
-        <Link
-          to="/contact-us"
-          className="z-50 feature-div"
-          onClick={(e) => {
-            if (isEditing && activateEdit) e.preventDefault();
-          }}
-        >
-          <OneImage name={"Contact-us-tab"} activateEdit={activateEdit} />
-        </Link>
-        <Link
-          to="/articles"
-          className="z-50 feature-div"
-          onClick={(e) => {
-            if (isEditing && activateEdit) e.preventDefault();
-          }}
-        >
-          <OneImage name={"Article-tab"} activateEdit={activateEdit} />
-        </Link>
+
+    <Link
+      to="/jatra-parva"
+      className="z-[-10]  feature-div"
+      onClick={(e) => {
+        if (isEditing && activateEdit) e.preventDefault();
+      }}
+    >
+      <OneImage name={"Parav-tab"} activateEdit={activateEdit} />
+    </Link>
+    <Link
+      to="/about-us"
+      className="z-[-10]  feature-div"
+      onClick={(e) => {
+        if (isEditing && activateEdit) e.preventDefault();
+      }}
+    >
+      <OneImage name={"About-us-tab"} activateEdit={activateEdit} />
+    </Link>
+    <Link
+      to="/contact-us"
+      className="z-[-10]  feature-div"
+      onClick={(e) => {
+        if (isEditing && activateEdit) e.preventDefault();
+      }}
+    >
+      <OneImage name={"Contact-us-tab"} activateEdit={activateEdit} />
+    </Link>
+    <Link
+      to="/articles"
+      className="z-[-10]  feature-div"
+      onClick={(e) => {
+        if (isEditing && activateEdit) e.preventDefault();
+      }}
+    >
+      <OneImage name={"Article-tab"} activateEdit={activateEdit} />
+    </Link>
+
 
         {isEditing && activateEdit && (
           <div

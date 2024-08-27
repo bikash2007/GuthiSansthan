@@ -1,73 +1,4 @@
-.feature-div {
-    font-size: 25px;
-    font-weight: bold;
-    color: white;
-    cursor: pointer;
-    text-decoration: none;
-}
-
-@media screen and (min-width: 768px) {
-    .feature-div {
-        width: 23vw; /* Adjust width to fit all images */
-        margin: 0;
-    }
-}
-
-@media screen and (min-width: 1024px) {
-    .feature-div {
-        width: 20vw; /* Adjust width to fit all images */
-        margin: 0;
-        padding: 0;
-        align-items: center;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-    }
-}
-
-.flex-container {
-    gap: 2vw; /* Adjust the gap between images */
-}
-
-@media screen and (min-width: 768px) {
-    .flex-container {
-        gap: 2vw; /* Adjust the gap between images */
-    }
-}
-
-@media screen and (min-width: 1024px) {
-    .flex-container {
-        gap: 1.5vw; /* Adjust the gap between images */
-    }
-}
-.feature-div {
-    font-size: 25px;
-    font-weight: bold;
-    color: white;
-    cursor: pointer;
-    text-decoration: none;
-    flex: 1; /* Allow the boxes to stretch evenly */
-    margin: 0.5vw; /* Adjust margins to control spacing */
-}
-
-@media screen and (min-width: 768px) {
-    .flex-container {
-        display: flex;
-        flex-direction: row; /* Align items horizontally */
-        justify-content: space-between; /* Space between the boxes */
-        gap: 1vw; /* Adjust gap between the boxes */
-    }
-}
-
-@media screen and (min-width: 1024px) {
-    .flex-container {
-        display: flex;
-        flex-direction: row; /* Align items horizontally */
-        justify-content: space-between; /* Space between the boxes */
-        gap: 1vw; /* Adjust gap between the boxes */
-    }
-}
-
+/* General styles for feature-div */
 .feature-div {
     font-size: 25px;
     font-weight: bold;
@@ -78,37 +9,58 @@
     margin: 0.5vw;
 }
 
+/* Flex container with spacing adjustments */
 .flex-container {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    gap: 1vw;
+    gap: 1vw; /* Default gap between boxes */
 }
 
+/* Small screen adjustments */
+@media screen and (max-width: 767px) {
+    .flex-container {
+        flex-wrap: wrap;
+        gap: 2vw; /* Adjust gap between boxes */
+    }
+
+    .feature-div {
+        width: 48%; /* Set width so two links fit side by side */
+    }
+}
+
+/* Medium screen adjustments */
 @media screen and (min-width: 768px) {
     .feature-div {
-        width: 23vw;
+        width: 23vw; /* Adjust width to fit images */
     }
     .flex-container {
-        gap: 2vw;
+        gap: 2vw; /* Adjust gap between boxes */
     }
 }
 
+/* Large screen adjustments */
 @media screen and (min-width: 1024px) {
     .feature-div {
-        width: 20vw;
+        width: 20vw; /* Adjust width to fit images */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 0;
     }
     .flex-container {
-        gap: 1.5vw;
+        gap: 1.5vw; /* Adjust gap between boxes */
     }
 }
-/* Adjusted CSS for arrows */
+
+/* Styles for arrows */
 .arrow-button {
-   
     top: 50%;
     transform: translateY(-50%);
     cursor: pointer;
     z-index: 10;
+    position: absolute;
 }
 
 .arrow-left {
@@ -118,4 +70,3 @@
 .arrow-right {
     right: 10px;
 }
-
