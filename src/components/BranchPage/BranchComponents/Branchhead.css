@@ -1,0 +1,17 @@
+.headimage {
+    border-radius: 0 50% 50% 0; /* More pronounced curves */
+    background: linear-gradient(135deg, #00ffff, #001f3f); /* Gradient background for a modern look */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Deeper shadow for more depth */
+    padding: 20px; /* Add padding for spacing */
+    transition: all 0.3s ease-in-out;
+  }
+
+  .headimage-container {
+    border-radius: 50%;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    border: 4px solid #00ffff;
+  }
+
+  .headimage:hover {
+    transform: scale(1.05) rotate(1deg); /* Slight rotation and scale on hover */
+  }

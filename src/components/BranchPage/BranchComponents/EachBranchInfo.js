@@ -14,7 +14,7 @@ export const EachBranchInfo = () => {
 
   return (
     <div className="flex flex-col items-center gap-3">
-      <div className="bg-neutral-500 h-20 absolute top-0 w-full"></div>
+      <div className="absolute top-0 w-full h-20 "></div>
       <BranchHeader
         branchName={loc.state.name}
         branchImg={loc.state.img}
@@ -23,9 +23,10 @@ export const EachBranchInfo = () => {
       />
       <div className="w-full">
         <div
+        style={{ background: 'linear-gradient(135deg, #001f3f,#00ffff)' }}
           className={`w-full py-4 flex ${
             isMobile ? "justify-evenly" : "justify-start gap-8 pl-16"
-          } bg-gray-600/80 shadow-sm blur-border`}
+          } text-cyan-400 shadow-sm blur-border`}
         >
           <button
             onClick={() => setSection("article")}
@@ -60,7 +61,7 @@ export const EachBranchInfo = () => {
             Teams
           </button>
         </div>
-        <div className="w-full flex items-center justify-center pt-8">
+        <div className="flex items-center justify-center w-full pt-8">
           {section === "article" && (
             <BranchArticles
               articles={loc.state.articles}
