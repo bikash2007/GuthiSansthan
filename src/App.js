@@ -47,8 +47,10 @@ import { Teams } from "./components/HomePage/HomePageFooter/Teams/Teams";
 import Add from "./webpage/Contact US/EditLocation";
 
 import Law from "./components/Articles/Law/InstanceLaw";
+
 import Download from "./components/Articles/Download/Download";
 import Budget from "./components/Articles/Budget/Budget";
+
 
 
 function App() {
@@ -136,7 +138,7 @@ function App() {
             <Route path="/user/profile" element={<ProfileSection />} />
             <Route path="/user/setting" element={<SettingMainPage />} />
             <Route path="/darbandi" element={<Darbandi />} />
-    
+
           </>
         </Routes>
       </div>

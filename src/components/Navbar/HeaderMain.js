@@ -8,19 +8,18 @@ import { useTranslation } from "react-i18next";
 export const HeaderMain = () => {
   const location = useLocation();
   const isMobile = useMediaQuery("(max-width:600px)"); // Adjust the breakpoint as needed
-  const isFirstPage =
-    location.pathname === "/" ||
-    location.pathname === "/log-in" ||
-    location.pathname === "/sign-in" ||
-    !isMobile;
+
+  // Determine whether to show HeaderTop and HeaderBottom based on the current path
+  const shouldShowHeaderTop = location.pathname !== "/branche-full-info";
+  const shouldShowHeaderBottom = location.pathname !== "/";
 
   const { selectLanguage, setSelectLanguage } = useSelectLanguage();
   const { i18n } = useTranslation();
 
   return (
     <div className={`top-0 flex flex-col justify-center z-40 relative`}>
-      {location.pathname !== "/branche-full-info" && <HeaderTop />}
-      {!isFirstPage && <HeaderButtom />}
+      {shouldShowHeaderTop && <HeaderTop />}
+      {shouldShowHeaderBottom && <HeaderButtom />}
     </div>
   );
 };
