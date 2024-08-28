@@ -32,75 +32,80 @@ export default function Headquarters() {
   return (
     <>
       <div className="container">
-      <div className="flex flex-col items-center justify-between mt-4 md:flex-row">
+        <div
+          className="flex flex-col items-center justify-between mt-4 md:flex-row bg-center bg-cover relative p-4 md:p-10"
+          style={{ backgroundImage: `url(${guthi})` }}
+        >
+          {/* Blending Mode for Gradient Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-r from-gray-500 via-gray-400 to-gray-500 mix-blend-overlay"></div>
 
-  <div className="flex flex-col items-center justify-center mb-4 md:mb-0">
-    <div className="p-2 rounded-full bg-gradient-to-r from-gray-700 to-black">
-      <img
-        src={guthi}
-        alt="Placeholder"
-        className="rounded-full w-[200px] h-[200px] md:w-[270px] md:h-[270px] shadow-lg"
-      />
-    </div>
-    <h1 className="text-[20px] md:text-[25px] font-bold p-0 m-0 mt-3">
-      सैलेश राज कुँवर
-    </h1>
-    <h1 className="text-[20px] md:text-[25px] font-bold p-0 m-0">व्यवस्थापक</h1>
-  </div>
- 
-  <div className="flex flex-col items-center justify-center mb-4 md:mb-0">
-    <div className="rounded-full">
-      <img
-        src={logo}
-        alt="Placeholder"
-        className="rounded-full w-[150px] h-[150px] md:w-[220px] md:h-[220px] object-contain shadow-lg"
-      />
-    </div>
-    <h1 className="text-[30px] md:text-[40px] font-bold p-0 m-0 mt-3">गुठी संस्थान</h1>
-    <h1 className="text-[30px] md:text-[40px] font-bold p-0 m-0">प्रधान कार्यालय</h1>
-  </div>
-  
+          {/* Blending Mode for Textured Div */}
+          <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/asfalt-dark.png')] mix-blend-overlay"></div>
 
-  <div className="flex items-center justify-center">
-    <div className="p-2 rounded-full bg-gradient-to-r from-gray-700 to-black">
-      <img
-        src={head}
-        alt="Placeholder"
-        className="rounded-full w-[200px] h-[200px] md:w-[270px] md:h-[270px] object-contain shadow-lg"
-      />
-    </div>
-  </div>
-</div>
+          {/* Left Section */}
+          <div className="relative flex flex-col items-center justify-center mb-4 md:mb-0">
+            <div className="p-2 rounded-full bg-gradient-to-r from-gray-700 via-gray-600 to-gray-700 shadow-lg">
+              <img
+                src={guthi}
+                alt="Profile Image"
+                className="rounded-full w-[150px] h-[150px] md:w-[200px] md:h-[200px] lg:w-[270px] lg:h-[270px] shadow-2xl"
+              />
+            </div>
+            <h1 className="text-white text-[18px] md:text-[22px] lg:text-[25px] font-bold mt-3 text-center">
+              सैलेश राज कुँवर
+            </h1>
+            <h2 className="text-white text-[18px] md:text-[22px] lg:text-[25px] font-bold text-center">
+              व्यवस्थापक
+            </h2>
+          </div>
 
+          {/* Center Section */}
+          <div className="relative flex flex-col items-center md:items-start justify-center md:justify-start h-full md:mb-0 text-center md:text-left">
+            <h1 className="text-white text-[24px] md:text-[30px] lg:text-[40px] font-bold">
+              गुठी संस्थान
+            </h1>
+            <h2 className="text-white text-[24px] md:text-[30px] lg:text-[40px] font-bold">
+              प्रधान कार्यालय
+            </h2>
+          </div>
+
+          {/* Right Section */}
+          <div className="relative flex items-center justify-center mt-4 md:mt-0">
+            <div className="p-2 rounded-full bg-gradient-to-r from-gray-700 via-gray-600 to-gray-700 shadow-lg">
+              <img
+                src={head}
+                alt="Placeholder"
+                className="rounded-full w-[150px] h-[150px] md:w-[200px] md:h-[200px] lg:w-[270px] lg:h-[270px] object-contain shadow-2xl"
+              />
+            </div>
+          </div>
+        </div>
 
         <hr className="mt-5 border-black border-solid border-3" />
 
         <div className="flex flex-col items-center justify-center md:flex-row">
+          <div className="flex flex-col items-start justify-center p-2 md:items-start md:w-1/2">
+            <button
+              onClick={toggleDetails}
+              className="p-4 transition-transform duration-300 bg-gray-200 rounded hover:scale-105"
+            >
+              <h1 className="font-bold text-lg md:text-xl text-[#00ACEE]">
+                श्रोत व्यवस्थापन तथा अनुगमन महाशाखा
+              </h1>
+            </button>
+          </div>
 
-  <div className="flex flex-col items-start justify-center p-2 md:items-start md:w-1/2">
-    <button
-      onClick={toggleDetails}
-      className="p-4 transition-transform duration-300 bg-gray-200 rounded hover:scale-105"
-    >
-      <h1 className="font-bold text-lg md:text-xl text-[#00ACEE]">
-        श्रोत व्यवस्थापन तथा अनुगमन महाशाखा
-      </h1>
-    </button>
-  </div>
-
-
-  <div className="flex flex-col items-center justify-center p-2 md:items-end md:w-1/2">
-    <button
-      onClick={toggleDetail}
-      className="p-4 text-center transition-transform duration-300 bg-gray-200 rounded hover:scale-105"
-    >
-      <h1 className="font-bold text-lg md:text-xl text-[#EE4200]">
-        आन्तरिक व्यवस्थापन महाशाखा         
-      </h1>
-    </button>
-  </div>
-</div>
-
+          <div className="flex flex-col items-center justify-center p-2 md:items-end md:w-1/2">
+            <button
+              onClick={toggleDetail}
+              className="p-4 text-center transition-transform duration-300 bg-gray-200 rounded hover:scale-105"
+            >
+              <h1 className="font-bold text-lg md:text-xl text-[#EE4200]">
+                आन्तरिक व्यवस्थापन महाशाखा
+              </h1>
+            </button>
+          </div>
+        </div>
 
         {showDetails && (
           <div className="row details1">
@@ -687,7 +692,6 @@ export default function Headquarters() {
                         <h1 className="text-[19px] h-[80px] text-[#EE4200] "></h1>
                       </td>
                     </tr>
-                  
                   </tbody>
                 </table>
               </div>

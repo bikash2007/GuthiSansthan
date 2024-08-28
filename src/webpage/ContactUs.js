@@ -175,7 +175,7 @@ export const ContactUs = () => {
                 {contactInfo.email}
               </p>
             </div>
-            {isEditing && <EditLocation />}
+            {isEditing && <EditLocation contactInfo={contactInfo} />}
           </div>
           {spokesperson.map((item) => (
             <div
