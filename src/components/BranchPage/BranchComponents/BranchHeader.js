@@ -268,5 +268,6 @@ export const BranchHeader = ({
         </div>
       </div>
     </div>
+    </div>
   );
 };
