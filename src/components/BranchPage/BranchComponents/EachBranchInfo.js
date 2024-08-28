@@ -23,10 +23,10 @@ export const EachBranchInfo = () => {
       />
       <div className="w-full">
         <div
-        style={{ background: 'linear-gradient(135deg, #001f3f,#00ffff)' }}
+          style={{ background: "linear-gradient(135deg, #001f3f,#00ffff)" }}
           className={`w-full py-4 flex ${
             isMobile ? "justify-evenly" : "justify-start gap-8 pl-16"
-          } text-cyan-400 shadow-sm blur-border`}
+          } text-cyan-400 shadow-sm blur-border flex-wrap`}
         >
           <button
             onClick={() => setSection("article")}
@@ -80,7 +80,12 @@ export const EachBranchInfo = () => {
               branchName={loc.state.name}
             />
           )}
-          {section === "teams" && <BranchTeams branchName={loc.state.name} />}
+          {section === "teams" && (
+            <BranchTeams
+              branchName={loc.state.name}
+              branchId={loc.state.branchId}
+            />
+          )}
         </div>
       </div>
     </div>
