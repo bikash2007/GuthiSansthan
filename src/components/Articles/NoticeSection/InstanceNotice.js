@@ -18,7 +18,7 @@ export const InstanceNotice = ({ title, text, image, id, date, onDelete, isFirst
     <>
       <div
         onClick={toggleDescription}
-        className={`w-full relative p-0 transition-transform duration-300 ease-in-out hover:shadow-lg hover:scale-[1.08] text-black font-semibold ${
+        className={`w-full relative p-0 transition-transform duration-300 ease-in-out  hover:scale-[1.08] text-black font-semibold ${
           isEditing ? "cursor-pointer" : ""
         } ${isFirst ? "mt-4" : ""}`}  // Add margin-top only if it's the first component
       >

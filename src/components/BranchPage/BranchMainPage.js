@@ -52,6 +52,7 @@ export const BranchMainPage = () => {
             branchId={item.id}
           />
         ))}
+      
 
       {isEditing && <AddBranches />}
     </div>

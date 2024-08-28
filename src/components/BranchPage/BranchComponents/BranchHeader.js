@@ -76,11 +76,11 @@ export const BranchHeader = ({
     style={{ backgroundImage: `url(${branchImage})` }}
     >
       <div className="row">
-      <div className="w-full col-4 col-md-3 bg-black md:h-[430px] h-[450px] flex flex-col items-center headimage">
+      <div className="w-full col-5 col-sm-5 col-md-3   md:h-[430px] h-[375px] flex flex-col items-center headimage">
  
   <div className="flex flex-col items-center justify-center">
     <div
-      className="relative w-24 h-24 mt-3 overflow-hidden bg-black bg-cover md:w-[230px] md:h-[230px] headimage-container me-[70px] "
+      className="relative w-24 h-24 mt-3 overflow-hidden bg-black bg-cover md:w-[230px] md:h-[230px] headimage-container md:me-[70px] me-[50px] "
       style={{
         backgroundImage: `${img1 ? `url(${img1})` : ""}`,
       }}
@@ -93,18 +93,18 @@ export const BranchHeader = ({
         />
       )} */}
     </div>
-    <h4 className="pt-2 mb-0 text-xl font-bold md:text-xl text-cyan-400 me-[70px] ">
+    <h4 className="pt-2 mb-0 text-sm font-bold md:text-xl text-cyan-400 md:me-[70px] me-[50px]">
     {branchDetail.branchHeadPost}
     कार्यालय प्रमुख
   </h4>
-    <h3 className="pt-0 mt-2 mb-1 text-xl font-bold text-white md:text-2xl me-[70px]">
+    <h3 className="pt-0 mt-2 mb-1 text-sm font-bold text-white md:text-2xl md:me-[70px] me-[50px]">
       {branchDetail.branchHeadName}
     </h3>
-    <h4 className="pt-0 mb-0 text-xl font-bold md:text-[15px] text-cyan-400 me-[70px]">
+    <h4 className="pt-0 mb-0 text-sm font-bold md:text-[15px] text-cyan-400 md:me-[70px] me-[50px]">
     {branchDetail.branchHeadPost}
     सहायक प्रशासक
   </h4>
-  <h4 className="pt-0 mb-0 text-xl font-bold md:text-[15px] text-cyan-400 me-[70px]">
+  <h4 className="pt-0 mb-0 text-sm font-bold md:text-[15px] text-cyan-400 md:me-[70px] me-[50px]">
     {branchDetail.branchHeadPost}
     ९८५१० - #####
   </h4>
@@ -112,7 +112,7 @@ export const BranchHeader = ({
 </div>
 
         <div
-          className="relative flex flex-col w-full md:h-[400px] h-[350px] gap-4 p-8 mb-6 overflow-hidden text-white bg-center  col-8 col-md-9"
+          className="relative flex flex-col w-full md:h-[400px] h-[350px] gap-4 p-8 mb-6 overflow-hidden text-white bg-center  col-7 col-sm-7 col-md-9"
          
         >
 
@@ -238,51 +238,38 @@ export const BranchHeader = ({
           )}
 
           {!isHeaderEditing && (
-            <div className="container top-0 z-20 flex pt-0 mt-0 position-absolute">
-            <div className="flex items-center justify-center col-md-2">
-              <img  className="w-[90px] h-[90px] rounded-full"
-              src={logo}
-              
-              />
-              </div>
-             <div className=" col-md-9">
-             <div className="flex flex-col  me-[140px] "  >
-             <h1 className="flex flex-col items-center justify-center pb-0 mb-0 text-2xl font-bold text-white md:text-2xl drop-shadow-lg ">
-              गुठी संस्थान,<br></br>
-               
-              </h1>
-              <h1 className="py-0 my-0 text-2xl font-bold text-white md:text-4xl drop-shadow-lg">
-              {/* {branchDetail.name}  */}
-              शाखा कार्यालय काठमाडौं
-                </h1>
-                  
-             <h1 className="pb-0 mt-1 mb-0 text-2xl font-bold text-white md:text-xl drop-shadow-lg">
-          
-             काठमाडौं
-              </h1>
-
-              </div>
-             
-             
-              </div>
-
-                   <div className="top-0 flex flex-col items-start justify-start col-md-3 position-absolute end-0 ">
-                   {/* <h1 className="pb-0 mb-0 text-2xl font-bold text-white md:text-sm drop-shadow-lg">
-                       Phone.No:1234567890      
-              </h1>
-              <h1 className="pb-0 mb-0 text-2xl font-bold text-white md:text-sm drop-shadow-lg">
-                       Email:info@ghuti.com
-              </h1>
-              <h1 className="pb-0 mb-0 text-2xl font-bold text-white md:text-sm drop-shadow-lg">
-                       
-                       Location:Kathmandu      
-              </h1> */}
-
-
-                    </div>
-
-             
+            <div className="container relative top-0 z-20 flex flex-col mx-auto md:flex-row md:pt-0 md:mt-0 text-cyan-400">
+            <div className="flex items-center justify-center w-full mb-4 md:w-1/6 md:mb-0">
+              <img className="w-[70px] h-[70px] md:w-[90px] md:h-[90px] rounded-full" src={logo} alt="Logo" />
             </div>
+          
+            <div className="w-full text-center md:w-2/3 md:text-left">
+              <div className="flex flex-col md:me-[140px]">
+                <h1 className="text-xl font-bold text-white md:text-2xl drop-shadow-lg">
+                  गुठी संस्थान,<br />
+                </h1>
+                <h1 className="text-xl font-bold text-white md:text-4xl drop-shadow-lg">
+                  शाखा कार्यालय काठमाडौं
+                </h1>
+                <h1 className="text-lg font-bold text-white md:text-xl drop-shadow-lg">
+                  काठमाडौं
+                </h1>
+              </div>
+            </div>
+          
+            <div className="w-full text-center md:w-1/6 md:text-left md:absolute md:top-0 md:end-0">
+              <h1 className="text-sm font-bold text-white md:text-2xl drop-shadow-lg">
+                Phone.No: 1234567890
+              </h1>
+              <h1 className="text-sm font-bold text-white md:text-2xl drop-shadow-lg">
+                Email: info@ghuti.com
+              </h1>
+              <h1 className="text-sm font-bold text-white md:text-2xl drop-shadow-lg">
+                Location: Kathmandu
+              </h1>
+            </div>
+          </div>
+          
           )}
         </div>
       </div>
