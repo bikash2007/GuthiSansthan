@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faX } from "@fortawesome/free-solid-svg-icons";
 
 import logo from "../../media/Headquaters/logo192.png";
-import head from "../../media/Headquaters/guthi_head office.jpg";
+import head from "../../media/Headquaters/headoffice.jpg";
 import guthi from "../../media/Headquaters/0S3A9842 2.png";
 
 export default function Headquarters() {
@@ -33,8 +33,8 @@ export default function Headquarters() {
     <>
       <div className="container">
         <div
-          className="flex flex-col items-center justify-between mt-4 md:flex-row bg-center bg-cover relative p-4 md:p-10"
-          style={{ backgroundImage: `url(${guthi})` }}
+          className="flex flex-col items-center justify-between bg-black mt-4 md:flex-row bg-center bg-cover relative p-4 md:p-10"
+          style={{ backgroundImage: `url(${head})` }}
         >
           {/* Blending Mode for Gradient Overlay */}
           <div className="absolute inset-0 bg-gradient-to-r from-gray-500 via-gray-400 to-gray-500 mix-blend-overlay"></div>
