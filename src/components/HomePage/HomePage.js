@@ -111,8 +111,8 @@ export const HomePage = () => {
           </h3>
           <div className="absolute left-[70px] top-0 bg-[#00ADEF] backdrop-blur-3xl text-white py-1 font-semibold text-base flex justify-center items-center h-[40px] px-1  z-30"></div>
         </Link>
-        <div className="w-full h-[40px] bg-red-400/50 relative overflow-hidden">
-          <div className="w-full scrolling-text  absolute right-0 flex flex-row gap-6  py-2 text-white font-semibold">
+        <div className="w-full h-[40px] bg-cyan-700/60 flex items-center  backdrop-blur-xl relative overflow-hidden">
+          <div className="w-full scrolling-text  items-center  absolute right-0 flex flex-row gap-6  py-2 text-white font-semibold">
             {notices.map((item) => (
               <a
                 href={`${item.image}`}
@@ -120,7 +120,7 @@ export const HomePage = () => {
                 target="_main"
                 key={item.id}
               >
-                {item.title}
+                <p className="font-thin">{item.title}</p>
               </a>
             ))}
           </div>
