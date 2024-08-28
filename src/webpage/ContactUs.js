@@ -126,7 +126,7 @@ export const ContactUs = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center bg-center bg-cover overflow-hidden">
+    <div className="flex flex-col items-center justify-center overflow-hidden bg-center bg-cover">
       <EditBgImage
         imageId={contactUsPageDetail["bg-img"].id}
         url={contactUsPageDetail["bg-img"].imgSrc}
@@ -153,10 +153,10 @@ export const ContactUs = () => {
         } flex   rounded-lg justify-center align-center gap-10 mb-44`}
       >
         <div className="flex flex-col items-center justify-center">
-          <div className="flex flex-col items-center justify-center w-full relative h-auto px-6 py-4 font-bold transition-shadow duration-300 ease-in-out bg-white rounded-lg shadow-md hover:shadow-xl">
+          <div className="relative flex flex-col items-center justify-center w-full h-auto px-6 py-4 font-bold transition-shadow duration-300 ease-in-out bg-white rounded-lg shadow-md hover:shadow-xl">
             <a
               href={`${contactInfo.location_url}`}
-              className="flex items-center gap-4 px-5 py-2 text-md no-underline text-black"
+              className="flex items-center gap-4 px-5 py-2 text-black no-underline text-md"
             >
               <IoLocationSharp className="w-8 h-8 text-green-600" />
               <p className="transition-colors duration-200 ease-in-out cursor-pointer hover:underline">

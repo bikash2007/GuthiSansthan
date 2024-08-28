@@ -4,6 +4,7 @@
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Deeper shadow for more depth */
     padding: 20px; /* Add padding for spacing */
     transition: all 0.3s ease-in-out;
+  
   }
 
   .headimage-container {

@@ -45,7 +45,9 @@ import { AddTeam } from "./components/HomePage/HomePageFooter/Teams/AddTeam";
 import InstantTeam from "./components/HomePage/HomePageFooter/Teams/InstantTeam";
 import { Teams } from "./components/HomePage/HomePageFooter/Teams/Teams";
 import Add from "./webpage/Contact US/EditLocation";
-import RulesnRrgulation from "./components/Rules&Regulation/RulesnRrgulation";
+
+import Law from "./components/Articles/Law/InstanceLaw";
+
 
 function App() {
   const location = useLocation();
@@ -115,11 +117,15 @@ function App() {
           <Route path="/branche-full-info" element={<EachBranchInfo />} />
           <Route path="/addteam" element={<Teams />} />
 
-          <Route
-            path="/super-user/add-articles"
-            element={<ArticleAddition />}
-          />
-          <Route path="/super-user/add-notices" element={<NoticeForm />} />
+          <Route path="/addcontact" element={<Add />} />
+          <Route path="/law" element={<Law />} />
+          <>
+            <Route
+              path="/super-user/add-articles"
+              element={<ArticleAddition />}
+            />
+            <Route path="/super-user/add-notices" element={<NoticeForm />} />
+          </>
 
           <>
             <Route path="/user/profile" element={<ProfileSection />} />

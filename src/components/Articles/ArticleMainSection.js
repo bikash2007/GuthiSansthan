@@ -14,6 +14,9 @@ import { EditBgImage } from "../EditComponents/EditBgImage";
 import { showAlert } from "../AlertLoader";
 import { useEditing } from "../../context/EditingProvider";
 import { Link } from "react-router-dom";
+import Law from "./Law/InstanceLaw";
+
+
 export const ArticleMainSection = () => {
   const isMobile = useMediaQuery("(max-width:800px)");
   const [isArticle, setArtical] = useState(true);
@@ -22,6 +25,7 @@ export const ArticleMainSection = () => {
   const dispatch = useDispatch();
   const { isEditing, setIsEditing } = useEditing();
   const [section, setSection] = useState("notice");
+
   useEffect(() => {
     try {
       const fetchData = async () => {
@@ -60,38 +64,59 @@ export const ArticleMainSection = () => {
           }
         >
           <div
-            className="bg-cover bg-center h-screen w-full fixed -z-50 top-0 left-0"
+            className="fixed top-0 left-0 w-full h-screen bg-center bg-cover -z-50"
             style={{
               backgroundImage: `url(${articlePageDetail["bg-img"].imgSrc})`,
             }}
           ></div>
         </EditBgImage>
         {isEditing && (
-          <div className="absolute top-32 flex gap-2 right-4 z-50">
+          <div className="absolute z-50 flex gap-2 top-32 right-4">
             <Link
               to="/super-user/add-articles"
-              className="px-3 py-2 no-underline text-white rounded-md cursor-pointer bg-green-600 hover:bg-green-700"
+              className="px-3 py-2 text-white no-underline bg-green-600 rounded-md cursor-pointer hover:bg-green-700"
             >
               Add Article
             </Link>
             <Link
               to="/super-user/add-notices"
-              className="px-3 py-2  no-underline text-white rounded-md cursor-pointer bg-green-600 hover:bg-green-700"
+              className="px-3 py-2 text-white no-underline bg-green-600 rounded-md cursor-pointer hover:bg-green-700"
             >
               Add Notice
+            </Link>
+            <Link
+              to="/super-user/add-notices"
+              className="px-3 py-2 text-white no-underline bg-green-600 rounded-md cursor-pointer hover:bg-green-700"
+            >
+              Add Law
+            </Link>
+            <Link
+              to="/super-user/add-notices"
+              className="px-3 py-2 text-white no-underline bg-green-600 rounded-md cursor-pointer hover:bg-green-700"
+            >
+              Add Budget
+            </Link>
+            <Link
+              to="/super-user/add-notices"
+              className="px-3 py-2 text-white no-underline bg-green-600 rounded-md cursor-pointer hover:bg-green-700"
+            >
+              Add Download
             </Link>
           </div>
         )}
 
         <div className="w-full">
-          <div className="w-full py-4 flex justify-start bg-gray-600/80  gap-8 pl-16 shadow-sm blur-border">
+          <div
+            style={{ background: 'linear-gradient(135deg, #001f3f,#00ffff)' }}
+            className="flex justify-start w-full gap-8 py-4 pl-16 shadow-sm "
+          >
             <button
               onClick={() => setSection("article")}
               className={`font-bold border-b-2  hover:border-red-600 transition-all duration-200 ease-linear text-white text-xl ${
                 section === "article" ? " border-red-600 " : "border-none"
               } `}
             >
-              Article
+            लेख
             </button>
             <button
               onClick={() => setSection("notice")}
@@ -99,12 +124,40 @@ export const ArticleMainSection = () => {
                 section === "notice" ? " border-red-600 " : "border-none"
               } `}
             >
-              Notices
+           सूचना
+            </button>
+            <button
+              onClick={() => setSection("law")}
+              className={`font-bold border-b-2  hover:border-red-600 transition-all duration-200 ease-linear text-white text-xl ${
+                section === "law" ? " border-red-600 " : "border-none"
+              } `}
+            >
+              ऐन कानून
+            </button>
+
+            <button
+              onClick={() => setSection("budget")}
+              className={`font-bold border-b-2  hover:border-red-600 transition-all duration-200 ease-linear text-white text-xl ${
+                section === "budget" ? " border-red-600 " : "border-none"
+              } `}
+            >
+              बार्षिक बजेट
+            </button>
+            <button
+              onClick={() => setSection("download")}
+              className={`font-bold border-b-2  hover:border-red-600 transition-all duration-200 ease-linear text-white text-xl ${
+                section === "download" ? " border-red-600 " : "border-none"
+              } `}
+            >
+              डाउनलोड
             </button>
           </div>
-          <div className="w-full flex items-center justify-center">
+          <div className="flex items-center justify-center w-full">
             {section === "article" && <Articles />}
             {section === "notice" && <Notices />}
+            {section === "law" && <Law />}
+            {/* {section === "budget" && <Budget />}  {/* Render Budget Component */}
+            {/* {section === "download" && <Download />}  Render Download Component  */}
           </div>
         </div>
       </div>

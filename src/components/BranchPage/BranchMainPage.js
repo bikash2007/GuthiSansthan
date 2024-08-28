@@ -33,6 +33,7 @@ export const BranchMainPage = () => {
 
   return (
     <div className="w-full flex flex-wrap items-center justify-center px-[10%] gap-5">
+
       <div className="bg-black flex flex-col rounded-md">
         <Link
           to="/headquaters"
@@ -57,6 +58,7 @@ export const BranchMainPage = () => {
           onRemove={handleRemove} // Pass the remove handler
         />
       ))}
+
 
       {isEditing && <AddBranches />}
     </div>

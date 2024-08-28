@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 
 export default function Report() {
   const [formData, setFormData] = useState({
@@ -13,6 +13,8 @@ export default function Report() {
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isFormVisible, setIsFormVisible] = useState(true); // State to control form visibility
+  const formRef = useRef(null);
 
   const validate = () => {
     const newErrors = {};
@@ -43,8 +45,24 @@ export default function Report() {
     }
   };
 
-  return (
-    <div className="max-w-4xl p-6 mx-auto bg-gray-100 rounded-lg shadow-lg">
+  const handleClickOutside = (e) => {
+    if (formRef.current && !formRef.current.contains(e.target)) {
+      setIsFormVisible(false); // Close the form
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  return isFormVisible ? (
+    <div
+      ref={formRef}
+      className="max-w-4xl p-6 mx-auto bg-gray-100 rounded-lg shadow-lg"
+    >
       <h1 className="mb-6 text-3xl font-bold text-center text-gray-800">
         Complaint Form
       </h1>
@@ -223,5 +241,5 @@ export default function Report() {
         </div>
       </form>
     </div>
-  );
+  ) : null; // Hide the form if it's closed
 }
