@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/GuthiSansthan/static/css/main.33f2da04.css",
-    "main.js": "/GuthiSansthan/static/js/main.c8f3b0af.js",
+    "main.css": "/GuthiSansthan/static/css/main.146dad7a.css",
+    "main.js": "/GuthiSansthan/static/js/main.88c239c4.js",
     "static/media/bg.png": "/GuthiSansthan/static/media/bg.165d9ea365d7974edd34.png",
     "static/media/jatra.png": "/GuthiSansthan/static/media/jatra.f14bec51ef0e8ac27908.png",
     "static/media/patandurbarsquare.png": "/GuthiSansthan/static/media/patandurbarsquare.05c078c3648671d1815e.png",
@@ -16,8 +16,9 @@
     "static/media/sagar_shrestha_Resume (1).pdf": "/GuthiSansthan/static/media/sagar_shrestha_Resume (1).90503f7889d533156f0d.pdf",
     "static/media/image.png": "/GuthiSansthan/static/media/image.b845c19e932b8813e42d.png",
     "static/media/images.png": "/GuthiSansthan/static/media/images.ee152c6ab1c273a47fd8.png",
-    "static/media/guthi_head office.jpg": "/GuthiSansthan/static/media/guthi_head office.ae61038b6a364bc0b320.jpg",
+    "static/media/headoffice.jpg": "/GuthiSansthan/static/media/headoffice.ae61038b6a364bc0b320.jpg",
     "static/media/error.png": "/GuthiSansthan/static/media/error.79e66aa6ec687628ba21.png",
+    "static/media/bg.jpg": "/GuthiSansthan/static/media/bg.3eab346c4ef8ac0e2b75.jpg",
     "static/media/bouddhanath.jpeg": "/GuthiSansthan/static/media/bouddhanath.b89fdb2d9a9bf0765691.jpeg",
     "static/media/images.jpeg": "/GuthiSansthan/static/media/images.b89fdb2d9a9bf0765691.jpeg",
     "static/media/janaki.jpeg": "/GuthiSansthan/static/media/janaki.a0edb29d221bd73918a5.jpeg",
@@ -26,11 +27,11 @@
     "index.html": "/GuthiSansthan/index.html",
     "static/media/EnglishDescription.txt": "/GuthiSansthan/static/media/EnglishDescription.d2c323a9768069872a06.txt",
     "static/media/getFetch.cjs": "/GuthiSansthan/static/media/getFetch.c4cca45e22bc1b2c7d0d.cjs",
-    "main.33f2da04.css.map": "/GuthiSansthan/static/css/main.33f2da04.css.map",
-    "main.c8f3b0af.js.map": "/GuthiSansthan/static/js/main.c8f3b0af.js.map"
+    "main.146dad7a.css.map": "/GuthiSansthan/static/css/main.146dad7a.css.map",
+    "main.88c239c4.js.map": "/GuthiSansthan/static/js/main.88c239c4.js.map"
   },
   "entrypoints": [
-    "static/css/main.33f2da04.css",
-    "static/js/main.c8f3b0af.js"
+    "static/css/main.146dad7a.css",
+    "static/js/main.88c239c4.js"
   ]
 }
