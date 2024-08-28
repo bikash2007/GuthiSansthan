@@ -227,7 +227,7 @@ export const BranchHeader = ({
             )}
 
             {!isHeaderEditing && (
-              <div className="container relative top-0 z-20 flex flex-col  md:flex-row md:pt-0 md:mt-0 text-cyan-400">
+              <div className="container relative top-0 z-20 flex flex-col md:flex-row md:pt-0 md:mt-0 text-cyan-400">
                 <div className="flex items-center justify-center w-full mb-4 md:w-1/6 md:mb-0">
                   <img
                     className="w-[70px]  md:w-[90px] "
@@ -236,13 +236,13 @@ export const BranchHeader = ({
                   />
                 </div>
 
-                <div className="  w-full md:text-left">
+                <div className="w-full md:text-left">
                   <div className="flex flex-col md:me-[140px]">
                     <h1 className="text-sm font-bold text-white md:text-2xl drop-shadow-lg">
                       गुठी संस्थान,
                       <br />
                     </h1>
-                    <h1 className="text- baselex font-bold text-white md:text-4xl drop-shadow-lg">
+                    <h1 className="font-bold text-white text- baselex md:text-4xl drop-shadow-lg">
                       {branchName}
                     </h1>
                     {/* <h1 className="text-lg font-bold text-white md:text-xl drop-shadow-lg">
@@ -268,6 +268,6 @@ export const BranchHeader = ({
         </div>
       </div>
     </div>
-    </div>
+    
   );
 };
