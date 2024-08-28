@@ -15,6 +15,8 @@ import { showAlert } from "../AlertLoader";
 import { useEditing } from "../../context/EditingProvider";
 import { Link } from "react-router-dom";
 import Law from "./Law/InstanceLaw";
+import Download from "./Download/Download";
+import Budget from "./Budget/Budget";
 
 
 export const ArticleMainSection = () => {
@@ -151,13 +153,29 @@ export const ArticleMainSection = () => {
             >
               डाउनलोड
             </button>
+            {/* <button
+              onClick={() => setSection("download")}
+              className={`font-bold border-b-2  hover:border-red-600 transition-all duration-200 ease-linear text-white text-xl ${
+                section === "download" ? " border-red-600 " : "border-none"
+              } `}
+            >
+              कूत तथा मालपोतको दर
+            </button>
+            <button
+              onClick={() => setSection("download")}
+              className={`font-bold border-b-2  hover:border-red-600 transition-all duration-200 ease-linear text-white text-xl ${
+                section === "download" ? " border-red-600 " : "border-none"
+              } `}
+            >
+              अन्य देवस्वका दरहरू
+            </button> */}
           </div>
           <div className="flex items-center justify-center w-full">
             {section === "article" && <Articles />}
             {section === "notice" && <Notices />}
             {section === "law" && <Law />}
-            {/* {section === "budget" && <Budget />}  {/* Render Budget Component */}
-            {/* {section === "download" && <Download />}  Render Download Component  */}
+             {section === "budget" && <Budget />}  
+             {section === "download" && <Download />}  
           </div>
         </div>
       </div>
