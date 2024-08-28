@@ -201,10 +201,7 @@ export const NepalFlagSlider = ({ content }) => {
         >
           <OneImage name={"Article-tab"} activateEdit={activateEdit} />
         </Link>
-        <a
-          target="_main"
-          href="https://ingnepal.org.np/media/%E0%A4%97%E0%A4%A0-%E0%A4%A4%E0%A4%A8%E0%A4%A5-%E0%A4%98%E0%A4%B0-%E0%A4%9C%E0%A4%97%E0%A4%97%E0%A4%95-%E0%A4%B2%E0%A4%9C%E0%A4%AE-%E0%A4%A6%E0%A4%A8-%E0%A4%B8%E0%A4%AE%E0%A4%AC%E0%A4%A8%E0%A4%A7-%E0%A4%A8%E0%A4%B0%E0%A4%A6%E0%A4%B6%E0%A4%95-%E0%A5%A8%E0%A5%A6%E0%A5%AD%E0%A5%AE.pdf"
-        >
+        {/* <Link to={"/rules&regulation"}>
           <div
             className=" flex justify-center items-start bg-cover relative bg-center z-50 hover:scale-110 transition-all duration-100 ease-in-out shadow-2xl  hover:shadow-red-600  h-44 w-32 lg:w-44 lg:h-64 rounded-lg overflow-hidden  "
             style={{ backgroundImage: `url(${image})` }}
@@ -218,8 +215,7 @@ export const NepalFlagSlider = ({ content }) => {
               className="absolute right-3 bottom-3"
             />
           </div>
-        </a>
-
+        </Link> */}
         {isEditing && activateEdit && (
           <div
             className="absolute flex px-2 py-1 bg-gray-300 rounded-md cursor-pointer top-1 hover:bg-gray-400"

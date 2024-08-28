@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-const EditLocation = () => {
+const EditLocation = ({ contactInfo }) => {
+  // Initialize state with contactInfo values
   const [formData, setFormData] = useState({
     contact_no: "",
     location: "",
@@ -9,10 +10,23 @@ const EditLocation = () => {
     email: "",
   });
 
+  // Populate formData if contactInfo is available
+  useEffect(() => {
+    if (contactInfo) {
+      setFormData({
+        contact_no: contactInfo.contact_no || "",
+        location: contactInfo.location || "",
+        location_url: contactInfo.location_url || "",
+        email: contactInfo.email || "",
+      });
+    }
+  }, [contactInfo]);
+
   const handleChange = (e) => {
+    const { name, value } = e.target;
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      [name]: value,
     });
   };
 
@@ -21,7 +35,7 @@ const EditLocation = () => {
 
     try {
       const response = await axios.patch(
-        "https://ingnepal.org.np/api/guthi-contact/1/",
+        "https://ingnepal.org.np/api/guthi-contact/1/", // Ensure this endpoint is correct
         formData,
         {
           headers: {

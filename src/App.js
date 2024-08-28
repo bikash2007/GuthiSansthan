@@ -45,6 +45,7 @@ import { AddTeam } from "./components/HomePage/HomePageFooter/Teams/AddTeam";
 import InstantTeam from "./components/HomePage/HomePageFooter/Teams/InstantTeam";
 import { Teams } from "./components/HomePage/HomePageFooter/Teams/Teams";
 import Add from "./webpage/Contact US/EditLocation";
+import RulesnRrgulation from "./components/Rules&Regulation/RulesnRrgulation";
 
 function App() {
   const location = useLocation();
@@ -124,6 +125,7 @@ function App() {
             <Route path="/user/profile" element={<ProfileSection />} />
             <Route path="/user/setting" element={<SettingMainPage />} />
             <Route path="/darbandi" element={<Darbandi />} />
+            <Route path="/rules&regulation" element={<RulesnRrgulation />} />
           </>
         </Routes>
       </div>
