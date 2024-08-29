@@ -8,10 +8,14 @@ import {
   setIsFetched,
 } from "../../../state/ArticleNoticeSlices/ArticleSectionSlice"; // Import required actions from your slice
 import { InstanceArticles } from "./InstanceArticles"; // Import the InstanceArticles component
+import { useEditing } from "../../../context/EditingProvider";
+import { Link } from 'react-router-dom';
+
 
 export const Articles = () => {
   const [data, setData] = useState([]);
   const baseUrl = useSelector((state) => state.baseUrl).backend;
+  const { isEditing } = useEditing();
 
   const articleSectionDetail = useSelector(
     (state) => state.articelSectionDetail
@@ -36,6 +40,17 @@ export const Articles = () => {
   }, [articleSectionDetail.isFetched]);
 
   return (
+    <div className="flex flex-col ">
+     {isEditing && (
+                <div className="flex items-center justify-center mt-4">
+                    <Link
+                        to="/addarticle"
+                        className="px-4 py-2 text-lg text-white no-underline bg-green-600 rounded-md cursor-pointer top-3 hover:bg-green-700"
+                    >
+                        Add Article
+                    </Link>
+                </div>
+            )}
     <motion.div
       initial={{ y: 200, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
@@ -58,5 +73,6 @@ export const Articles = () => {
         <h1>Empty articles</h1>
       )}
     </motion.div>
+    </div>
   );
 };
