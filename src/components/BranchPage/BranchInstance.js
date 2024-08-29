@@ -26,7 +26,7 @@ export const BranchInstance = ({
   };
 
   return (
-    <div className="flex flex-col bg-black rounded-lg relative">
+    <div className="flex flex-col bg-black rounded-lg relative w-[160px] md:w-[310px] ">
       <Link
         to="/branche-full-info"
         state={{
@@ -43,7 +43,9 @@ export const BranchInstance = ({
       >
         <div className="absolute inset-0 bg-black bg-opacity-50"></div>
       </Link>
-      <h5 className="h-full text-white w-full">{name}</h5>
+      <h5 className="h-full text-white w-full flex flex-wrap justify-center">
+        {name}
+      </h5>
 
       {isEditing && (
         <button
