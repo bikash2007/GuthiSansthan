@@ -49,7 +49,7 @@ const NoticeForm = () => {
   };
 
   return (
-    <div   style={{ fontFamily: "'Merriweather', serif" }} className="flex items-center justify-center mt-3">
+    <div   className="flex items-center justify-center mt-3">
       <div
         className="w-full max-w-xl px-6 py-6 transition-shadow duration-300 ease-in-out rounded-lg shadow-lg bg-gray-600/30 backdrop-blur-xl hover:shadow-2xl"
       >
