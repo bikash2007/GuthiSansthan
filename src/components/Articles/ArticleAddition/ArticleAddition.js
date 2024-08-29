@@ -49,7 +49,7 @@ export const ArticleAddition = () => {
   return (
     <div className="flex items-center justify-center w-[1500px] h-[550px] mt-4">
       <div
-       style={{ fontFamily: "'Merriweather', serif" }}
+      
       className="w-full max-w-xl px-6 py-6 h-[590px] bg-gray-600/30 rounded-lg shadow-lg  backdrop-blur-xl hover:shadow-2xl transition-shadow duration-300 ease-in-out">
         <h1 className="mt-4 mb-6 text-4xl font-bold text-center text-white font-poppins">
           Add New Article
