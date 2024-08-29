@@ -85,7 +85,7 @@ export const HeaderTop = () => {
             <img
               className={`${
                 isMobile ? "h-[50px]" : "h-[100px]"
-              } bg-clip-padding hover:scale-110 shadow-2xl hover:shadow-black transition-all`}
+              } bg-clip-padding hover:scale-110 hover:shadow-2xl hover:shadow-black transition-all`}
               src={globalDetail["guthi-sansthan-logo"].imgSrc}
               alt="Guthi Sansthan Logo"
             />
@@ -164,22 +164,22 @@ export const HeaderTop = () => {
               onClick={toggleDropdown}
             />
             {isOpen && (
-              <div className="absolute right-0 mt-2 w-48 bg-zinc-700/30 backdrop-blur-sm border border-gray-300 rounded-lg shadow-lg z-40">
+              <div className="absolute right-0 mt-2 w-fit bg-zinc-700/30 backdrop-blur-sm border border-gray-300 rounded-lg shadow-lg z-40">
                 <Link
                   to="/user/profile"
-                  className="block px-4 py-2 text-sm text-white hover:text-red-500"
+                  className="block px-1 py-2 text-sm text-white no-underline hover:bg-cyan-400/30 hover:text-red-500"
                 >
                   Profile
                 </Link>
                 <Link
                   to="/user/setting"
-                  className="block px-4 py-2 text-sm text-white hover:text-red-500"
+                  className="block px-1 py-2 text-sm text-white no-underline hover:bg-cyan-400/30 hover:text-red-500"
                 >
                   Setting
                 </Link>
                 <button
                   onClick={handleLogOut}
-                  className="w-full text-left px-4 py-2 text-sm text-white hover:text-red-500"
+                  className="w-full text-left px-1 py-2 text-sm flex items-center gap-2 text-white hover:bg-cyan-400/30 hover:text-red-500"
                 >
                   Logout <FontAwesomeIcon icon={faRightFromBracket} />
                 </button>
