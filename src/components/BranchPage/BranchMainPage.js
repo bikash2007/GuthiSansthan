@@ -77,7 +77,7 @@ export const BranchMainPage = () => {
       )}
 
       {/* Content */}
-      <div className="relative z-10 w-full flex flex-wrap items-center justify-center px-[10%] gap-5">
+      <div className="relative z-10 w-full flex flex-wrap items-center pb-44  justify-center px-[10%] gap-5">
         <div className="bg-black flex flex-col rounded-md">
           <Link
             to="/headquaters"

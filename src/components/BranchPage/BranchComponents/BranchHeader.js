@@ -72,7 +72,7 @@ export const BranchHeader = ({
 
   return (
     <div
-      className="bg-cover container-fluid"
+      className="bg-cover bg-center container-fluid"
       style={{ backgroundImage: `url(${branchImage})` }}
     >
       <div className="row">
@@ -268,6 +268,5 @@ export const BranchHeader = ({
         </div>
       </div>
     </div>
-    
   );
 };
