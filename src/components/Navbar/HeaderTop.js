@@ -84,8 +84,8 @@ export const HeaderTop = () => {
           >
             <img
               className={`${
-                isMobile ? "h-[50px]" : "h-[130px]"
-              } rounded-full hover:scale-110 transition-all`}
+                isMobile ? "h-[50px]" : "h-[100px]"
+              } bg-clip-padding hover:scale-110 shadow-2xl hover:shadow-black transition-all`}
               src={globalDetail["guthi-sansthan-logo"].imgSrc}
               alt="Guthi Sansthan Logo"
             />
@@ -94,11 +94,11 @@ export const HeaderTop = () => {
       </Link>
 
       <Link to={"/"} className="no-underline flex flex-col">
-        <h4 className="text-white hover:text-cyan-500 font-bold text-base lg:text-5xl">
-          <span className="text-white hover:text-cyan-500 font-semibold text-xs lg:text-base">
-            यतो धर्म: स्ततो जय:
-          </span>
+        <span className="text-white hover:text-cyan-500 font-semibold text-xs lg:text-base mb-2">
+          यतो धर्म: स्ततो जय:
           <br />
+        </span>
+        <h4 className="text-white hover:text-cyan-500 font-bold text-base lg:text-5xl">
           {t("logo")}
         </h4>
       </Link>
