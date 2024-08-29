@@ -46,7 +46,11 @@ import InstantTeam from "./components/HomePage/HomePageFooter/Teams/InstantTeam"
 import { Teams } from "./components/HomePage/HomePageFooter/Teams/Teams";
 import Add from "./webpage/Contact US/EditLocation";
 
-import Law from "./components/Articles/Law/InstanceLaw";
+import Law from "./components/Articles/Law/Law";
+import Lawform from "./components/Articles/Law/Lawform";
+import noticeform from "./components/Articles/NoticeSection/NoticeForm";
+import articleform from "./components/Articles/ArticleAddition/ArticleAddition";
+
 
 import Download from "./components/Articles/Download/Download";
 import Budget from "./components/Articles/Budget/Budget";
@@ -110,8 +114,13 @@ function App() {
           <Route path="/sign-up" element={<Signin />} />
           <Route path="/articles" element={<ArticleMainSection />} />
           <Route path="/show-notice" element={<ShowNotice />} />
+          <Route path="/noticeform" element={<NoticeForm />} />
 
           <Route path="/show-article" element={<ShowArticle />} />
+          
+          <Route path="/addarticle" element={<ArticleAddition />} />
+          
+
           <Route path="/jatra-parva" element={<JatraMandir />} />
           <Route path="/report" element={<Report />} />
           <Route path="/headquaters" element={<Headquarters />} />
@@ -123,9 +132,11 @@ function App() {
 
           <Route path="/addcontact" element={<Add />} />
           <Route path="/law" element={<Law />} />
+          <Route path="/lawform" element={<Lawform />} />
           <Route path="/download" element={<Download />} />
           <Route path="/budget" element={<Budget />} />
-          
+
+      
           <>
             <Route
               path="/super-user/add-articles"
