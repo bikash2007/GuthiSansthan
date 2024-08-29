@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import { showAlert } from "../../AlertLoader";
+import "@fontsource/poppins"; // Import Poppins font
 
 export const ArticleAddition = () => {
   const [title, setTitle] = useState("");
@@ -46,52 +47,54 @@ export const ArticleAddition = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
-      <div className="w-full max-w-xl bg-white rounded-lg shadow-md p-6">
-        <h1 className="text-2xl font-semibold text-gray-800 mb-6">
+    <div className="flex items-center justify-center w-[1500px] h-[550px] mt-4">
+      <div
+       style={{ fontFamily: "'Merriweather', serif" }}
+      className="w-full max-w-xl px-6 py-6 h-[590px] bg-gray-600/30 rounded-lg shadow-lg  backdrop-blur-xl hover:shadow-2xl transition-shadow duration-300 ease-in-out">
+        <h1 className="mt-4 mb-6 text-4xl font-bold text-center text-white font-poppins">
           Add New Article
         </h1>
-        <form onSubmit={publishArticle} className="space-y-6">
+        <form onSubmit={publishArticle} className="space-y-8">
           <div>
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-sm font-medium text-white font-poppins">
               Title
             </label>
             <input
               type="text"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-[#30D5C8] focus:border-[#30D5C8]"
+              className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-md focus:ring-[#30D5C8] focus:border-[#30D5C8] text-base font-poppins hover:border-[#2ab2aa] transition-colors duration-300"
               placeholder="Enter article title"
               required
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-sm font-medium text-white font-poppins">
               Description
             </label>
             <textarea
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-[#30D5C8] focus:border-[#30D5C8] h-32"
+              className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-md focus:ring-[#30D5C8] focus:border-[#30D5C8] h-32 text-base font-poppins hover:border-[#2ab2aa] transition-colors duration-300"
               placeholder="Enter article description"
               required
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-sm font-medium text-white font-poppins">
               Image
             </label>
             <input
               type="file"
               accept="image/*"
               onChange={handleImageChange}
-              className="mt-1 block w-full text-gray-700 px-4 py-2 border border-gray-300 rounded-md shadow-sm cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#30D5C8]"
+              className="mt-2 block w-full text-white px-4 py-2 border border-gray-300 rounded-md shadow-md cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#30D5C8] text-base font-poppins hover:border-[#2ab2aa] transition-colors duration-300"
               required
             />
           </div>
           <button
             type="submit"
-            className="w-full bg-[#30D5C8] hover:bg-[#2ab2aa] text-white font-semibold py-2 px-4 rounded-md shadow-lg transition-all duration-300 ease-in-out"
+            className="w-full px-6 py-3 text-lg font-bold text-white transition-all duration-300 ease-in-out bg-green-700 rounded-md shadow-lg hover:bg-green-800 hover:shadow-xl font-poppins"
           >
             Publish Article
           </button>

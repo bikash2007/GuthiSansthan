@@ -17,7 +17,7 @@ export const ShowArticle = () => {
     <div className="max-w-4xl p-6 mx-auto rounded-lg shadow-md bg-gradient-to-r from-gray-50 to-gray-200 text-decoration-none">
       {/* Article Title */}
       <div className="mb-8 text-center">
-        <h1 className="text-4xl font-bold text-gray-800 text-decoration-none">
+        <h1 className="text-4xl font-bold text-gray-800 text-decoration-none ">
           {data?.title || "Article Title"}
         </h1>
       </div>
