@@ -1,6 +1,9 @@
+import React from 'react';
+
+
 import { Articles } from "./ArticleSection/Articles";
 import { Notices } from "./NoticeSection/Notices";
-import { useEffect, useState } from "react";
+import { useEffect, useState,useRef } from "react";
 import { useMediaQuery } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
@@ -19,6 +22,7 @@ import Download from "./Download/Download";
 import Budget from "./Budget/Budget";
 import Temple from"./Other Temple/Temple";
 import Land from "./Land and property/Land"
+import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 
 export const ArticleMainSection = () => {
   const isMobile = useMediaQuery("(max-width:800px)");
@@ -53,6 +57,34 @@ export const ArticleMainSection = () => {
       showAlert(error, "red");
     }
   });
+ 
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  
+  const mobileMenuRef = useRef(null);
+
+  // Close the mobile menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (mobileMenuRef.current && !mobileMenuRef.current.contains(event.target)) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
+    if (isMobileMenuOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isMobileMenuOpen]);
+
+
+
+
+
+
+
 
   return (
     <>
@@ -74,80 +106,87 @@ export const ArticleMainSection = () => {
           ></div>
         </EditBgImage>
        
-
         <div className="w-full">
-          <div
-            style={{ background: 'linear-gradient(135deg, #001f3f,#00ffff)' }}
-            className="flex justify-start w-full gap-8 py-4 pl-16 shadow-sm "
-          >
-            <button
-              onClick={() => setSection("article")}
-              className={`font-bold border-b-2  hover:border-red-600 transition-all duration-200 ease-linear text-white text-xl ${
-                section === "article" ? " border-red-600 " : "border-none"
-              } `}
-            >
-            लेख
-            </button>
-            <button
-              onClick={() => setSection("notice")}
-              className={`font-bold border-b-2  hover:border-red-600 transition-all duration-200 ease-linear text-white text-xl ${
-                section === "notice" ? " border-red-600 " : "border-none"
-              } `}
-            >
-           सूचना
-            </button>
-            <button
-              onClick={() => setSection("law")}
-              className={`font-bold border-b-2  hover:border-red-600 transition-all duration-200 ease-linear text-white text-xl ${
-                section === "law" ? " border-red-600 " : "border-none"
-              } `}
-            >
-              ऐन कानून
-            </button>
+      <div
+        style={{ background: 'linear-gradient(135deg, #001f3f,#00ffff)' }}
+        className="flex items-center justify-between w-full px-16 py-4 shadow-sm"
+      >
+        {/* Hamburger Icon */}
+        <div className="block lg:hidden">
+          <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="text-white">
+            {isMobileMenuOpen ? (
+              <XMarkIcon className="w-6 h-6" />
+            ) : (
+              <Bars3Icon className="w-6 h-6" />
+            )}
+          </button>
+        </div>
 
+        {/* Desktop Menu */}
+        <div className="hidden w-full gap-8 lg:flex">
+          {['article', 'notice', 'law', 'budget', 'download', 'land', 'temple'].map((sectionType) => (
             <button
-              onClick={() => setSection("budget")}
-              className={`font-bold border-b-2  hover:border-red-600 transition-all duration-200 ease-linear text-white text-xl ${
-                section === "budget" ? " border-red-600 " : "border-none"
-              } `}
+              key={sectionType}
+              onClick={() => setSection(sectionType)}
+              className={`font-bold border-b-2 hover:border-red-600 transition-all duration-200 ease-linear text-white text-xl ${
+                section === sectionType ? "border-red-600" : "border-none"
+              }`}
             >
-              बार्षिक बजेट
+              {sectionType === "article" && "लेख"}
+              {sectionType === "notice" && "सूचना"}
+              {sectionType === "law" && "ऐन कानून"}
+              {sectionType === "budget" && "बार्षिक बजेट"}
+              {sectionType === "download" && "डाउनलोड"}
+              {sectionType === "land" && "कूत तथा मालपोतको दर"}
+              {sectionType === "temple" && "अन्य देवस्वका दरहरू"}
             </button>
+          ))}
+        </div>
+
+        {/* Mobile Menu */}
+        <div
+          ref={mobileMenuRef}
+          className={`lg:hidden ${isMobileMenuOpen ? 'block' : 'hidden'} absolute z-10 top-16 right-0 w-full bg-gradient-to-r from-[#001f3f] to-[#00ffff] shadow-lg`}
+        >
+          <div className="flex flex-col items-center py-4 space-y-4">
             <button
-              onClick={() => setSection("download")}
-              className={`font-bold border-b-2  hover:border-red-600 transition-all duration-200 ease-linear text-white text-xl ${
-                section === "download" ? " border-red-600 " : "border-none"
-              } `}
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="absolute text-white top-4 right-4"
             >
-              डाउनलोड
+              <XMarkIcon className="w-6 h-6" />
             </button>
-            <button
-              onClick={() => setSection("land")}
-              className={`font-bold border-b-2  hover:border-red-600 transition-all duration-200 ease-linear text-white text-xl ${
-                section === "land" ? " border-red-600 " : "border-none"
-              } `}
-            >
-              कूत तथा मालपोतको दर
-            </button>
-            <button
-              onClick={() => setSection("temple")}
-              className={`font-bold border-b-2  hover:border-red-600 transition-all duration-200 ease-linear text-white text-xl ${
-                section === "temple" ? " border-red-600 " : "border-none"
-              } `}
-            >
-              अन्य देवस्वका दरहरू
-            </button>
-          </div>
-          <div className="flex items-center justify-center w-full">
-            {section === "article" && <Articles />}
-            {section === "notice" && <Notices />}
-            {section === "law" && <Law />}
-             {section === "budget" && <Budget />}  
-             {section === "download" && <Download />}  
-             {section === "temple" && <Temple />}  
-             {section === "land" && <Land />}  
+            {['article', 'notice', 'law', 'budget', 'download', 'land', 'temple'].map((sectionType) => (
+              <button
+                key={sectionType}
+                onClick={() => setSection(sectionType)}
+                className={`font-bold border-b-2 hover:border-red-600 transition-all duration-200 ease-linear text-white text-xl ${
+                  section === sectionType ? "border-red-600" : "border-none"
+                }`}
+              >
+                {sectionType === "article" && "लेख"}
+                {sectionType === "notice" && "सूचना"}
+                {sectionType === "law" && "ऐन कानून"}
+                {sectionType === "budget" && "बार्षिक बजेट"}
+                {sectionType === "download" && "डाउनलोड"}
+                {sectionType === "land" && "कूत तथा मालपोतको दर"}
+                {sectionType === "temple" && "अन्य देवस्वका दरहरू"}
+              </button>
+            ))}
           </div>
         </div>
+      </div>
+
+      <div className="flex items-center justify-center w-full">
+        {section === "article" && <Articles />}
+        {section === "notice" && <Notices />}
+        {section === "law" && <Law />}
+        {section === "budget" && <Budget />}
+        {section === "download" && <Download />}
+        {section === "temple" && <Temple />}
+        {section === "land" && <Land />}
+      </div>
+    </div>
+
       </div>
     </>
   );
