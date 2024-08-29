@@ -3,10 +3,12 @@ import axios from "axios"; // Import axios for API requests
 import { motion } from "framer-motion"; // Import motion for animations
 import { useDispatch, useSelector } from "react-redux"; // Import useDispatch and useSelector from react-redux
 import { showAlert } from "../../AlertLoader"; // Import the showAlert function
+import { useNavigate } from "react-router-dom"; // Import useNavigate from react-router-dom
+import { ArticleAddition } from "../ArticleAddition/ArticleAddition";
 import {
   setArticleSectionWholeDetail,
   setIsFetched,
-} from "../../../state/ArticleNoticeSlices/ArticleSectionSlice"; // Import required actions from your slice
+} from "../../../state/ArticleNoticeSlices/ArticleSectionSlice";
 import { InstanceArticles } from "./InstanceArticles"; // Import the InstanceArticles component
 import { useEditing } from "../../../context/EditingProvider";
 import { Link } from 'react-router-dom';
@@ -39,16 +41,22 @@ export const Articles = () => {
     if (!articleSectionDetail.isFetched) fetchData();
   }, [articleSectionDetail.isFetched]);
 
+  const [isHidden, setIsHidden] = useState(true);
+
+  const toggleDescription = () => {
+    setIsHidden(!isHidden);
+  };
   return (
     <div className="flex flex-col ">
      {isEditing && (
                 <div className="flex items-center justify-center mt-4">
-                    <Link
-                        to="/addarticle"
-                        className="px-4 py-2 text-lg text-white no-underline bg-green-600 rounded-md cursor-pointer top-3 hover:bg-green-700"
+                    <div
+                        onClick={toggleDescription}
+                        style={{ fontFamily: "'Merriweather', serif" }} 
+                        className="px-4 py-2 text-xl text-white no-underline bg-green-600 rounded-md cursor-pointer top-3 hover:bg-green-700"
                     >
                         Add Article
-                    </Link>
+                    </div>
                 </div>
             )}
     <motion.div
@@ -70,9 +78,11 @@ export const Articles = () => {
           />
         ))
       ) : (
-        <h1>Empty articles</h1>
+        <h1  style={{ fontFamily: "'Merriweather', serif" }} className="font-bold text-white ">Empty articles</h1>
       )}
     </motion.div>
+
+    {!isHidden && <ArticleAddition />}
     </div>
   );
 };
