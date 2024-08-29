@@ -13,7 +13,7 @@ export default function Report() {
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [isFormVisible, setIsFormVisible] = useState(true); // State to control form visibility
+
   const formRef = useRef(null);
 
   const validate = () => {
@@ -45,20 +45,7 @@ export default function Report() {
     }
   };
 
-  const handleClickOutside = (e) => {
-    if (formRef.current && !formRef.current.contains(e.target)) {
-      setIsFormVisible(false); // Close the form
-    }
-  };
-
-  useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
-
-  return isFormVisible ? (
+  return (
     <div
       ref={formRef}
       className="max-w-4xl p-6 mx-auto bg-gray-100 rounded-lg shadow-lg"
@@ -171,7 +158,6 @@ export default function Report() {
           </div>
 
           {/* Department Field */}
-          
         </div>
 
         {/* Reason Field */}
@@ -241,5 +227,5 @@ export default function Report() {
         </div>
       </form>
     </div>
-  ) : null; // Hide the form if it's closed
+  ); // Hide the form if it's closed
 }

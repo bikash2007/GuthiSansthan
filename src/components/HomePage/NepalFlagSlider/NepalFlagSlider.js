@@ -135,7 +135,7 @@ export const NepalFlagSlider = ({ content }) => {
         onMouseEnter={handleMouseEnter}
       >
         <FontAwesomeIcon
-          className="text-white h-14 lg:h-20"
+          className="text-white h-14 animate-pulse lg:h-20"
           icon={faArrowAltCircleRight}
           onClick={() => setCurrentSlide((prev) => (prev === 0 ? 1 : 0))}
         />
