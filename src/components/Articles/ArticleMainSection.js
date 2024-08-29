@@ -17,6 +17,8 @@ import { Link } from "react-router-dom";
 import Law from "./Law/Law";
 import Download from "./Download/Download";
 import Budget from "./Budget/Budget";
+import Temple from"./Other Temple/Temple";
+import Land from "./Land and property/Land"
 
 export const ArticleMainSection = () => {
   const isMobile = useMediaQuery("(max-width:800px)");
@@ -119,22 +121,22 @@ export const ArticleMainSection = () => {
             >
               डाउनलोड
             </button>
-            {/* <button
-              onClick={() => setSection("download")}
+            <button
+              onClick={() => setSection("land")}
               className={`font-bold border-b-2  hover:border-red-600 transition-all duration-200 ease-linear text-white text-xl ${
-                section === "download" ? " border-red-600 " : "border-none"
+                section === "land" ? " border-red-600 " : "border-none"
               } `}
             >
               कूत तथा मालपोतको दर
             </button>
             <button
-              onClick={() => setSection("download")}
+              onClick={() => setSection("temple")}
               className={`font-bold border-b-2  hover:border-red-600 transition-all duration-200 ease-linear text-white text-xl ${
-                section === "download" ? " border-red-600 " : "border-none"
+                section === "temple" ? " border-red-600 " : "border-none"
               } `}
             >
               अन्य देवस्वका दरहरू
-            </button> */}
+            </button>
           </div>
           <div className="flex items-center justify-center w-full">
             {section === "article" && <Articles />}
@@ -142,6 +144,8 @@ export const ArticleMainSection = () => {
             {section === "law" && <Law />}
              {section === "budget" && <Budget />}  
              {section === "download" && <Download />}  
+             {section === "temple" && <Temple />}  
+             {section === "land" && <Land />}  
           </div>
         </div>
       </div>
