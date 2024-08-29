@@ -12,12 +12,7 @@ export default function Editbutton() {
     >
       Remove
     </div>
-    <div
-      className="flex px-2 py-1 bg-green-600 border rounded-md cursor-pointer hover:bg-green-700"
-      onClick=""
-    >
-      Add
-    </div>
+  
   </div>
   )
 }

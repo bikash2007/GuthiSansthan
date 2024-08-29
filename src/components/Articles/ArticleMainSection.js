@@ -14,10 +14,9 @@ import { EditBgImage } from "../EditComponents/EditBgImage";
 import { showAlert } from "../AlertLoader";
 import { useEditing } from "../../context/EditingProvider";
 import { Link } from "react-router-dom";
-import Law from "./Law/InstanceLaw";
+import Law from "./Law/Law";
 import Download from "./Download/Download";
 import Budget from "./Budget/Budget";
-
 
 export const ArticleMainSection = () => {
   const isMobile = useMediaQuery("(max-width:800px)");
