@@ -31,7 +31,8 @@ export const HomePageFooter = () => {
   const [selectedSection, setSelectedSection] = useState("");
   const { t } = useTranslation();
   const isMobile = useMediaQuery("(max-width:800px)");
-  const hiddenDivRef = useRef();
+  const sectionRef = useRef(null); // Ref for the section content
+  const footerRef = useRef(null); // Ref for the footer
   const homePageDetail = useSelector((state) => state.homePageDetail);
   const dispatch = useDispatch();
   const baseUrl = useSelector((state) => state.baseUrl).backend;
@@ -52,16 +53,36 @@ export const HomePageFooter = () => {
     }
   }, [dispatch, baseUrl, homePageDetail]);
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        sectionRef.current &&
+        !sectionRef.current.contains(event.target) &&
+        footerRef.current &&
+        !footerRef.current.contains(event.target)
+      ) {
+        setSelectedSection(""); // Close section if click is outside
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [sectionRef]);
+
   const sections = [
     { icon: faCalendarAlt, label: "calendar", section: "calender" },
     { icon: faUserGear, label: "service", section: "service" },
-    // { icon: faUsers, label: "teams", section: "teams" },
     { icon: faFileCircleExclamation, label: "report", section: "report" },
   ];
 
   return (
     <>
-      <div className="fixed bottom-0 h-[200px] w-full justify-center flex items-center overflow-hidden">
+      <div
+        ref={footerRef}
+        className="fixed bottom-0 h-[200px] w-full justify-center flex items-center overflow-hidden"
+      >
         <EditBgImage
           imageId={homePageDetail["footer-bg-img"].id}
           url={homePageDetail["footer-bg-img"].imgSrc}
@@ -119,7 +140,7 @@ export const HomePageFooter = () => {
           ))}
         </div>
       </div>
-      <div className="w-full" ref={hiddenDivRef}>
+      <div className="w-full" ref={sectionRef}>
         {[
           { component: Calendar, section: "calender" },
           { component: Service, section: "service" },
