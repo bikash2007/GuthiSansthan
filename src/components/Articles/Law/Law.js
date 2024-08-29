@@ -3,22 +3,38 @@ import { Link } from 'react-router-dom';
 import InstanceLaw from "./InstanceLaw";
 import { useEditing } from "../../../context/EditingProvider";
 import Lawform from "./Lawform";
+import { motion } from "framer-motion";
 
 export default function Law() {
     const [lawList, setLawList] = useState([]);
     const { isEditing } = useEditing();
 
+    const [isHidden, setIsHidden] = useState(true);
+
+    const toggleDescription = () => {
+      setIsHidden(!isHidden);
+    };
+
     return (
+        <div className="flex flex-col">
+         <motion.div
+      initial={{ y: 200, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 1.2, delay: 0.5 }}
+      className="w-full p-1 mt-2 overflow-hidden rounded-md"
+    >
+       
         <div className="flex flex-col ">
             {isEditing && (
-                <div className="flex items-center justify-center mt-4">
-                    <Link
-                        to="/Lawform"
-                        className="px-4 py-2 text-lg text-white no-underline bg-green-600 rounded-md cursor-pointer top-3 hover:bg-green-700"
-                    >
-                        Add Law
-                    </Link>
-                </div>
+               <div className="flex items-center justify-center mt-4">
+               <div
+                   onClick={toggleDescription}
+                   style={{ fontFamily: "'Merriweather', serif" }} 
+                   className="px-4 py-2 text-xl text-white no-underline bg-green-600 rounded-md cursor-pointer top-3 hover:bg-green-700"
+               >
+                   Add Law
+               </div>
+           </div>
             )}
             <div className="flex flex-col w-full h-full ml-5">
                 <div className="relative flex flex-col flex-wrap h-full gap-2 px-3 mt-3 text-white">
@@ -34,12 +50,16 @@ export default function Law() {
                             />
                         ))
                     ) : (
-                        <h1 className="text-4xl font-semibold text-center text-cyan-600">
-                            No Law at this moment
+                        <h1  style={{ fontFamily: "'Merriweather', serif" }} className="font-bold text-white ">
+                            No Law at this moment 
                         </h1>
                     )}
                 </div>
             </div>
+        </div>
+        {!isHidden && < Lawform/>}
+        </motion.div>
+       
         </div>
     );
 }

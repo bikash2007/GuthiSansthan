@@ -71,40 +71,7 @@ export const ArticleMainSection = () => {
             }}
           ></div>
         </EditBgImage>
-        {isEditing && (
-          <div className="absolute z-50 flex gap-2 top-32 right-4">
-            <Link
-              to="/super-user/add-articles"
-              className="px-3 py-2 text-white no-underline bg-green-600 rounded-md cursor-pointer hover:bg-green-700"
-            >
-              Add Article
-            </Link>
-            <Link
-              to="/super-user/add-notices"
-              className="px-3 py-2 text-white no-underline bg-green-600 rounded-md cursor-pointer hover:bg-green-700"
-            >
-              Add Notice
-            </Link>
-            <Link
-              to="/super-user/add-notices"
-              className="px-3 py-2 text-white no-underline bg-green-600 rounded-md cursor-pointer hover:bg-green-700"
-            >
-              Add Law
-            </Link>
-            <Link
-              to="/super-user/add-notices"
-              className="px-3 py-2 text-white no-underline bg-green-600 rounded-md cursor-pointer hover:bg-green-700"
-            >
-              Add Budget
-            </Link>
-            <Link
-              to="/super-user/add-notices"
-              className="px-3 py-2 text-white no-underline bg-green-600 rounded-md cursor-pointer hover:bg-green-700"
-            >
-              Add Download
-            </Link>
-          </div>
-        )}
+       
 
         <div className="w-full">
           <div

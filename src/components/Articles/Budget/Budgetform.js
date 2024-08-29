@@ -1,19 +1,19 @@
 import React from 'react';
 import "@fontsource/poppins"; // Ensure Poppins font is imported
 
-export default function Lawform() {
+export default function Budgetform() {
   return (
     <div className="flex items-center justify-center mt-3 ">
       <div
         className="w-full max-w-xl p-6 transition-shadow duration-300 ease-in-out rounded-lg shadow-lg bg-gray-600/30 backdrop-blur-xl hover:shadow-2xl"
       >
         <h3 className="mb-5 text-2xl font-semibold text-center text-white font-poppins">
-          Upload Your Document
+          Upload Your Budget Document
         </h3>
         <form>
           <div className="mb-4">
             <label htmlFor="pdfTitle" className="block text-sm font-medium text-white font-poppins">
-              PDF Title
+              Budget Title
             </label>
             <input
               type="text"
@@ -36,7 +36,7 @@ export default function Lawform() {
           </div>
           <div className="mb-4">
             <label htmlFor="pdfLink" className="block text-sm font-medium text-white font-poppins">
-              PDF Link
+              Budget Link
             </label>
             <input
               type="text"
