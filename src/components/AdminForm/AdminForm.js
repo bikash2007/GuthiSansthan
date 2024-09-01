@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const AdminForm = () => {
   const [formData, setFormData] = useState({
@@ -15,6 +16,7 @@ const AdminForm = () => {
   });
 
   const [branches, setBranches] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios
@@ -67,11 +69,12 @@ const AdminForm = () => {
       })
       .then((response) => {
         alert("Admin created successfully!");
+        navigate("/branches");
         // Optionally reset form or redirect
       })
       .catch((error) => {
         console.error("Error creating admin:", error);
-        alert("Failed to create admin.");
+        alert("Failed to create admin. try to change username");
       });
   };
 

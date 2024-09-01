@@ -51,7 +51,6 @@ import Lawform from "./components/Articles/Law/Lawform";
 import noticeform from "./components/Articles/NoticeSection/NoticeForm";
 import articleform from "./components/Articles/ArticleAddition/ArticleAddition";
 
-
 import Download from "./components/Articles/Download/Download";
 import Budget from "./components/Articles/Budget/Budget";
 import BranchDarbandi from "./components/BranchPage/BranchComponents/Darbandi/BranchDarbandi";
@@ -59,8 +58,7 @@ import BudgetKharcha from "./components/BranchPage/BranchComponents/BudgetKharch
 import BudgetNikasa from "./components/BranchPage/BranchComponents/BudgetNikasa";
 import SuchiDarta from "./components/BranchPage/BranchComponents/SuchiDarta";
 import Landdetails from "./components/BranchPage/BranchComponents/LandDetails/Landdetails";
-
-
+import EditBranchTeams from "./components/BranchPage/BranchTeams/EditBranchTeams";
 
 function App() {
   const location = useLocation();
@@ -122,9 +120,8 @@ function App() {
           <Route path="/noticeform" element={<NoticeForm />} />
 
           <Route path="/show-article" element={<ShowArticle />} />
-          
+
           <Route path="/addarticle" element={<ArticleAddition />} />
-          
 
           <Route path="/jatra-parva" element={<JatraMandir />} />
           <Route path="/report" element={<Report />} />
@@ -145,20 +142,19 @@ function App() {
           <Route path="/suchi-darta" element={<SuchiDarta />} />
           <Route path="/land-detail" element={<Landdetails />} />
 
-      
           <>
             <Route
               path="/super-user/add-articles"
               element={<ArticleAddition />}
             />
             <Route path="/super-user/add-notices" element={<NoticeForm />} />
+            <Route path="/edit-user/:userId" element={<EditBranchTeams />} />
           </>
 
           <>
             <Route path="/user/profile" element={<ProfileSection />} />
             <Route path="/user/setting" element={<SettingMainPage />} />
             <Route path="/darbandi" element={<Darbandi />} />
-
           </>
         </Routes>
       </div>
