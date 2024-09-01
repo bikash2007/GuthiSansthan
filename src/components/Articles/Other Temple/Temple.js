@@ -32,7 +32,7 @@ export default function Temple() {
                    style={{ fontFamily: "'Merriweather', serif" }} 
                    className="px-4 py-2 text-xl text-white no-underline bg-green-600 rounded-md cursor-pointer top-3 hover:bg-green-700"
                >
-                   Add Temple
+                   Add circulars
                </div>
            </div>
             )}
@@ -51,7 +51,7 @@ export default function Temple() {
                         ))
                     ) : (
                         <h1  style={{ fontFamily: "'Merriweather', serif" }} className="font-bold text-white ">
-                            No Temple information at this moment 
+                            No  information at this moment 
                         </h1>
                     )}
                 </div>
