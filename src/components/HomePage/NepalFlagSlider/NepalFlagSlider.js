@@ -115,7 +115,7 @@ export const NepalFlagSlider = ({ content }) => {
             : `${
                 isHover || currentSlide === 1
                   ? "left-[-100%] opacity-0"
-                  : " left-[70%] lg:left-[89%] opacity-100"
+                  : " left-[70%] lg:left-[85%] opacity-100"
               }`
         } ${
           isMobile ? "w-[20vh]" : "w-[30vh]"

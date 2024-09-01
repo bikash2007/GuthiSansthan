@@ -20,7 +20,7 @@ const UserCards = ({ user }) => {
   };
 
   return (
-    <div className="bg-white shadow-lg rounded-lg overflow-hidden flex flex-col items-center w-52 flex-wrap px-0 py-2">
+    <div className="bg-white shadow-xl shadow-zinc-700 rounded-lg overflow-hidden flex flex-col items-center w-52 flex-wrap px-0 py-2">
       <div className="w-20 h-20 mb-4">
         <img
           src={user.profile?.photo || "https://via.placeholder.com/150"}
