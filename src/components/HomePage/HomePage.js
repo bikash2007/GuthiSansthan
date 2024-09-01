@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useMediaQuery } from "@mui/material";
+import { Input, useMediaQuery } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { NepalFlagSlider } from "./NepalFlagSlider/NepalFlagSlider";
 import { Link } from "react-router-dom";
@@ -176,6 +176,12 @@ export const HomePage = () => {
           </EditBgHome>
 
           <NepalFlagSlider />
+          <input
+            type="search"
+            placeholder="search"
+            className="absolute right-4 bottom-32 h-8 w-36 z-50 text-center rounded-lg backdrop-blur-3xl bg-gray-100/20 border border-gray-300/40 shadow-lg px-4 text-white placeholder-gray-400 focus:w-96 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all duration-300 ease-in-out"
+          />
+
           <HomePageFooter />
         </div>
       </div>
