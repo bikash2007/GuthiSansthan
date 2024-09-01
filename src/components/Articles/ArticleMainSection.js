@@ -138,7 +138,7 @@ export const ArticleMainSection = () => {
               {sectionType === "budget" && "बार्षिक बजेट"}
               {sectionType === "download" && "डाउनलोड"}
               {sectionType === "land" && "कूत तथा मालपोतको दर"}
-              {sectionType === "temple" && "अन्य देवस्वका दरहरू"}
+              {sectionType === "temple" && "परिपत्रहरू"}
             </button>
           ))}
         </div>
@@ -169,7 +169,7 @@ export const ArticleMainSection = () => {
                 {sectionType === "budget" && "बार्षिक बजेट"}
                 {sectionType === "download" && "डाउनलोड"}
                 {sectionType === "land" && "कूत तथा मालपोतको दर"}
-                {sectionType === "temple" && "अन्य देवस्वका दरहरू"}
+                {sectionType === "temple" && "परिपत्रहरू"}
               </button>
             ))}
           </div>

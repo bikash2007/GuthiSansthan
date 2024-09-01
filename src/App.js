@@ -54,6 +54,11 @@ import articleform from "./components/Articles/ArticleAddition/ArticleAddition";
 
 import Download from "./components/Articles/Download/Download";
 import Budget from "./components/Articles/Budget/Budget";
+import BranchDarbandi from "./components/BranchPage/BranchComponents/Darbandi/BranchDarbandi";
+import BudgetKharcha from "./components/BranchPage/BranchComponents/BudgetKharcha";
+import BudgetNikasa from "./components/BranchPage/BranchComponents/BudgetNikasa";
+import SuchiDarta from "./components/BranchPage/BranchComponents/SuchiDarta";
+import Landdetails from "./components/BranchPage/BranchComponents/LandDetails/Landdetails";
 
 
 
@@ -129,12 +134,16 @@ function App() {
           <Route path="/branches" element={<BranchMainPage />} />
           <Route path="/branche-full-info" element={<EachBranchInfo />} />
           <Route path="/addteam" element={<Teams />} />
-
+          <Route path="/budget" element={<Budget />} />
           <Route path="/addcontact" element={<Add />} />
           <Route path="/law" element={<Law />} />
           <Route path="/lawform" element={<Lawform />} />
           <Route path="/download" element={<Download />} />
-          <Route path="/budget" element={<Budget />} />
+          <Route path="/branch-darbandi" element={<Darbandi />} />
+          <Route path="/budget-kharcha" element={<BudgetKharcha />} />
+          <Route path="/budget-nikasa" element={<BudgetNikasa />} />
+          <Route path="/suchi-darta" element={<SuchiDarta />} />
+          <Route path="/land-detail" element={<Landdetails />} />
 
       
           <>

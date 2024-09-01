@@ -8,12 +8,12 @@ export default function Templeform() {
         className="w-full max-w-xl p-6 transition-shadow duration-300 ease-in-out rounded-lg shadow-lg bg-gray-600/30 backdrop-blur-xl hover:shadow-2xl"
       >
         <h3 className="mb-5 text-2xl font-semibold text-center text-white font-poppins">
-          Upload Your Temple Document
+          Upload Your circulars Document
         </h3>
         <form>
           <div className="mb-4">
             <label htmlFor="pdfTitle" className="block text-sm font-medium text-white font-poppins">
-              Temple Title
+            circulars Title
             </label>
             <input
               type="text"
@@ -36,7 +36,7 @@ export default function Templeform() {
           </div>
           <div className="mb-4">
             <label htmlFor="pdfLink" className="block text-sm font-medium text-white font-poppins">
-              Temple Link
+            circulars Link
             </label>
             <input
               type="text"
