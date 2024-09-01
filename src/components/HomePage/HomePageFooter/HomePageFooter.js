@@ -152,12 +152,12 @@ export const HomePageFooter = () => {
             key={section}
             className={`${
               selectedSection === section ? "bottom-0" : "bottom-[-300%]"
-            } absolute backdrop-blur-lg w-full h-[80vh] transition-all overflow-auto ease-in-out duration-500 rounded-xl z-20`}
+            } absolute backdrop-blur-lg w-full pt-4 h-[80vh] transition-all overflow-auto ease-in-out duration-500 rounded-xl z-40`}
           >
             <FontAwesomeIcon
               icon={faClose}
               size={"2x"}
-              className="cursor-pointer scale-50 lg:scale-100 absolute top-0 right-3 text-red-600 z-50"
+              className="cursor-pointer scale-50 lg:scale-100 absolute top-5 right-3 text-red-600 z-50"
               onClick={() => setSelectedSection("")}
             />
             {selectedSection === section && <Component />}

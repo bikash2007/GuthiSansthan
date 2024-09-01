@@ -84,7 +84,7 @@ export const HeaderTop = () => {
           >
             <img
               className={`${
-                isMobile ? "h-[50px]" : "h-[100px]"
+                isMobile ? "h-[50px]" : "h-[90px]"
               } bg-clip-padding hover:scale-110 hover:shadow-2xl hover:shadow-black transition-all`}
               src={globalDetail["guthi-sansthan-logo"].imgSrc}
               alt="Guthi Sansthan Logo"
@@ -98,7 +98,10 @@ export const HeaderTop = () => {
           यतो धर्म: स्ततो जय:
           <br />
         </span>
-        <h4 className="text-white hover:text-cyan-500 font-bold text-base lg:text-5xl">
+        <h4
+          className="text-white font-bold text-base lg:text-5xl hover:text-cyan-500"
+          style={{ textShadow: "0px 0px 10px rgba(0, 255, 255, 0.8)" }}
+        >
           {t("logo")}
         </h4>
       </Link>
@@ -138,9 +141,9 @@ export const HeaderTop = () => {
             className="bg-gray-300/30 text-black rounded-full px-2 py-1 cursor-pointer w-auto lg:w-auto backdrop-blur-sm border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
             <option value="nepali">Nepali</option>
-            <option value="newari">Newari</option>
             <option value="english">English</option>
-            <option value="mithila">Mithila</option>
+            {/* <option value="newari">Newari</option> */}
+            {/* <option value="mithila">Mithila</option> */}
           </select>
         </div>
 

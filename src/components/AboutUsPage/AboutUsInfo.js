@@ -41,8 +41,9 @@ const AboutUsInfo = () => {
         <InstanceAboutUs
           key={item.id}
           img={item.image}
-          title={item.title.English} // Adjust this if you want to show a different language
-          text={item.text.English} // Adjust this if you want to show a different language
+          title={item.title} // Adjust this if you want to show a different language
+          text={item.text}
+          id={item.id} // Adjust this if you want to show a different language
           onRemove={() => handleRemove(item.id)}
         />
       ))}
