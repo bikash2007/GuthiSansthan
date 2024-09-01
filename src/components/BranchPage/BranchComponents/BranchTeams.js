@@ -59,7 +59,7 @@ const BranchTeams = ({ branchName, branchId }) => {
         {users.map((user) => (
           <div
             key={user.id}
-            className="bg-white shadow-lg rounded-lg overflow-hidden flex flex-col items-center px-0 py-11"
+            className="bg-white shadow-lg rounded-lg overflow-hidden flex flex-col items-center w-52 flex-wrap px-0 py-2"
           >
             <div className="w-20 h-20 mb-4">
               <img
