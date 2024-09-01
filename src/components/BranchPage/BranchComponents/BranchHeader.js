@@ -238,7 +238,7 @@ export const BranchHeader = ({
 
                 <div className=" md:text-left w-full flex  ">
                   <div className="flex flex-col ">
-                    <div className="flex gap-2 items-end">
+                    <div className="flex flex-col items-center gap-2 ">
                       <img
                         className="w-[50px]  md:w-[90px] "
                         src={logo}
