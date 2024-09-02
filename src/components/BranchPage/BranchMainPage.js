@@ -78,7 +78,7 @@ export const BranchMainPage = () => {
 
       {/* Content */}
       <div className="relative z-10 w-full flex flex-wrap items-center pb-44  justify-center px-[10%] gap-5">
-        <div className="bg-black flex flex-col rounded-md">
+        {/* <div className="bg-black flex flex-col rounded-md">
           <Link
             to="/headquaters"
             className="relative flex items-center justify-center border border-black rounded-md w-[150px] md:w-[300px] h-[100px] md:h-[200px] bg-cover bg-center hover:scale-105 m-1 transition-all duration-300 cursor-pointer"
@@ -87,7 +87,7 @@ export const BranchMainPage = () => {
             <div className="absolute inset-0 bg-black bg-opacity-50"></div>
           </Link>
           <h5 className="h-full text-white w-full">Headquater</h5>
-        </div>
+        </div> */}
 
         {data.map((item) => (
           <BranchInstance
