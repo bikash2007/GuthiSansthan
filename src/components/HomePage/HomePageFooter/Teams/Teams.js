@@ -1,17 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import logo from "../../../../media/guthi.png";
 import InstantTeam from "./InstantTeam";
-import AddTeam from "./AddTeam"; // Make sure the import is default
+import AddTeam from "./AddTeam";
+import EditTeams from "./EditTeams";
 import { useEditing } from "../../../../context/EditingProvider";
 import axios from "axios";
+import p2 from "../../../../media/Teams/p2.png";
 
 export const Teams = () => {
-  const { t } = useTranslation(); // Translation hook
-  const { isEditing } = useEditing(); // Editing context
+  const { t } = useTranslation();
+  const { isEditing } = useEditing();
   const [teamData, setTeamData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [selectedTeamMember, setSelectedTeamMember] = useState(null);
+  const [isEditingMode, setIsEditingMode] = useState(false); // State for add/edit mode
 
   useEffect(() => {
     const fetchTeamData = async () => {
@@ -28,6 +32,30 @@ export const Teams = () => {
     fetchTeamData();
   }, []);
 
+  const handleEdit = (id) => {
+    const member = teamData.find((team) => team.id === id);
+    setSelectedTeamMember(member);
+    setIsEditingMode(true); // Switch to edit mode
+  };
+
+  const handleRemove = async (id) => {
+    try {
+      await axios.delete(`https://ingnepal.org.np/api/teams/${id}`);
+      setTeamData((prevData) => prevData.filter((team) => team.id !== id));
+    } catch (error) {
+      console.error("There was an error removing the team member!", error);
+    }
+  };
+
+  const handleAddNew = () => {
+    setSelectedTeamMember(null); // Clear selected member for adding new
+    setIsEditingMode(true); // Switch to add mode
+  };
+
+  const handleCancel = () => {
+    setIsEditingMode(false); // Switch back to viewing mode
+  };
+
   if (loading) return <div className="text-center text-white">Loading...</div>;
   if (error)
     return <div className="text-center text-red-500">Error: {error}</div>;
@@ -37,19 +65,46 @@ export const Teams = () => {
       <div className="w-full py-1 flex justify-center bg-neutral-200/30">
         <img src={logo} height={200} width={200} alt="Logo" />
       </div>
-      <div className="h-full w-full flex flex-col items-center overflow-auto px-2">
+      <div className="h-full w-full flex flex-wrap items-center overflow-auto px-2">
+        <div className="w-full flex justify-center py-2 flex-col items-center">
+          <img src={p2} height={200} width={200} />
+          <h1 className="text-xl lg:text-3xl font-semibold mt-2">अध्यक्ष</h1>
+          <h3 className="text-md lg:text-lg text-gray-400">
+            डा. शिवराज पण्डित
+          </h3>
+        </div>
         {teamData.map((teamMember) => (
           <InstantTeam
             key={teamMember.id}
-            firstName={teamMember.first_name}
-            lastName={teamMember.last_name}
-            position={teamMember.position}
-            post={teamMember.post}
-            photo={teamMember.photo}
-            branch={teamMember.branch}
+            teamMember={teamMember}
+            onEdit={() => handleEdit(teamMember.id)}
+            onRemove={() => handleRemove(teamMember.id)}
           />
         ))}
-        {isEditing && <AddTeam />}
+        <div className="w-full">
+          {isEditingMode ? (
+            <div>
+              <button
+                onClick={handleCancel}
+                className="py-2 px-4 bg-red-600 text-white rounded hover:bg-red-500"
+              >
+                Cancel
+              </button>
+              {selectedTeamMember ? (
+                <EditTeams teamMember={selectedTeamMember} />
+              ) : (
+                <AddTeam />
+              )}
+            </div>
+          ) : (
+            <button
+              onClick={handleAddNew}
+              className="py-2 px-4 bg-blue-600 text-white rounded hover:bg-blue-500"
+            >
+              Add New Team Member
+            </button>
+          )}
+        </div>
       </div>
     </div>
   );
