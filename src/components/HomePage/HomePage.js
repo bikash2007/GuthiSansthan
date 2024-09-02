@@ -20,7 +20,7 @@ import {
 import { EditBgHome } from "../EditComponents/EditBgHome";
 import { useEditing } from "../../context/EditingProvider";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAdd } from "@fortawesome/free-solid-svg-icons";
+import { faAdd, faSearch } from "@fortawesome/free-solid-svg-icons";
 
 export const HomePage = () => {
   const { i18n, t } = useTranslation();
@@ -176,11 +176,19 @@ export const HomePage = () => {
           </EditBgHome>
 
           <NepalFlagSlider />
-          <input
-            type="search"
-            placeholder="search"
-            className="absolute right-4 bottom-32 h-8 w-36 z-50 text-center rounded-lg backdrop-blur-3xl bg-gray-100/20 border border-gray-300/40 shadow-lg px-4 text-white placeholder-gray-400 focus:w-96 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all duration-300 ease-in-out"
-          />
+          <div className="absolute right-4 bottom-32 z-50">
+            <div className="relative h-8 w-36 text-center rounded-lg backdrop-blur-3xl bg-gray-100/20 border border-gray-300/40 shadow-lg px-4 transition-all duration-300 ease-in-out focus-within:w-96">
+              <input
+                type="search"
+                placeholder="Search"
+                className="w-full h-full text-white placeholder-gray-400 bg-transparent outline-none"
+              />
+              <FontAwesomeIcon
+                icon={faSearch}
+                className="absolute right-2 top-1/2 transform -translate-y-1/2 text-white placeholder:text-white"
+              />
+            </div>
+          </div>
 
           <HomePageFooter />
         </div>
