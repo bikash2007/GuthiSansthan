@@ -27,6 +27,8 @@ export const BranchHeader = ({
     }`,
     branchHeadPost: "",
   });
+  console.log(branchHead);
+  // console.log("branch id for tesrt", branchId);
 
   const handleImg1 = () => {
     const file = document.getElementById("branch-addition-head-1").files[0];
@@ -101,11 +103,10 @@ export const BranchHeader = ({
             </h3>
             <h4 className="pt-0 mb-0 text-sm font-bold md:text-[15px] text-cyan-400 md:me-[70px] me-[50px]">
               {branchDetail.branchHeadPost}
-              सहायक प्रशासक
+              {branchId === 27 ? "प्रशासक" : "सहायक प्रशासक"}
             </h4>
             <h4 className="pt-0 mb-0 text-sm font-bold md:text-[15px] text-cyan-400 md:me-[70px] me-[50px]">
-              {branchDetail.branchHeadPost}
-              ९८५१० - #####
+              {branchHead?.profile?.contact_no}
             </h4>
           </div>
         </div>
