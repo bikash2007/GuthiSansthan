@@ -74,7 +74,7 @@ export const HomePageFooter = () => {
   const sections = [
     { icon: faCalendarAlt, label: "calendar", section: "calender" },
     { icon: faUserGear, label: "service", section: "service" },
-    // { icon: faUserGear, label: "teams", section: "teams" },
+    { icon: faUserGear, label: "teams", section: "teams" },
     { icon: faFileCircleExclamation, label: "report", section: "report" },
   ];
 

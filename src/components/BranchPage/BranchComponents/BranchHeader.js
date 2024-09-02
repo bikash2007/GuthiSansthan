@@ -103,7 +103,7 @@ export const BranchHeader = ({
             </h3>
             <h4 className="pt-0 mb-0 text-sm font-bold md:text-[15px] text-cyan-400 md:me-[70px] me-[50px]">
               {branchDetail.branchHeadPost}
-              {branchId === 27 ? "प्रशासक" : "सहायक प्रशासक"}
+              {branchId === 27 && "प्रशासक"}
             </h4>
             <h4 className="pt-0 mb-0 text-sm font-bold md:text-[15px] text-cyan-400 md:me-[70px] me-[50px]">
               {branchHead?.profile?.contact_no}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 
 const AddTeam = () => {
@@ -8,25 +8,16 @@ const AddTeam = () => {
     photo: null, // File type for the photo
     position: { English: "", Newari: "", Nepali: "", Mithila: "" },
     post: { English: "", Newari: "", Nepali: "", Mithila: "" }, // Optional
-    branch: "", // Text input for branch
+    branch: { English: "", Newari: "", Nepali: "", Mithila: "" }, // Updated to match JSON structure
   });
 
-  const [branches, setBranches] = useState([]);
-
-  useEffect(() => {
-    // Fetch branches data from the API
-    axios
-      .get("https://ingnepal.org.np/api/branches/")
-      .then((response) => {
-        setBranches(response.data);
-      })
-      .catch((error) => {
-        console.error("There was an error fetching the branches!", error);
-      });
-  }, []);
-
   const handleChange = (e, key, lang = null) => {
-    if (lang) {
+    if (key === "photo") {
+      setTeamData((prevData) => ({
+        ...prevData,
+        photo: e.target.files ? e.target.files[0] : null,
+      }));
+    } else if (lang) {
       setTeamData((prevData) => ({
         ...prevData,
         [key]: {
@@ -37,7 +28,7 @@ const AddTeam = () => {
     } else {
       setTeamData((prevData) => ({
         ...prevData,
-        [key]: e.target.files ? e.target.files[0] : e.target.value,
+        [key]: e.target.value,
       }));
     }
   };
@@ -47,14 +38,15 @@ const AddTeam = () => {
 
     const formData = new FormData();
 
-    // Append all text data in the specified format
+    // Append photo file
+    if (teamData.photo) {
+      formData.append("photo", teamData.photo);
+    }
+
+    // Append text data
     for (const key in teamData) {
-      if (key === "photo") {
-        formData.append(key, teamData[key]);
-      } else if (typeof teamData[key] === "object") {
-        formData.append("text", JSON.stringify(teamData[key]));
-      } else {
-        formData.append(key, teamData[key]);
+      if (key !== "photo") {
+        formData.append(key, JSON.stringify(teamData[key]));
       }
     }
 
@@ -67,7 +59,7 @@ const AddTeam = () => {
       })
       .then((response) => {
         console.log("Team member added successfully:", response.data);
-        // Clear the form or provide feedback to the user
+        window.location.reload();
       })
       .catch((error) => {
         console.error("There was an error adding the team member!", error);
@@ -84,13 +76,20 @@ const AddTeam = () => {
               <div key={key}>
                 <h3 className="text-white font-semibold capitalize">{key}</h3>
                 {key === "branch" ? (
-                  <input
-                    type="text"
-                    value={teamData[key]}
-                    onChange={(e) => handleChange(e, key)}
-                    className="p-2 bg-gray-700 text-white rounded w-full"
-                    placeholder="Enter branch"
-                  />
+                  <div className="grid grid-cols-2 gap-4">
+                    {["English", "Newari", "Nepali", "Mithila"].map((lang) => (
+                      <div key={lang} className="flex flex-col">
+                        <label className="text-gray-300">{lang}:</label>
+                        <input
+                          type="text"
+                          value={teamData[key][lang]}
+                          onChange={(e) => handleChange(e, key, lang)}
+                          className="p-2 bg-gray-700 text-white rounded"
+                          placeholder={`Enter ${key} in ${lang}`}
+                        />
+                      </div>
+                    ))}
+                  </div>
                 ) : (
                   <div className="grid grid-cols-2 gap-4">
                     {["English", "Newari", "Nepali", "Mithila"].map((lang) => (
