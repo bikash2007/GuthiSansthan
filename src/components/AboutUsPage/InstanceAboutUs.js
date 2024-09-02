@@ -67,8 +67,8 @@ const InstanceAboutUs = ({ title, text, img, onRemove, id }) => {
       </div>
 
       {isOpen && !isEditingMode && (
-        <div className="fixed inset-0 flex items-center justify-center z-50 bg-neutral-800/50">
-          <div className="relative w-3/4 max-w-4xl bg-white/40 backdrop-blur-lg p-6 rounded-lg shadow-lg">
+        <div className="fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center z-50 bg-neutral-800/50 overflow-auto p-4">
+          <div className="relative w-full max-w-3xl md:max-w-4xl bg-white/40 backdrop-blur-lg p-6 rounded-lg shadow-lg max-h-[90vh] overflow-y-auto">
             <FontAwesomeIcon
               icon={faClose}
               size={"2x"}

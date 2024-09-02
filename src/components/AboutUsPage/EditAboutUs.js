@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const EditAboutUs = ({ content, toggleEditMode }) => {
   const [formData, setFormData] = useState({
@@ -17,6 +17,22 @@ const EditAboutUs = ({ content, toggleEditMode }) => {
   const [imageFile, setImageFile] = useState(null); // State to hold the selected image file
   const [language, setLanguage] = useState("English"); // Default language
 
+  useEffect(() => {
+    // Initialize formData when content changes
+    setFormData({
+      id: content.id,
+      titleEnglish: content.title.English || "",
+      titleNepali: content.title.Nepali || "",
+      titleNewari: content.title.Newari || "",
+      titleMithila: content.title.Mithila || "",
+      textEnglish: content.text.English || "",
+      textNepali: content.text.Nepali || "",
+      textNewari: content.text.Newari || "",
+      textMithila: content.text.Mithila || "",
+      img: content.image || "",
+    });
+  }, [content]);
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -25,28 +41,16 @@ const EditAboutUs = ({ content, toggleEditMode }) => {
     });
   };
 
-  const handleImageChange = async (e) => {
+  const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      // Upload the image and get the URL
-      const imageUrl = await setImageFile(file); // Use the defined uploadImage function
-      if (imageUrl) {
-        setFormData({
-          ...formData,
-          img: imageUrl,
-        });
-      }
+      setImageFile(file);
     }
   };
 
   const handleLanguageChange = (e) => {
     const selectedLanguage = e.target.value;
     setLanguage(selectedLanguage);
-    setFormData({
-      ...formData,
-      [`title${selectedLanguage}`]: content.title[selectedLanguage] || "",
-      [`text${selectedLanguage}`]: content.text[selectedLanguage] || "",
-    });
   };
 
   const handleFormSubmit = async () => {
@@ -64,19 +68,30 @@ const EditAboutUs = ({ content, toggleEditMode }) => {
         Newari: formData.textNewari,
         Mithila: formData.textMithila,
       },
-      image: formData.img, // This should be a URL or base64 string if the API expects an image URL
+      image: formData.img, // Default to the existing image URL
     };
 
     try {
+      const formDataToSend = new FormData();
+      // Append text data
+      formDataToSend.append("id", payload.id);
+      formDataToSend.append("title", JSON.stringify(payload.title));
+      formDataToSend.append("text", JSON.stringify(payload.text));
+
+      // Append image file if provided
+      if (imageFile) {
+        formDataToSend.append("image", imageFile);
+      } else if (payload.image) {
+        // If no new image is provided but an old image exists, append the existing image URL
+        formDataToSend.append("image", payload.image);
+      }
+
       const response = await fetch(
         `https://ingnepal.org.np/api/about-us/${payload.id}/`,
         {
           method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-            // Include any necessary authentication headers
-          },
-          body: JSON.stringify(payload),
+          body: formDataToSend,
+          // Note: Content-Type is automatically set by FormData
         }
       );
 
@@ -90,7 +105,7 @@ const EditAboutUs = ({ content, toggleEditMode }) => {
 
       const updatedContent = await response.json();
       console.log("Edited content:", updatedContent);
-
+      window.location.reload();
       toggleEditMode(); // Close the edit form after saving
     } catch (error) {
       console.error("Error updating content:", error);
@@ -140,7 +155,7 @@ const EditAboutUs = ({ content, toggleEditMode }) => {
         onChange={handleImageChange}
         className="w-full p-2 border rounded mb-2"
       />
-      {formData.img && (
+      {formData.img && !imageFile && (
         <img src={formData.img} alt="Selected" className="w-1/2 h-auto mb-2" />
       )}
       <button

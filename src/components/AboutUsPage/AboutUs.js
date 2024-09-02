@@ -56,7 +56,7 @@ export const AboutUs = () => {
     return () => clearTimeout(timeoutId);
   }, [baseUrl, aboutUsPageDetail, dispatch]);
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center overflow-auto">
       <EditBgImage
         imageId={aboutUsPageDetail["bg-img"].id}
         url={aboutUsPageDetail["bg-img"].imgSrc}

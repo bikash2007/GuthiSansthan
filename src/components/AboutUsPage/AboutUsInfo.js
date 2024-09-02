@@ -36,7 +36,7 @@ const AboutUsInfo = () => {
   };
 
   return (
-    <div className="flex px-3 gap-4 lg:gap-12 justify-evenly flex-wrap">
+    <div className="flex px-3 gap-4 lg:gap-12 justify-evenly flex-wrap overflow-auto">
       {aboutUsData.map((item) => (
         <InstanceAboutUs
           key={item.id}
