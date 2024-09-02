@@ -59,7 +59,7 @@ const AddTeam = () => {
       })
       .then((response) => {
         console.log("Team member added successfully:", response.data);
-        // Clear the form or provide feedback to the user
+        window.location.reload();
       })
       .catch((error) => {
         console.error("There was an error adding the team member!", error);

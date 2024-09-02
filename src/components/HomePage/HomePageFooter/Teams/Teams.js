@@ -81,30 +81,32 @@ export const Teams = () => {
             onRemove={() => handleRemove(teamMember.id)}
           />
         ))}
-        <div className="w-full">
-          {isEditingMode ? (
-            <div>
+        {isEditing && (
+          <div className="w-full">
+            {isEditingMode ? (
+              <div>
+                <button
+                  onClick={handleCancel}
+                  className="py-2 px-4 bg-red-600 text-white rounded hover:bg-red-500"
+                >
+                  Cancel
+                </button>
+                {selectedTeamMember ? (
+                  <EditTeams teamMember={selectedTeamMember} />
+                ) : (
+                  <AddTeam />
+                )}
+              </div>
+            ) : (
               <button
-                onClick={handleCancel}
-                className="py-2 px-4 bg-red-600 text-white rounded hover:bg-red-500"
+                onClick={handleAddNew}
+                className="py-2 px-4 bg-blue-600 text-white rounded hover:bg-blue-500"
               >
-                Cancel
+                Add New Team Member
               </button>
-              {selectedTeamMember ? (
-                <EditTeams teamMember={selectedTeamMember} />
-              ) : (
-                <AddTeam />
-              )}
-            </div>
-          ) : (
-            <button
-              onClick={handleAddNew}
-              className="py-2 px-4 bg-blue-600 text-white rounded hover:bg-blue-500"
-            >
-              Add New Team Member
-            </button>
-          )}
-        </div>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );
