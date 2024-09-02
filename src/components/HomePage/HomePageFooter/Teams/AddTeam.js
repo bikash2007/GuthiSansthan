@@ -1,143 +1,135 @@
-import { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faClose, faPlus } from "@fortawesome/free-solid-svg-icons";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-export const AddTeam = () => {
-  const [image1, setImage1] = useState(null);
+const AddTeam = () => {
+  const [teamData, setTeamData] = useState({
+    first_name: { English: "", Newari: "", Nepali: "", Mithila: "" },
+    last_name: { English: "", Newari: "", Nepali: "", Mithila: "" },
+    photo: null, // File type for the photo
+    position: { English: "", Newari: "", Nepali: "", Mithila: "" },
+    post: { English: "", Newari: "", Nepali: "", Mithila: "" }, // Optional
+    branch: "", // Text input for branch
+  });
 
-  const handleImageChange1 = (e) => {
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      setImage1(URL.createObjectURL(new Blob([e.target.result])));
-    };
-    if (e.target.files[0]) reader.readAsArrayBuffer(e.target.files[0]);
-  };
+  const [branches, setBranches] = useState([]);
 
-  const uploadPersonDetail = async () => {
-    const person1Name = document.getElementById(
-      "teams-input-person-1-name"
-    ).value;
-    const person1Post = document.getElementById(
-      "teams-input-person-1-position"
-    ).value;
-    const person1Image = document.getElementById("teams-input-person-1-image")
-      .files[0];
+  useEffect(() => {
+    // Fetch branches data from the API
+    axios
+      .get("https://ingnepal.org.np/api/branches/")
+      .then((response) => {
+        setBranches(response.data);
+      })
+      .catch((error) => {
+        console.error("There was an error fetching the branches!", error);
+      });
+  }, []);
 
-    // Creating form data to include the image file
-    const formData = new FormData();
-    formData.append(
-      "user_detail",
-      JSON.stringify({
-        username: person1Name,
-        // Add other necessary user details here, or fetch from relevant inputs
-        email: `${person1Name.toLowerCase()}@guthi.com`,
-        first_name: person1Name.split(" ")[0],
-        last_name: person1Name.split(" ")[1] || "",
-        group: [
-          { id: 1, name: "admin", permissions: [] },
-          { id: 2, name: "RegularUsers", permissions: [] },
-        ],
-        is_superuser: false,
-        profile: {
-          contact_no: null,
-          photo: person1Image,
-          branch: 1,
+  const handleChange = (e, key, lang = null) => {
+    if (lang) {
+      setTeamData((prevData) => ({
+        ...prevData,
+        [key]: {
+          ...prevData[key],
+          [lang]: e.target.value,
         },
-      })
-    );
-    formData.append("position", person1Post);
-    formData.append(
-      "quote",
-      JSON.stringify({
-        English: "Your English quote here",
-        Mithila: "Your Mithila quote here",
-        Nepali: "Your Nepali quote here",
-        Newari: "Your Newari quote here",
-      })
-    );
-    formData.append("user", 9); // Replace with actual user ID or dynamically fetch
-
-    try {
-      const response = await axios.post(
-        "https://ingnepal.org.np/api/teams/",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
-      if (response.status === 200) {
-        alert("Data successfully posted!");
-      } else {
-        alert("Something went wrong.");
-      }
-    } catch (error) {
-      console.error("Error uploading data:", error);
-      alert("Failed to post data.");
+      }));
+    } else {
+      setTeamData((prevData) => ({
+        ...prevData,
+        [key]: e.target.files ? e.target.files[0] : e.target.value,
+      }));
     }
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const formData = new FormData();
+
+    // Append all text data in the specified format
+    for (const key in teamData) {
+      if (key === "photo") {
+        formData.append(key, teamData[key]);
+      } else if (typeof teamData[key] === "object") {
+        formData.append("text", JSON.stringify(teamData[key]));
+      } else {
+        formData.append(key, teamData[key]);
+      }
+    }
+
+    // Post data to the teams API
+    axios
+      .post("https://ingnepal.org.np/api/teams/", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((response) => {
+        console.log("Team member added successfully:", response.data);
+        // Clear the form or provide feedback to the user
+      })
+      .catch((error) => {
+        console.error("There was an error adding the team member!", error);
+      });
+  };
+
   return (
-    <>
-      <div className="py-2 w-full flex flex-row p-2 items-center justify-center bg-cyan-400/30 border-b-2 border-white pb-5">
-        <div className="relative flex flex-col justify-center gap-2">
-          {image1 && (
-            <FontAwesomeIcon
-              icon={faClose}
-              size={"2x"}
-              className="cursor-pointer absolute top-0 right-0 text-white bg-red-600 rounded-full z-50 h-[30px] w-[30px]"
-              onClick={() => setImage1(null)}
-            />
-          )}
-          {!image1 && (
-            <label
-              htmlFor="teams-input-person-1-image"
-              className="rounded-full h-[80px] w-[80px] md:h-[200px] md:w-[200px] bg-gray-400 flex items-center justify-center text-white font-bold"
-            >
-              <FontAwesomeIcon icon={faPlus} size="3x" />
-            </label>
-          )}
+    <div className="max-w-lg mx-auto p-6 bg-gray-800 rounded-lg shadow-lg">
+      <h2 className="text-2xl text-white font-bold mb-6">Add Team Member</h2>
+      <form onSubmit={handleSubmit} className="space-y-4">
+        {Object.keys(teamData).map(
+          (key) =>
+            key !== "photo" && (
+              <div key={key}>
+                <h3 className="text-white font-semibold capitalize">{key}</h3>
+                {key === "branch" ? (
+                  <input
+                    type="text"
+                    value={teamData[key]}
+                    onChange={(e) => handleChange(e, key)}
+                    className="p-2 bg-gray-700 text-white rounded w-full"
+                    placeholder="Enter branch"
+                  />
+                ) : (
+                  <div className="grid grid-cols-2 gap-4">
+                    {["English", "Newari", "Nepali", "Mithila"].map((lang) => (
+                      <div key={lang} className="flex flex-col">
+                        <label className="text-gray-300">{lang}:</label>
+                        <input
+                          type="text"
+                          value={teamData[key][lang]}
+                          onChange={(e) => handleChange(e, key, lang)}
+                          className="p-2 bg-gray-700 text-white rounded"
+                          placeholder={`Enter ${key} in ${lang}`}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )
+        )}
+
+        <div>
+          <h3 className="text-white font-semibold">Photo</h3>
           <input
-            id="teams-input-person-1-image"
             type="file"
-            accept=".png,.jpeg,.jpg"
-            className="hidden"
-            onChange={handleImageChange1}
-          />
-          {image1 && (
-            <img
-              src={image1}
-              className="rounded-full h-[80px] w-[80px] md:h-[200px] md:w-[200px]"
-              alt="Person's Image"
-            />
-          )}
-          <input
-            id="teams-input-person-1-position"
-            type="text"
-            placeholder="Person Post"
-            className="rounded-md text-[20px] text-black p-2"
-          />
-          <input
-            id="teams-input-person-1-name"
-            type="text"
-            placeholder="Person Name"
-            className="rounded-md text-[20px] text-black p-2"
+            accept="image/*"
+            onChange={(e) => handleChange(e, "photo")}
+            className="block w-full text-gray-300 bg-gray-700 rounded p-2"
           />
         </div>
 
-        <div
-          className={`relative h-full w-[70%] flex flex-col justify-center items-center overflow-hidden`}
+        <button
+          type="submit"
+          className="w-full py-2 bg-blue-600 text-white font-bold rounded hover:bg-blue-500 transition duration-300"
         >
-          <div
-            className="cursor-pointer bg-green-600 hover:bg-green-700 px-3 py-2 rounded-md text-[20px]"
-            onClick={uploadPersonDetail}
-          >
-            Save
-          </div>
-        </div>
-      </div>
-    </>
+          Add Team Member
+        </button>
+      </form>
+    </div>
   );
 };
+
+export default AddTeam;
