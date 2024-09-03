@@ -33,7 +33,9 @@ export const BranchHeader = ({
 
   return (
     <div
+
       className="w-full bg-center bg-cover container-fluid"
+
       style={{ backgroundImage: `url(${branchImg})` }}
     >
       <div className="row">
@@ -62,10 +64,12 @@ export const BranchHeader = ({
           </div>
         </div>
 
+
         <div className="relative flex flex-col items-center w-full md:h-[400px] h-[350px]  gap-4 p-8 mb-6 overflow-hidden text-white bg-center  col-7 col-sm-7 col-md-9">
           <div className="relative flex flex-col w-full md:h-[400px] h-[350px] gap-4 p-8 mb-6  text-white bg-center col-8 col-md-9  ">
             <div className="container top-0 z-20 flex flex-col w-full md:flex-row md:pt-0 md:mt-0 text-cyan-400 ms-0 ">
               <div className="flex items-center justify-center w-full md:text-left">
+
                 <div className="flex flex-col">
                   <div className="flex flex-col items-center gap-2">
                     <img
@@ -78,7 +82,9 @@ export const BranchHeader = ({
                       <br />
                     </h1>
                   </div>
+
                   <h1 className="text-2xl font-bold text-white md:text-4xl drop-shadow-lg">
+
                     {branchName}
                   </h1>
                 </div>
@@ -94,6 +100,7 @@ export const BranchHeader = ({
                 {branchDetails.location?.Nepali && (
                   <h1 className="text-sm font-bold text-white md:text-xl drop-shadow-lg">
                     Location:{branchDetails.location.Nepali}
+
                   </h1>
                 )}
               </div>

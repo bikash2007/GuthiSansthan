@@ -1,47 +1,57 @@
-import React, { useEffect, useState } from "react";
-import logo from "../../../media/logo192.png"
+import React from "react";
+import logo from "../../../media/logo192.png"; // You can replace or remove this if not needed
 import { useEditing } from "../../../context/EditingProvider";
-import Editbutton from "../Editbutton"
-import { Link } from "react-router-dom";
 
-
-const InstanceLand = ({ title, image,onDelete,onAdd }) => {
+const Instanceland = ({ id, title, link, onDelete, onEdit }) => {
   const { isEditing } = useEditing();
 
   const handleClick = () => {
-    // Example click handler
-    alert("Div clicked!");
+    if (link) {
+      window.open(link, "_blank");
+    }
   };
 
   return (
-    <>
-     
-  
+    <div className="relative w-full p-2 md:p-4">
       <div
-      
-        className="relative w-full p-0"
+        className="flex flex-col cursor-pointer"
+        onClick={handleClick}
+        title="Click to view details"
       >
-       
-      
-        <div className="flex flex-col"  onClick={handleClick} >
-          <div className="w-full md:w-[55%] h-[50px] border-2 border-slate-500 rounded-xl md:ms-[80px] bg-gray-300 transition-transform duration-300 ease-in-out hover:scale-[1.08] text-black mt-3 font-semibold">
-            <div className="flex items-center justify-between h-full px-4">
-              <h1 className="text-[10px] md:text-[16px] truncate"></h1>
-              <img src={logo} className="w-10 h-10"/>
-            </div>
-          </div>
+        <div className="flex items-center w-full h-16 max-w-lg px-4 space-x-4 text-black transition-transform duration-300 ease-in-out bg-gray-300 border-2 border-slate-500 rounded-xl hover:scale-105">
+          <h1 className="flex-1 text-sm font-semibold truncate sm:text-base md:text-lg">
+            {title}
+          </h1>
+          <img src={logo} className="hidden w-12 h-12 sm:block" alt="Logo" />
         </div>
-        {isEditing && (
-          <div className="absolute top-2 right-2">
-            <Editbutton onDelete={() => onDelete} />
-          </div>
-        )}
       </div>
- 
 
-    </>
+      {isEditing && (
+        <div className="absolute flex gap-2 top-2 right-2">
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              onEdit(id);
+            }}
+            className="px-3 py-1 text-xs text-white bg-blue-600 rounded hover:bg-blue-700"
+            aria-label="Edit land"
+          >
+            Edit
+          </button>
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              onDelete(id);
+            }}
+            className="px-3 py-1 text-xs text-white bg-red-600 rounded hover:bg-red-700"
+            aria-label="Remove land"
+          >
+            Remove
+          </button>
+        </div>
+      )}
+    </div>
   );
 };
 
-// Export Law as the default export
-export default InstanceLand;
+export default Instanceland;

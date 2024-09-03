@@ -1,10 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
-export default function Landform() {
+const EditDownload = ({ download, onClose, onSave }) => {
   const [formData, setFormData] = useState({
     title: "",
     file: null,
   });
+
+  useEffect(() => {
+    if (download) {
+      setFormData({
+        title: download.title,
+        file: null, // You can't pre-fill the file, but you could handle it differently if needed
+      });
+    }
+  }, [download]);
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -22,20 +32,27 @@ export default function Landform() {
     if (formData.file) data.append("file", formData.file);
 
     try {
-      const response = await fetch("https://ingnepal.org.np/api/rates/", {
-        method: "POST",
-        body: data,
-      });
+      const response = await axios.patch(
+        `https://ingnepal.org.np/api/downloads/${download.id}/`,
+        data,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
 
-      if (response.ok) {
-        alert("File uploaded successfully!");
-        window.location.reload(); // Refresh the page on successful upload
+      if (response.status === 200) {
+        alert("Download updated successfully!");
+        window.location.reload();
+        onSave(); // Trigger a refresh or update action in the parent component
+        onClose(); // Close the edit form
       } else {
-        alert("Failed to upload file.");
+        alert("Failed to update download.");
       }
     } catch (error) {
       console.error("Error:", error);
-      alert("Error uploading file.");
+      alert("Error updating download.");
     }
   };
 
@@ -43,22 +60,22 @@ export default function Landform() {
     <div className="flex items-center justify-center mt-3">
       <div className="w-full max-w-xl p-6 transition-shadow duration-300 ease-in-out rounded-lg shadow-lg bg-gray-600/30 backdrop-blur-xl hover:shadow-2xl">
         <h3 className="mb-5 text-2xl font-semibold text-center text-white font-poppins">
-          Upload Your Document
+          Edit Download
         </h3>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label
-              htmlFor="pdfTitle"
+              htmlFor="title"
               className="block text-sm font-medium text-white font-poppins"
             >
-              Document Title
+              Download Title
             </label>
             <input
               type="text"
               className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-md text-base font-poppins text-gray-700 bg-white focus:ring-[#30D5C8] focus:border-[#30D5C8] hover:border-[#2ab2aa] transition-colors duration-300"
-              id="pdfTitle"
+              id="title"
               name="title"
-              placeholder="Enter Document Title"
+              placeholder="Enter Download Title"
               value={formData.title}
               onChange={handleChange}
             />
@@ -83,10 +100,18 @@ export default function Landform() {
             type="submit"
             className="w-full px-6 py-3 text-lg font-bold text-white transition-all duration-300 ease-in-out bg-green-700 rounded-md shadow-lg hover:bg-green-800 hover:shadow-xl font-poppins"
           >
-            Submit
+            Update
           </button>
         </form>
+        <button
+          onClick={onClose}
+          className="w-full mt-3 px-6 py-3 text-lg font-bold text-white transition-all duration-300 ease-in-out bg-red-700 rounded-md shadow-lg hover:bg-red-800 hover:shadow-xl font-poppins"
+        >
+          Cancel
+        </button>
       </div>
     </div>
   );
-}
+};
+
+export default EditDownload;
