@@ -68,8 +68,10 @@ export const Teams = () => {
       <div className="h-full w-full flex flex-wrap items-center overflow-auto px-2">
         <div className="w-full flex justify-center py-2 flex-col items-center">
           <img src={p2} height={200} width={200} />
-          <h1 className="text-xl lg:text-3xl font-semibold mt-2">अध्यक्ष</h1>
-          <h3 className="text-md lg:text-lg text-gray-400">
+          <h1 className="text-xl lg:text-3xl font-semibold mt-2 text-white">
+            अध्यक्ष
+          </h1>
+          <h3 className="text-md lg:text-lg text-gray-200">
             डा. शिवराज पण्डित
           </h3>
         </div>

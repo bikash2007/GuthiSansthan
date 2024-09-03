@@ -99,6 +99,7 @@ export const BranchMainPage = () => {
             articles={item.articles}
             branchHead={item.branch_head_info}
             branchId={item.id}
+            branchDetails={item}
             onRemove={handleRemove} // Pass the remove handler
           />
         ))}
