@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function BranchDarbandi({ tableData }) {
+export default function TainathiShow({ tableData }) {
   // Calculate the total number
   const totalNumber = tableData.reduce((total, row) => total + row.count, 0);
 
