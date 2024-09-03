@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 
 export default function Admin({ tableData, onSaveData }) {
   const [localTableData, setLocalTableData] = useState(tableData);
-  const [newRow, setNewRow] = useState({ position: '', count: '' });
+  const [newRow, setNewRow] = useState({ G: '', Gabisa: '', odano: '', kinum: '', area: '', kaifiyat: '' });
 
   const handleAddRow = () => {
     setLocalTableData([...localTableData, newRow]);
-    setNewRow({ position: '', count: '' });
+    setNewRow({ G: '', Gabisa: '', odano: '', kinum: '', area: '', kaifiyat: '' });
   };
 
   const handleDeleteRow = (index) => {
@@ -15,9 +15,9 @@ export default function Admin({ tableData, onSaveData }) {
   };
 
   const handleChange = (index, key, value) => {
-    const updatedTableData = localTableData.map((row, i) => (
+    const updatedTableData = localTableData.map((row, i) =>
       i === index ? { ...row, [key]: value } : row
-    ));
+    );
     setLocalTableData(updatedTableData);
   };
 
@@ -30,13 +30,12 @@ export default function Admin({ tableData, onSaveData }) {
       <table className="w-full text-center border-collapse">
         <thead>
           <tr className="text-lg tracking-wide text-white uppercase bg-blue-600">
-          <th className="p-4 border-gray-200 rounded-tl-lg border-e-2">जिल्ला</th>
-            <th className="p-4 border-gray-200 rounded-tr-lg">साविक गा वि स</th>
-            <th className="p-4 border-gray-200 rounded-tr-lg">
-            वडा नं</th>
-            <th className="p-4 border-gray-200 rounded-tr-lg">कि. नं.</th>
-            <th className="p-4 border-gray-200 rounded-tr-lg">क्षेत्रफल</th>
-            <th className="p-4 border-gray-200 rounded-tr-lg">कैफियत</th>
+            <th className="p-4 border-gray-200 rounded-tl-lg border-e-2">जिल्ला</th>
+            <th className="p-4 border-gray-200">साविक गा वि स</th>
+            <th className="p-4 border-gray-200">वडा नं</th>
+            <th className="p-4 border-gray-200">कि. नं.</th>
+            <th className="p-4 border-gray-200">क्षेत्रफल</th>
+            <th className="p-4 border-gray-200">कैफियत</th>
             <th className="p-6 rounded-tr-lg">Actions</th>
           </tr>
         </thead>
@@ -46,22 +45,16 @@ export default function Admin({ tableData, onSaveData }) {
               key={index}
               className="transition-colors duration-300 bg-gray-100 border-b-2 hover:bg-blue-50 last:border-b-0"
             >
-              <td className="p-4 border-e-4">
-                <input
-                  type="text"
-                  value={row.position}
-                  onChange={(e) => handleChange(index, 'position', e.target.value)}
-                  className="w-full p-2 border border-gray-300 rounded"
-                />
-              </td>
-              <td className="p-4">
-                <input
-                  type="number"
-                  value={row.count}
-                  onChange={(e) => handleChange(index, 'count', e.target.value)}
-                  className="w-full p-2 border border-gray-300 rounded"
-                />
-              </td>
+              {Object.keys(newRow).map((key) => (
+                <td key={key} className="p-4 border-e-4">
+                  <input
+                    type={key === 'count' ? 'number' : 'text'}
+                    value={row[key]}
+                    onChange={(e) => handleChange(index, key, e.target.value)}
+                    className="w-full p-2 border border-gray-300 rounded"
+                  />
+                </td>
+              ))}
               <td className="p-4">
                 <button
                   onClick={() => handleDeleteRow(index)}
@@ -73,24 +66,17 @@ export default function Admin({ tableData, onSaveData }) {
             </tr>
           ))}
           <tr>
-            <td className="p-4 border-e-4">
-              <input
-                type="text"
-                value={newRow.position}
-                onChange={(e) => setNewRow({ ...newRow, position: e.target.value })}
-                className="w-full p-2 border border-gray-300 rounded"
-                placeholder="New Position"
-              />
-            </td>
-            <td className="p-4">
-              <input
-                type="number"
-                value={newRow.count}
-                onChange={(e) => setNewRow({ ...newRow, count: e.target.value })}
-                className="w-full p-2 border border-gray-300 rounded"
-                placeholder="New Count"
-              />
-            </td>
+            {Object.keys(newRow).map((key) => (
+              <td key={key} className="p-4 border-e-4">
+                <input
+                  type={key === 'count' ? 'number' : 'text'}
+                  value={newRow[key]}
+                  onChange={(e) => setNewRow({ ...newRow, [key]: e.target.value })}
+                  className="w-full p-2 border border-gray-300 rounded"
+                  placeholder={`New ${key}`}
+                />
+              </td>
+            ))}
             <td className="p-4">
               <button
                 onClick={handleAddRow}

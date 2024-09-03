@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import TainathiShow from './TainathiShow';
+
+import Adhinashshow from './Adhinashshow'
 import Admin from './Admin';
 
 import { useEditing } from '../../../../../context/EditingProvider';
@@ -70,8 +71,8 @@ export default function Tainathi() {
         )}
 
         <div className="p-6 bg-white rounded-lg shadow-md">
-          <h2 className="mb-4 text-2xl font-semibold text-center">Tainathi</h2>
-          <TainathiShow tableData={tableData} />
+          <h2 className="mb-4 text-2xl font-semibold text-center">Adhinash</h2>
+          <Adhinashshow tableData={tableData} />
         </div>
       </div>
     </div>
