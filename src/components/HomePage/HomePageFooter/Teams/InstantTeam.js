@@ -17,17 +17,17 @@ const InstantTeam = ({ teamMember, onEdit, onRemove }) => {
   const displayBranch = getText(teamMember.branch);
 
   return (
-    <div className="py-4 flex flex-col w-fit h-fit items-center justify-center border-b border-neutral-400/20">
+    <div className="py-4 flex flex-col w-fit h-fit items-center justify-center ">
       <div className="flex justify-center relative w-full lg:w-1/3">
         {teamMember.photo && (
           <img
             src={teamMember.photo} // Assuming the photo URL is provided directly
-            className="w-44 lg:w-56 aspect-auto"
+            className="w-56 lg:w-[500px]"
             alt={`${fullName}'s profile`}
           />
         )}
       </div>
-      <div className="flex flex-col relative w-full text-center justify-center items-center lg:items-start text-white mt-4 lg:mt-0 lg:ml-8 text-center lg:text-left">
+      <div className="flex flex-col relative w-full  justify-center items-center lg:items-start text-white mt-4 lg:mt-0 lg:ml-8 text-center lg:text-left">
         <h2 className="text-lg lg:text-2xl font-medium text-gray-300">
           {displayPosition}
         </h2>

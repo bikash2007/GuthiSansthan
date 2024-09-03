@@ -23,6 +23,7 @@ export const EachBranchInfo = () => {
     <div className="flex flex-col items-center gap-3">
       <div className="absolute top-0 w-full h-20 "></div>
       <BranchHeader
+        branchDetails={loc.state.branchDetails}
         branchName={loc.state.name}
         branchImg={loc.state.img}
         branchHead={loc.state.branchHead}

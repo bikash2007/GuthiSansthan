@@ -12,6 +12,7 @@ export const BranchInstance = ({
   branchHead,
   branchId,
   onRemove,
+  branchDetails,
 }) => {
   const { isEditing } = useEditing();
   const handleRemove = async () => {
@@ -37,6 +38,7 @@ export const BranchInstance = ({
           articles: articles,
           branchHead: branchHead,
           branchId: branchId,
+          branchDetails: branchDetails,
         }}
         className="relative flex items-center justify-center border border-black rounded-md w-[150px] md:w-[300px] h-[100px] md:h-[200px] bg-cover bg-center hover:scale-105 m-1 transition-all duration-300 cursor-pointer"
         style={{ backgroundImage: `url(${imgUrl})` }}
