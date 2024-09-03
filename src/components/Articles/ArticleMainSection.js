@@ -1,5 +1,4 @@
 import React from "react";
-
 import { Articles } from "./ArticleSection/Articles";
 import { Notices } from "./NoticeSection/Notices";
 import { useEffect, useState, useRef } from "react";
@@ -15,13 +14,11 @@ import { addLanguage, fetchImageToURL } from "../ReuseableFunctions";
 import { EditBgImage } from "../EditComponents/EditBgImage";
 import { showAlert } from "../AlertLoader";
 import { useEditing } from "../../context/EditingProvider";
-import { Link } from "react-router-dom";
 import Law from "./Law/Law";
 import Download from "./Download/Download";
 import Budget from "./Budget/Budget";
 import Temple from "./Other Temple/Temple";
 import Land from "./Land and property/Land";
-// import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { faBars, faClose } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -60,10 +57,8 @@ export const ArticleMainSection = () => {
   });
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
   const mobileMenuRef = useRef(null);
 
-  // Close the mobile menu when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (
@@ -82,6 +77,32 @@ export const ArticleMainSection = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [isMobileMenuOpen]);
+
+  const handleSectionChange = (sectionType) => {
+    setSection(sectionType);
+    setIsMobileMenuOpen(false); // Close menu when section changes
+  };
+
+  const getSectionName = () => {
+    switch (section) {
+      case "article":
+        return "लेख";
+      case "notice":
+        return "सूचना";
+      case "law":
+        return "ऐन कानून";
+      case "budget":
+        return "बार्षिक बजेट";
+      case "download":
+        return "डाउनलोड";
+      case "land":
+        return "कूत तथा मालपोतको दर";
+      case "temple":
+        return "परिपत्रहरू";
+      default:
+        return "";
+    }
+  };
 
   return (
     <>
@@ -106,22 +127,25 @@ export const ArticleMainSection = () => {
         <div className="w-full">
           <div
             style={{ background: "linear-gradient(135deg, #001f3f,#00ffff)" }}
-            className="flex items-center justify-between w-full px-16 py-4 shadow-sm"
+            className="flex items-start justify-start w-full px-3 py-4 shadow-sm"
           >
-            {/* Hamburger Icon */}
-            <div className="block lg:hidden">
+            {/* Font Awesome Bar Icon */}
+            <div className="flex items-start ">
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="text-white"
+                className="mr-4 text-white lg:hidden"
               >
                 {isMobileMenuOpen ? (
-                  // <XMarkIcon className="w-6 h-6" />
                   <FontAwesomeIcon icon={faClose} className="w-6 h-6" />
                 ) : (
-                  // <Bars3Icon className="w-6 h-6" />
-                  <FontAwesomeIcon icon={faBars} className="w-6 h-6" />
+                  <FontAwesomeIcon icon={faBars} className="w-6 h-6 ms-0" />
                 )}
               </button>
+            </div>
+
+            {/* Section Name for Mobile Only */}
+            <div className="flex-1 text-xl font-bold text-center text-white lg:hidden">
+              {getSectionName()}
             </div>
 
             {/* Desktop Menu */}
@@ -165,7 +189,6 @@ export const ArticleMainSection = () => {
                   onClick={() => setIsMobileMenuOpen(false)}
                   className="absolute text-white top-4 right-4"
                 >
-                  {/* <XMarkIcon className="w-6 h-6" /> */}
                   <FontAwesomeIcon icon={faClose} className="w-6 h-6" />
                 </button>
                 {[
@@ -179,7 +202,7 @@ export const ArticleMainSection = () => {
                 ].map((sectionType) => (
                   <button
                     key={sectionType}
-                    onClick={() => setSection(sectionType)}
+                    onClick={() => handleSectionChange(sectionType)}
                     className={`font-bold border-b-2 hover:border-red-600 transition-all duration-200 ease-linear text-white text-xl ${
                       section === sectionType ? "border-red-600" : "border-none"
                     }`}
