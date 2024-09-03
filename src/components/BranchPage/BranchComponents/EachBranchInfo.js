@@ -6,9 +6,9 @@ import { BranchNotice } from "./BranchNotice";
 import { useMediaQuery } from "@mui/material";
 import { useLocation } from "react-router-dom";
 import BranchTeams from "../BranchTeams/BranchTeams";
-import BranchDarbandi from "./Darbandi/BranchDarbandi";
-import BudgetKharcha from "./BudgetKharcha";
-import BudgetNikasa from "./BudgetNikasa";
+
+import BudgetKharcha from "./BudgetKharcha/BudgetKharcha";
+import BudgetNikasa from "./BudgetNikasa/BudgetNikasa";
 import SuchiDarta from "./SuchiDarta";
 import Landdetails from "./LandDetails/Landdetails";
 import Darbandi from "./Darbandi/Darbandi";

@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function TainathiShow({ tableData }) {
+export default function Adhinashshow({ tableData }) {
   // Calculate the total number
   const totalNumber = tableData.reduce((total, row) => total + row.count, 0);
 
