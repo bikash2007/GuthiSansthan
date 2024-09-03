@@ -85,14 +85,14 @@ export const BranchHeader = ({
               </div>
 
               <div className="items-center justify-center w-full ms-0 md:w-1/6 md:text-left md:absolute md:top-0 md:end-0">
-                <h1 className="text-sm font-bold text-white md:text-2xl drop-shadow-lg">
+                <h1 className="text-sm font-bold text-white md:text-xl drop-shadow-lg">
                   Phone.No:{branchDetails.contact_no}
                 </h1>
-                <h1 className="text-sm font-bold text-white md:text-2xl drop-shadow-lg">
+                <h1 className="text-sm font-bold text-white md:text-xl drop-shadow-lg">
                   Email:{branchDetails.email}
                 </h1> 
                 {branchDetails.location?.Nepali && (
-                  <h1 className="text-sm font-bold text-white md:text-2xl drop-shadow-lg">
+                  <h1 className="text-sm font-bold text-white md:text-xl drop-shadow-lg">
                     Location:{branchDetails.location.Nepali}
                   </h1>
                 )}
