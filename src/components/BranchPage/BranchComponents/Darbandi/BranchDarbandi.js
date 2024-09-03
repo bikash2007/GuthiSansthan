@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function BranchDarbandi({ tableData }) {
   // Calculate the total number
-  const totalNumber = tableData.reduce((total, row) => total + row.count, 0);
+  const totalNumber=0;
 
   return (
     <div className="flex flex-col items-center max-w-full p-8 mx-auto mt-8 bg-white rounded-lg shadow-lg">
