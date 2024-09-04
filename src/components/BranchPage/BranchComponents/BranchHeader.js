@@ -8,6 +8,11 @@ import { useNavigate } from "react-router-dom";
 import logo from "../../../media/logo192.png";
 import "./Branchhead.css";
 import BranchHeaderEdit from "./BranchHeaderEdit";
+import { MdAddCall } from "react-icons/md";
+import { IoLocationSharp } from "react-icons/io5";
+import { MdOutlineMail } from "react-icons/md";
+
+
 
 export const BranchHeader = ({
   branchHead,
@@ -67,10 +72,10 @@ export const BranchHeader = ({
 
         <div className="relative flex flex-col items-start j w-full md:h-[400px] h-[350px]  gap-4 p-8 mb-6 overflow-hidden text-white bg-center  col-7 col-sm-7 col-md-9">
           <div className="relative flex flex-col w-full md:h-[400px] h-[350px] gap-4 p-8 mb-6  text-white bg-center col-8 col-md-9  ">
-            <div className="container top-0 z-20 flex flex-col items-start w-full md:flex-row md:pt-0 md:mt-0 text-cyan-400 ms-0 ">
+            <div className="container top-0 z-20 flex flex-col items-start w-full md:gap-5 md:flex-row md:pt-0 md:mt-0 text-cyan-400 ms-0 ">
               <div className="flex items-center justify-center w-full  ms-[30px] md:text-left">
 
-                <div className="flex flex-col">
+                <div className="flex flex-col items-center justify-center text-center">
                   <div className="flex flex-col items-center gap-2">
                     <img
                       className="w-[50px]  md:w-[90px] "
@@ -86,24 +91,31 @@ export const BranchHeader = ({
                   <h1 className="text-2xl font-bold text-white md:text-4xl drop-shadow-lg">
 
                     {branchName}
-                  </h1>s
+                  </h1>
+                  {branchDetails.location?.Nepali && (
+                  <h1 className="flex text-2xl font-bold text-center text-white md:text-4xl drop-shadow-lg">
+                       
+                  <IoLocationSharp className="w-8 h-8 text-green-600" />{branchDetails.location.Nepali}
+                  </h1>
+                  )}
                 </div>
               </div>
 
-              <div className="items-center justify-center w-full ms-0 md:w-1/6 md:text-left md:absolute md:top-0 md:end-0">
-                <h1 className="text-sm font-bold text-white md:text-xl drop-shadow-lg">
-                  Phone.No:{branchDetails.contact_no}
-                </h1>
-                <h1 className="text-sm font-bold text-white md:text-xl drop-shadow-lg">
-                  Email:{branchDetails.email}
-                </h1> 
-                {branchDetails.location?.Nepali && (
-                  <h1 className="text-sm font-bold text-white md:text-xl drop-shadow-lg">
-                    Location:{branchDetails.location.Nepali}
+              <div className="flex flex-col items-center justify-center w-full p-4 md:w-1/6 md:absolute md:top-0 md:right-0">
+  <div className="flex items-center gap-2 ">
+    <MdAddCall className="w-6 h-6 text-blue-600" />
+    <h1 className="text-lg font-bold text-white md:text-xl drop-shadow-lg">
+      {branchDetails.contact_no}
+    </h1>
+  </div>
+  <div className="flex items-center gap-2">
+    <MdOutlineMail className="w-6 h-6 text-red-600" />
+    <h1 className="text-sm font-bold text-white md:text-xl drop-shadow-lg">
+      {branchDetails.email}
+    </h1>
+  </div>
+</div>
 
-                  </h1>
-                )}
-              </div>
               {isEditing && <BranchHeaderEdit branchDetails={branchDetails} />}
             </div>
           </div>
