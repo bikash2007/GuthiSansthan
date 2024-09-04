@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios"; // Import axios
+import React, { useState, useEffect, useRef } from "react";
+import axios from "axios";
 
 const EditLaw = ({ law, onClose, onSave }) => {
   const [formData, setFormData] = useState({
     title: "",
     file: null,
   });
+
+  const wrapperRef = useRef(null);
 
   useEffect(() => {
     if (law) {
@@ -14,7 +16,19 @@ const EditLaw = ({ law, onClose, onSave }) => {
         file: null, // You can't pre-fill the file, but you could handle it differently if needed
       });
     }
-  }, [law]);
+
+    const handleClickOutside = (event) => {
+      if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
+        onClose();
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [law, onClose]);
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -57,7 +71,7 @@ const EditLaw = ({ law, onClose, onSave }) => {
 
   return (
     <div className="flex items-center justify-center mt-3">
-      <div className="w-full max-w-xl p-6 transition-shadow duration-300 ease-in-out rounded-lg shadow-lg bg-gray-600/30 backdrop-blur-xl hover:shadow-2xl">
+      <div ref={wrapperRef} className="w-full max-w-xl p-6 transition-shadow duration-300 ease-in-out rounded-lg shadow-lg bg-gray-600/30 backdrop-blur-xl hover:shadow-2xl">
         <h3 className="mb-5 text-2xl font-semibold text-center text-white font-poppins">
           Edit Document
         </h3>
@@ -104,7 +118,7 @@ const EditLaw = ({ law, onClose, onSave }) => {
         </form>
         <button
           onClick={onClose}
-          className="w-full mt-3 px-6 py-3 text-lg font-bold text-white transition-all duration-300 ease-in-out bg-red-700 rounded-md shadow-lg hover:bg-red-800 hover:shadow-xl font-poppins"
+          className="w-full px-6 py-3 mt-3 text-lg font-bold text-white transition-all duration-300 ease-in-out bg-red-700 rounded-md shadow-lg hover:bg-red-800 hover:shadow-xl font-poppins"
         >
           Cancel
         </button>

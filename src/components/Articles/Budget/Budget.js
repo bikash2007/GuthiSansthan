@@ -52,17 +52,19 @@ export default function Budget() {
         initial={{ y: 200, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 1.2, delay: 0.1 }}
-        className="flex flex-col w-full px-4 py-6 bg-gray-800 text-white"
+        className="flex flex-col w-full px-4 py-6 text-white"
       >
-        <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-bold">Budget Management</h1>
-          <button
-            onClick={toggleAddForm}
-            className="px-4 py-2 text-white bg-blue-600 rounded hover:bg-blue-700"
-          >
-            {isAddFormVisible ? "Cancel" : "Add Budget"}
-          </button>
-        </div>
+
+          {isEditing && (
+            <div className="flex items-center justify-center mt-4">
+              <div
+                onClick={toggleAddForm}
+                className="px-4 py-2 text-lg text-white bg-green-600 rounded-md cursor-pointer sm:text-xl hover:bg-green-700"
+              >
+                {isAddFormVisible ? "Cancel" : "Add Law"}
+              </div>
+            </div>
+          )}
         <div className="flex flex-col w-full h-full mt-3">
           <div className="relative flex flex-col flex-wrap h-full text-white">
             {budgetList.length > 0 ? (
