@@ -57,7 +57,7 @@ export const OneImage = ({ name, activateEdit }) => {
           style={{ backgroundImage: `url(${homePageDetail[name].imgSrc})` }}
         >
           <div className="bg-zinc-900/40 backdrop-blur-[0.1px] absolute top-0  h-full w-full"></div>
-          <h1 className="text-base font-semibold z-10 lg:text-xl tracking-tighter leading-none">
+          <h1 className="text-base font-semibold z-10 lg:text-xl tracking-tighter mt-1 leading-none">
             {t(name)}
           </h1>
           <FontAwesomeIcon

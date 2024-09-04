@@ -107,7 +107,7 @@ const EditTeams = ({ teamMember }) => {
   };
 
   return (
-    <div className="max-w-lg mx-auto p-6 bg-gray-800 rounded-lg shadow-lg">
+    <div className="max-w-lg mx-auto p-6  bg-gray-800 rounded-lg shadow-lg">
       <h2 className="text-2xl text-white font-bold mb-6">Edit Team Member</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         {Object.keys(teamData).map(

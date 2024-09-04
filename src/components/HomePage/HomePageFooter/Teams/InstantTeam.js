@@ -19,27 +19,28 @@ const InstantTeam = ({ teamMember, onEdit, onRemove }) => {
   const displayBranch = getText(teamMember.branch);
 
   return (
-    <div className="py-4 flex flex-col w-fit h-fit items-center justify-center ">
-      <div className="flex justify-center relative w-full lg:w-1/3">
-        {teamMember.photo && (
-          <img
-            src={teamMember.photo} // Assuming the photo URL is provided directly
-            className="w-56 lg:w-[500px]"
-            alt={`${fullName}'s profile`}
-          />
-        )}
-      </div>
-      <div className="flex flex-col relative w-full justify-center items-center lg:items-start text-white mt-4 lg:mt-0 lg:ml-8 text-center lg:text-left">
-        <h2 className="text-lg lg:text-2xl font-medium text-gray-300">
-          {displayPosition}
-        </h2>
-        <h1 className="text-xl lg:text-3xl font-semibold mt-2">{fullName}</h1>
-        <h3 className="text-md lg:text-lg text-gray-400">{displayPost}</h3>
-        {displayBranch && (
-          <h4 className="text-md lg:text-lg text-gray-400">
-            Branch: {displayBranch}
-          </h4>
-        )}
+    <div className="py-4 flex flex-col w-full lg:w-fit h-fit items-center justify-center ">
+      {/* <div className="flex justify-center rounded-full relative w-full lg:w-1/3"></div> */}
+      <div className="flex  flex-col relative w-full  items-center lg:items-start text-white mt-4 lg:mt-0 lg:ml-8 text-center lg:text-left">
+        <div className="w-full flex items-center flex-col">
+          {teamMember.photo && (
+            <img
+              src={teamMember.photo} // Assuming the photo URL is provided directly
+              className="w-56 rounded-full hover:scale-[2] lg:w-[100px]"
+              alt={`${fullName}'s profile`}
+            />
+          )}
+          <h2 className="text-lg lg:text-2xl mt-2 font-medium text-gray-300">
+            {displayPosition}
+          </h2>
+          <h1 className="text-xl lg:text-xl font-semibold mt-2">{fullName}</h1>
+          <h3 className="text-md lg:text-lg text-gray-400">{displayPost}</h3>
+          {displayBranch && (
+            <h4 className="text-md lg:text-lg text-gray-400">
+              Branch: {displayBranch}
+            </h4>
+          )}
+        </div>
         {isEditing && (
           <div className="mt-2 flex space-x-2">
             <button

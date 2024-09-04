@@ -15,6 +15,7 @@ import { showAlert } from "../AlertLoader";
 import { useEditing } from "../../context/EditingProvider";
 import { AddAboutUs } from "./AddAboutUs";
 import AboutUsInfo from "./AboutUsInfo";
+import { useTranslation } from "react-i18next";
 
 export const AboutUs = () => {
   const aboutRef = useRef();
@@ -22,7 +23,7 @@ export const AboutUs = () => {
   const aboutUsPageDetail = useSelector((state) => state.aboutUsPageDetail);
   const dispatch = useDispatch();
   const { isEditing } = useEditing();
-
+  const { t } = useTranslation();
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -74,7 +75,7 @@ export const AboutUs = () => {
           }}
         ></div>
       </EditBgImage>
-      <h1 className="text-white mt-5">About Us</h1>
+      <h1 className="text-white mt-5">{t("about-us")}</h1>
       <AboutUsInfo />
       {isEditing && <AddAboutUs />}
     </div>

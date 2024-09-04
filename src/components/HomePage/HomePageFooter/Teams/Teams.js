@@ -65,9 +65,12 @@ export const Teams = () => {
       <div className="w-full py-1 flex justify-center bg-neutral-200/30">
         <img src={logo} height={200} width={200} alt="Logo" />
       </div>
-      <div className="h-full w-full flex flex-wrap items-center overflow-auto px-2">
+      <div className="h-full w-full flex flex-wrap items-center  overflow-auto px-2">
         <div className="w-full flex justify-center py-2 flex-col items-center">
-          <img src={p2} height={200} width={200} />
+          <img
+            src={p2}
+            className=" w-64 rounded-full hover:w-[200px] lg:w-[130px]"
+          />
           <h1 className="text-xl lg:text-3xl font-semibold mt-2 text-white">
             अध्यक्ष
           </h1>
@@ -75,14 +78,16 @@ export const Teams = () => {
             डा. शिवराज पण्डित
           </h3>
         </div>
-        {teamData.map((teamMember) => (
-          <InstantTeam
-            key={teamMember.id}
-            teamMember={teamMember}
-            onEdit={() => handleEdit(teamMember.id)}
-            onRemove={() => handleRemove(teamMember.id)}
-          />
-        ))}
+        <div className="w-full flex justify-center gap-x-56 flex-wrap">
+          {teamData.map((teamMember) => (
+            <InstantTeam
+              key={teamMember.id}
+              teamMember={teamMember}
+              onEdit={() => handleEdit(teamMember.id)}
+              onRemove={() => handleRemove(teamMember.id)}
+            />
+          ))}
+        </div>
         {isEditing && (
           <div className="w-full">
             {isEditingMode ? (
