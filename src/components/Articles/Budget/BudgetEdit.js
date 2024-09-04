@@ -82,23 +82,7 @@ const BudgetEdit = ({ budget, onClose, onSave }) => {
               onChange={handleChange}
             />
           </div>
-          <div className="mb-4">
-            <label
-              htmlFor="amount"
-              className="block text-sm font-medium text-white font-poppins"
-            >
-              Budget Amount
-            </label>
-            <input
-              type="number"
-              className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-md text-base font-poppins text-gray-700 bg-white focus:ring-[#30D5C8] focus:border-[#30D5C8] hover:border-[#2ab2aa] transition-colors duration-300"
-              id="amount"
-              name="amount"
-              placeholder="Enter Budget Amount"
-              value={formData.amount}
-              onChange={handleChange}
-            />
-          </div>
+         
           <div className="mb-4">
             <label
               htmlFor="fileUpload"
@@ -124,7 +108,7 @@ const BudgetEdit = ({ budget, onClose, onSave }) => {
         </form>
         <button
           onClick={onClose}
-          className="w-full mt-3 px-6 py-3 text-lg font-bold text-white transition-all duration-300 ease-in-out bg-red-700 rounded-md shadow-lg hover:bg-red-800 hover:shadow-xl font-poppins"
+          className="w-full px-6 py-3 mt-3 text-lg font-bold text-white transition-all duration-300 ease-in-out bg-red-700 rounded-md shadow-lg hover:bg-red-800 hover:shadow-xl font-poppins"
         >
           Cancel
         </button>

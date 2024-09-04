@@ -71,23 +71,7 @@ export default function Budgetform() {
               onChange={handleChange}
             />
           </div>
-          <div className="mb-4">
-            <label
-              htmlFor="amount"
-              className="block text-sm font-medium text-white font-poppins"
-            >
-              Budget Amount
-            </label>
-            <input
-              type="number"
-              className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-md text-base font-poppins text-gray-700 bg-white focus:ring-[#30D5C8] focus:border-[#30D5C8] hover:border-[#2ab2aa] transition-colors duration-300"
-              id="amount"
-              name="amount"
-              placeholder="Enter Budget Amount"
-              value={formData.amount}
-              onChange={handleChange}
-            />
-          </div>
+         
           <div className="mb-4">
             <label
               htmlFor="fileUpload"

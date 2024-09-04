@@ -63,7 +63,7 @@ export default function Temple() {
                 onClick={toggleAddForm}
                 className="px-4 py-2 text-lg text-white bg-green-600 rounded-md cursor-pointer sm:text-xl hover:bg-green-700"
               >
-                {isAddFormVisible ? "Cancel" : "Add Temple"}
+                {isAddFormVisible ? "Cancel" : "Add "}
               </div>
             </div>
           )}

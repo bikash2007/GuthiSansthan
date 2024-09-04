@@ -18,12 +18,12 @@ export const InstanceNotice = ({ title, text, image, id, date, onDelete, isFirst
     <>
       <div
         onClick={toggleDescription}
-        className={`w-full relative p-0 transition-transform duration-300 ease-in-out  hover:scale-[1.08] text-black font-semibold ${
+        className={`w-full md:w-[1100px] relative p-0 transition-transform duration-300 ease-in-out  hover:scale-[1.08] text-black font-semibold ${
           isEditing ? "cursor-pointer" : ""
         } ${isFirst ? "mt-4" : ""}`}  // Add margin-top only if it's the first component
       >
         <div className="flex flex-col">
-          <div className="w-full md:w-[55%] h-[40px] border-2 border-slate-500 rounded-xl md:ms-[80px] bg-gray-300">
+          <div className="w-full md:w-[70%] h-[40px] border-2 border-slate-500 rounded-xl md:ms-[80px] bg-gray-300">
             <div className="flex items-center justify-between h-full px-4">
               <h1 className="text-[10px] md:text-[16px] truncate">{limitedText}</h1>
               <h1 className="text-[10px] md:text-[15px]">Date: {date}</h1>
@@ -32,7 +32,7 @@ export const InstanceNotice = ({ title, text, image, id, date, onDelete, isFirst
         </div>
 
         {isEditing && (
-          <div className="absolute top-2 right-2">
+          <div className="absolute top-2 right-10">
             <ViewEditButton onDelete={() => onDelete(id)} />
           </div>
         )}
