@@ -20,15 +20,16 @@ const UserCards = ({ user }) => {
   };
 
   return (
-    <div className="bg-white shadow-xl shadow-zinc-700 rounded-lg overflow-hidden flex flex-col items-center w-52 flex-wrap px-0 py-2">
-      <div className="w-20 h-20 mb-4">
-        <img
-          src={user.profile?.photo || "https://via.placeholder.com/150"}
-          alt={`${user.first_name} ${user.last_name}`}
-          className="w-full h-full object-cover rounded-full"
-        />
-      </div>
-      <h3 className="text-lg font-semibold mb-2">
+    <div className="bg-green-300/30 backdrop-blur-3xl shadow-xl shadow-zinc-700 rounded-lg overflow-hidden flex flex-col items-center min-w-80  py-6 flex-wrap ">
+      <img
+        src={user.profile?.photo || "https://via.placeholder.com/150"}
+        alt={`${user.first_name} ${user.last_name}`}
+        height={200}
+        width={200}
+        className=" object-cover rounded-full"
+      />
+
+      <h3 className="text-lg  mt-3 font-semibold mb-2">
         {user.first_name} {user.last_name}
       </h3>
       <p className="text-gray-700 mb-2">{user.email}</p>

@@ -112,7 +112,7 @@ export const HomePage = () => {
           <div className="absolute left-[70px] top-0 bg-[#00ADEF] backdrop-blur-3xl text-white py-1 font-semibold text-base flex justify-center items-center h-[40px] px-1  z-30"></div>
         </Link>
         <div className="w-full h-[40px] bg-cyan-700/60 flex items-center  backdrop-blur-xl relative overflow-hidden">
-          <div className="w-full scrolling-text  items-center  absolute right-0 flex flex-row gap-6  py-2 text-white font-semibold">
+          <div className="w-full scrolling-text  items-center  absolute right-0 flex flex-row gap-6   py-2 text-white font-semibold">
             {notices.map((item) => (
               <a
                 href={`${item.image}`}
@@ -120,7 +120,7 @@ export const HomePage = () => {
                 target="_main"
                 key={item.id}
               >
-                <p className="font-thin">{item.title}</p>
+                <p className="font-thin mt-3">{item.title}</p>
               </a>
             ))}
           </div>
@@ -176,7 +176,7 @@ export const HomePage = () => {
           </EditBgHome>
 
           <NepalFlagSlider />
-          <div className="absolute right-4 bottom-32 z-50">
+          <div className="absolute right-4 bottom-32 z-20">
             <div className="relative h-8 w-36 text-center rounded-lg backdrop-blur-3xl bg-gray-100/20 border border-gray-300/40 shadow-lg px-4 transition-all duration-300 ease-in-out focus-within:w-96">
               <input
                 type="search"
