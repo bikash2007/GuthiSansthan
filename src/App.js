@@ -97,6 +97,7 @@ function App() {
   const [popup, setPopup] = useState(false);
 
   return (
+    
     <div className={`App relative ${location.pathname === "" ? "" : ""}`}>
       <ConfirmBox />
       <AlertBox />

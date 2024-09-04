@@ -71,7 +71,7 @@ export default function Tainathi() {
         )}
 
         <div className="p-6 bg-white rounded-lg shadow-md">
-          <h2 className="mb-4 text-2xl font-semibold text-center">Adhinash</h2>
+          <h2 className="mb-4 text-2xl font-semibold text-center">अधिनस्थ</h2>
           <Adhinashshow tableData={tableData} />
         </div>
       </div>
