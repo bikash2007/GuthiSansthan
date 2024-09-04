@@ -133,7 +133,7 @@ export const Calendar = () => {
     const calendarGrid = [];
     for (let i = 0; i < startDayIndex; i++) {
       calendarGrid.push(
-        <div key={`empty-${i}`} className="text-center py-2 border-2 "></div>
+        <div key={`empty-${i}`} className="py-2 text-center border-2 "></div>
       );
     }
 
@@ -152,23 +152,24 @@ export const Calendar = () => {
     });
 
     return (
-      <div className="grid grid-cols-7 gap-2 p-4">
-        {daysOfWeek.map((day) => (
-          <div
-            key={day}
-            className="text-center font-semibold border-2 border-cyan-400 rounded-md backdrop-blur-lg text-lg"
-          >
-            {day.slice(0, 3)}
-          </div>
-        ))}
-        {calendarGrid}
-      </div>
+      <div className="grid grid-cols-7 gap-2 p-3 md:gap-3 md:p-4 ">
+      {daysOfWeek.map((day) => (
+        <div
+          key={day}
+          className="py-1 text-sm font-semibold text-center border-2 rounded-md md:text-lg border-cyan-400 backdrop-blur-lg"
+        >
+          {day.slice(0, 3)}
+        </div>
+      ))}
+      {calendarGrid}
+    </div>
+    
     );
   };
 
   return (
-    <div className="bg-zinc-600/15 backdrop-blur-sm flex items-start md:items-center py-1 justify-center h-screen">
-      <div className="w-full flex flex-wrap items-start justify-center mx-auto p-4 overflow-auto">
+    <div className="flex items-start justify-center h-screen py-1 bg-zinc-600/15 backdrop-blur-sm md:items-center">
+      <div className="flex flex-wrap items-start justify-center w-full p-4 mx-auto overflow-auto">
         <div className="bg-neutral-200 shadow-lg rounded-lg overflow-hidden w-[90%] text-black font-bold flex md:w-1/2 h-96 flex-col">
           <div className="flex items-center justify-between px-6 py-3 bg-gray-700/50">
             <div>
@@ -191,19 +192,19 @@ export const Calendar = () => {
             </div>
           </div>
           {error && (
-            <div className="text-red-500 text-center py-2">{error}</div>
+            <div className="py-2 text-center text-red-500">{error}</div>
           )}
           {renderCalendar()}
         </div>
         {selectedEvent && (
-          <div className="p-2 bg-gray-800 text-white rounded-lg h-96 mt-4 w-full aspect-video md:w-96 overflow-auto flex flex-col items-center justify-start">
+          <div className="flex flex-col items-center justify-start w-full p-2 mt-4 overflow-auto text-white bg-gray-800 rounded-lg h-96 aspect-video md:w-96">
             <h3 className="text-lg font-bold">{selectedEvent.name}</h3>
             <img
               src={`${selectedEvent.image}`}
               alt={selectedEvent.name}
               className="w-1/2 h-auto mt-2"
             />
-            <p className="mt-2 tracking-tighter leading-tight">
+            <p className="mt-2 leading-tight tracking-tighter">
               {selectedEvent.description}
             </p>
           </div>
