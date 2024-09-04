@@ -1,16 +1,17 @@
-import { faClose } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState, useEffect } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faClose } from "@fortawesome/free-solid-svg-icons";
 import { useEditing } from "../../context/EditingProvider";
+import { useSelectLanguage } from "../../context/LanguageChoice"; // Import the language context
 import EditAboutUs from "./EditAboutUs"; // Import the EditAboutUs component
 
 const InstanceAboutUs = ({ title, text, img, onRemove, id }) => {
   const [isOpen, setOpen] = useState(false);
   const [isEditingMode, setEditingMode] = useState(false);
   const { isEditing } = useEditing();
+  const { selectLanguage } = useSelectLanguage(); // Get the selected language
 
   const handleEditToggle = () => {
-    console.log("Edit button clicked");
     setEditingMode(!isEditingMode);
   };
 
@@ -62,7 +63,7 @@ const InstanceAboutUs = ({ title, text, img, onRemove, id }) => {
           )}
         </div>
         <p className="w-full bg-blue-900 text-white font-semibold z-10 p-2">
-          {title.Nepali}
+          {title[selectLanguage]} {/* Display title in selected language */}
         </p>
       </div>
 
@@ -78,12 +79,16 @@ const InstanceAboutUs = ({ title, text, img, onRemove, id }) => {
             <div className="mb-4">
               <img
                 src={img}
-                alt={title.Nepali}
+                alt={title[selectLanguage]}
                 className="w-full h-64 object-cover rounded-lg"
               />
             </div>
-            <h2 className="text-2xl font-bold mb-2">{title.Nepali}</h2>
-            <p className="text-gray-700">{text.Nepali}</p>
+            <h2 className="text-2xl font-bold mb-2">
+              {title[selectLanguage]} {/* Display title in selected language */}
+            </h2>
+            <p className="text-gray-700">
+              {text[selectLanguage]} {/* Display text in selected language */}
+            </p>
           </div>
         </div>
       )}
