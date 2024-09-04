@@ -1,14 +1,16 @@
-import React from "../../../../App.css";
+import React from "react";
 import { useEditing } from "../../../../context/EditingProvider";
+import { useSelectLanguage } from "../../../../context/LanguageChoice";
 
-// Helper function to get the English text or fallback
-const getText = (textObj) => (textObj && textObj.Nepali ? textObj.Nepali : "");
-
-// InstantTeam Component
 const InstantTeam = ({ teamMember, onEdit, onRemove }) => {
   const { isEditing } = useEditing();
+  const { selectLanguage } = useSelectLanguage(); // Move this line inside the component
 
-  // Extract the English text or fallback empty string if undefined
+  // Helper function to get the text in the selected language or fallback to an empty string
+  const getText = (textObj) =>
+    textObj && textObj[selectLanguage] ? textObj[selectLanguage] : "";
+
+  // Extract the text in the selected language or fallback to an empty string if undefined
   const fullName = `${getText(teamMember.first_name)} ${getText(
     teamMember.last_name
   )}`;
@@ -27,7 +29,7 @@ const InstantTeam = ({ teamMember, onEdit, onRemove }) => {
           />
         )}
       </div>
-      <div className="flex flex-col relative w-full  justify-center items-center lg:items-start text-white mt-4 lg:mt-0 lg:ml-8 text-center lg:text-left">
+      <div className="flex flex-col relative w-full justify-center items-center lg:items-start text-white mt-4 lg:mt-0 lg:ml-8 text-center lg:text-left">
         <h2 className="text-lg lg:text-2xl font-medium text-gray-300">
           {displayPosition}
         </h2>

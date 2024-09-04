@@ -140,8 +140,8 @@ export const HeaderTop = () => {
             onChange={handleLanguageChange}
             className="bg-gray-300/30 text-black rounded-full px-2 py-1 cursor-pointer w-auto lg:w-auto backdrop-blur-sm border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
-            <option value="nepali">Nepali</option>
-            <option value="english">English</option>
+            <option value="Nepali">Nepali</option>
+            <option value="English">English</option>
             {/* <option value="newari">Newari</option> */}
             {/* <option value="mithila">Mithila</option> */}
           </select>

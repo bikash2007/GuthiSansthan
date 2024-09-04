@@ -98,8 +98,9 @@ const EditTeams = ({ teamMember }) => {
           },
         }
       );
-      // Handle success, e.g., notify user or update the UI
+      window.location.reload();
       console.log("Team member updated successfully!");
+      // Handle success, e.g., notify user or update the UI
     } catch (error) {
       console.error("There was an error updating the team member!", error);
     }

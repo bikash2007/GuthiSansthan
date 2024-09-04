@@ -19,6 +19,7 @@ import { useEditing } from "../context/EditingProvider";
 import { addLanguage } from "../components/ReuseableFunctions";
 import EditLocation from "./Contact US/EditLocation";
 import AddContactPerson from "./Contact US/AddContactPerson";
+import { useSelectLanguage } from "../context/LanguageChoice";
 
 export const ContactUs = () => {
   const { t } = useTranslation();
@@ -39,6 +40,7 @@ export const ContactUs = () => {
   };
   const baseUrl = useSelector((state) => state.baseUrl).backend;
   const dispatch = useDispatch();
+  const { selectLanguage } = useSelectLanguage(); // Get the selected language
 
   useEffect(() => {
     try {
@@ -145,7 +147,7 @@ export const ContactUs = () => {
       </EditBgImage>
       <div className="fixed top-0 w-screen h-screen bg-center bg-cover -z-10 bg-black/40 "></div>
       <h1 className="m-16 text-5xl font-bold tracking-wide text-white">
-        {t("contact-us-heading")}
+        {t("contact-us")}
       </h1>
       <div
         className={`${
@@ -183,16 +185,16 @@ export const ContactUs = () => {
               className="flex flex-col items-center justify-center w-full max-w-sm p-6 m-4 space-y-4 transition-shadow duration-300 ease-in-out bg-white rounded-lg shadow-lg hover:shadow-xl"
             >
               <p className="px-4 py-2 text-lg font-semibold text-gray-800 rounded-md bg-gradient-to-r from-purple-400 via-pink-300 to-purple-400">
-                {item.position.English}{" "}
+                {item.position[selectLanguage]}{" "}
                 {/* Assuming you want to display English position */}
               </p>
               <img
                 src={item.photo}
-                alt={item.name.English}
+                alt={item.name[selectLanguage]}
                 className="w-40 h-40 border-4 rounded-full shadow-lg border-gradient-to-r from-purple-400 via-pink-300 to-purple-400"
               />
               <p className="px-4 py-2 mb-2 text-xl font-bold text-gray-900 bg-white border border-gray-200 rounded-md shadow-lg">
-                {item.name.English}{" "}
+                {item.name[selectLanguage]}{" "}
                 {/* Assuming you want to display English name */}
               </p>
               <p className="px-4 py-2 text-lg font-medium text-gray-800 bg-white border border-gray-200 rounded-md shadow-lg">
