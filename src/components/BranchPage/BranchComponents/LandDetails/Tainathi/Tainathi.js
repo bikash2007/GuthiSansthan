@@ -70,7 +70,7 @@ export default function Tainathi() {
         )}
 
         <div className="p-6 bg-white rounded-lg shadow-md">
-          <h2 className="mb-4 text-2xl font-semibold text-center">Tainathi</h2>
+          <h2 className="mb-4 text-2xl font-semibold text-center">तैनाथी</h2>
           <TainathiShow tableData={tableData} />
         </div>
       </div>
