@@ -21,6 +21,8 @@ import Temple from "./Other Temple/Temple";
 import Land from "./Land and property/Land";
 import { faBars, faClose } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Gallary from "./Gallary/Gallary"
+import Darbandi from "./Darbandi/Darbandi"
 
 export const ArticleMainSection = () => {
   const isMobile = useMediaQuery("(max-width:800px)");
@@ -99,6 +101,10 @@ export const ArticleMainSection = () => {
         return "कूत तथा मालपोतको दर";
       case "temple":
         return "परिपत्रहरू";
+        case "gallary":
+        return "मिडिया ग्यालरी";
+        case "darbandi":
+          return "दरबन्दी";
       default:
         return "";
     }
@@ -158,6 +164,8 @@ export const ArticleMainSection = () => {
                 "download",
                 "land",
                 "temple",
+                "gallary",
+                "darbandi",
               ].map((sectionType) => (
                 <button
                   key={sectionType}
@@ -173,6 +181,9 @@ export const ArticleMainSection = () => {
                   {sectionType === "download" && "डाउनलोड"}
                   {sectionType === "land" && "कूत तथा मालपोतको दर"}
                   {sectionType === "temple" && "परिपत्रहरू"}
+                  {sectionType === "gallary" && "मिडिया ग्यालरी"}
+                  {sectionType === "darbandi" && " दरबन्दी"}
+                 
                 </button>
               ))}
             </div>
@@ -199,6 +210,8 @@ export const ArticleMainSection = () => {
                   "download",
                   "land",
                   "temple",
+                  "gallary",
+                  "darbandi",
                 ].map((sectionType) => (
                   <button
                     key={sectionType}
@@ -214,6 +227,8 @@ export const ArticleMainSection = () => {
                     {sectionType === "download" && "डाउनलोड"}
                     {sectionType === "land" && "कूत तथा मालपोतको दर"}
                     {sectionType === "temple" && "परिपत्रहरू"}
+                    {sectionType === "gallary" && "मिडिया ग्यालरी"}
+                    {sectionType === "darbandi" && " दरबन्दी"}
                   </button>
                 ))}
               </div>
@@ -228,6 +243,8 @@ export const ArticleMainSection = () => {
             {section === "download" && <Download />}
             {section === "temple" && <Temple />}
             {section === "land" && <Land />}
+            {section === "gallary" && <Gallary />}
+            {section === "darbandi" && <Darbandi />}
           </div>
         </div>
       </div>
