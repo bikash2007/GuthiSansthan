@@ -83,7 +83,7 @@ const OfficePosts = () => {
       {isEditing && (
         <form
           onSubmit={handleSubmit}
-          className="bg-white p-6 rounded-lg shadow-md mb-8 max-w-lg mx-auto"
+          className="bg-white p-6 rounded-lg shadow-md mb-8 max-w-lg min-w-96 mx-auto"
         >
           <h2 className="text-2xl font-semibold mb-4 text-gray-700">
             Add New Post
