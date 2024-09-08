@@ -60,16 +60,19 @@ export const Teams = () => {
   if (error)
     return <div className="text-center text-red-500">Error: {error}</div>;
 
+  const teamMemberWithId13 = teamData.find((member) => member.id === 13);
+  const filteredTeamData = teamData.filter((member) => member.id !== 13); // Exclude the member with id 13
+
   return (
     <div className="w-full h-full pb-5 flex flex-col bg-black/40 items-center">
       <div className="w-full py-1 flex justify-center bg-neutral-200/30">
         <img src={logo} height={200} width={200} alt="Logo" />
       </div>
-      <div className="h-full w-full flex flex-wrap items-center  overflow-auto px-2">
+      <div className="h-full w-full flex flex-wrap items-center overflow-auto px-2">
         <div className="w-full flex justify-center py-2 flex-col items-center">
           <img
             src={p2}
-            className=" w-64 rounded-full hover:w-[200px] lg:w-[130px]"
+            className="w-64 rounded-full hover:w-[200px] lg:w-[130px]"
           />
           <h1 className="text-xl lg:text-3xl font-semibold mt-2 text-white">
             अध्यक्ष
@@ -78,8 +81,22 @@ export const Teams = () => {
             डा. शिवराज पण्डित
           </h3>
         </div>
+
+        {/* Separate div to display the team member with id 13 */}
+        {teamMemberWithId13 && (
+          <div className="w-full flex justify-center py-2">
+            <InstantTeam
+              key={teamMemberWithId13.id}
+              teamMember={teamMemberWithId13}
+              onEdit={() => handleEdit(teamMemberWithId13.id)}
+              onRemove={() => handleRemove(teamMemberWithId13.id)}
+            />
+          </div>
+        )}
+
+        {/* Render other team members excluding id 13 */}
         <div className="w-full flex justify-center gap-x-56 flex-wrap">
-          {teamData.map((teamMember) => (
+          {filteredTeamData.map((teamMember) => (
             <InstantTeam
               key={teamMember.id}
               teamMember={teamMember}
@@ -88,6 +105,7 @@ export const Teams = () => {
             />
           ))}
         </div>
+
         {isEditing && (
           <div className="w-full">
             {isEditingMode ? (

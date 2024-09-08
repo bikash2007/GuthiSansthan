@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useEditing } from "../../context/EditingProvider";
+import { showConfirmBox } from "../AlertLoader/ConfirmBox";
 
 export const BranchInstance = ({
   imgUrl,
@@ -16,13 +17,15 @@ export const BranchInstance = ({
 }) => {
   const { isEditing } = useEditing();
   const handleRemove = async () => {
-    try {
-      await axios.delete(`https://ingnepal.org.np/api/branches/${branchId}/`);
-      toast.success("Branch successfully removed!");
-      if (onRemove) onRemove(branchId);
-    } catch (error) {
-      toast.error("Failed to remove branch");
-      console.error(error);
+    if (await showConfirmBox("Do you want to Delete this Branch?")) {
+      try {
+        await axios.delete(`https://ingnepal.org.np/api/branches/${branchId}/`);
+        toast.success("Branch successfully removed!");
+        if (onRemove) onRemove(branchId);
+      } catch (error) {
+        toast.error("Failed to remove branch");
+        console.error(error);
+      }
     }
   };
 

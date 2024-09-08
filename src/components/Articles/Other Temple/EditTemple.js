@@ -59,7 +59,7 @@ const EditTemple = ({ temple, onClose, onSave }) => {
     <div className="flex items-center justify-center mt-3">
       <div className="w-full max-w-xl p-6 transition-shadow duration-300 ease-in-out rounded-lg shadow-lg bg-gray-600/30 backdrop-blur-xl hover:shadow-2xl">
         <h3 className="mb-5 text-2xl font-semibold text-center text-white font-poppins">
-          Edit Temple Data
+          Edit Circular Data
         </h3>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">

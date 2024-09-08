@@ -1,57 +1,50 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React from "react";
+import OfficePosts from "./OfficePosts";
+import PostFeilds from "./PostFeilds";
+import RankFeilds from "./RankFeilds";
+import EmployeeTypes from "./EmployeeTypes";
+import Mahasakha from "./Mahasakha";
+import Sakha from "./Sakha";
 
-import { useEditing } from "../../../context/EditingProvider";
-
-
-export default function Darbandi() {
-  const [tableData, setTableData] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const { isEditing } = useEditing();
-  const [showAddData, setShowAddData] = useState(false);
-
-  // Uncomment to enable data fetching
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await axios.get('https://your-api-endpoint.com/data'); // Replace with your API endpoint
-  //       setTableData(response.data);
-  //       setLoading(false);
-  //     } catch (err) {
-  //       setError(err.message);
-  //       setLoading(false);
-  //     }
-  //   };
-  //   fetchData();
-  // }, []);
-
-  // Uncomment to enable save functionality
-  // const handleSaveData = async (newData) => {
-  //   try {
-  //     await axios.post('https://your-api-endpoint.com/save', newData); // Replace with your API endpoint
-  //     setTableData(newData);
-  //     alert('Data saved successfully!');
-  //   } catch (err) {
-  //     console.error('Error saving data:', err);
-  //     alert('Failed to save data.');
-  //   }
-  // };
-
-  // if (loading) {
-  //   return <p>Loading...</p>;
-  // }
-
-  // if (error) {
-  //   return <p>Error: {error}</p>;
-  // }
-
+const Darbandi = () => {
   return (
-   <>
-   <h1 className='mt-6 text-center text-white'>No data at the moment</h1>
-   
-   
-   
-   </>
+    <div className="w-full p-4">
+      <table className="w-full table-auto border-collapse bg-gray-200/40 backdrop-blur-lg rounded-lg">
+        <thead>
+          <tr className="bg-gray-200 text-gray-700">
+            <th className="p-1 border">Office Posts</th>
+            <th className="p-1 border">Post Fields</th>
+            <th className="p-1 border">Rank Fields</th>
+            <th className="p-1 border">Employee Types</th>
+            <th className="p-1 border">Mahasakha</th>
+            <th className="p-1 border">Sakha</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td className="p-1 border">
+              <OfficePosts />
+            </td>
+            <td className="p-1 border">
+              <PostFeilds />
+            </td>
+            <td className="p-1 border">
+              <RankFeilds />
+            </td>
+            <td className="p-1 border">
+              <EmployeeTypes />
+            </td>
+            <td className="p-1 border">
+              <Mahasakha />
+            </td>
+            <td className="p-1 border">
+              <Sakha />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   );
-}
+};
+
+export default Darbandi;
