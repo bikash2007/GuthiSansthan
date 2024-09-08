@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useEditing } from "../../../context/EditingProvider";
 
 const Sakha = () => {
   const [branches, setBranches] = useState([]);
@@ -7,7 +8,7 @@ const Sakha = () => {
   const [selectedBranch, setSelectedBranch] = useState("");
   const [name, setName] = useState({ English: "", Nepali: "" });
   const [editSakha, setEditSakha] = useState(null);
-
+  const { isEditing } = useEditing();
   useEffect(() => {
     // Fetch branches
     axios
@@ -68,51 +69,52 @@ const Sakha = () => {
   return (
     <div className="p-4">
       <h2 className="text-2xl font-bold mb-4">Sakha Management</h2>
-
-      <div className="mb-6">
-        <h3 className="text-xl font-semibold mb-2">Add New Sakha</h3>
-        <div className="mb-2">
-          <label className="block mb-1">Branch:</label>
-          <select
-            value={selectedBranch}
-            onChange={handleBranchChange}
-            className="p-2 border rounded"
+      {isEditing && (
+        <div className="mb-6">
+          <h3 className="text-xl font-semibold mb-2">Add New Sakha</h3>
+          <div className="mb-2">
+            <label className="block mb-1">Branch:</label>
+            <select
+              value={selectedBranch}
+              onChange={handleBranchChange}
+              className="p-2 border rounded"
+            >
+              <option value="">Select Branch</option>
+              {branches.map((branch) => (
+                <option key={branch.id} value={branch.id}>
+                  {branch.name}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="mb-2">
+            <label className="block mb-1">Name (English):</label>
+            <input
+              type="text"
+              name="English"
+              value={name.English}
+              onChange={handleNameChange}
+              className="p-2 border rounded w-full"
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block mb-1">Name (Nepali):</label>
+            <input
+              type="text"
+              name="Nepali"
+              value={name.Nepali}
+              onChange={handleNameChange}
+              className="p-2 border rounded w-full"
+            />
+          </div>
+          <button
+            onClick={handleAddSakha}
+            className="bg-blue-500 text-white px-4 py-2 rounded"
           >
-            <option value="">Select Branch</option>
-            {branches.map((branch) => (
-              <option key={branch.id} value={branch.id}>
-                {branch.name}
-              </option>
-            ))}
-          </select>
+            Add Sakha
+          </button>
         </div>
-        <div className="mb-2">
-          <label className="block mb-1">Name (English):</label>
-          <input
-            type="text"
-            name="English"
-            value={name.English}
-            onChange={handleNameChange}
-            className="p-2 border rounded w-full"
-          />
-        </div>
-        <div className="mb-4">
-          <label className="block mb-1">Name (Nepali):</label>
-          <input
-            type="text"
-            name="Nepali"
-            value={name.Nepali}
-            onChange={handleNameChange}
-            className="p-2 border rounded w-full"
-          />
-        </div>
-        <button
-          onClick={handleAddSakha}
-          className="bg-blue-500 text-white px-4 py-2 rounded"
-        >
-          Add Sakha
-        </button>
-      </div>
+      )}
 
       <div>
         <h3 className="text-xl font-semibold mb-2">Existing Sakha</h3>

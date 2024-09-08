@@ -60,6 +60,7 @@ export const ArticleMainSection = () => {
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const mobileMenuRef = useRef(null);
+  const superUser = sessionStorage.getItem("superUser");
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -182,7 +183,9 @@ export const ArticleMainSection = () => {
                   {sectionType === "land" && "कूत तथा मालपोतको दर"}
                   {sectionType === "temple" && "परिपत्रहरू"}
                   {sectionType === "gallary" && "मिडिया ग्यालरी"}
-                  {sectionType === "darbandi" && " पदहरू"}
+                  {superUser === "true" &&
+                    sectionType === "darbandi" &&
+                    "पदहरू"}
                 </button>
               ))}
             </div>
