@@ -1,7 +1,6 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Articles } from "./ArticleSection/Articles";
 import { Notices } from "./NoticeSection/Notices";
-import { useEffect, useState, useRef } from "react";
 import { useMediaQuery } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
@@ -21,8 +20,10 @@ import Temple from "./Other Temple/Temple";
 import Land from "./Land and property/Land";
 import { faBars, faClose } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Gallary from "./Gallary/Gallary"
-import Darbandi from "./Darbandi/Darbandi"
+import Gallary from "./Gallary/Gallary";
+import Internal from "./Darbandi/Internal";
+import Source from "./Darbandi/Source";
+import { blue } from "@mui/material/colors";
 
 export const ArticleMainSection = () => {
   const isMobile = useMediaQuery("(max-width:800px)");
@@ -32,6 +33,9 @@ export const ArticleMainSection = () => {
   const dispatch = useDispatch();
   const { isEditing, setIsEditing } = useEditing();
   const [section, setSection] = useState("notice");
+
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false); // State for dropdown
+  const dropdownRef = useRef(null); // Reference for dropdown
 
   useEffect(() => {
     try {
@@ -69,20 +73,28 @@ export const ArticleMainSection = () => {
       ) {
         setIsMobileMenuOpen(false);
       }
+
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target)
+      ) {
+        setIsDropdownOpen(false); // Close the dropdown if clicked outside
+      }
     };
 
-    if (isMobileMenuOpen) {
+    if (isMobileMenuOpen || isDropdownOpen) {
       document.addEventListener("mousedown", handleClickOutside);
     }
 
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [isMobileMenuOpen]);
+  }, [isMobileMenuOpen, isDropdownOpen]);
 
   const handleSectionChange = (sectionType) => {
     setSection(sectionType);
     setIsMobileMenuOpen(false); // Close menu when section changes
+    setIsDropdownOpen(false); // Close dropdown when section changes
   };
 
   const getSectionName = () => {
@@ -101,10 +113,10 @@ export const ArticleMainSection = () => {
         return "कूत तथा मालपोतको दर";
       case "temple":
         return "परिपत्रहरू";
-        case "gallary":
+      case "gallary":
         return "मिडिया ग्यालरी";
-        case "darbandi":
-          return "दरबन्दी";
+      case "darbandi":
+        return "दरबन्दी";
       default:
         return "";
     }
@@ -169,7 +181,11 @@ export const ArticleMainSection = () => {
               ].map((sectionType) => (
                 <button
                   key={sectionType}
-                  onClick={() => setSection(sectionType)}
+                  onClick={() =>
+                    sectionType === "darbandi"
+                      ? setIsDropdownOpen(!isDropdownOpen)
+                      : setSection(sectionType)
+                  }
                   className={`font-bold border-b-2 hover:border-red-600 transition-all duration-200 ease-linear text-white text-xl ${
                     section === sectionType ? "border-red-600" : "border-none"
                   }`}
@@ -182,10 +198,35 @@ export const ArticleMainSection = () => {
                   {sectionType === "land" && "कूत तथा मालपोतको दर"}
                   {sectionType === "temple" && "परिपत्रहरू"}
                   {sectionType === "gallary" && "मिडिया ग्यालरी"}
-                  {sectionType === "darbandi" && " दरबन्दी"}
-                 
+
+                  {sectionType === "darbandi" && "दरबन्दी"}
                 </button>
               ))}
+
+              {/* Dropdown menu */}
+              {isDropdownOpen && (
+                <div
+                  ref={dropdownRef}
+                  className="p-2 mt-2 bg-white rounded-md shadow-lg "
+                >
+                  <button
+                    onClick={() => handleSectionChange("source")}
+                    className={`block w-full text-left px-4 py-2 hover:bg-gray-200 ${
+                      section === "source" ? "font-bold" : ""
+                    }`}
+                  >
+                    श्रोत व्यवस्थापन तथा अनुगमन महाशाखा
+                  </button>
+                  <button
+                    onClick={() => handleSectionChange("internal")}
+                    className={`block w-full text-left px-4 py-2 hover:bg-gray-200 ${
+                      section === "internal" ? "font-bold" : ""
+                    }`}
+                  >
+                    आन्तरिक व्यवस्थापन महाशाखा
+                  </button>
+                </div>
+              )}
             </div>
 
             {/* Mobile Menu */}
@@ -228,7 +269,7 @@ export const ArticleMainSection = () => {
                     {sectionType === "land" && "कूत तथा मालपोतको दर"}
                     {sectionType === "temple" && "परिपत्रहरू"}
                     {sectionType === "gallary" && "मिडिया ग्यालरी"}
-                    {sectionType === "darbandi" && " दरबन्दी"}
+                    {sectionType === "darbandi" && "दरबन्दी"}
                   </button>
                 ))}
               </div>
@@ -244,7 +285,8 @@ export const ArticleMainSection = () => {
             {section === "temple" && <Temple />}
             {section === "land" && <Land />}
             {section === "gallary" && <Gallary />}
-            {section === "darbandi" && <Darbandi />}
+            {section === "internal" && <Internal />}
+            {section === "source" && <Source />}
           </div>
         </div>
       </div>
