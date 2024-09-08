@@ -1,7 +1,7 @@
 import { styled, useMediaQuery } from "@mui/material";
 import { useSelectLanguage } from "../../context/LanguageChoice";
 import { useTranslation } from "react-i18next";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setNewGuthiSansthanLogo } from "../../state/GlobalSlice";
@@ -9,6 +9,9 @@ import { EditLogoImage } from "../EditComponents";
 import { useEditing } from "../../context/EditingProvider";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  faAdd,
+  faMinimize,
+  faMinus,
   faRightFromBracket,
   faUserCircle,
 } from "@fortawesome/free-solid-svg-icons";
@@ -56,12 +59,18 @@ export const HeaderTop = () => {
   }, []);
 
   const superUser = sessionStorage.getItem("superUser");
+  const [blur, setBlur] = useState(14);
+
+  const handleBlurChange = (event) => {
+    setBlur(Number(event.target.value));
+  };
 
   return (
     <div
       className={`${
         isMobile ? "py-2 flex-wrap" : "py-3 flex-row px-4 lg:px-10"
-      } flex w-full bg-neutral-100/30 lg:bg-neutral-200/10 dark:bg-neutral-100/10 lg:backdrop-blur-lg backdrop-blur-xl justify-evenly lg:justify-between items-center`}
+      } flex w-full bg-neutral-100/30 lg:bg-neutral-200/10 dark:bg-neutral-100/10 justify-evenly lg:justify-between items-center`}
+      style={{ backdropFilter: `blur(${blur}px)` }} // Apply blur effect here
     >
       <Link
         to="/"
@@ -108,6 +117,33 @@ export const HeaderTop = () => {
 
       {superUser === "true" && (
         <>
+          <div className="flex flex-col font-semibold text-white rounded-xl px-2 py-1 bg-cyan-400/30 backdrop-blur-xl">
+            <h6>Blur intensity</h6>
+            <div className="flex gap-3 justify-between px-2">
+              <FontAwesomeIcon
+                className="hover:scale-125 hover:cursor-pointer"
+                scale={2}
+                icon={faAdd}
+                onClick={() => setBlur(blur + 3)}
+              />
+              <FontAwesomeIcon
+                className="hover:scale-125 hover:cursor-pointer"
+                scale={2}
+                icon={faMinus}
+                onClick={() => setBlur(blur - 3)}
+              />
+            </div>
+            <input
+              type="range"
+              min="0"
+              max="30"
+              value={blur}
+              onChange={handleBlurChange}
+              className="mt-2 w-full"
+              step="1"
+            />
+            <span className="text-white text-sm">{blur}px</span>
+          </div>
           {isEditing ? (
             <div
               className="bg-red-700 hidden lg:flex items-center justify-center py-2 px-3 cursor-pointer rounded-md"

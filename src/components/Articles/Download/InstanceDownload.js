@@ -27,7 +27,7 @@ const InstanceDownload = ({ id, title, image, onDelete, onEdit }) => {
         onClick={handleClick}
         title="Click to view PDF"
       >
-        <div className="flex items-center w-[400px] h-16 md:w-[85%] px-4 space-x-4 text-black transition-transform duration-300 ease-in-out bg-gray-300 border-2 border-slate-500 rounded-xl hover:scale-105">
+        <div className="flex items-center w-[400px] h-16 md:w-[85%] px-4 space-x-4 text-white transition-transform duration-300 ease-in-out bg-gray-300/30 backdrop-blur-xl border-1 border-slate-500 rounded-xl hover:scale-105">
           <h1 className="flex-1 text-sm font-semibold truncate sm:text-base md:text-lg">
             {title}
           </h1>

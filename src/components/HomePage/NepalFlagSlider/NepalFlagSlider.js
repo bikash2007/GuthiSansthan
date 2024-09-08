@@ -92,7 +92,7 @@ export const NepalFlagSlider = ({ content }) => {
                   ? "left-[-100%] opacity-0"
                   : "left-0 opacity-100"
               }`
-        } absolute text-white  font-bold transition-all duration-500 ease-in-out lg:left-28 font-reggaeOne flex flex-col items-center`}
+        } absolute text-white  font-bold transition-all duration-500 w-full ease-in-out  font-reggaeOne flex flex-col items-center`}
       >
         {homePageDetail.details["welcome-to-guthi-sansthan"] && (
           <EditText

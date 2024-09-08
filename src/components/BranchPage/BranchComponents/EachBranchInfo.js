@@ -6,9 +6,9 @@ import { BranchNotice } from "./BranchNotice";
 import { useMediaQuery } from "@mui/material";
 import { useLocation } from "react-router-dom";
 import BranchTeams from "../BranchTeams/BranchTeams";
-import Raitani from './LandDetails/Raitani/Raitani'
-import Adhinash from './LandDetails/Adhinasth/Adhinasth'
-import Tainathi from './LandDetails/Tainathi/Tainathi';
+import Raitani from "./LandDetails/Raitani/Raitani";
+import Adhinash from "./LandDetails/Adhinasth/Adhinasth";
+import Tainathi from "./LandDetails/Tainathi/Tainathi";
 
 import BudgetKharcha from "./BudgetKharcha/BudgetKharcha";
 import BudgetNikasa from "./BudgetNikasa/BudgetNikasa";
@@ -23,6 +23,7 @@ export const EachBranchInfo = () => {
   const [section, setSection] = useState("article");
   const loc = useLocation();
   const { isEditing } = useEditing();
+  const token = sessionStorage.getItem("token");
   const handleButtonClick = (component) => {
     setActiveComponent(component);
   };
@@ -75,7 +76,7 @@ export const EachBranchInfo = () => {
           >
             कर्मचारी
           </button>
-          {isEditing && (
+          {token && (
             <>
               <button
                 onClick={() => setSection("branch-darbandi")}
@@ -114,42 +115,49 @@ export const EachBranchInfo = () => {
                 सूची दर्ता
               </button>
               <div class="dropdown">
-  <button     className={`font-bold border-b-2 hover:border-red-600 transition-all dropdown-toggle duration-200 ease-linear text-white text-base lg:text-xl ${
-                  section === "land-detail" ? "border-red-600" : "border-none"
-                } `} type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-         जग्गाको विवरण
-  </button>
-  <ul className=" dropdown-menu" aria-labelledby="dropdownMenuButton1">
-  <button
-                onClick={() => setSection("tainathi")}
-                className={`font-semibold border-b-2 text-center ms-2 mt-1 hover:border-red-600 transition-all duration-200 ease-linear text-black text-base  ${
-                  section === "tainathi" ? "border-red-600" : "border-none"
-                } `}
-              >
-               तैनाथी
-              </button>
-              <br/>
-              <button
-                onClick={() => setSection("raitani")}
-                className={`font-semibold border-b-2 ms-2 mt-1 hover:border-red-600 transition-all duration-200 ease-linear text-black text-base  ${
-                  section === "raitani" ? "border-red-600" : "border-none"
-                } `}
-              >
-             रैतानी
-              </button>
-              <br/>
-              <button
-                onClick={() => setSection("adhinash")}
-                className={`font-semibold border-b-2 ms-2 mt-1 hover:border-red-600 transition-all duration-200 ease-linear text-black text-base  ${
-                  section === "adhinash" ? "border-red-600" : "border-none"
-                } `}
-              >
-              अधिनस्थ
-              </button>
-  </ul>
-</div>
-
-             
+                <button
+                  className={`font-bold border-b-2 hover:border-red-600 transition-all dropdown-toggle duration-200 ease-linear text-white text-base lg:text-xl ${
+                    section === "land-detail" ? "border-red-600" : "border-none"
+                  } `}
+                  type="button"
+                  id="dropdownMenuButton1"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  जग्गाको विवरण
+                </button>
+                <ul
+                  className=" dropdown-menu"
+                  aria-labelledby="dropdownMenuButton1"
+                >
+                  <button
+                    onClick={() => setSection("tainathi")}
+                    className={`font-semibold border-b-2 text-center ms-2 mt-1 hover:border-red-600 transition-all duration-200 ease-linear text-black text-base  ${
+                      section === "tainathi" ? "border-red-600" : "border-none"
+                    } `}
+                  >
+                    तैनाथी
+                  </button>
+                  <br />
+                  <button
+                    onClick={() => setSection("raitani")}
+                    className={`font-semibold border-b-2 ms-2 mt-1 hover:border-red-600 transition-all duration-200 ease-linear text-black text-base  ${
+                      section === "raitani" ? "border-red-600" : "border-none"
+                    } `}
+                  >
+                    रैतानी
+                  </button>
+                  <br />
+                  <button
+                    onClick={() => setSection("adhinash")}
+                    className={`font-semibold border-b-2 ms-2 mt-1 hover:border-red-600 transition-all duration-200 ease-linear text-black text-base  ${
+                      section === "adhinash" ? "border-red-600" : "border-none"
+                    } `}
+                  >
+                    अधिनस्थ
+                  </button>
+                </ul>
+              </div>
             </>
           )}
         </div>
@@ -208,26 +216,24 @@ export const EachBranchInfo = () => {
             // branchId={loc.state.branchId}
             />
           )}
-            {section === "raitani" && (
+          {section === "raitani" && (
             <Raitani
             // branchName={loc.state.name}
             // branchId={loc.state.branchId}
             />
           )}
-            {section === "tainathi" && (
+          {section === "tainathi" && (
             <Tainathi
             // branchName={loc.state.name}
             // branchId={loc.state.branchId}
             />
           )}
-            {section === "adhinash" && (
+          {section === "adhinash" && (
             <Adhinash
             // branchName={loc.state.name}
             // branchId={loc.state.branchId}
             />
           )}
-
-
         </div>
       </div>
     </div>

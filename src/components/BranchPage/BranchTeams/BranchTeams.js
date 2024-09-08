@@ -16,12 +16,10 @@ const BranchTeams = ({ branchName, branchId }) => {
     const fetchUsers = async () => {
       try {
         const response = await axios.get(
-          "https://ingnepal.org.np/api/users/?search="
+          `https://ingnepal.org.np/api/branches/${branchId}/get-employees/`
         );
-        const filteredUsers = response.data.filter(
-          (user) => user.profile && user.profile.branch === branchId
-        );
-        setUsers(filteredUsers);
+
+        setUsers(response.data);
       } catch (error) {
         console.error("Error fetching users:", error);
       }

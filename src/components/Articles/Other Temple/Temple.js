@@ -82,7 +82,7 @@ export default function Temple() {
                 ))
               ) : (
                 <h1 className="font-bold text-center text-white">
-                  No Temple data at this moment
+                  No Circulars data at this moment
                 </h1>
               )}
             </div>
