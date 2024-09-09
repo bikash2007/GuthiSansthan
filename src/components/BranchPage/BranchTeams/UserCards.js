@@ -19,24 +19,36 @@ const UserCards = ({ user }) => {
     }
   };
 
+  // Extract the relevant fields from the nested structure
+  const firstName =
+    user.first_name?.Nepali || user.first_name?.English || "N/A";
+  const lastName = user.last_name?.Nepali || user.last_name?.English || "N/A";
+  const contactNo = user.contact_no || "N/A";
+  const photoUrl = user.photo || "https://via.placeholder.com/150";
+
   return (
-    <div className="bg-green-300/30 backdrop-blur-3xl shadow-xl shadow-zinc-700 rounded-lg overflow-hidden flex flex-col items-center min-w-80  py-6 flex-wrap ">
+    <div className="bg-green-300/30 backdrop-blur-3xl shadow-xl shadow-zinc-700 rounded-lg overflow-hidden flex flex-col items-center min-w-80 py-6 flex-wrap">
       <img
-        src={user.profile?.photo || "https://via.placeholder.com/150"}
-        alt={`${user.first_name} ${user.last_name}`}
+        src={photoUrl}
+        alt={`${firstName} ${lastName}`}
         height={200}
         width={200}
-        className=" object-cover rounded-full"
+        className="object-cover rounded-full"
       />
 
-      <h3 className="text-lg  mt-3 font-semibold mb-2">
-        {user.first_name} {user.last_name}
+      <h3 className="text-lg mt-3 font-semibold mb-2">
+        {firstName} {lastName}
       </h3>
-      <p className="text-gray-700 mb-2">{user.email}</p>
-
-      {user.profile?.contact_no && (
-        <p className="text-gray-500">Contact: {user.profile.contact_no}</p>
+      {user.pan_no && (
+        <p className="text-gray-700 mb-2">PAN No: {user.pan_no}</p>
       )}
+      {user.bank_name?.Nepali && (
+        <p className="text-gray-500">Bank: {user.bank_name.Nepali}</p>
+      )}
+      {user.address?.Nepali && (
+        <p className="text-gray-500">Address: {user.address.Nepali}</p>
+      )}
+      {contactNo && <p className="text-gray-500">Contact: {contactNo}</p>}
 
       {isEditing && (
         <div className="flex space-x-2 mt-4">

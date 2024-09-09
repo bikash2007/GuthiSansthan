@@ -52,7 +52,7 @@ const PostFields = () => {
     setIsSubmitting(true);
 
     try {
-      await axios.post("https://ingnepal.org.np/api/office-posts/", formData);
+      await axios.post("https://ingnepal.org.np/api/posts/", formData);
       fetchPosts(); // Refresh the list of posts after submission
       setFormData({ name: { Nepali: "", English: "" } });
       setIsSubmitting(false);
@@ -66,7 +66,7 @@ const PostFields = () => {
   const handleDelete = async (id) => {
     setIsDeleting(true);
     try {
-      await axios.delete(`https://ingnepal.org.np/api/office-posts/${id}/`);
+      await axios.delete(`https://ingnepal.org.np/api/posts/${id}/`);
       fetchPosts(); // Refresh the list of posts after deletion
       setIsDeleting(false);
     } catch (error) {

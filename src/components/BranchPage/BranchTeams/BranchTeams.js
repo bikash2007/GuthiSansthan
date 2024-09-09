@@ -29,15 +29,15 @@ const BranchTeams = ({ branchName, branchId }) => {
   }, [branchId]);
 
   return (
-    <div className="w-full h-full  flex flex-col items-center justify-center space-y-6 p-4">
-      <div className=" gap-16 w-full flex overflow-x-scroll py-4 ">
+    <div className="w-full h-full flex flex-col items-center justify-center space-y-6 p-4">
+      <div className="gap-16 w-full flex overflow-x-scroll py-4">
         {users.map((user) => (
           <UserCards key={user.id} user={user} />
         ))}
       </div>
       {isEditing && (
         <Link
-          to="/admin-form"
+          to="/employee-form"
           state={{ branchName }}
           className="w-full h-fit flex items-center justify-center"
         >
