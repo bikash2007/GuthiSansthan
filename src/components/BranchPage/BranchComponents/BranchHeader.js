@@ -22,8 +22,10 @@ export const BranchHeader = ({
 }) => {
   // Added useState for isHeaderEditing
   const [isHeaderEditing, setIsHeaderEditing] = useState(false);
-  const { isEditing } = useEditing();
+
   const { selectLanguage } = useSelectLanguage();
+  const { isEditing, setIsEditing } = useEditing(false);
+
   const [branchDetail, setBranchDetail] = useState({
     name: branchName,
     address: "",
@@ -35,6 +37,7 @@ export const BranchHeader = ({
   });
 
   const [img1, setImg1] = useState(branchHead?.profile?.photo || "");
+  const superUser = sessionStorage.getItem("superUser");
 
   return (
     <div
@@ -42,6 +45,25 @@ export const BranchHeader = ({
       style={{ backgroundImage: `url(${branchImg})` }}
     >
       <div className="row">
+        {superUser === "true" && (
+          <>
+            {isEditing ? (
+              <div
+                className="bg-red-700 hidden text-white font-semibold z-50 lg:flex items-center justify-center py-2 px-3 cursor-pointer rounded-md"
+                onClick={() => setIsEditing(false)}
+              >
+                Deactivate Editing
+              </div>
+            ) : (
+              <div
+                className="bg-green-700 hidden text-white font-semibold z-50 lg:flex items-center justify-center py-2 px-3 cursor-pointer rounded-md"
+                onClick={() => setIsEditing(true)}
+              >
+                Activate Editing
+              </div>
+            )}
+          </>
+        )}
         <div className="w-full col-5 col-sm-5 col-md-3   md:h-[430px] s h-[375px] flex flex-col items-center headimage">
           <div className="flex flex-col items-center justify-center ">
             <div

@@ -101,6 +101,35 @@ export const HeaderTop = () => {
           </EditLogoImage>
         </div>
       </Link>
+      {isEditing && (
+        <div className="flex flex-col font-semibold text-white rounded-xl px-2 py-1 bg-cyan-400/30 backdrop-blur-xl">
+          <h6>Blur intensity</h6>
+          <div className="flex gap-3 justify-between px-2">
+            <FontAwesomeIcon
+              className="hover:scale-125 hover:cursor-pointer"
+              scale={2}
+              icon={faAdd}
+              onClick={() => setBlur(blur + 3)}
+            />
+            <FontAwesomeIcon
+              className="hover:scale-125 hover:cursor-pointer"
+              scale={2}
+              icon={faMinus}
+              onClick={() => setBlur(blur - 3)}
+            />
+          </div>
+          <input
+            type="range"
+            min="0"
+            max="30"
+            value={blur}
+            onChange={handleBlurChange}
+            className="mt-2 w-full"
+            step="1"
+          />
+          <span className="text-white text-sm">{blur}px</span>
+        </div>
+      )}
 
       <Link to={"/"} className="no-underline flex flex-col">
         <span className="text-white hover:text-cyan-500 font-semibold text-xs lg:text-base mb-2">
@@ -117,33 +146,6 @@ export const HeaderTop = () => {
 
       {superUser === "true" && (
         <>
-          <div className="flex flex-col font-semibold text-white rounded-xl px-2 py-1 bg-cyan-400/30 backdrop-blur-xl">
-            <h6>Blur intensity</h6>
-            <div className="flex gap-3 justify-between px-2">
-              <FontAwesomeIcon
-                className="hover:scale-125 hover:cursor-pointer"
-                scale={2}
-                icon={faAdd}
-                onClick={() => setBlur(blur + 3)}
-              />
-              <FontAwesomeIcon
-                className="hover:scale-125 hover:cursor-pointer"
-                scale={2}
-                icon={faMinus}
-                onClick={() => setBlur(blur - 3)}
-              />
-            </div>
-            <input
-              type="range"
-              min="0"
-              max="30"
-              value={blur}
-              onChange={handleBlurChange}
-              className="mt-2 w-full"
-              step="1"
-            />
-            <span className="text-white text-sm">{blur}px</span>
-          </div>
           {isEditing ? (
             <div
               className="bg-red-700 hidden lg:flex items-center justify-center py-2 px-3 cursor-pointer rounded-md"

@@ -151,6 +151,7 @@ const EmployeeForm = () => {
         },
       });
       alert("Employee data submitted successfully");
+      window.location.url();
     } catch (error) {
       console.error("Error submitting form:", error);
     }
