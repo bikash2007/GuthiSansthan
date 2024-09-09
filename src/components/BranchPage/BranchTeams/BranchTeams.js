@@ -32,7 +32,7 @@ const BranchTeams = ({ branchName, branchId }) => {
     <div className="w-full h-full flex flex-col items-center justify-center space-y-6 p-4">
       <div className="gap-16 w-full flex overflow-x-scroll py-4">
         {users.map((user) => (
-          <UserCards key={user.id} user={user} />
+          <UserCards key={user.id} user={user} branchId={branchId} />
         ))}
       </div>
       {isEditing && (

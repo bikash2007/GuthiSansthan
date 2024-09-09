@@ -7,12 +7,12 @@ import { faTrash, faEdit } from "@fortawesome/free-solid-svg-icons";
 import { useEditing } from "../../../context/EditingProvider";
 import axios from "axios";
 
-const UserCards = ({ user }) => {
+const UserCards = ({ user, branchId }) => {
   const { isEditing } = useEditing();
 
   const handleRemoveUser = async () => {
     try {
-      await axios.delete(`https://ingnepal.org.np/api/users/${user.id}/`);
+      await axios.delete(`https://ingnepal.org.np/api/profiles/${user.id}/`);
       window.location.reload(); // Reload the page to reflect changes
     } catch (error) {
       console.error("Error removing user:", error);
