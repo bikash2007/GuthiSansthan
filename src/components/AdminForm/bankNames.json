@@ -1,0 +1,100 @@
+{
+  "banks": [
+    {
+      "name": {
+        "English": "Nepal Investment Bank Limited",
+        "Nepali": "नेपाल इन्भेष्टमेन्ट बैंक लिमिटेड"
+      }
+    },
+    {
+      "name": {
+        "English": "Nabil Bank Limited",
+        "Nepali": "नबिल बैंक लिमिटेड"
+      }
+    },
+    {
+      "name": {
+        "English": "Standard Chartered Bank Nepal Limited",
+        "Nepali": "स्ट्यान्डर्ड चार्टर्ड बैंक नेपाल लिमिटेड"
+      }
+    },
+    {
+      "name": {
+        "English": "Himalayan Bank Limited",
+        "Nepali": "हिमालयन बैंक लिमिटेड"
+      }
+    },
+    {
+      "name": {
+        "English": "Everest Bank Limited",
+        "Nepali": "एभरेष्ट बैंक लिमिटेड"
+      }
+    },
+    {
+      "name": {
+        "English": "Nepal SBI Bank Limited",
+        "Nepali": "नेपाल एसबिआई बैंक लिमिटेड"
+      }
+    },
+    {
+      "name": {
+        "English": "Prabhu Bank Limited",
+        "Nepali": "प्रभु बैंक लिमिटेड"
+      }
+    },
+    {
+      "name": {
+        "English": "Global IME Bank Limited",
+        "Nepali": "ग्लोबल आइएमई बैंक लिमिटेड"
+      }
+    },
+    {
+      "name": {
+        "English": "Mega Bank Nepal Limited",
+        "Nepali": "मेगा बैंक नेपाल लिमिटेड"
+      }
+    },
+    {
+      "name": {
+        "English": "Machhapuchhre Bank Limited",
+        "Nepali": "माछापुच्छ्रे बैंक लिमिटेड"
+      }
+    },
+    {
+      "name": {
+        "English": "Kumari Bank Limited",
+        "Nepali": "कुमारी बैंक लिमिटेड"
+      }
+    },
+    {
+      "name": {
+        "English": "Sanima Bank Limited",
+        "Nepali": "सानीमा बैंक लिमिटेड"
+      }
+    },
+    {
+      "name": {
+        "English": "Citizens Bank International Limited",
+        "Nepali": "सिटिजन्स बैंक इन्टरनेसनल लिमिटेड"
+      }
+    },
+    {
+      "name": {
+        "English": "Sunrise Bank Limited",
+        "Nepali": "सनराइज बैंक लिमिटेड"
+      }
+    },
+    {
+      "name": {
+        "English": "NIC Asia Bank Limited",
+        "Nepali": "एनआईसी एशिया बैंक लिमिटेड"
+      }
+    },
+    {
+      "name": {
+        "English": "Laxmi Bank Limited",
+        "Nepali": "लक्ष्मी बैंक लिमिटेड"
+      }
+    }
+  ]
+}

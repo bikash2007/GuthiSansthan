@@ -59,6 +59,7 @@ import BudgetNikasa from "./components/BranchPage/BranchComponents/BudgetNikasa/
 import SuchiDarta from "./components/BranchPage/BranchComponents/SuchiDarta";
 import Landdetails from "./components/BranchPage/BranchComponents/LandDetails/Landdetails";
 import EditBranchTeams from "./components/BranchPage/BranchTeams/EditBranchTeams";
+import EmployeeForm from "./components/AdminForm/EmployeeForm";
 
 function App() {
   const location = useLocation();
@@ -97,7 +98,6 @@ function App() {
   const [popup, setPopup] = useState(false);
 
   return (
-    
     <div className={`App relative ${location.pathname === "" ? "" : ""}`}>
       <ConfirmBox />
       <AlertBox />
@@ -156,6 +156,7 @@ function App() {
             <Route path="/user/profile" element={<ProfileSection />} />
             <Route path="/user/setting" element={<SettingMainPage />} />
             <Route path="/darbandi" element={<Darbandi />} />
+            <Route path="/employee-form" element={<EmployeeForm />} />
           </>
         </Routes>
       </div>

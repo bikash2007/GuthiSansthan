@@ -153,7 +153,7 @@ export const HomePageFooter = () => {
             key={section}
             className={`${
               selectedSection === section ? "bottom-0" : "bottom-[-300%]"
-            } absolute backdrop-blur-lg w-full pt-4 h-[80vh] transition-all overflow-auto ease-in-out duration-500 rounded-xl z-40`}
+            } absolute backdrop-blur-lg w-full pt-4 h-[100vh] bg-red-500 transition-all overflow-auto ease-in-out duration-500 rounded-xl z-40`}
           >
             <FontAwesomeIcon
               icon={faClose}
