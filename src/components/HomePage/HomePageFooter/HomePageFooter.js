@@ -3,7 +3,7 @@ import { useMediaQuery } from "@mui/material";
 import { Calendar } from "./Calender/Calender";
 import { Service } from "./Service/Service";
 import { Teams } from "./Teams/Teams";
-import newErrorImage from "../../../media/HomePage/error.png"; // Updated import
+import newErrorImage from "../../../media/HomePage/error.png";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -12,8 +12,6 @@ import {
   faUsers,
   faClose,
   faCodeBranch,
-  faBug,
-  faExclamation,
   faFileCircleExclamation,
 } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
@@ -31,12 +29,11 @@ export const HomePageFooter = () => {
   const [selectedSection, setSelectedSection] = useState("");
   const { t } = useTranslation();
   const isMobile = useMediaQuery("(max-width:800px)");
-  const sectionRef = useRef(null); // Ref for the section content
-  const footerRef = useRef(null); // Ref for the footer
+  const sectionRef = useRef(null);
+  const footerRef = useRef(null);
   const homePageDetail = useSelector((state) => state.homePageDetail);
   const dispatch = useDispatch();
   const baseUrl = useSelector((state) => state.baseUrl).backend;
-  const token = sessionStorage.getItem("token");
 
   useEffect(() => {
     const fetchFooterImg = async () => {
@@ -61,7 +58,7 @@ export const HomePageFooter = () => {
         footerRef.current &&
         !footerRef.current.contains(event.target)
       ) {
-        setSelectedSection(""); // Close section if click is outside
+        setSelectedSection("");
       }
     };
 
@@ -82,7 +79,7 @@ export const HomePageFooter = () => {
     <>
       <div
         ref={footerRef}
-        className="fixed bottom-0 h-[200px] w-full justify-center flex items-center overflow-hidden"
+        className="fixed bottom-0 h-[200px] w-full flex items-center overflow-hidden bg-gray-800"
       >
         <EditBgImage
           imageId={homePageDetail["footer-bg-img"].id}
@@ -104,30 +101,30 @@ export const HomePageFooter = () => {
           className={`${
             isMobile
               ? "bg-gray-300/40 backdrop-blur-md rounded-tl-md rounded-tr-md"
-              : ""
-          } z-10 absolute bottom-0 w-full justify-evenly items-center flex flex-row text-white font-bold`}
+              : "bg-gray-800"
+          } z-10 absolute bottom-0 w-full flex justify-evenly items-center text-white font-bold`}
         >
           <Link
             to="/branches"
             className={`${
               isMobile ? "px-3" : "px-16"
-            } home-footer-div text-white no-underline flex flex-col items-center justify-center hover:scale-150 hover:text-cyan-300 transition-transform duration-75 ease-in hover:-translate-y-3`}
+            } home-footer-div flex flex-col items-center justify-center text-white no-underline hover:scale-110 hover:text-cyan-300 transition-transform duration-75 ease-in-out`}
           >
-            <>
-              <FontAwesomeIcon
-                icon={faCodeBranch}
-                size="2x"
-                className="scale-50 lg:scale-105"
-              />
-              <h2 className="text-sm lg:text-base">{t("branches")}</h2>
-            </>
+            <FontAwesomeIcon
+              icon={faCodeBranch}
+              size="2x"
+              className="scale-50 lg:scale-105"
+            />
+            <h2 className="text-sm lg:text-base font-medium font-Kalam">
+              {t("branches")}
+            </h2>
           </Link>
-          {sections.map(({ icon, label, section, image }) => (
+          {sections.map(({ icon, label, section }) => (
             <div
               key={section}
               className={`${
                 isMobile ? "px-3" : "px-16"
-              } home-footer-div flex flex-col items-center  justify-center hover:scale-150 hover:text-cyan-300 transition-transform duration-75 ease-in hover:-translate-y-3`}
+              } home-footer-div flex flex-col items-center justify-center text-white hover:scale-110 hover:text-cyan-300 transition-transform duration-75 ease-in-out`}
               onClick={() => setSelectedSection(section)}
             >
               <FontAwesomeIcon
@@ -135,8 +132,7 @@ export const HomePageFooter = () => {
                 size="2x"
                 className="scale-50 lg:scale-105"
               />
-
-              <h2 className="text-sm lg:text-base">{t(label)}</h2>
+              <h2 className="text-sm lg:text-base  font-abc">{t(label)}</h2>
             </div>
           ))}
         </div>
@@ -153,12 +149,12 @@ export const HomePageFooter = () => {
             key={section}
             className={`${
               selectedSection === section ? "bottom-0" : "bottom-[-300%]"
-            } absolute backdrop-blur-lg w-full pt-4 h-[100vh] bg-red-500 transition-all overflow-auto ease-in-out duration-500 rounded-xl z-40`}
+            } absolute backdrop-blur-lg w-full pt-4 h-[100vh] bg-red-500 transition-all ease-in-out duration-500 rounded-xl z-40`}
           >
             <FontAwesomeIcon
               icon={faClose}
               size={"2x"}
-              className="cursor-pointer scale-50 lg:scale-100 absolute top-5 right-3 text-red-600 z-50"
+              className="cursor-pointer absolute top-5 right-3 text-red-600 z-50"
               onClick={() => setSelectedSection("")}
             />
             {selectedSection === section && <Component />}

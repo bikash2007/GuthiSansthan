@@ -36,7 +36,7 @@ const BudgetEdit = ({ budget, onClose, onSave }) => {
 
     try {
       const response = await axios.patch(
-        `https://example.com/api/budgets/${budget.id}/`,
+        `https://ingnepal.org.np/api/budgets/${budget.id}/`,
         data,
         {
           headers: {
@@ -82,7 +82,7 @@ const BudgetEdit = ({ budget, onClose, onSave }) => {
               onChange={handleChange}
             />
           </div>
-         
+
           <div className="mb-4">
             <label
               htmlFor="fileUpload"

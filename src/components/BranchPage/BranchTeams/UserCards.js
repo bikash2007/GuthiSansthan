@@ -1,30 +1,33 @@
-// src/components/UserCards.js
-
 import React from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faEdit } from "@fortawesome/free-solid-svg-icons";
 import { useEditing } from "../../../context/EditingProvider";
 import axios from "axios";
+import { useSelectLanguage } from "../../../context/LanguageChoice";
 
-const UserCards = ({ user, branchId }) => {
+const UserCards = ({ assignment }) => {
   const { isEditing } = useEditing();
+  const { selectLanguage } = useSelectLanguage();
 
-  const handleRemoveUser = async () => {
+  const handleRemoveAssignment = async () => {
     try {
-      await axios.delete(`https://ingnepal.org.np/api/profiles/${user.id}/`);
+      await axios.delete(
+        `http://192.168.1.142:8000/api/darbandi/${assignment.darbandi.id}/`
+      );
       window.location.reload(); // Reload the page to reflect changes
     } catch (error) {
-      console.error("Error removing user:", error);
+      console.error("Error removing assignment:", error);
     }
   };
 
-  // Extract the relevant fields from the nested structure
-  const firstName =
-    user.first_name?.Nepali || user.first_name?.English || "N/A";
-  const lastName = user.last_name?.Nepali || user.last_name?.English || "N/A";
-  const contactNo = user.contact_no || "N/A";
-  const photoUrl = user.photo || "https://via.placeholder.com/150";
+  const profile = assignment.profile || {};
+  const post = assignment.darbandi.post || {};
+  const language = selectLanguage || "English"; // Default to "English" if selectLanguage is undefined
+  const firstName = profile.first_name?.[language] || ""; // Safeguard property access
+  const lastName = profile.last_name?.[language] || ""; // Safeguard property access
+
+  const photoUrl = profile.photo || "https://via.placeholder.com/150";
 
   return (
     <div className="bg-green-300/30 backdrop-blur-3xl shadow-xl shadow-zinc-700 rounded-lg overflow-hidden flex flex-col items-center min-w-80 py-6 flex-wrap">
@@ -35,31 +38,23 @@ const UserCards = ({ user, branchId }) => {
         width={200}
         className="object-cover rounded-full"
       />
-
       <h3 className="text-lg mt-3 font-semibold mb-2">
         {firstName} {lastName}
       </h3>
-      {user.pan_no && (
-        <p className="text-gray-700 mb-2">PAN No: {user.pan_no}</p>
-      )}
-      {user.bank_name?.Nepali && (
-        <p className="text-gray-500">Bank: {user.bank_name.Nepali}</p>
-      )}
-      {user.address?.Nepali && (
-        <p className="text-gray-500">Address: {user.address.Nepali}</p>
-      )}
-      {contactNo && <p className="text-gray-500">Contact: {contactNo}</p>}
+      <p className="text-gray-700 mb-2">
+        {post.name?.[language] || "N/A"} {/* Safeguard property access */}
+      </p>
 
       {isEditing && (
         <div className="flex space-x-2 mt-4">
           <Link
-            to={`/edit-user/${user.id}`}
+            to={`/edit-user/${profile.id}`}
             className="text-blue-500 hover:text-blue-700 transition-colors duration-300"
           >
             <FontAwesomeIcon icon={faEdit} size="2x" />
           </Link>
           <button
-            onClick={handleRemoveUser}
+            onClick={handleRemoveAssignment}
             className="text-red-500 hover:text-red-700 transition-colors duration-300"
           >
             <FontAwesomeIcon icon={faTrash} size="2x" />

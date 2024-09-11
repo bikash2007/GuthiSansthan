@@ -171,7 +171,7 @@ export const ArticleMainSection = () => {
                 <button
                   key={sectionType}
                   onClick={() => setSection(sectionType)}
-                  className={`font-bold border-b-2 hover:border-red-600 transition-all duration-200 ease-linear text-white text-xl ${
+                  className={`font-bold font-abc border-b-2 hover:border-red-600 transition-all duration-200 ease-linear text-white text-xl ${
                     section === sectionType ? "border-red-600" : "border-none"
                   }`}
                 >
@@ -218,7 +218,7 @@ export const ArticleMainSection = () => {
                   <button
                     key={sectionType}
                     onClick={() => handleSectionChange(sectionType)}
-                    className={`font-bold border-b-2 hover:border-red-600 transition-all duration-200 ease-linear text-white text-xl ${
+                    className={`font-bold font-abc border-b-2 hover:border-red-600 transition-all duration-200 ease-linear text-white text-xl ${
                       section === sectionType ? "border-red-600" : "border-none"
                     }`}
                   >
@@ -230,7 +230,9 @@ export const ArticleMainSection = () => {
                     {sectionType === "land" && "कूत तथा मालपोतको दर"}
                     {sectionType === "temple" && "परिपत्रहरू"}
                     {sectionType === "gallary" && "मिडिया ग्यालरी"}
-                    {sectionType === "darbandi" && " दरबन्दी"}
+                    {superUser === "true" &&
+                      sectionType === "darbandi" &&
+                      "पदहरू"}
                   </button>
                 ))}
               </div>

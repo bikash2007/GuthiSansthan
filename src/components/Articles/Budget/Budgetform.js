@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 
 export default function Budgetform() {
   const [formData, setFormData] = useState({
@@ -7,6 +9,8 @@ export default function Budgetform() {
     amount: "",
     file: null,
   });
+
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -18,6 +22,7 @@ export default function Budgetform() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true); // Set loading state to true
 
     const data = new FormData();
     data.append("title", formData.title);
@@ -26,7 +31,7 @@ export default function Budgetform() {
 
     try {
       const response = await axios.post(
-        "https://example.com/api/budgets/",
+        "https://ingnepal.org.np/api/budgets/",
         data,
         {
           headers: {
@@ -44,6 +49,8 @@ export default function Budgetform() {
     } catch (error) {
       console.error("Error:", error);
       alert("Error adding budget data.");
+    } finally {
+      setLoading(false); // Set loading state to false
     }
   };
 
@@ -69,9 +76,10 @@ export default function Budgetform() {
               placeholder="Enter Budget Title"
               value={formData.title}
               onChange={handleChange}
+              disabled={loading} // Disable input if loading
             />
           </div>
-         
+
           <div className="mb-4">
             <label
               htmlFor="fileUpload"
@@ -85,14 +93,25 @@ export default function Budgetform() {
               id="fileUpload"
               name="file"
               onChange={handleChange}
+              disabled={loading} // Disable input if loading
             />
           </div>
 
           <button
             type="submit"
-            className="w-full px-6 py-3 text-lg font-bold text-white transition-all duration-300 ease-in-out bg-green-700 rounded-md shadow-lg hover:bg-green-800 hover:shadow-xl font-poppins"
+            className={`w-full px-6 py-3 text-lg font-bold text-white transition-all duration-300 ease-in-out bg-green-700 rounded-md shadow-lg hover:bg-green-800 hover:shadow-xl font-poppins ${
+              loading ? "opacity-50 cursor-not-allowed" : ""
+            }`}
+            disabled={loading} // Disable button if loading
           >
-            Submit
+            {loading ? (
+              <div className="flex items-center justify-center">
+                <FontAwesomeIcon icon={faSpinner} spin className="mr-2" />
+                Submitting...
+              </div>
+            ) : (
+              "Submit"
+            )}
           </button>
         </form>
       </div>

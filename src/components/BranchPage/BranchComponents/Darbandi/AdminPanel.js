@@ -1,108 +1,109 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from "react";
 
-export default function AdminPanel({ tableData, onSaveData }) {
-  const [localTableData, setLocalTableData] = useState(tableData);
-  const [newRow, setNewRow] = useState({ position: '', count: '' });
+const AdminPanel = ({ branchId }) => {
+  const [tableData, setTableData] = useState([]);
+  const [newRow, setNewRow] = useState({
+    assigned_number: "",
+    post: "",
+    branch: 1,
+  });
+  const [posts, setPosts] = useState([]);
 
-  const handleAddRow = () => {
-    setLocalTableData([...localTableData, newRow]);
-    setNewRow({ position: '', count: '' });
+  useEffect(() => {
+    async function fetchPosts() {
+      try {
+        const response = await fetch("http://192.168.1.142:8000/api/posts/");
+        const data = await response.json();
+        setPosts(data);
+      } catch (error) {
+        console.error("Error fetching posts:", error);
+      }
+    }
+    fetchPosts();
+  }, []);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setNewRow({ ...newRow, [name]: value });
   };
 
-  const handleDeleteRow = (index) => {
-    const updatedTableData = localTableData.filter((_, i) => i !== index);
-    setLocalTableData(updatedTableData);
-  };
+  const addNewRow = async () => {
+    try {
+      const response = await fetch("http://192.168.1.142:8000/api/darbandi/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newRow),
+      });
 
-  const handleChange = (index, key, value) => {
-    const updatedTableData = localTableData.map((row, i) => (
-      i === index ? { ...row, [key]: value } : row
-    ));
-    setLocalTableData(updatedTableData);
-  };
-
-  const handleSave = () => {
-    onSaveData(localTableData);
+      if (response.ok) {
+        const data = await response.json();
+        const postName = posts.find((post) => post.id === newRow.post)?.name
+          .English;
+        setTableData([...tableData, { ...data, post_name: postName }]);
+        setNewRow({
+          assigned_number: "",
+          post: "",
+          branch: branchId,
+        });
+        alert("Row added successfully");
+      } else {
+        alert("Failed to add row");
+      }
+    } catch (error) {
+      console.error("Error adding row:", error);
+    }
   };
 
   return (
-    <div className="flex flex-col items-center p-8 bg-white rounded-lg shadow-2xl col-md-12">
+    <div>
       <table className="w-full text-center border-collapse">
         <thead>
-          <tr className="text-lg tracking-wide text-white uppercase bg-blue-600">
-            <th className="p-6 rounded-tl-lg border-e-4">पद</th>
-            <th className="p-6">संख्या</th>
-            <th className="p-6 rounded-tr-lg">Actions</th>
+          <tr className="text-lg font-semibold tracking-wide text-white uppercase bg-blue-700">
+            <th className="p-4 border-gray-200 rounded-tl-lg border-e-2">पद</th>
+            <th className="p-4 border-gray-200">Assigned Number</th>
           </tr>
         </thead>
         <tbody>
-          {localTableData.map((row, index) => (
-            <tr
-              key={index}
-              className="transition-colors duration-300 bg-gray-100 border-b-2 hover:bg-blue-50 last:border-b-0"
-            >
-              <td className="p-4 border-e-4">
-                <input
-                  type="text"
-                  value={row.position}
-                  onChange={(e) => handleChange(index, 'position', e.target.value)}
-                  className="w-full p-2 border border-gray-300 rounded"
-                />
-              </td>
-              <td className="p-4">
-                <input
-                  type="number"
-                  value={row.count}
-                  onChange={(e) => handleChange(index, 'count', e.target.value)}
-                  className="w-full p-2 border border-gray-300 rounded"
-                />
-              </td>
-              <td className="p-4">
-                <button
-                  onClick={() => handleDeleteRow(index)}
-                  className="px-4 py-2 text-white bg-red-500 rounded"
-                >
-                  Delete
-                </button>
-              </td>
-            </tr>
-          ))}
-          <tr>
-            <td className="p-4 border-e-4">
-              <input
-                type="text"
-                value={newRow.position}
-                onChange={(e) => setNewRow({ ...newRow, position: e.target.value })}
+          <tr className="transition-colors duration-300 bg-white border-b-2 border-gray-300 hover:bg-blue-50 last:border-b-0">
+            <td className="p-4 text-gray-700 border-gray-200 border-e-2">
+              <select
+                name="post"
+                value={newRow.post}
+                onChange={handleInputChange}
                 className="w-full p-2 border border-gray-300 rounded"
-                placeholder="New Position"
-              />
+              >
+                <option value="">Select Post</option>
+                {posts.map((post) => (
+                  <option key={post.id} value={post.id}>
+                    {post.name.English}
+                  </option>
+                ))}
+              </select>
             </td>
-            <td className="p-4">
+            <td className="p-4 text-gray-700">
               <input
                 type="number"
-                value={newRow.count}
-                onChange={(e) => setNewRow({ ...newRow, count: e.target.value })}
+                name="assigned_number"
+                value={newRow.assigned_number}
+                onChange={handleInputChange}
                 className="w-full p-2 border border-gray-300 rounded"
-                placeholder="New Count"
               />
-            </td>
-            <td className="p-4">
-              <button
-                onClick={handleAddRow}
-                className="px-4 py-2 text-white bg-green-500 rounded"
-              >
-                Add
-              </button>
             </td>
           </tr>
         </tbody>
       </table>
-      <button
-        onClick={handleSave}
-        className="px-6 py-2 mt-6 text-white bg-blue-600 rounded-lg"
-      >
-        Save Data
-      </button>
+      <div className="mt-4">
+        <button
+          className="px-4 py-2 text-white bg-green-600 rounded hover:bg-green-700"
+          onClick={addNewRow}
+        >
+          Add Row
+        </button>
+      </div>
     </div>
   );
-}
+};
+
+export default AdminPanel;

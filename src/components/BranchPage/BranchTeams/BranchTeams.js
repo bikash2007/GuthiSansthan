@@ -10,29 +10,28 @@ import UserCards from "./UserCards";
 
 const BranchTeams = ({ branchName, branchId }) => {
   const { isEditing } = useEditing();
-  const [users, setUsers] = useState([]);
+  const [assignments, setAssignments] = useState([]);
 
   useEffect(() => {
-    const fetchUsers = async () => {
+    const fetchAssignments = async () => {
       try {
         const response = await axios.get(
-          `https://ingnepal.org.np/api/branches/${branchId}/get-employees/`
+          `http://192.168.1.142:8000/api/branches/1/get-darbandi-assignment/`
         );
-
-        setUsers(response.data);
+        setAssignments(response.data);
       } catch (error) {
-        console.error("Error fetching users:", error);
+        console.error("Error fetching assignments:", error);
       }
     };
 
-    fetchUsers();
+    fetchAssignments();
   }, [branchId]);
 
   return (
     <div className="w-full h-full flex flex-col items-center justify-center space-y-6 p-4">
       <div className="gap-16 w-full flex overflow-x-scroll py-4">
-        {users.map((user) => (
-          <UserCards key={user.id} user={user} branchId={branchId} />
+        {assignments.map((assignment) => (
+          <UserCards key={assignment.id} assignment={assignment} />
         ))}
       </div>
       {isEditing && (
