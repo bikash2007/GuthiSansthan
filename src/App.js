@@ -60,6 +60,7 @@ import SuchiDarta from "./components/BranchPage/BranchComponents/SuchiDarta";
 import Landdetails from "./components/BranchPage/BranchComponents/LandDetails/Landdetails";
 import EditBranchTeams from "./components/BranchPage/BranchTeams/EditBranchTeams";
 import EmployeeForm from "./components/AdminForm/EmployeeForm";
+import TransferEmployee from "./components/AdminForm/TransferEmployee";
 
 function App() {
   const location = useLocation();
@@ -157,6 +158,7 @@ function App() {
             <Route path="/user/setting" element={<SettingMainPage />} />
             <Route path="/darbandi" element={<Darbandi />} />
             <Route path="/employee-form" element={<EmployeeForm />} />
+            <Route path="/employee-transfer" element={<TransferEmployee />} />
           </>
         </Routes>
       </div>

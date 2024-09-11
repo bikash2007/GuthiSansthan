@@ -1,10 +1,14 @@
 import React, { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 
 export default function Downloadform() {
   const [formData, setFormData] = useState({
     title: "",
     file: null,
   });
+
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -16,6 +20,7 @@ export default function Downloadform() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true); // Set loading state to true
 
     const data = new FormData();
     data.append("title", formData.title);
@@ -36,6 +41,8 @@ export default function Downloadform() {
     } catch (error) {
       console.error("Error:", error);
       alert("Error adding download.");
+    } finally {
+      setLoading(false); // Set loading state to false
     }
   };
 
@@ -61,6 +68,7 @@ export default function Downloadform() {
               placeholder="Enter Download Title"
               value={formData.title}
               onChange={handleChange}
+              disabled={loading} // Disable input if loading
             />
           </div>
           <div className="mb-4">
@@ -76,14 +84,25 @@ export default function Downloadform() {
               id="fileUpload"
               name="file"
               onChange={handleChange}
+              disabled={loading} // Disable input if loading
             />
           </div>
 
           <button
             type="submit"
-            className="w-full px-6 py-3 text-lg font-bold text-white transition-all duration-300 ease-in-out bg-green-700 rounded-md shadow-lg hover:bg-green-800 hover:shadow-xl font-poppins"
+            className={`w-full px-6 py-3 text-lg font-bold text-white transition-all duration-300 ease-in-out bg-green-700 rounded-md shadow-lg hover:bg-green-800 hover:shadow-xl font-poppins ${
+              loading ? "opacity-50 cursor-not-allowed" : ""
+            }`}
+            disabled={loading} // Disable button if loading
           >
-            Submit
+            {loading ? (
+              <div className="flex items-center justify-center">
+                <FontAwesomeIcon icon={faSpinner} spin className="mr-2" />
+                Submitting...
+              </div>
+            ) : (
+              "Submit"
+            )}
           </button>
         </form>
       </div>

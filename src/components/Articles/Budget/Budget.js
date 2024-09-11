@@ -19,7 +19,7 @@ export default function Budget() {
 
   const fetchBudgets = async () => {
     try {
-      const response = await axios.get("https://example.com/api/budgets/");
+      const response = await axios.get("https://ingnepal.org.np/api/budgets/");
       setBudgetList(response.data);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -28,7 +28,7 @@ export default function Budget() {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`https://example.com/api/budgets/${id}/`);
+      await axios.delete(`https://ingnepal.org.np/api/budgets/${id}/`);
       setBudgetList(budgetList.filter((budget) => budget.id !== id));
     } catch (error) {
       console.error("Error deleting the budget:", error);
@@ -54,17 +54,16 @@ export default function Budget() {
         transition={{ duration: 1.2, delay: 0.1 }}
         className="flex flex-col w-full px-4 py-6 text-white"
       >
-
-          {isEditing && (
-            <div className="flex items-center justify-center mt-4">
-              <div
-                onClick={toggleAddForm}
-                className="px-4 py-2 text-lg text-white bg-green-600 rounded-md cursor-pointer sm:text-xl hover:bg-green-700"
-              >
-                {isAddFormVisible ? "Cancel" : "Add Law"}
-              </div>
+        {isEditing && (
+          <div className="flex items-center justify-center mt-4">
+            <div
+              onClick={toggleAddForm}
+              className="px-4 py-2 text-lg text-white bg-green-600 rounded-md cursor-pointer sm:text-xl hover:bg-green-700"
+            >
+              {isAddFormVisible ? "Cancel" : "Add Law"}
             </div>
-          )}
+          </div>
+        )}
         <div className="flex flex-col w-full h-full mt-3">
           <div className="relative flex flex-col flex-wrap h-full text-white">
             {budgetList.length > 0 ? (
