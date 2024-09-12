@@ -1,106 +1,155 @@
 import React, { useState, useEffect } from "react";
-import InstanceGallary from "./InstanceGallary";
-import { useEditing } from "../../../context/EditingProvider";
-import Gallaryform from "./GallaryForm";
-
-import EditGallary from "./EditGallary";
-
-import { motion } from "framer-motion";
 import axios from "axios";
+import {
+  Box,
+  Card,
+  CardMedia,
+  CardContent,
+  Typography,
+  IconButton,
+  Grid,
+  Alert,
+  Paper,
+  Button,
+} from "@mui/material";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faDownload, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import GallaryForm from "./GallaryForm";
+import InstanceGallary from "./InstanceGallary";
+import { useSelector } from "react-redux";
+import { useEditing } from "../../../context/EditingProvider";
 
-export default function Gallary() {
-  const [GallaryList, setGallaryList] = useState([]);
+const Gallary = () => {
+  const [galleryItems, setGalleryItems] = useState([]);
+  const [error, setError] = useState("");
+  const [showForm, setShowForm] = useState(false);
+  const baseUrl = useSelector((state) => state.baseUrl).backend;
+  console.log(`${baseUrl}api/gallery/`);
   const { isEditing } = useEditing();
-  const [isAddFormVisible, setIsAddFormVisible] = useState(false);
-  const [isEditFormVisible, setIsEditFormVisible] = useState(false);
-  const [editingGallary, setEditingGallary] = useState(null);
-
-  // Function to fetch Gallarys
-  const fetchGallarys = async () => {
-    try {
-      const response = await axios.get("https://ingnepal.org.np/api/Gallarys/");
-      setGallaryList(response.data);
-    } catch (error) {
-      console.error("Error fetching Gallarys:", error);
-    }
-  };
-
   useEffect(() => {
-    fetchGallarys();
+    const fetchGalleryItems = async () => {
+      try {
+        const response = await axios.get(`${baseUrl}api/gallery/`);
+        setGalleryItems(response.data);
+      } catch (error) {
+        console.error("Error fetching gallery items:", error);
+        setError("Failed to fetch gallery items.");
+      }
+    };
+
+    fetchGalleryItems();
   }, []);
 
-  // Toggle visibility of add form
-  const toggleAddForm = () => {
-    setIsAddFormVisible(!isAddFormVisible);
+  const handleDownload = (fileUrl) => {
+    const link = document.createElement("a");
+    link.href = fileUrl;
+    link.download = fileUrl.split("/").pop(); // Use the file name as the download name
+    link.click();
   };
 
-  // Handle delete action
   const handleDelete = async (id) => {
-    try {
-      await axios.delete(`https://ingnepal.org.np/api/Gallarys/${id}/`);
-      fetchGallarys(); // Refresh the list
-    } catch (error) {
-      console.error("Error deleting Gallary:", error);
+    if (window.confirm("Are you sure you want to delete this item?")) {
+      try {
+        await axios.delete(`${baseUrl}api/gallery/${id}/`);
+        setGalleryItems((prevItems) =>
+          prevItems.filter((item) => item.id !== id)
+        );
+      } catch (error) {
+        console.error("Error deleting gallery item:", error);
+        setError("Failed to delete gallery item.");
+      }
     }
-  };
-
-  // Handle edit action
-  const handleEdit = (Gallary) => {
-    setEditingGallary(Gallary);
-    setIsEditFormVisible(true);
   };
 
   return (
-    <div className="flex flex-col">
-      <motion.div
-        initial={{ y: 200, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 1.2, delay: 0.5 }}
-        className="w-full p-2 mt-2 overflow-hidden rounded-md"
-      >
-        <div className="flex flex-col">
-          {isEditing && (
-            <div className="flex items-center justify-center mt-4">
-              <div
-                onClick={toggleAddForm}
-                className="px-4 py-2 text-lg text-white bg-green-600 rounded-md cursor-pointer sm:text-xl hover:bg-green-700"
-              >
-                {isAddFormVisible ? "Cancel" : "Add Gallary"}
-              </div>
-            </div>
+    <Box sx={{ padding: 3 }}>
+      {isEditing && (
+        <>
+          {error && (
+            <Alert severity="error" sx={{ marginBottom: 2 }}>
+              {error}
+            </Alert>
           )}
-          <div className="flex flex-col w-full h-full md:ml-5">
-            <div className="relative flex flex-col flex-wrap h-full mt-3 text-white">
-              {GallaryList.length > 0 ? (
-                GallaryList.map((Gallary) => (
-                  <InstanceGallary
-                    key={Gallary.id}
-                    id={Gallary.id}
-                    imagevideo={Gallary.file} // Updated to use `Gallary.file`
-                    onDelete={handleDelete}
-                    onEdit={() => handleEdit(Gallary)}
+
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => setShowForm(!showForm)}
+            sx={{ marginBottom: 2 }}
+          >
+            {showForm ? "Close Form" : "Add New Item"}
+          </Button>
+          {showForm && (
+            <GallaryForm
+              onSuccess={() =>
+                setGalleryItems((prevItems) => [...prevItems, ...prevItems])
+              }
+            />
+          )}
+        </>
+      )}
+      <Grid container spacing={2}>
+        {galleryItems.map((item) => (
+          <Grid item xs={12} sm={6} md={4} key={item.id}>
+            <Paper elevation={3} sx={{ padding: 2 }}>
+              <Card>
+                {item.image && (
+                  <CardMedia
+                    component="img"
+                    height="150"
+                    image={item.image}
+                    alt={item.title}
+                    sx={{ width: "100%", objectFit: "cover" }}
                   />
-                ))
-              ) : (
-                <h1 className="font-bold text-center text-white">No Photo or Video at this moment</h1>
-              )}
-            </div>
-          </div>
-        </div>
-        {isAddFormVisible && <Gallaryform />}
-        {isEditFormVisible && (
-          <EditGallary
-            Gallary={editingGallary}
-            onClose={() => {
-              setIsEditFormVisible(false);
-              setEditingGallary(null);
-            }}
-            onSave={() => {
-              fetchGallarys(); // Refresh list after saving
-            }}
-          />
-        )}
-      </motion.div>
-    </div>
+                )}
+                {item.video && (
+                  <CardMedia
+                    component="video"
+                    controls
+                    src={item.video}
+                    alt={item.title}
+                    sx={{ width: "100%", height: 150 }}
+                  />
+                )}
+                <CardContent>
+                  <Typography gutterBottom variant="h6" component="div">
+                    {item.title}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    {item.credit}
+                  </Typography>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      marginTop: 2,
+                    }}
+                  >
+                    {item.image && (
+                      <IconButton onClick={() => handleDownload(item.image)}>
+                        <FontAwesomeIcon icon={faDownload} />
+                      </IconButton>
+                    )}
+                    {item.video && (
+                      <IconButton onClick={() => handleDownload(item.video)}>
+                        <FontAwesomeIcon icon={faDownload} />
+                      </IconButton>
+                    )}
+                    <IconButton
+                      color="error"
+                      onClick={() => handleDelete(item.id)}
+                    >
+                      <FontAwesomeIcon icon={faTrashAlt} />
+                    </IconButton>
+                  </Box>
+                </CardContent>
+              </Card>
+            </Paper>
+          </Grid>
+        ))}
+      </Grid>
+    </Box>
   );
-}
+};
+
+export default Gallary;

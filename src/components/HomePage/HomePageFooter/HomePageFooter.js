@@ -91,7 +91,7 @@ export const HomePageFooter = () => {
           }
         >
           <div
-            className="fixed bottom-0 -z-20 bg-cover bg-center h-[150px] w-full opacity-80"
+            className="fixed bottom-0 -z-20 bg-cover bg-center h-[150px] w-full opacity-90"
             style={{
               backgroundImage: `url(${homePageDetail["footer-bg-img"].imgSrc})`,
             }}

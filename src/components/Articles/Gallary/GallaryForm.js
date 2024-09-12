@@ -1,97 +1,186 @@
 import React, { useState } from "react";
 import axios from "axios";
+import {
+  Box,
+  TextField,
+  Button,
+  InputLabel,
+  MenuItem,
+  Select,
+  FormControl,
+  Typography,
+  IconButton,
+  Alert,
+} from "@mui/material";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import { useSelector } from "react-redux";
 
-export default function Gallaryform() {
-  const [formData, setFormData] = useState({
-    title: "",
-    file: null,
-  });
+const GallaryForm = ({ onSuccess }) => {
+  const [title, setTitle] = useState("");
+  const [credit, setCredit] = useState("");
+  const [image, setImage] = useState(null);
+  const [video, setVideo] = useState(null);
+  const [fileType, setFileType] = useState("image");
+  const [error, setError] = useState("");
+  const baseUrl = useSelector((state) => state.baseUrl).backend;
 
-  const handleChange = (e) => {
-    const { name, value, files } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: files ? files[0] : value,
-    }));
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      if (fileType === "image") {
+        setImage(file);
+        setVideo(null); // Clear video if switching to image
+      } else {
+        setVideo(file);
+        setImage(null); // Clear image if switching to video
+      }
+    }
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setError("");
 
-    const data = new FormData();
-    data.append("title", formData.title);
-    if (formData.file) data.append("file", formData.file);
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("credit", credit);
+    if (fileType === "image" && image) {
+      formData.append("image", image);
+    } else if (fileType === "video" && video) {
+      formData.append("video", video);
+    }
 
     try {
-      const response = await axios.post(
-        "https://ingnepal.org.np/api/laws/",
-        data,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
-
-      if (response.status === 201) {
-        alert("Photo or Video uploaded successfully!");
-        // Clear form or trigger a refresh in parent component
-      } else {
-        alert("Failed to upload.");
-      }
+      await axios.post(`${baseUrl}api/gallery/`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      onSuccess(); // Notify parent component to refresh data
+      setTitle("");
+      setCredit("");
+      setImage(null);
+      setVideo(null);
+      setFileType("image");
     } catch (error) {
-      console.error("Error:", error);
-      alert("Error uploading.");
+      console.error("Error posting gallery item:", error);
+      setError("Failed to post gallery item.");
     }
   };
 
   return (
-    <div className="flex items-center justify-center mt-3">
-      <div className="w-full max-w-xl p-6 transition-shadow duration-300 ease-in-out rounded-lg shadow-lg bg-gray-600/30 backdrop-blur-xl hover:shadow-2xl">
-        <h3 className="mb-5 text-2xl font-semibold text-center text-white font-poppins">
-          Upload Your Photo or Video
-        </h3>
-        <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label
-              htmlFor="title"
-              className="block text-sm font-medium text-white font-poppins"
-            >
-              Title
-            </label>
-            <input
-              type="text"
-              className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-md text-base font-poppins text-gray-700 bg-white focus:ring-[#30D5C8] focus:border-[#30D5C8] hover:border-[#2ab2aa] transition-colors duration-300"
-              id="title"
-              name="title"
-              placeholder="Enter Title"
-              value={formData.title}
-              onChange={handleChange}
-            />
-          </div>
-          <div className="mb-4">
-            <label
-              htmlFor="fileUpload"
-              className="block text-sm font-medium text-white font-poppins"
-            >
-              Upload Photo or Video
-            </label>
-            <input
-              type="file"
-              className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-md text-base font-poppins text-gray-700 bg-white focus:ring-[#30D5C8] focus:border-[#30D5C8] hover:border-[#2ab2aa] transition-colors duration-300"
-              id="fileUpload"
-              name="file"
-              onChange={handleChange}
-            />
-          </div>
-          <button
-            type="submit"
-            className="w-full px-6 py-3 text-lg font-bold text-white transition-all duration-300 ease-in-out bg-green-700 rounded-md shadow-lg hover:bg-green-800 hover:shadow-xl font-poppins"
+    <Box component="form" onSubmit={handleSubmit} sx={{ marginBottom: 2 }}>
+      <Typography variant="h6" sx={{ marginBottom: 2 }}>
+        Add New Gallery Item
+      </Typography>
+      <TextField
+        label="Title"
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+        fullWidth
+        sx={{ marginBottom: 2 }}
+      />
+      <TextField
+        label="Credit"
+        value={credit}
+        onChange={(e) => setCredit(e.target.value)}
+        fullWidth
+        sx={{ marginBottom: 2 }}
+      />
+      <FormControl fullWidth sx={{ marginBottom: 2 }}>
+        <InputLabel>File Type</InputLabel>
+        <Select
+          value={fileType}
+          onChange={(e) => {
+            setFileType(e.target.value);
+            setImage(null); // Clear image if switching to video
+            setVideo(null); // Clear video if switching to image
+          }}
+        >
+          <MenuItem value="image">Image</MenuItem>
+          <MenuItem value="video">Video</MenuItem>
+        </Select>
+      </FormControl>
+      <input
+        accept={fileType === "image" ? "image/*" : "video/*"}
+        type="file"
+        onChange={handleFileChange}
+        style={{ display: "none" }}
+        id="upload-file"
+      />
+      <label htmlFor="upload-file">
+        <Button
+          variant="contained"
+          color="primary"
+          component="span"
+          sx={{ marginBottom: 2 }}
+        >
+          Upload {fileType.charAt(0).toUpperCase() + fileType.slice(1)}
+        </Button>
+      </label>
+      {image && (
+        <Box
+          sx={{ marginBottom: 2, textAlign: "center", position: "relative" }}
+        >
+          <img
+            src={URL.createObjectURL(image)}
+            alt="Selected"
+            style={{ height: "200px", width: "100%", objectFit: "cover" }}
+          />
+          <IconButton
+            onClick={() => setImage(null)}
+            sx={{ position: "absolute", top: 0, right: 0 }}
           >
-            Submit
-          </button>
-        </form>
-      </div>
-    </div>
+            <FontAwesomeIcon icon={faTimes} />
+          </IconButton>
+        </Box>
+      )}
+      {video && (
+        <Box
+          sx={{ marginBottom: 2, textAlign: "center", position: "relative" }}
+        >
+          <video
+            src={URL.createObjectURL(video)}
+            controls
+            style={{ height: "200px", width: "100%", objectFit: "cover" }}
+          />
+          <IconButton
+            onClick={() => setVideo(null)}
+            sx={{ position: "absolute", top: 0, right: 0 }}
+          >
+            <FontAwesomeIcon icon={faTimes} />
+          </IconButton>
+        </Box>
+      )}
+      <Button
+        type="submit"
+        variant="contained"
+        color="primary"
+        sx={{ marginRight: 1 }}
+      >
+        Submit
+      </Button>
+      <Button
+        variant="outlined"
+        color="secondary"
+        onClick={() => {
+          setTitle("");
+          setCredit("");
+          setImage(null);
+          setVideo(null);
+          setFileType("image");
+        }}
+      >
+        Clear
+      </Button>
+      {error && (
+        <Alert severity="error" sx={{ marginTop: 2 }}>
+          {error}
+        </Alert>
+      )}
+    </Box>
   );
-}
+};
+
+export default GallaryForm;
