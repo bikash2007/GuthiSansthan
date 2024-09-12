@@ -79,7 +79,7 @@ export const HomePageFooter = () => {
     <>
       <div
         ref={footerRef}
-        className="fixed bottom-0 h-[200px] w-full flex items-center overflow-hidden bg-gray-800"
+        className="fixed bottom-0 h-[200px] w-full flex items-center overflow-hidden "
       >
         <EditBgImage
           imageId={homePageDetail["footer-bg-img"].id}
@@ -91,7 +91,7 @@ export const HomePageFooter = () => {
           }
         >
           <div
-            className="fixed bottom-0 -z-20 bg-cover bg-center h-[200px] w-full opacity-70"
+            className="fixed bottom-0 -z-20 bg-cover bg-center h-[150px] w-full opacity-80"
             style={{
               backgroundImage: `url(${homePageDetail["footer-bg-img"].imgSrc})`,
             }}
@@ -101,7 +101,7 @@ export const HomePageFooter = () => {
           className={`${
             isMobile
               ? "bg-gray-300/40 backdrop-blur-md rounded-tl-md rounded-tr-md"
-              : "bg-gray-800"
+              : ""
           } z-10 absolute bottom-0 w-full flex justify-evenly items-center text-white font-bold`}
         >
           <Link
