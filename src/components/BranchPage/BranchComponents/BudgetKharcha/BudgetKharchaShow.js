@@ -15,8 +15,6 @@ const BudgetKharchaShow = () => {
   const [tableData, setTableData] = useState([]);
   const [currentMonth, setCurrentMonth] = useState("Baisakh");
   const [previousMonth, setPreviousMonth] = useState("Chaitra");
-  const [previousMonthAmount, setPreviousMonthAmount] = useState("");
-  const [currentMonthAmount, setCurrentMonthAmount] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
@@ -66,21 +64,42 @@ const BudgetKharchaShow = () => {
     setPreviousMonth(previousMonth);
   };
 
+  const handleInputChange = (id, field, value) => {
+    setTableData((prevData) =>
+      prevData.map((row) =>
+        row.id === id ? { ...row, [field]: parseFloat(value) } : row
+      )
+    );
+  };
+
   const handlePatch = async () => {
     setError("");
     setSuccess("");
 
     try {
-      // Assuming we want to patch a specific record, adapt the data accordingly
-      await axios.patch("http://192.168.1.142:8000/api/yearly-budget/", {
-        currentMonthAmount: parseFloat(currentMonthAmount),
-        previousMonthAmount: parseFloat(previousMonthAmount),
-      });
+      // Sending updated table data back to the server
+      await Promise.all(
+        tableData.map((row) =>
+          axios.patch(
+            `http://192.168.1.142:8000/api/yearly-budget/${row.id}/`,
+            {
+              amount: row.amount,
+              [previousMonth.toLowerCase()]: row[previousMonth.toLowerCase()],
+              [currentMonth.toLowerCase()]: row[currentMonth.toLowerCase()],
+            }
+          )
+        )
+      );
 
       setSuccess("Data updated successfully.");
     } catch (error) {
-      console.error("Error updating data:", error);
-      setError("Failed to update data. Please try again.");
+      if (error.response && error.response.status === 400) {
+        // Check if the error is due to the amount exceeding the budget
+        alert("You have entered more amount than the budget.");
+      } else {
+        console.error("Error updating data:", error);
+        setError("Failed to update data. Please try again.");
+      }
     }
   };
 
@@ -108,39 +127,14 @@ const BudgetKharchaShow = () => {
             ))}
           </TextField>
         </Box>
-        {isEditing && (
-          <>
-            <Box mb={2}>
-              <TextField
-                label="Previous Month Amount"
-                type="number"
-                value={previousMonthAmount}
-                onChange={(e) => setPreviousMonthAmount(e.target.value)}
-                fullWidth
-              />
-            </Box>
-            <Box mb={2}>
-              <TextField
-                label="Current Month Amount"
-                type="number"
-                value={currentMonthAmount}
-                onChange={(e) => setCurrentMonthAmount(e.target.value)}
-                fullWidth
-              />
-            </Box>
-            <Button variant="contained" color="primary" onClick={handlePatch}>
-              Update Amounts
-            </Button>
-          </>
-        )}
-        <Box mt={4}>
+        <Box mt={4} sx={{ overflowX: "auto" }}>
           <table className="w-full text-center border-collapse">
             <thead>
               <tr className="text-lg font-semibold tracking-wide text-white uppercase bg-blue-700">
                 <th className="p-4 border-gray-200 border-e-2">Year</th>
                 <th className="p-4 border-gray-200 border-e-2">Title</th>
                 <th className="p-4 border-gray-200 border-e-2">Description</th>
-                <th className="p-4 border-gray-200 border-e-2">Amount</th>
+                <th className="p-4 border-gray-200 border-e-2">Budget</th>
                 <th className="p-4 border-gray-200 border-e-2">
                   Remaining Amount
                 </th>
@@ -169,21 +163,63 @@ const BudgetKharchaShow = () => {
                     {row.description}
                   </td>
                   <td className="p-4 text-gray-700 border-gray-200 border-e-2">
-                    {row.amount}
+                    <TextField
+                      type="number"
+                      value={row.amount}
+                      onChange={(e) =>
+                        handleInputChange(row.id, "amount", e.target.value)
+                      }
+                      fullWidth
+                      InputProps={{
+                        sx: { padding: "8px" }, // Adjust padding to avoid hiding input
+                      }}
+                    />
                   </td>
                   <td className="p-4 text-gray-700 border-gray-200 border-e-2">
                     {row.remaining_amount}
                   </td>
-                  <td className="p-4 text-gray-700 border-gray-200 border-e-2">
-                    {/* Display the amount for the previous month */}
-                    {row[previousMonth.toLowerCase()] || 0}
+                  <td className="py-3 text-gray-700 border-gray-200 border-e-2">
+                    <TextField
+                      type="number"
+                      value={row[previousMonth.toLowerCase()] || 0}
+                      onChange={(e) =>
+                        handleInputChange(
+                          row.id,
+                          previousMonth.toLowerCase(),
+                          e.target.value
+                        )
+                      }
+                      fullWidth
+                      InputProps={{
+                        sx: { padding: "8px" }, // Adjust padding to avoid hiding input
+                      }}
+                    />
                   </td>
                   <td className="p-4 text-gray-700 border-gray-200 border-e-2">
-                    {/* Display the amount for the current month */}
-                    {row[currentMonth.toLowerCase()] || 0}
+                    <TextField
+                      type="number"
+                      value={row[currentMonth.toLowerCase()] || 0}
+                      onChange={(e) =>
+                        handleInputChange(
+                          row.id,
+                          currentMonth.toLowerCase(),
+                          e.target.value
+                        )
+                      }
+                      fullWidth
+                      InputProps={{
+                        sx: { padding: "8px" }, // Adjust padding to avoid hiding input
+                      }}
+                    />
                   </td>
                   <td className="p-4 text-gray-700">
-                    {/* Add Edit and Delete buttons here */}
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      onClick={handlePatch}
+                    >
+                      Save
+                    </Button>
                   </td>
                 </tr>
               ))}

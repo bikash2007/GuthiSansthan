@@ -60,7 +60,7 @@ export default function Report() {
   };
 
   return (
-    <div className="max-w-4xl p-6 mx-auto bg-gray-100 rounded-lg shadow-lg">
+    <div className="max-w-4xl p-6 mx-auto bg-gray-100/20 backdrop-blur-lg border-red-400 transition-all duration-75 hover:skew-y-3 border-2 rounded-lg shadow-lg">
       <h1 className="mb-6 text-3xl font-bold text-center text-gray-800">
         Complaint Form
       </h1>

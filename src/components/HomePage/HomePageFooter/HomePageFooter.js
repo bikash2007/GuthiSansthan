@@ -115,7 +115,7 @@ export const HomePageFooter = () => {
               size="2x"
               className="scale-50 lg:scale-105"
             />
-            <h2 className="text-sm lg:text-base font-medium font-Kalam">
+            <h2 className="text-sm lg:text-base font-medium font-abc">
               {t("branches")}
             </h2>
           </Link>
@@ -149,7 +149,7 @@ export const HomePageFooter = () => {
             key={section}
             className={`${
               selectedSection === section ? "bottom-0" : "bottom-[-300%]"
-            } absolute backdrop-blur-lg w-full pt-4 h-[100vh] bg-red-500 transition-all ease-in-out duration-500 rounded-xl z-40`}
+            } absolute backdrop-blur-lg w-full pt-4 h-[80vh] overflow-auto  transition-all ease-in-out duration-500 rounded-xl z-40`}
           >
             <FontAwesomeIcon
               icon={faClose}
