@@ -13,7 +13,7 @@ const UserCards = ({ assignment }) => {
   const handleRemoveAssignment = async () => {
     try {
       await axios.delete(
-        `http://192.168.1.142:8000/api/darbandi/${assignment.darbandi.id}/`
+        `https://ingnepal.org.np/api/darbandi/${assignment.darbandi.id}/`
       );
       window.location.reload(); // Reload the page to reflect changes
     } catch (error) {

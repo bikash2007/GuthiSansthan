@@ -16,7 +16,7 @@ const BranchTeams = ({ branchName, branchId }) => {
     const fetchAssignments = async () => {
       try {
         const response = await axios.get(
-          `http://192.168.1.142:8000/api/branches/1/get-darbandi-assignment/`
+          `https://ingnepal.org.np/api/branches/${branchId}/get-darbandi-assignment/`
         );
         setAssignments(response.data);
       } catch (error) {
