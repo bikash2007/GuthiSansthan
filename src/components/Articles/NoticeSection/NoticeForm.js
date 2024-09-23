@@ -49,10 +49,8 @@ const NoticeForm = () => {
   };
 
   return (
-    <div   className="flex items-center justify-center mt-3">
-      <div
-        className="w-full max-w-xl px-6 py-6 transition-shadow duration-300 ease-in-out rounded-lg shadow-lg bg-gray-600/30 backdrop-blur-xl hover:shadow-2xl"
-      >
+    <div className="flex items-center justify-center mt-3">
+      <div className="w-full max-w-xl px-6 py-6 transition-shadow duration-300 ease-in-out rounded-lg shadow-lg bg-gray-600/30 backdrop-blur-xl hover:shadow-2xl">
         <h1 className="mt-4 mb-6 text-4xl font-bold text-center text-white font-poppins">
           Notice Form
         </h1>
@@ -83,13 +81,12 @@ const NoticeForm = () => {
           </div>
           <div>
             <label className="block text-lg font-medium text-white font-poppins">
-              Upload Photo
+              Upload File
             </label>
             <input
               ref={photoRef}
               type="file"
               className="mt-2 block w-full text-white px-4 py-2 border border-gray-300 rounded-md shadow-md cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#30D5C8] text-base font-poppins hover:border-[#2ab2aa] transition-colors duration-300"
-              accept="image/*"
               required
             />
           </div>

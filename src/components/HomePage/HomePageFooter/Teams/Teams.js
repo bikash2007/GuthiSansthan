@@ -95,7 +95,7 @@ export const Teams = () => {
         )}
 
         {/* Render other team members excluding id 13 */}
-        <div className="w-full flex justify-center gap-x-56 flex-wrap">
+        <div className="w-full flex justify-center gap-x-44 flex-wrap">
           {filteredTeamData.map((teamMember) => (
             <InstantTeam
               key={teamMember.id}

@@ -7,16 +7,18 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import UserCards from "./UserCards";
+import { useSelector } from "react-redux";
 
 const BranchTeams = ({ branchName, branchId }) => {
   const { isEditing } = useEditing();
   const [assignments, setAssignments] = useState([]);
+  const baseUrl = useSelector((state) => state.baseUrl).backend;
 
   useEffect(() => {
     const fetchAssignments = async () => {
       try {
         const response = await axios.get(
-          `https://ingnepal.org.np/api/branches/${branchId}/get-darbandi-assignment/`
+          `${baseUrl}api/branches/${branchId}/get-darbandi-assignment/`
         );
         setAssignments(response.data);
       } catch (error) {

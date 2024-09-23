@@ -5,6 +5,7 @@ import { Navigate } from "react-router-dom";
 import { showConfirmBox } from "../AlertLoader/ConfirmBox";
 import { showAlert } from "../AlertLoader";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 const AddBranches = () => {
   const [isBranchAdditionActivate, setIsBranchAdditionActivate] =
@@ -21,6 +22,7 @@ const AddBranches = () => {
   const [email, setEmail] = useState("");
   const [branchImage, setBranchImage] = useState(null);
   const [redirect, setRedirect] = useState(false);
+  const baseUrl = useSelector((state) => state.baseUrl).backend;
 
   const handleImageChange = (e) => {
     setBranchImage(e.target.files[0]);
@@ -67,15 +69,11 @@ const AddBranches = () => {
           formData.append("image", branchImage);
         }
 
-        const response = await axios.post(
-          "https://ingnepal.org.np/api/branches/",
-          formData,
-          {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          }
-        );
+        const response = await axios.post(`${baseUrl}api/branches/`, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
 
         if (response.status === 201) {
           showAlert("Branch created successfully!", "green");

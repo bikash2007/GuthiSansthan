@@ -1,30 +1,36 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
 import {
   Button,
   TextField,
-  MenuItem, // Ensure this import is present
+  MenuItem,
   Typography,
   Container,
   Paper,
   Box,
-  CircularProgress, // Import CircularProgress for the loader
+  CircularProgress,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
 } from "@mui/material";
 import BudgetNikasaShow from "./BudgetNikasaShow";
 import { useEditing } from "../../../../context/EditingProvider";
+import { useSelector } from "react-redux";
 
-const BudgetNikasa = ({ branchId = 1 }) => {
-  const [year, setYear] = useState("2081/82");
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [amount, setAmount] = useState("");
+const BudgetNikasa = ({ branchId }) => {
+  const [budgets, setBudgets] = useState([
+    { year: "2081/82", title: "", description: "", amount: "" },
+  ]);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-  const [loading, setLoading] = useState(false); // New state for loading
+  const [loading, setLoading] = useState(false);
   const { isEditing } = useEditing();
+  const baseUrl = useSelector((state) => state.baseUrl).backend;
 
-  // Generate years from 2081/82 to 2181/82
   const generateYears = () => {
     const years = [];
     for (let i = 2081; i <= 2181; i++) {
@@ -35,44 +41,63 @@ const BudgetNikasa = ({ branchId = 1 }) => {
 
   const years = generateYears();
 
+  const handleChange = (index, field, value) => {
+    const newBudgets = [...budgets];
+    newBudgets[index][field] = value;
+    setBudgets(newBudgets);
+  };
+
+  const handleAddBudget = () => {
+    setBudgets([
+      ...budgets,
+      { year: "2081/82", title: "", description: "", amount: "" },
+    ]);
+  };
+
+  const handleRemoveBudget = (index) => {
+    const newBudgets = budgets.filter((_, i) => i !== index);
+    setBudgets(newBudgets);
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setError(""); // Reset error state
-    setSuccess(""); // Reset success state
-    setLoading(true); // Set loading to true
+    setError("");
+    setSuccess("");
+    setLoading(true);
 
     if (!branchId) {
       setError("Branch ID is not provided.");
-      setLoading(false); // Reset loading state
+      setLoading(false);
       return;
     }
 
     try {
-      const response = await axios.post(
-        "http://192.168.1.142:8000/api/yearly-budget/",
-        {
-          branch: branchId, // Use branchId directly
-          year,
-          title,
-          description,
-          amount: parseFloat(amount), // Ensure amount is a number
+      for (const budget of budgets) {
+        if (budget.title && budget.description && budget.amount) {
+          await axios.post(`${baseUrl}api/yearly-budget/`, {
+            branch: branchId,
+            year: budget.year,
+            title: budget.title,
+            description: budget.description,
+            amount: parseFloat(budget.amount),
+          });
         }
-      );
-
-      if (response.status === 201) {
-        setSuccess("Budget added successfully.");
-        setTitle("");
-        setDescription("");
-        setAmount("");
-        window.location.reload();
       }
+      setSuccess("Budgets added successfully.");
+      setBudgets([{ year: "2081/82", title: "", description: "", amount: "" }]); // Reset form
     } catch (error) {
-      console.error("Error adding budget:", error);
-      setError("Failed to add budget. Please try again.");
+      console.error("Error adding budgets:", error);
+      setError("Failed to add budgets. Please try again.");
     } finally {
-      setLoading(false); // Reset loading state
+      setLoading(false);
     }
   };
+
+  // Calculate total amount
+  const totalAmount = budgets.reduce((total, budget) => {
+    const amount = parseFloat(budget.amount) || 0;
+    return total + amount;
+  }, 0);
 
   return (
     <Container>
@@ -80,51 +105,85 @@ const BudgetNikasa = ({ branchId = 1 }) => {
       {isEditing && (
         <Paper elevation={3} sx={{ padding: 3 }}>
           <Typography variant="h6" gutterBottom>
-            Add Budget
+            Add Budgets
           </Typography>
           <form onSubmit={handleSubmit}>
-            <Box mb={2}>
-              <TextField
-                select
-                label="Year"
-                value={year}
-                onChange={(e) => setYear(e.target.value)}
-                fullWidth
-              >
-                {years.map((year) => (
-                  <MenuItem key={year} value={year}>
-                    {year}
-                  </MenuItem>
-                ))}
-              </TextField>
-            </Box>
-            <Box mb={2}>
-              <TextField
-                label="Title"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                fullWidth
-              />
-            </Box>
-            <Box mb={2}>
-              <TextField
-                label="Description"
-                multiline
-                rows={4}
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                fullWidth
-              />
-            </Box>
-            <Box mb={2}>
-              <TextField
-                label="Amount"
-                type="number"
-                value={amount}
-                onChange={(e) => setAmount(e.target.value)}
-                fullWidth
-              />
-            </Box>
+            <TableContainer>
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Year</TableCell>
+                    <TableCell>Title</TableCell>
+                    <TableCell>Description</TableCell>
+                    <TableCell>Amount</TableCell>
+                    <TableCell>Actions</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {budgets.map((budget, index) => (
+                    <TableRow key={index}>
+                      <TableCell>
+                        <TextField
+                          select
+                          value={budget.year}
+                          onChange={(e) =>
+                            handleChange(index, "year", e.target.value)
+                          }
+                          fullWidth
+                        >
+                          {years.map((year) => (
+                            <MenuItem key={year} value={year}>
+                              {year}
+                            </MenuItem>
+                          ))}
+                        </TextField>
+                      </TableCell>
+                      <TableCell>
+                        <TextField
+                          value={budget.title}
+                          onChange={(e) =>
+                            handleChange(index, "title", e.target.value)
+                          }
+                          fullWidth
+                        />
+                      </TableCell>
+                      <TableCell>
+                        <TextField
+                          value={budget.description}
+                          onChange={(e) =>
+                            handleChange(index, "description", e.target.value)
+                          }
+                          fullWidth
+                          multiline
+                          rows={2}
+                        />
+                      </TableCell>
+                      <TableCell>
+                        <TextField
+                          type="number"
+                          value={budget.amount}
+                          onChange={(e) =>
+                            handleChange(index, "amount", e.target.value)
+                          }
+                          fullWidth
+                        />
+                      </TableCell>
+                      <TableCell>
+                        <Button
+                          onClick={() => handleRemoveBudget(index)}
+                          color="error"
+                        >
+                          Remove
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+            <Typography variant="h6" mt={2}>
+              Total Amount: {totalAmount}
+            </Typography>
             {error && (
               <Typography color="error" mb={2}>
                 {error}
@@ -138,10 +197,18 @@ const BudgetNikasa = ({ branchId = 1 }) => {
             <Button
               variant="contained"
               color="primary"
+              onClick={handleAddBudget}
+            >
+              Add Another Budget
+            </Button>
+            <Button
+              variant="contained"
+              color="primary"
               type="submit"
               disabled={loading}
+              sx={{ ml: 2 }}
             >
-              {loading ? <CircularProgress size={24} /> : "Add Budget"}
+              {loading ? <CircularProgress size={24} /> : "Submit Budgets"}
             </Button>
           </form>
         </Paper>

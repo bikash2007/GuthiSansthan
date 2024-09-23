@@ -6,19 +6,19 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import img from "../../media/Headquaters/headoffice.jpg";
+import { useSelector } from "react-redux";
 
 export const BranchMainPage = () => {
   const { isEditing } = useEditing();
   const [data, setData] = useState([]);
   const [background, setBackground] = useState({ image: "", video: "" });
+  const baseUrl = useSelector((state) => state.baseUrl).backend;
 
   useEffect(() => {
     // Fetch branch data
     const fetchBranchData = async () => {
       try {
-        const response = await axios.get(
-          "https://ingnepal.org.np/api/branches/"
-        );
+        const response = await axios.get(`${baseUrl}api/branches/`);
         setData(response.data);
       } catch (error) {
         toast.error("Failed to fetch branch data");
@@ -29,9 +29,7 @@ export const BranchMainPage = () => {
     // Fetch home page data for background
     const fetchBackgroundData = async () => {
       try {
-        const response = await axios.get(
-          "https://ingnepal.org.np/api/pages/home-page/"
-        );
+        const response = await axios.get(`${baseUrl}api/pages/home-page/`);
         const bgData = response.data.components["bg-video"];
         if (bgData) {
           setBackground({

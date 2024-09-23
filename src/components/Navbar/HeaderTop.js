@@ -15,6 +15,7 @@ import {
   faRightFromBracket,
   faUserCircle,
 } from "@fortawesome/free-solid-svg-icons";
+import axios from "axios"; // Import axios
 
 export const HeaderTop = () => {
   const globalDetail = useSelector((state) => state.globalDetail);
@@ -29,6 +30,7 @@ export const HeaderTop = () => {
   const baseUrl = useSelector((state) => state.baseUrl).backend;
   const navigate = useNavigate();
   const token = sessionStorage.getItem("token");
+  const [blur, setBlur] = useState(14); // Initialize blur state
 
   const handleClickOutside = (event) => {
     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -52,17 +54,42 @@ export const HeaderTop = () => {
   };
 
   useEffect(() => {
+    const fetchInitialBlur = async () => {
+      try {
+        const response = await axios.get(`${baseUrl}api/global-components/6/`);
+        const initialBlurValue = response.data.blur.text.value; // Adjust based on your API structure
+        setBlur(initialBlurValue);
+      } catch (error) {
+        console.error("Error fetching initial blur value:", error);
+      }
+    };
+
+    fetchInitialBlur();
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, []);
+  }, [baseUrl]);
 
   const superUser = sessionStorage.getItem("superUser");
-  const [blur, setBlur] = useState(14);
 
-  const handleBlurChange = (event) => {
-    setBlur(Number(event.target.value));
+  const handleBlurChange = async (event) => {
+    const newBlur = Number(event.target.value);
+    setBlur(newBlur);
+    await saveBlur(newBlur); // Call saveBlur function
+  };
+
+  // Function to save blur to the API
+  const saveBlur = async (blurValue) => {
+    try {
+      await axios.patch(`${baseUrl}api/global-components/6/`, {
+        blur: {
+          text: { value: blurValue },
+        },
+      });
+    } catch (error) {
+      console.error("Error saving blur value:", error);
+    }
   };
 
   return (
@@ -109,13 +136,21 @@ export const HeaderTop = () => {
               className="hover:scale-125 hover:cursor-pointer"
               scale={2}
               icon={faAdd}
-              onClick={() => setBlur(blur + 3)}
+              onClick={() => {
+                const newBlur = blur + 3;
+                setBlur(newBlur);
+                saveBlur(newBlur); // Save new blur value
+              }}
             />
             <FontAwesomeIcon
               className="hover:scale-125 hover:cursor-pointer"
               scale={2}
               icon={faMinus}
-              onClick={() => setBlur(blur - 3)}
+              onClick={() => {
+                const newBlur = blur - 3;
+                setBlur(newBlur);
+                saveBlur(newBlur); // Save new blur value
+              }}
             />
           </div>
           <input

@@ -80,8 +80,8 @@ export const ServiceInstance = ({
         >
           <div
             className={`${
-              isMobile ? "text-[15px]" : "text-[30px]"
-            } absolute h-full w-full items-center justify-center flex text-white font-bold z-10 cursor-pointer`}
+              isMobile ? "text-[15px]" : "text-[20px]"
+            } absolute h-full w-full items-center leading-tight justify-center flex text-white font-bold z-10 cursor-pointer`}
           >
             {name}
           </div>

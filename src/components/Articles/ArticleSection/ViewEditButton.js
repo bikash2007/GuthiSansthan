@@ -8,7 +8,7 @@ export const ViewEditButton = ({ articleId, data, setData }) => {
   const deleteElement = async () => {
     try {
       const response = await axios.delete(
-        ` https://ingnepal.org.np/api/articles/${articleId}/`
+        `${baseUrl}api/articles/${articleId}/`
       );
       if (response.status === 204) {
         setData(data.filter((item) => item.id !== articleId));

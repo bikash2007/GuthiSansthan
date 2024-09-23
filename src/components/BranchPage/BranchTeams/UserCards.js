@@ -5,16 +5,16 @@ import { faTrash, faEdit } from "@fortawesome/free-solid-svg-icons";
 import { useEditing } from "../../../context/EditingProvider";
 import axios from "axios";
 import { useSelectLanguage } from "../../../context/LanguageChoice";
+import { useSelector } from "react-redux";
 
 const UserCards = ({ assignment }) => {
   const { isEditing } = useEditing();
   const { selectLanguage } = useSelectLanguage();
+  const baseUrl = useSelector((state) => state.baseUrl).backend;
 
   const handleRemoveAssignment = async () => {
     try {
-      await axios.delete(
-        `https://ingnepal.org.np/api/darbandi/${assignment.darbandi.id}/`
-      );
+      await axios.delete(`${baseUrl}api/darbandi/${assignment.darbandi.id}/`);
       window.location.reload(); // Reload the page to reflect changes
     } catch (error) {
       console.error("Error removing assignment:", error);

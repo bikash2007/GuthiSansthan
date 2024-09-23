@@ -13,11 +13,13 @@ import {
   Box,
 } from "@mui/material";
 import { useSelectLanguage } from "../../../context/LanguageChoice";
+import { useSelector } from "react-redux";
 
 const EditBranchTeams = () => {
   const { userId } = useParams();
   const navigate = useNavigate();
   const { selectLanguage } = useSelectLanguage();
+  const baseUrl = useSelector((state) => state.baseUrl).backend;
 
   // State for form data
   const [formData, setFormData] = useState({
@@ -58,9 +60,7 @@ const EditBranchTeams = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get(
-          `https://ingnepal.org.np/api/profiles/${userId}/`
-        );
+        const response = await axios.get(`${baseUrl}api/profiles/${userId}/`);
         const user = response.data;
 
         setOriginalData(user); // Store original data
@@ -112,13 +112,13 @@ const EditBranchTeams = () => {
           sakhaRes,
           mahasakhaRes,
         ] = await Promise.all([
-          axios.get("https://ingnepal.org.np/api/branches/"),
-          axios.get("https://ingnepal.org.np/api/employment-types/"),
-          axios.get("https://ingnepal.org.np/api/office-posts/"),
-          axios.get("https://ingnepal.org.np/api/posts/"),
-          axios.get("https://ingnepal.org.np/api/ranks/"),
-          axios.get("https://ingnepal.org.np/api/sakha/"),
-          axios.get("https://ingnepal.org.np/api/mahasakha/"),
+          axios.get(`${baseUrl}api/branches/`),
+          axios.get(`${baseUrl}api/employment-types/`),
+          axios.get(`${baseUrl}api/office-posts/`),
+          axios.get(`${baseUrl}api/posts/`),
+          axios.get(`${baseUrl}api/ranks/`),
+          axios.get(`${baseUrl}api/sakha/`),
+          axios.get(`${baseUrl}api/mahasakha/`),
         ]);
         setBranches(branchRes.data);
         setEmploymentTypes(empTypesRes.data);
@@ -197,15 +197,11 @@ const EditBranchTeams = () => {
     }
 
     try {
-      await axios.patch(
-        `https://ingnepal.org.np/api/profiles/${userId}/`,
-        postData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      await axios.patch(`${baseUrl}api/profiles/${userId}/`, postData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
       navigate(-1); // Go back to the previous page
     } catch (error) {
       console.error("Error updating user data:", error);

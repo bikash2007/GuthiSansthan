@@ -3,16 +3,16 @@ import BudgetNikasa from "./BudgetNikasa";
 import BudgetNikasaShow from "./BudgetNikasaShow";
 import axios from "axios";
 import { Container, Paper, Typography, Grid } from "@mui/material";
+import { useSelector } from "react-redux";
 
 const Admin = () => {
   const [branches, setBranches] = useState([]);
+  const baseUrl = useSelector((state) => state.baseUrl).backend;
 
   useEffect(() => {
     const fetchBranches = async () => {
       try {
-        const response = await axios.get(
-          "http://192.168.1.142:8000/api/branches/"
-        );
+        const response = await axios.get(`${baseUrl}api/branches/`);
         setBranches(response.data);
       } catch (error) {
         console.error("Error fetching branches:", error);

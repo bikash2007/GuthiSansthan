@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 const AdminPanel = ({ branchId }) => {
   const [tableData, setTableData] = useState([]);
   const [newRow, setNewRow] = useState({
     assigned_number: "",
     post: "",
-    branch: 1,
+    branch: branchId,
   });
   const [posts, setPosts] = useState([]);
+  const baseUrl = useSelector((state) => state.baseUrl).backend;
 
   useEffect(() => {
     async function fetchPosts() {
       try {
-        const response = await fetch("http://192.168.1.142:8000/api/posts/");
+        const response = await fetch(`${baseUrl}api/posts/`);
         const data = await response.json();
         setPosts(data);
       } catch (error) {
@@ -29,7 +31,7 @@ const AdminPanel = ({ branchId }) => {
 
   const addNewRow = async () => {
     try {
-      const response = await fetch("http://192.168.1.142:8000/api/darbandi/", {
+      const response = await fetch(`${baseUrl}api/darbandi/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

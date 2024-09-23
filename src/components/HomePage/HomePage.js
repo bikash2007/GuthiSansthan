@@ -33,10 +33,8 @@ export const HomePage = () => {
 
   const fetchNotices = async () => {
     try {
-      const response = await axios.get(
-        "https://ingnepal.org.np/api/notices/get-latest/"
-      );
-      console.log(response.data);
+      const response = await axios.get(`${baseUrl}api/notices/get-latest/`);
+
       setNotices(response.data);
     } catch (error) {
       console.error(error);
@@ -47,7 +45,7 @@ export const HomePage = () => {
     try {
       const response = await axios.get(baseUrl + homePageDetail.url);
       const data = response.data.components;
-      console.log("response::: ", data["welcome-to-guthi-sansthan"].text);
+
       dispatch(setHomePageWholeDetail(data));
       if (
         data["welcome-to-guthi-sansthan"] &&
@@ -58,7 +56,7 @@ export const HomePage = () => {
           lngs: data["welcome-to-guthi-sansthan"].text,
         });
       }
-      console.log(data);
+
       if (data["bg-video"]["component_type"] === "image") {
         dispatch(
           setBgVideo({
@@ -79,7 +77,6 @@ export const HomePage = () => {
         );
       }
     } catch (error) {
-      console.log(error);
       showAlert(error, "red");
     }
   };

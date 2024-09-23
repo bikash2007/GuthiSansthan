@@ -197,8 +197,8 @@ export const EachBranchInfo = () => {
           )}
           {section === "budget-nikasa" && (
             <BudgetNikasa
-            // branchName={loc.state.name}
-            // branchId={loc.state.branchId}
+              branchName={loc.state.name}
+              branchId={loc.state.branchId}
             />
           )}
           {section === "suchi-darta" && (
