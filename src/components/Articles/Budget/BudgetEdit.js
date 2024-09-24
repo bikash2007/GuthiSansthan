@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 const BudgetEdit = ({ budget, onClose, onSave }) => {
   const [formData, setFormData] = useState({
@@ -7,6 +8,7 @@ const BudgetEdit = ({ budget, onClose, onSave }) => {
     amount: "",
     file: null,
   });
+  const baseUrl = useSelector((state) => state.baseUrl).backend;
 
   useEffect(() => {
     if (budget) {
@@ -36,7 +38,7 @@ const BudgetEdit = ({ budget, onClose, onSave }) => {
 
     try {
       const response = await axios.patch(
-        `https://ingnepal.org.np/api/budgets/${budget.id}/`,
+        `${baseUrl}api/budgets/${budget.id}/`,
         data,
         {
           headers: {

@@ -2,24 +2,27 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { useSelector } from "react-redux";
 
 const TransferEmployee = () => {
   const [employees, setEmployees] = useState([]);
   const [filteredEmployees, setFilteredEmployees] = useState([]);
   const [branches, setBranches] = useState([]);
+  const [darbandi, setDarbandi] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedEmployee, setSelectedEmployee] = useState(null);
   const [selectedBranch, setSelectedBranch] = useState("");
+  const [selectedDarbandi, setSelectedDarbandi] = useState("");
   const [transferReason, setTransferReason] = useState("");
   const [transferType, setTransferType] = useState("");
   const [loading, setLoading] = useState(false);
+  const baseUrl = useSelector((state) => state.baseUrl).backend;
 
+  // Fetch employees when the component mounts
   useEffect(() => {
     const fetchEmployees = async () => {
       try {
-        const response = await axios.get(
-          "https://ingnepal.org.np/api/profiles/"
-        );
+        const response = await axios.get(`${baseUrl}api/profiles/`);
         setEmployees(response.data);
         setFilteredEmployees(response.data);
       } catch (error) {
@@ -28,14 +31,13 @@ const TransferEmployee = () => {
     };
 
     fetchEmployees();
-  }, []);
+  }, [baseUrl]);
 
+  // Fetch branches when the component mounts
   useEffect(() => {
     const fetchBranches = async () => {
       try {
-        const response = await axios.get(
-          "https://ingnepal.org.np/api/branches/"
-        );
+        const response = await axios.get(`${baseUrl}api/branches/`);
         setBranches(response.data);
       } catch (error) {
         console.error("Error fetching branches:", error);
@@ -43,7 +45,25 @@ const TransferEmployee = () => {
     };
 
     fetchBranches();
-  }, []);
+  }, [baseUrl]);
+
+  // Fetch Darbandi whenever selectedBranch changes
+  useEffect(() => {
+    if (!selectedBranch) return;
+
+    const fetchDarbandi = async () => {
+      try {
+        const response = await axios.get(
+          `${baseUrl}api/branches/${selectedBranch}/get-darbandi/`
+        );
+        setDarbandi(response.data);
+      } catch (error) {
+        console.error("Error fetching Darbandi:", error);
+      }
+    };
+
+    fetchDarbandi();
+  }, [selectedBranch, baseUrl]);
 
   const handleSearch = (value) => {
     setSearchTerm(value);
@@ -66,7 +86,11 @@ const TransferEmployee = () => {
   };
 
   const handleBranchChange = (event) => {
-    setSelectedBranch(event.target.value);
+    setSelectedBranch(event.target.value); // Fetching Darbandi will be triggered by useEffect
+  };
+
+  const handleDarbandiChange = (event) => {
+    setSelectedDarbandi(event.target.value);
   };
 
   const handleReasonChange = (event) => {
@@ -193,6 +217,29 @@ const TransferEmployee = () => {
 
           <div className="mb-4">
             <label
+              htmlFor="darbandi"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Darbandi
+            </label>
+            <select
+              id="darbandi"
+              value={selectedDarbandi}
+              onChange={handleDarbandiChange}
+              className="mt-1 p-2 border border-gray-300 rounded-md w-full"
+            >
+              <option value="">Select Darbandi</option>
+              {darbandi.map((items) => (
+                <option key={items.post.id} value={items.post.id}>
+                  {items.post.name.Nepali} {items.fulfilled_number}/
+                  {items.assigned_number}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className="mb-4">
+            <label
               htmlFor="reason"
               className="block text-sm font-medium text-gray-700"
             >
@@ -204,8 +251,8 @@ const TransferEmployee = () => {
               onChange={handleReasonChange}
               className="mt-1 p-2 border border-gray-300 rounded-md w-full"
               rows="4"
-              placeholder="Enter the reason for the transfer"
-            />
+              placeholder="Enter the reason for transfer"
+            ></textarea>
           </div>
 
           <div className="mb-4">
@@ -222,19 +269,19 @@ const TransferEmployee = () => {
               className="mt-1 p-2 border border-gray-300 rounded-md w-full"
             >
               <option value="">Select Transfer Type</option>
-              <option value="internal">Darbandi</option>
-              <option value="external">Kazz</option>
+              <option value="permanent">Permanent</option>
+              <option value="temporary">Temporary</option>
             </select>
           </div>
 
           <button
             onClick={handleSubmit}
-            className={`bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition ${
-              loading ? "opacity-50 cursor-not-allowed" : ""
-            }`}
+            className={`${
+              loading ? "bg-gray-400" : "bg-blue-500 hover:bg-blue-600"
+            } text-white py-2 px-4 rounded`}
             disabled={loading}
           >
-            {loading ? "Submitting..." : "Submit Transfer"}
+            {loading ? "Transferring..." : "Submit Transfer"}
           </button>
         </div>
       )}

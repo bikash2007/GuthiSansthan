@@ -10,6 +10,7 @@ import {
   Box,
 } from "@mui/material";
 import { useEditing } from "../../../../context/EditingProvider";
+import { useSelector } from "react-redux";
 
 const BudgetKharchaShow = () => {
   const [tableData, setTableData] = useState([]);
@@ -19,6 +20,7 @@ const BudgetKharchaShow = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const { isEditing } = useEditing();
+  const baseUrl = useSelector((state) => state.baseUrl).backend;
 
   const months = [
     "Baisakh",
@@ -38,9 +40,7 @@ const BudgetKharchaShow = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(
-          "http://192.168.1.142:8000/api/yearly-budget/"
-        );
+        const response = await axios.get(`${baseUrl}api/yearly-budget/`);
         setTableData(response.data);
         setLoading(false);
       } catch (error) {
@@ -80,14 +80,11 @@ const BudgetKharchaShow = () => {
       // Sending updated table data back to the server
       await Promise.all(
         tableData.map((row) =>
-          axios.patch(
-            `http://192.168.1.142:8000/api/yearly-budget/${row.id}/`,
-            {
-              amount: row.amount,
-              [previousMonth.toLowerCase()]: row[previousMonth.toLowerCase()],
-              [currentMonth.toLowerCase()]: row[currentMonth.toLowerCase()],
-            }
-          )
+          axios.patch(`${baseUrl}api/yearly-budget/${row.id}/`, {
+            amount: row.amount,
+            [previousMonth.toLowerCase()]: row[previousMonth.toLowerCase()],
+            [currentMonth.toLowerCase()]: row[currentMonth.toLowerCase()],
+          })
         )
       );
 

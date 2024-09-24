@@ -9,6 +9,7 @@ import {
   Box,
   Grid,
 } from "@mui/material";
+import { useSelector } from "react-redux";
 
 const BudgetKharchaView = () => {
   const [tableData, setTableData] = useState([]);
@@ -17,6 +18,7 @@ const BudgetKharchaView = () => {
   const [year, setYear] = useState("2079/80"); // Example of initial year
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const baseUrl = useSelector((state) => state.baseUrl).backend;
 
   const months = [
     "Baisakh",
@@ -44,9 +46,7 @@ const BudgetKharchaView = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(
-          "http://192.168.1.142:8000/api/yearly-budget/"
-        );
+        const response = await axios.get(`${baseUrl}api/yearly-budget/`);
         setTableData(response.data);
         setLoading(false);
       } catch (error) {

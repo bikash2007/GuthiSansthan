@@ -3,6 +3,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { useEditing } from "../../context/EditingProvider";
 import { showConfirmBox } from "../AlertLoader/ConfirmBox";
+import { useSelector } from "react-redux";
 
 export const BranchInstance = ({
   imgUrl,
@@ -16,10 +17,11 @@ export const BranchInstance = ({
   branchDetails,
 }) => {
   const { isEditing } = useEditing();
+  const baseUrl = useSelector((state) => state.baseUrl).backend;
   const handleRemove = async () => {
     if (await showConfirmBox("Do you want to Delete this Branch?")) {
       try {
-        await axios.delete(`https://ingnepal.org.np/api/branches/${branchId}/`);
+        await axios.delete(`${baseUrl}api/branches/${branchId}/`);
         toast.success("Branch successfully removed!");
         if (onRemove) onRemove(branchId);
       } catch (error) {

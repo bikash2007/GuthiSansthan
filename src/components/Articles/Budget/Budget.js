@@ -5,6 +5,7 @@ import { useEditing } from "../../../context/EditingProvider";
 import InstanceBudget from "./InstanceBudget";
 import BudgetEdit from "./BudgetEdit";
 import Budgetform from "./Budgetform";
+import { useSelector } from "react-redux";
 
 export default function Budget() {
   const [budgetList, setBudgetList] = useState([]);
@@ -12,6 +13,7 @@ export default function Budget() {
   const [isAddFormVisible, setIsAddFormVisible] = useState(false);
   const [isEditFormVisible, setIsEditFormVisible] = useState(false);
   const [editingBudget, setEditingBudget] = useState(null);
+  const baseUrl = useSelector((state) => state.baseUrl).backend;
 
   useEffect(() => {
     fetchBudgets();
@@ -19,7 +21,7 @@ export default function Budget() {
 
   const fetchBudgets = async () => {
     try {
-      const response = await axios.get("https://ingnepal.org.np/api/budgets/");
+      const response = await axios.get(`${baseUrl}api/budgets/`);
       setBudgetList(response.data);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -28,7 +30,7 @@ export default function Budget() {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`https://ingnepal.org.np/api/budgets/${id}/`);
+      await axios.delete(`${baseUrl}api/budgets/${id}/`);
       setBudgetList(budgetList.filter((budget) => budget.id !== id));
     } catch (error) {
       console.error("Error deleting the budget:", error);
@@ -60,7 +62,7 @@ export default function Budget() {
               onClick={toggleAddForm}
               className="px-4 py-2 text-lg text-white bg-green-600 rounded-md cursor-pointer sm:text-xl hover:bg-green-700"
             >
-              {isAddFormVisible ? "Cancel" : "Add Law"}
+              {isAddFormVisible ? "Cancel" : "Add Budget"}
             </div>
           </div>
         )}

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
+import { useSelector } from "react-redux";
 
 export default function Budgetform() {
   const [formData, setFormData] = useState({
@@ -11,6 +12,7 @@ export default function Budgetform() {
   });
 
   const [loading, setLoading] = useState(false);
+  const baseUrl = useSelector((state) => state.baseUrl).backend;
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -30,15 +32,11 @@ export default function Budgetform() {
     if (formData.file) data.append("file", formData.file);
 
     try {
-      const response = await axios.post(
-        "https://ingnepal.org.np/api/budgets/",
-        data,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      const response = await axios.post(`${baseUrl}api/budgets/`, data, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
 
       if (response.status === 201) {
         alert("Budget data added successfully!");

@@ -37,7 +37,7 @@ const InstantTeam = ({ teamMember, onEdit, onRemove }) => {
           <h3 className="text-md lg:text-lg text-gray-400">{displayPost}</h3>
           {displayBranch && (
             <h4 className="text-md lg:text-lg text-gray-400">
-              Branch: {displayBranch}
+              {displayBranch}
             </h4>
           )}
         </div>

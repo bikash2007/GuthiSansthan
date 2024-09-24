@@ -42,7 +42,7 @@ export const NepalFlagSlider = ({ content }) => {
       fetchData();
 
     const id = homePageDetail.details["welcome-to-guthi-sansthan"];
-    if (!id) console.log("x is undefined or null");
+    if (!id);
   }, [dispatch, baseUrl, homePageDetail]);
 
   // Handle hover start

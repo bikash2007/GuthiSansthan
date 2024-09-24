@@ -28,7 +28,7 @@ export const AboutUs = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(baseUrl + aboutUsPageDetail.url);
-        console.log("about us ::", response.data.components);
+
         dispatch(setAboutUsPageWholeDetail(response.data.components));
         dispatch(
           setBgImg(baseUrl + response.data.components["about-us"].image)
@@ -38,7 +38,6 @@ export const AboutUs = () => {
           lngs: response.data.components["about-us"].text,
         });
       } catch (error) {
-        console.log(error);
         showAlert(error, "red");
       }
     };

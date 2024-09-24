@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
 import InstanceAboutUs from "./InstanceAboutUs";
+import { useSelector } from "react-redux";
 
 const AboutUsInfo = () => {
   const [aboutUsData, setAboutUsData] = useState([]);
+  const baseUrl = useSelector((state) => state.baseUrl).backend;
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("https://ingnepal.org.np/api/about-us/");
+        const response = await fetch(`${baseUrl}api/about-us/`);
         const data = await response.json();
         setAboutUsData(data);
       } catch (error) {
@@ -20,7 +22,7 @@ const AboutUsInfo = () => {
 
   const handleRemove = (id) => {
     // Assuming there's an API endpoint to delete an item
-    fetch(`https://ingnepal.org.np/api/about-us/${id}`, {
+    fetch(`${baseUrl}api/about-us/${id}`, {
       method: "DELETE",
     })
       .then((response) => {

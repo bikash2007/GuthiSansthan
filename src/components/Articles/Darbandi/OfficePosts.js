@@ -132,7 +132,9 @@ const OfficePosts = () => {
 
       {/* Display the list of posts */}
       <div className="bg-gray-100 p-6 rounded-lg shadow-md max-w-lg mx-auto">
-        <h2 className="text-2xl font-semibold mb-4 text-gray-700">Posts</h2>
+        <h2 className="text-2xl font-semibold mb-4 text-gray-700">
+          office Posts
+        </h2>
         {posts.length === 0 ? (
           <p className="text-gray-500">No posts available.</p>
         ) : (

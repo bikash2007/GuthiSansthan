@@ -13,17 +13,17 @@ import {
   Button,
 } from "@mui/material";
 import { useEditing } from "../../../../context/EditingProvider";
+import { useSelector } from "react-redux";
 
 const BudgetNikasaShow = () => {
   const [budgets, setBudgets] = useState([]);
   const { isEditing } = useEditing();
+  const baseUrl = useSelector((state) => state.baseUrl).backend;
 
   useEffect(() => {
     const fetchBudgets = async () => {
       try {
-        const response = await axios.get(
-          "http://192.168.1.142:8000/api/yearly-budget/"
-        );
+        const response = await axios.get(`${baseUrl}api/yearly-budget/`);
         setBudgets(response.data);
       } catch (error) {
         console.error("Error fetching budgets:", error);
@@ -35,12 +35,18 @@ const BudgetNikasaShow = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://192.168.1.142:8000/api/yearly-budget/${id}/`);
+      await axios.delete(`${baseUrl}api/yearly-budget/${id}/`);
       setBudgets(budgets.filter((budget) => budget.id !== id));
     } catch (error) {
       console.error("Error deleting budget:", error);
     }
   };
+
+  // Calculate total amount
+  const totalAmount = budgets.reduce(
+    (total, budget) => total + (budget.amount || 0),
+    0
+  );
 
   return (
     <Container>
@@ -66,7 +72,6 @@ const BudgetNikasaShow = () => {
                   <TableCell>{budget.title}</TableCell>
                   <TableCell>{budget.description}</TableCell>
                   <TableCell>{budget.amount}</TableCell>
-
                   {isEditing && (
                     <TableCell>
                       <Button
@@ -81,6 +86,15 @@ const BudgetNikasaShow = () => {
                   )}
                 </TableRow>
               ))}
+              <TableRow>
+                <TableCell colSpan={3} style={{ textAlign: "right" }}>
+                  <strong>Total:</strong>
+                </TableCell>
+                <TableCell>
+                  <strong>{totalAmount}</strong>
+                </TableCell>
+                {isEditing && <TableCell />}
+              </TableRow>
             </TableBody>
           </Table>
         </TableContainer>

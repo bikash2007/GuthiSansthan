@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 export default function BranchDarbandi({ branchId }) {
   const [tableData, setTableData] = useState([]);
   const [editingRow, setEditingRow] = useState(null);
   const [totalNumber, setTotalNumber] = useState(0);
+  const baseUrl = useSelector((state) => state.baseUrl).backend;
 
   // Fetch data from the API
   useEffect(() => {
     async function fetchDarbandiData() {
       try {
         const response = await fetch(
-          `http://192.168.1.142:8000/api/darbandi/?branch=${branchId}`
+          `${baseUrl}api/darbandi/?branch=${branchId}`
         );
         const data = await response.json();
 
@@ -37,7 +39,7 @@ export default function BranchDarbandi({ branchId }) {
   const saveChanges = async (row) => {
     try {
       const response = await fetch(
-        `http://192.168.1.142:8000/api/darbandi/${row.id}/change-assigned-number/`,
+        `${baseUrl}api/darbandi/${row.id}/change-assigned-number/`,
         {
           method: "post",
           headers: {
@@ -61,12 +63,9 @@ export default function BranchDarbandi({ branchId }) {
 
   const deleteRow = async (id) => {
     try {
-      const response = await fetch(
-        `http://192.168.1.142:8000/api/darbandi/${id}/`,
-        {
-          method: "DELETE",
-        }
-      );
+      const response = await fetch(`${baseUrl}api/darbandi/${id}/`, {
+        method: "DELETE",
+      });
       if (response.ok) {
         setTableData((prevData) => prevData.filter((row) => row.id !== id));
         alert("Row deleted successfully");
