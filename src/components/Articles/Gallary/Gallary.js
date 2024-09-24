@@ -13,9 +13,12 @@ import {
   Button,
 } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faDownload, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import {
+  faDownload,
+  faEye,
+  faTrashAlt,
+} from "@fortawesome/free-solid-svg-icons";
 import GallaryForm from "./GallaryForm";
-import InstanceGallary from "./InstanceGallary";
 import { useSelector } from "react-redux";
 import { useEditing } from "../../../context/EditingProvider";
 
@@ -24,8 +27,8 @@ const Gallary = () => {
   const [error, setError] = useState("");
   const [showForm, setShowForm] = useState(false);
   const baseUrl = useSelector((state) => state.baseUrl).backend;
-  console.log(`${baseUrl}api/gallery/`);
   const { isEditing } = useEditing();
+
   useEffect(() => {
     const fetchGalleryItems = async () => {
       try {
@@ -38,7 +41,7 @@ const Gallary = () => {
     };
 
     fetchGalleryItems();
-  }, []);
+  }, [baseUrl]);
 
   const handleDownload = (fileUrl) => {
     const link = document.createElement("a");
@@ -79,27 +82,25 @@ const Gallary = () => {
           >
             {showForm ? "Close Form" : "Add New Item"}
           </Button>
-          {showForm && (
-            <GallaryForm
-              onSuccess={() =>
-                setGalleryItems((prevItems) => [...prevItems, ...prevItems])
-              }
-            />
-          )}
+          {showForm && <GallaryForm />}
         </>
       )}
+
       <Grid container spacing={2}>
         {galleryItems.map((item) => (
           <Grid item xs={12} sm={6} md={4} key={item.id}>
             <Paper elevation={3} sx={{ padding: 2 }}>
-              <Card>
+              <Card sx={{ height: 300, width: "100%" }}>
                 {item.image && (
                   <CardMedia
                     component="img"
-                    height="150"
                     image={item.image}
                     alt={item.title}
-                    sx={{ width: "100%", objectFit: "cover" }}
+                    sx={{
+                      height: 200, // Fixed height for consistency
+                      width: "100%", // Full width of the card
+                      objectFit: "cover", // Ensures image covers the area without distorting
+                    }}
                   />
                 )}
                 {item.video && (
@@ -108,7 +109,11 @@ const Gallary = () => {
                     controls
                     src={item.video}
                     alt={item.title}
-                    sx={{ width: "100%", height: 150 }}
+                    sx={{
+                      height: 200,
+                      width: "100%",
+                      objectFit: "cover",
+                    }}
                   />
                 )}
                 <CardContent>
@@ -127,20 +132,22 @@ const Gallary = () => {
                   >
                     {item.image && (
                       <IconButton onClick={() => handleDownload(item.image)}>
-                        <FontAwesomeIcon icon={faDownload} />
+                        <FontAwesomeIcon icon={faEye} />
                       </IconButton>
                     )}
                     {item.video && (
                       <IconButton onClick={() => handleDownload(item.video)}>
-                        <FontAwesomeIcon icon={faDownload} />
+                        <FontAwesomeIcon icon={faEye} />
                       </IconButton>
                     )}
-                    <IconButton
-                      color="error"
-                      onClick={() => handleDelete(item.id)}
-                    >
-                      <FontAwesomeIcon icon={faTrashAlt} />
-                    </IconButton>
+                    {isEditing && (
+                      <IconButton
+                        color="error"
+                        onClick={() => handleDelete(item.id)}
+                      >
+                        <FontAwesomeIcon icon={faTrashAlt} />
+                      </IconButton>
+                    )}
                   </Box>
                 </CardContent>
               </Card>

@@ -59,6 +59,7 @@ const GallaryForm = ({ onSuccess }) => {
       });
       onSuccess(); // Notify parent component to refresh data
       setTitle("");
+      window.location.reload();
       setCredit("");
       setImage(null);
       setVideo(null);

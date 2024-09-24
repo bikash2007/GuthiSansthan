@@ -36,19 +36,6 @@ const BranchTeams = ({ branchName, branchId }) => {
           <UserCards key={assignment.id} assignment={assignment} />
         ))}
       </div>
-      {isEditing && (
-        <Link
-          to="/employee-form"
-          state={{ branchName }}
-          className="w-full h-fit flex items-center justify-center"
-        >
-          <FontAwesomeIcon
-            icon={faPlus}
-            className="p-5 m-1 bg-gray-500 text-white rounded-md hover:bg-gray-600 transition-all duration-300 hover:scale-105 cursor-pointer"
-            size="3x"
-          />
-        </Link>
-      )}
     </div>
   );
 };

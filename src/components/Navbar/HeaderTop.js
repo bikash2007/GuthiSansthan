@@ -58,6 +58,7 @@ export const HeaderTop = () => {
       try {
         const response = await axios.get(`${baseUrl}api/global-components/6/`);
         const initialBlurValue = response.data.blur.text.value; // Adjust based on your API structure
+        console.log(initialBlurValue);
         setBlur(initialBlurValue);
       } catch (error) {
         console.error("Error fetching initial blur value:", error);

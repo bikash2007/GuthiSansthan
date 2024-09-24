@@ -1,7 +1,9 @@
 import React from "react";
-import { FaTimes, FaDownload } from "react-icons/fa";
+import { FaTimes, FaDownload, FaEye } from "react-icons/fa";
+import { useEditing } from "../../../context/EditingProvider";
 
 const InstanceGallary = ({ items, onDelete, onDownload }) => {
+  const { isEditing } = useEditing();
   return (
     <div className="gallery-container">
       {items.map((item) => (
@@ -12,17 +14,19 @@ const InstanceGallary = ({ items, onDelete, onDownload }) => {
             <img src={item.url} alt={item.title} className="gallery-media" />
           )}
           <div className="gallery-controls">
-            <button
-              className="control-button"
-              onClick={() => onDelete(item.id)}
-            >
-              <FaTimes />
-            </button>
+            {isEditing && (
+              <button
+                className="control-button"
+                onClick={() => onDelete(item.id)}
+              >
+                <FaTimes />
+              </button>
+            )}
             <button
               className="control-button"
               onClick={() => onDownload(item.url)}
             >
-              <FaDownload />
+              <FaEye />
             </button>
           </div>
         </div>

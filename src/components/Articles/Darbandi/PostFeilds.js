@@ -21,9 +21,7 @@ const PostFields = () => {
   // Fetch office posts
   const fetchPosts = async () => {
     try {
-      const response = await axios.get(
-        "https://ingnepal.org.np/api/office-posts/"
-      );
+      const response = await axios.get("https://ingnepal.org.np/api/posts/");
       setPosts(response.data);
     } catch (error) {
       console.error("Error fetching office posts:", error);
