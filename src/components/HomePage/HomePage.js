@@ -30,7 +30,7 @@ export const HomePage = () => {
   const dispatch = useDispatch();
   const { isEditing } = useEditing();
   const [notices, setNotices] = useState([]);
-
+  const [creditName, setCreditName] = useState();
   const fetchNotices = async () => {
     try {
       const response = await axios.get(`${baseUrl}api/notices/get-latest/`);
@@ -89,8 +89,17 @@ export const HomePage = () => {
 
   useEffect(() => {
     fetchNotices();
+    fetchCredit();
   }, []);
-
+  const fetchCredit = async () => {
+    try {
+      const response = await axios.get(`${baseUrl}api/pages/`);
+      console.log("credit", response.data[0].components.credit.text.English);
+      setCreditName(response.data[0].components.credit.text.English);
+    } catch (error) {
+      console.log("hello");
+    }
+  };
   return (
     <div
       style={{
@@ -187,6 +196,11 @@ export const HomePage = () => {
             </div>
           </div>
 
+          {creditName && (
+            <h4 className="text-white text-base font-semibold absolute bottom-44 left-3">
+              Photo by {creditName}
+            </h4>
+          )}
           <HomePageFooter />
         </div>
       </div>

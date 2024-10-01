@@ -3,6 +3,7 @@ import axios from "axios";
 import { useEditing } from "../../../context/EditingProvider";
 import { useTranslation } from "react-i18next";
 import { useSelectLanguage } from "../../../context/LanguageChoice";
+import { useSelector } from "react-redux";
 
 const OfficePosts = () => {
   const [posts, setPosts] = useState([]);
@@ -17,11 +18,12 @@ const OfficePosts = () => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+  const baseUrl = useSelector((state) => state.baseUrl).backend;
 
   // Fetch posts
   const fetchPosts = async () => {
     try {
-      const response = await axios.get("https://ingnepal.org.np/api/posts/");
+      const response = await axios.get(`${baseUrl}api/posts/`);
       setPosts(response.data);
     } catch (error) {
       console.error("Error fetching posts:", error);
@@ -50,7 +52,7 @@ const OfficePosts = () => {
     setIsSubmitting(true);
 
     try {
-      await axios.post("https://ingnepal.org.np/api/office-posts/", formData);
+      await axios.post(`${baseUrl}api/office-posts/`, formData);
       fetchPosts(); // Refresh the list of posts after submission
       setFormData({ name: { Nepali: "", English: "" } });
       setIsSubmitting(false);
@@ -64,7 +66,7 @@ const OfficePosts = () => {
   const handleDelete = async (id) => {
     setIsDeleting(true);
     try {
-      await axios.delete(`https://ingnepal.org.np/api/office-posts/${id}/`);
+      await axios.delete(`${baseUrl}api/office-posts/${id}/`);
       fetchPosts(); // Refresh the list of posts after deletion
       setIsDeleting(false);
     } catch (error) {

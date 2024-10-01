@@ -4,6 +4,7 @@ import InstanceDownload from "./InstanceDownload";
 import { useEditing } from "../../../context/EditingProvider";
 import Downloadform from "./Downloadform";
 import EditDownload from "./EditDownload";
+import { useSelector } from "react-redux";
 
 export default function Download() {
   const [downloadList, setDownloadList] = useState([]);
@@ -15,10 +16,10 @@ export default function Download() {
   useEffect(() => {
     fetchDownloads();
   }, []);
-
+  const baseUrl = useSelector((state) => state.baseUrl).backend;
   const fetchDownloads = async () => {
     try {
-      const response = await fetch("https://ingnepal.org.np/api/downloads/");
+      const response = await fetch(`${baseUrl}api/downloads/`);
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
@@ -31,12 +32,9 @@ export default function Download() {
 
   const handleDelete = async (id) => {
     try {
-      const response = await fetch(
-        `https://ingnepal.org.np/api/downloads/${id}/`,
-        {
-          method: "DELETE",
-        }
-      );
+      const response = await fetch(`${baseUrl}api/downloads/${id}/`, {
+        method: "DELETE",
+      });
       if (response.ok) {
         setDownloadList((prevList) =>
           prevList.filter((item) => item.id !== id)

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useEditing } from "../../../context/EditingProvider";
+import { useSelector } from "react-redux";
 
 const Sakha = () => {
   const [branches, setBranches] = useState([]);
@@ -9,10 +10,11 @@ const Sakha = () => {
   const [name, setName] = useState({ English: "", Nepali: "" });
   const [editSakha, setEditSakha] = useState(null);
   const { isEditing } = useEditing();
+  const baseUrl = useSelector((state) => state.baseUrl).backend;
   useEffect(() => {
     // Fetch branches
     axios
-      .get("https://ingnepal.org.np/api/branches/")
+      .get(`${baseUrl}api/branches/`)
       .then((response) => {
         setBranches(response.data);
       })
@@ -20,7 +22,7 @@ const Sakha = () => {
 
     // Fetch existing Sakha data
     axios
-      .get("https://ingnepal.org.np/api/sakha/")
+      .get(`${baseUrl}api/sakha/`)
       .then((response) => {
         setSakha(response.data);
       })
@@ -42,11 +44,11 @@ const Sakha = () => {
     };
 
     axios
-      .post("https://ingnepal.org.np/api/sakha/", postData)
+      .post(`${baseUrl}api/sakha/`, postData)
       .then(() => {
         // Refresh Sakha data
         axios
-          .get("https://ingnepal.org.np/api/sakha/")
+          .get(`${baseUrl}api/sakha/`)
           .then((response) => setSakha(response.data))
           .catch((error) => console.error("Error fetching sakha data:", error));
       })
@@ -55,11 +57,11 @@ const Sakha = () => {
 
   const handleRemoveSakha = (id) => {
     axios
-      .delete(`https://ingnepal.org.np/api/sakha/${id}/`)
+      .delete(`${baseUrl}api/sakha/${id}/`)
       .then(() => {
         // Refresh Sakha data
         axios
-          .get("https://ingnepal.org.np/api/sakha/")
+          .get(`${baseUrl}api/sakha/`)
           .then((response) => setSakha(response.data))
           .catch((error) => console.error("Error fetching sakha data:", error));
       })

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useEditing } from "../../../context/EditingProvider";
 import { useSelectLanguage } from "../../../context/LanguageChoice";
+import { useSelector } from "react-redux";
 
 const EmployeeTypes = () => {
   const [types, setTypes] = useState([]);
@@ -16,13 +17,12 @@ const EmployeeTypes = () => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+  const baseUrl = useSelector((state) => state.baseUrl).backend;
 
   // Fetch employment types
   const fetchTypes = async () => {
     try {
-      const response = await axios.get(
-        "https://ingnepal.org.np/api/employment-types/"
-      );
+      const response = await axios.get(`${baseUrl}api/employment-types/`);
       setTypes(response.data);
     } catch (error) {
       console.error("Error fetching employment types:", error);
@@ -51,10 +51,7 @@ const EmployeeTypes = () => {
     setIsSubmitting(true);
 
     try {
-      await axios.post(
-        "https://ingnepal.org.np/api/employment-types/",
-        formData
-      );
+      await axios.post(`${baseUrl}api/employment-types/`, formData);
       fetchTypes(); // Refresh the list of employment types after submission
       setFormData({ name: { Nepali: "", English: "" } });
       setIsSubmitting(false);
@@ -68,7 +65,7 @@ const EmployeeTypes = () => {
   const handleDelete = async (id) => {
     setIsDeleting(true);
     try {
-      await axios.delete(`https://ingnepal.org.np/api/employment-types/${id}/`);
+      await axios.delete(`${baseUrl}api/employment-types/${id}/`);
       fetchTypes(); // Refresh the list after deletion
       setIsDeleting(false);
     } catch (error) {

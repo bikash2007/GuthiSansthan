@@ -11,24 +11,31 @@ const AdminPanel = ({ branchId }) => {
   const [posts, setPosts] = useState([]);
   const baseUrl = useSelector((state) => state.baseUrl).backend;
 
+  // Fetch posts from API
   useEffect(() => {
-    async function fetchPosts() {
+    const fetchPosts = async () => {
       try {
         const response = await fetch(`${baseUrl}api/posts/`);
-        const data = await response.json();
-        setPosts(data);
+        if (response.ok) {
+          const data = await response.json();
+          setPosts(data);
+        } else {
+          throw new Error("Failed to fetch posts");
+        }
       } catch (error) {
         console.error("Error fetching posts:", error);
       }
-    }
+    };
     fetchPosts();
-  }, []);
+  }, [baseUrl]);
 
+  // Handle form inputs for new row
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setNewRow({ ...newRow, [name]: value });
   };
 
+  // Add a new row
   const addNewRow = async () => {
     try {
       const response = await fetch(`${baseUrl}api/darbandi/`, {
@@ -44,18 +51,26 @@ const AdminPanel = ({ branchId }) => {
         const postName = posts.find((post) => post.id === newRow.post)?.name
           .English;
         setTableData([...tableData, { ...data, post_name: postName }]);
-        setNewRow({
-          assigned_number: "",
-          post: "",
-          branch: branchId,
-        });
+        resetNewRow();
         alert("Row added successfully");
+      } else if (response.status === 400) {
+        alert("Validation error: Please check your inputs");
       } else {
         alert("Failed to add row");
       }
     } catch (error) {
       console.error("Error adding row:", error);
+      alert("An unexpected error occurred");
     }
+  };
+
+  // Reset the form to default state
+  const resetNewRow = () => {
+    setNewRow({
+      assigned_number: "",
+      post: "",
+      branch: branchId,
+    });
   };
 
   return (

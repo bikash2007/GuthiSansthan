@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 
 const EditAboutUs = ({ content, toggleEditMode }) => {
+  const baseUrl = useSelector((state) => state.baseUrl).backend;
   const [formData, setFormData] = useState({
     id: content.id,
     titleEnglish: content.title.English || "",
@@ -86,14 +88,11 @@ const EditAboutUs = ({ content, toggleEditMode }) => {
         formDataToSend.append("image", payload.image);
       }
 
-      const response = await fetch(
-        `https://ingnepal.org.np/api/about-us/${payload.id}/`,
-        {
-          method: "PATCH",
-          body: formDataToSend,
-          // Note: Content-Type is automatically set by FormData
-        }
-      );
+      const response = await fetch(`${baseUrl}api/about-us/${payload.id}/`, {
+        method: "PATCH",
+        body: formDataToSend,
+        // Note: Content-Type is automatically set by FormData
+      });
 
       if (!response.ok) {
         const errorDetails = await response.text();
