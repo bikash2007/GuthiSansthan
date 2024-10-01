@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const AdminForm = () => {
   const [formData, setFormData] = useState({
@@ -14,13 +15,13 @@ const AdminForm = () => {
     contact_number: "", // New field for contact number
     photo: null, // New field for photo
   });
-
+  const baseUrl = useSelector((state) => state.baseUrl).backend;
   const [branches, setBranches] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
     axios
-      .get("https://ingnepal.org.np/api/branches/")
+      .get(`${baseUrl}api/branches/`)
       .then((response) => {
         setBranches(response.data);
       })
@@ -62,7 +63,7 @@ const AdminForm = () => {
     }
 
     axios
-      .post("https://ingnepal.org.np/api/users/create-admin/", formDataToSend, {
+      .post(`${baseUrl}api/users/create-admin/`, formDataToSend, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useEditing } from "../../../context/EditingProvider";
+import { useSelector } from "react-redux";
 
 const Mahasakha = () => {
   const [branches, setBranches] = useState([]);
@@ -8,11 +9,11 @@ const Mahasakha = () => {
   const [name, setName] = useState({ English: "", Nepali: "" });
   const [mahasakhaData, setMahasakhaData] = useState([]);
   const { isEditing } = useEditing();
-
+  const baseUrl = useSelector((state) => state.baseUrl).backend;
   useEffect(() => {
     // Fetch branch data
     axios
-      .get("https://ingnepal.org.np/api/branches/")
+      .get(`${baseUrl}api/branches/`)
       .then((response) => {
         setBranches(response.data);
       })
@@ -20,7 +21,7 @@ const Mahasakha = () => {
 
     // Fetch Mahasakha data
     axios
-      .get("https://ingnepal.org.np/api/mahasakha/")
+      .get(`${baseUrl}api/mahasakha/`)
       .then((response) => {
         setMahasakhaData(response.data);
       })
@@ -38,7 +39,7 @@ const Mahasakha = () => {
     };
 
     axios
-      .post("https://ingnepal.org.np/api/mahasakha/", data)
+      .post(`${baseUrl}api/mahasakha/`, data)
       .then((response) => {
         console.log("Data posted successfully:", response.data);
         setMahasakhaData([...mahasakhaData, response.data]); // Update UI
@@ -48,7 +49,7 @@ const Mahasakha = () => {
 
   const handleRemove = (id) => {
     axios
-      .delete(`https://ingnepal.org.np/api/mahasakha/${id}/`)
+      .delete(`${baseUrl}api/mahasakha/${id}/`)
       .then(() => {
         setMahasakhaData(mahasakhaData.filter((item) => item.id !== id));
       })

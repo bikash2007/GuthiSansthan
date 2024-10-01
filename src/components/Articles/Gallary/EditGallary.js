@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { TextField, Button, Box } from "@mui/material";
+import { useSelector } from "react-redux";
 
 const EditGallary = ({ galleryId }) => {
   const [formData, setFormData] = useState({
@@ -9,13 +10,12 @@ const EditGallary = ({ galleryId }) => {
     video: null,
     credit: "",
   });
+  const baseUrl = useSelector((state) => state.baseUrl).backend;
 
   useEffect(() => {
     const fetchGalleryItem = async () => {
       try {
-        const response = await axios.get(
-          `https://ingnepal.org.np/api/gallery/${galleryId}/`
-        );
+        const response = await axios.get(`${baseUrl}api/gallery/${galleryId}/`);
         setFormData(response.data);
       } catch (error) {
         console.error("Failed to fetch gallery item:", error);
@@ -42,15 +42,11 @@ const EditGallary = ({ galleryId }) => {
     data.append("credit", formData.credit);
 
     try {
-      await axios.patch(
-        `https://ingnepal.org.np/api/gallery/${galleryId}/`,
-        data,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      await axios.patch(`${baseUrl}api/gallery/${galleryId}/`, data, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
       alert("Gallery item updated successfully");
     } catch (error) {
       console.error("Error updating gallery item:", error);

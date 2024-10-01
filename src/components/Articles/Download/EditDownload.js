@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 const EditDownload = ({ download, onClose, onSave }) => {
   const [formData, setFormData] = useState({
@@ -23,7 +24,7 @@ const EditDownload = ({ download, onClose, onSave }) => {
       [name]: files ? files[0] : value,
     }));
   };
-
+  const baseUrl = useSelector((state) => state.baseUrl).backend;
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -33,7 +34,7 @@ const EditDownload = ({ download, onClose, onSave }) => {
 
     try {
       const response = await axios.patch(
-        `https://ingnepal.org.np/api/downloads/${download.id}/`,
+        `${baseUrl}api/downloads/${download.id}/`,
         data,
         {
           headers: {

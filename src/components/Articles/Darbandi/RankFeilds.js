@@ -3,6 +3,7 @@ import axios from "axios";
 import { useEditing } from "../../../context/EditingProvider";
 import { useTranslation } from "react-i18next";
 import { useSelectLanguage } from "../../../context/LanguageChoice";
+import { useSelector } from "react-redux";
 
 const RankFields = () => {
   const [ranks, setRanks] = useState([]);
@@ -17,11 +18,11 @@ const RankFields = () => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
-
+  const baseUrl = useSelector((state) => state.baseUrl).backend;
   // Fetch ranks
   const fetchRanks = async () => {
     try {
-      const response = await axios.get("https://ingnepal.org.np/api/ranks/");
+      const response = await axios.get(`${baseUrl}api/ranks/`);
       setRanks(response.data);
     } catch (error) {
       console.error("Error fetching ranks:", error);
@@ -50,7 +51,7 @@ const RankFields = () => {
     setIsSubmitting(true);
 
     try {
-      await axios.post("https://ingnepal.org.np/api/ranks/", formData);
+      await axios.post(`${baseUrl}api/ranks/`, formData);
       fetchRanks(); // Refresh the list of ranks after submission
       setFormData({ name: { Nepali: "", English: "" } });
       setIsSubmitting(false);
@@ -64,7 +65,7 @@ const RankFields = () => {
   const handleDelete = async (id) => {
     setIsDeleting(true);
     try {
-      await axios.delete(`https://ingnepal.org.np/api/ranks/${id}/`);
+      await axios.delete(`${baseUrl}api/ranks/${id}/`);
       fetchRanks(); // Refresh the list of ranks after deletion
       setIsDeleting(false);
     } catch (error) {

@@ -2,7 +2,7 @@ import { useEditing } from "../../../context/EditingProvider";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useSelector } from "react-redux";
-import { AddParva } from "../../JataraMandir/Parva/AddParva";
+
 import { ParvaInstance } from "../../JataraMandir/Parva/ParvaInstance";
 export const BranchFestival = ({ branchName, festival }) => {
   const { isEditing, setIsEditing } = useEditing();
@@ -32,12 +32,12 @@ export const BranchFestival = ({ branchName, festival }) => {
             No Jatra Parva in this moment
           </h1>
         )}
-        {isEditing && (
+        {/* {isEditing && (
           <AddParva
             fetchAllParva={fetchBranchAllParva}
             parvaAddingUrl={baseUrl}
           />
-        )}
+        )} */}
       </div>
     </>
   );

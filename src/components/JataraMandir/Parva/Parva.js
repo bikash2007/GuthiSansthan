@@ -11,7 +11,7 @@ import {
 } from "../../../state/ParvaPageSlice";
 import { addLanguage } from "../../ReuseableFunctions";
 import { useEditing } from "../../../context/EditingProvider";
-import { AddParva } from "./AddParva";
+
 import { useTranslation } from "react-i18next";
 import { EditBgImage } from "../../EditComponents/EditBgImage";
 
@@ -28,7 +28,6 @@ export const Parva = () => {
       if (!parvaPageDetail.isFetched) fetchParvaContent();
     } catch (error) {
       console.log(error);
-      showAlert(error, "red");
     }
   }, []);
 
@@ -48,7 +47,6 @@ export const Parva = () => {
       dispatch(setParvaPageWholeDetails(response.data));
     } catch (error) {
       console.log(error);
-      showAlert(error, "red");
     }
   };
 
@@ -102,12 +100,6 @@ export const Parva = () => {
                 qr={festival.qr_code}
               />
             ))}
-            {isEditing && (
-              <AddParva
-                fetchAllParva={fetchDynamicParva}
-                parvaAddingUrl={baseUrl + parvaPageDetail.dynamicUrl}
-              />
-            )}
           </div>
         </div>
       </div>

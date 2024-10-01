@@ -12,6 +12,7 @@ import {
   Typography,
   Box,
 } from "@mui/material";
+import { useSelector } from "react-redux";
 
 const EmployeeForm = () => {
   // State for form data
@@ -46,7 +47,7 @@ const EmployeeForm = () => {
   const [sakha, setSakha] = useState([]);
   const [mahasakha, setMahasakha] = useState([]);
   const [banks] = useState(bankNames.banks); // Access the banks list from the JSON
-
+  const baseUrl = useSelector((state) => state.baseUrl).backend;
   // Fetch dropdown data from APIs
   useEffect(() => {
     const fetchData = async () => {
@@ -60,13 +61,13 @@ const EmployeeForm = () => {
           sakhaRes,
           mahasakhaRes,
         ] = await Promise.all([
-          axios.get("https://ingnepal.org.np/api/branches/"),
-          axios.get("https://ingnepal.org.np/api/employment-types/"),
-          axios.get("https://ingnepal.org.np/api/office-posts/"),
-          axios.get("https://ingnepal.org.np/api/posts/"),
-          axios.get("https://ingnepal.org.np/api/ranks/"),
-          axios.get("https://ingnepal.org.np/api/sakha/"),
-          axios.get("https://ingnepal.org.np/api/mahasakha/"),
+          axios.get(`${baseUrl}api/branches/`),
+          axios.get(`${baseUrl}api/employment-types/`),
+          axios.get(`${baseUrl}api/office-posts/`),
+          axios.get(`${baseUrl}api/posts/`),
+          axios.get(`${baseUrl}api/ranks/`),
+          axios.get(`${baseUrl}api/sakha/`),
+          axios.get(`${baseUrl}api/mahasakha/`),
         ]);
         setBranches(branchRes.data);
         setEmploymentTypes(empTypesRes.data);
@@ -145,7 +146,7 @@ const EmployeeForm = () => {
     }
 
     try {
-      await axios.post("https://ingnepal.org.np/api/profiles/", postData, {
+      await axios.post(`${baseUrl}api/profiles/`, postData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

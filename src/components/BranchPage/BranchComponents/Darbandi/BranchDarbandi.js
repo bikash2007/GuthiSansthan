@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { useEditing } from "../../../../context/EditingProvider";
 
 export default function BranchDarbandi({ branchId }) {
   const [tableData, setTableData] = useState([]);
   const [editingRow, setEditingRow] = useState(null);
   const [totalNumber, setTotalNumber] = useState(0);
   const baseUrl = useSelector((state) => state.baseUrl).backend;
+  const { isEditing } = useEditing();
 
   // Fetch data from the API
   useEffect(() => {
@@ -41,7 +43,7 @@ export default function BranchDarbandi({ branchId }) {
       const response = await fetch(
         `${baseUrl}api/darbandi/${row.id}/change-assigned-number/`,
         {
-          method: "post",
+          method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
@@ -53,11 +55,14 @@ export default function BranchDarbandi({ branchId }) {
       if (response.ok) {
         alert("Changes saved successfully");
         setEditingRow(null);
+      } else if (response.status === 400) {
+        alert("Error 400: Invalid input data");
       } else {
         alert("Failed to save changes");
       }
     } catch (error) {
       console.error("Error saving changes:", error);
+      alert("An error occurred while saving changes");
     }
   };
 
@@ -69,11 +74,14 @@ export default function BranchDarbandi({ branchId }) {
       if (response.ok) {
         setTableData((prevData) => prevData.filter((row) => row.id !== id));
         alert("Row deleted successfully");
+      } else if (response.status === 400) {
+        alert("Error 400: Bad request while deleting row");
       } else {
         alert("Failed to delete row");
       }
     } catch (error) {
       console.error("Error deleting row:", error);
+      alert("An error occurred while deleting the row");
     }
   };
 
@@ -108,29 +116,32 @@ export default function BranchDarbandi({ branchId }) {
                 )}
               </td>
               <td className="p-4 text-gray-700">{row.fulfilled_number}</td>
-              <td className="p-4">
-                {editingRow === index ? (
+
+              {isEditing && (
+                <td className="p-4">
+                  {editingRow === index ? (
+                    <button
+                      className="px-4 py-2 text-white bg-green-600 rounded hover:bg-green-700"
+                      onClick={() => saveChanges(row)}
+                    >
+                      Save
+                    </button>
+                  ) : (
+                    <button
+                      className="px-4 py-2 text-white bg-blue-600 rounded hover:bg-blue-700"
+                      onClick={() => setEditingRow(index)}
+                    >
+                      Edit
+                    </button>
+                  )}
                   <button
-                    className="px-4 py-2 text-white bg-green-600 rounded hover:bg-green-700"
-                    onClick={() => saveChanges(row)}
+                    className="px-4 py-2 ml-2 text-white bg-red-600 rounded hover:bg-red-700"
+                    onClick={() => deleteRow(row.id)}
                   >
-                    Save
+                    Delete
                   </button>
-                ) : (
-                  <button
-                    className="px-4 py-2 text-white bg-blue-600 rounded hover:bg-blue-700"
-                    onClick={() => setEditingRow(index)}
-                  >
-                    Edit
-                  </button>
-                )}
-                <button
-                  className="px-4 py-2 ml-2 text-white bg-red-600 rounded hover:bg-red-700"
-                  onClick={() => deleteRow(row.id)}
-                >
-                  Delete
-                </button>
-              </td>
+                </td>
+              )}
             </tr>
           ))}
         </tbody>

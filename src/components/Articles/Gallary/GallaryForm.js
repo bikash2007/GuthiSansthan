@@ -11,6 +11,7 @@ import {
   Typography,
   IconButton,
   Alert,
+  CircularProgress,
 } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
@@ -23,6 +24,7 @@ const GallaryForm = ({ onSuccess }) => {
   const [video, setVideo] = useState(null);
   const [fileType, setFileType] = useState("image");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const baseUrl = useSelector((state) => state.baseUrl).backend;
 
   const handleFileChange = (event) => {
@@ -40,7 +42,8 @@ const GallaryForm = ({ onSuccess }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setError("");
+    setError(""); // Clear previous errors
+    setLoading(true); // Start the loader
 
     const formData = new FormData();
     formData.append("title", title);
@@ -52,21 +55,27 @@ const GallaryForm = ({ onSuccess }) => {
     }
 
     try {
-      await axios.post(`${baseUrl}api/gallery/`, formData, {
+      const response = await axios.post(`${baseUrl}api/gallery/`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       });
-      onSuccess(); // Notify parent component to refresh data
-      setTitle("");
-      window.location.reload();
-      setCredit("");
-      setImage(null);
-      setVideo(null);
-      setFileType("image");
+
+      // Check if the response status is 201
+      if (response.status === 201) {
+        onSuccess(); // Notify parent component to refresh data
+        // Reset form fields
+        setTitle("");
+        setCredit("");
+        setImage(null);
+        setVideo(null);
+        setFileType("image");
+      }
     } catch (error) {
       console.error("Error posting gallery item:", error);
-      setError("Failed to post gallery item.");
+      setError("Failed to post gallery item. Please try again.");
+    } finally {
+      setLoading(false); // Stop the loader in all cases
     }
   };
 
@@ -154,14 +163,30 @@ const GallaryForm = ({ onSuccess }) => {
           </IconButton>
         </Box>
       )}
-      <Button
-        type="submit"
-        variant="contained"
-        color="primary"
-        sx={{ marginRight: 1 }}
-      >
-        Submit
-      </Button>
+      <Box sx={{ position: "relative", display: "inline-block" }}>
+        <Button
+          type="submit"
+          variant="contained"
+          color="primary"
+          sx={{ marginRight: 1 }}
+          disabled={loading} // Disable the button during loading
+        >
+          Submit
+        </Button>
+        {loading && (
+          <CircularProgress
+            size={24}
+            sx={{
+              color: "primary.main",
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              marginTop: "-12px",
+              marginLeft: "-12px",
+            }}
+          />
+        )}
+      </Box>
       <Button
         variant="outlined"
         color="secondary"
@@ -172,6 +197,7 @@ const GallaryForm = ({ onSuccess }) => {
           setVideo(null);
           setFileType("image");
         }}
+        disabled={loading} // Disable clear button during loading
       >
         Clear
       </Button>

@@ -21,7 +21,6 @@ const Temple = () => {
       dispatch(setDynamicTempleWholeDetail(response.data));
     } catch (error) {
       console.error("error");
-      showAlert(error, "red");
     }
   };
   useEffect(() => {
@@ -29,7 +28,6 @@ const Temple = () => {
       if (!templeDetail.isDynamicFetched) fetchTemple();
     } catch (error) {
       console.error(error);
-      showAlert(error, "red");
     }
   }, []);
 

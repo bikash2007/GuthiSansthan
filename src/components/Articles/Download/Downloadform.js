@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
+import { useSelector } from "react-redux";
 
 export default function Downloadform() {
   const [formData, setFormData] = useState({
@@ -17,7 +18,7 @@ export default function Downloadform() {
       [name]: files ? files[0] : value,
     }));
   };
-
+  const baseUrl = useSelector((state) => state.baseUrl).backend;
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true); // Set loading state to true
@@ -27,7 +28,7 @@ export default function Downloadform() {
     if (formData.file) data.append("file", formData.file);
 
     try {
-      const response = await fetch("https://ingnepal.org.np/api/downloads/", {
+      const response = await fetch(`${baseUrl}api/downloads/`, {
         method: "POST",
         body: data,
       });
