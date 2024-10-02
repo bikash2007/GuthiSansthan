@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { NepaliDatePicker } from "nepali-datepicker-reactjs";
+import "nepali-datepicker-reactjs/dist/index.css";
 import { useSelector } from "react-redux";
 
 const AddParva = () => {
@@ -13,7 +15,6 @@ const AddParva = () => {
     guthi_address: "",
     contactperson: "",
     contact_no: "",
-    status: false,
     festival: null,
   });
   const token = sessionStorage.getItem("token");
@@ -21,16 +22,42 @@ const AddParva = () => {
   const [submitMessage, setSubmitMessage] = useState("");
   const baseUrl = useSelector((state) => state.baseUrl).backend;
 
-  // Handle input change
+  const [festivalOptions, setfestivalOptions] = useState([]);
+
+  // Fetch festival options (example API call)
+  useEffect(() => {
+    const fetchfestivalOptions = async () => {
+      try {
+        const response = await fetch(`${baseUrl}api/festivals/`, {
+          headers: {
+            Authorization: `Token ${token}`,
+          },
+        });
+        const data = await response.json();
+        setfestivalOptions(data);
+      } catch (error) {
+        console.error("Error fetching festival options:", error);
+      }
+    };
+
+    fetchfestivalOptions();
+  }, [baseUrl, token]);
+
   const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
+    const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
-      [name]: type === "checkbox" ? checked : value,
+      [name]: value,
     }));
   };
 
-  // Handle form submission
+  const handleNepaliDateChange = (name, value) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -59,7 +86,6 @@ const AddParva = () => {
           guthi_address: "",
           contactperson: "",
           contact_no: "",
-          status: false,
           festival: null,
         });
       } else {
@@ -74,7 +100,7 @@ const AddParva = () => {
   };
 
   return (
-    <div className="w-full max-w-lg mx-auto p-6 mt-96 bg-white rounded-lg shadow-lg  relative ">
+    <div className="w-full max-w-lg mx-auto p-6 mt-96 bg-white rounded-lg shadow-lg relative">
       <h2 className="text-2xl font-bold mb-6 text-center mt-64 text-cyan-600">
         Add Parva
       </h2>
@@ -95,27 +121,42 @@ const AddParva = () => {
         {/* Start Date */}
         <div>
           <label className="block text-gray-700">Start Date</label>
-          <input
-            type="date"
-            name="start_date"
-            value={formData.start_date}
-            onChange={handleChange}
+          <NepaliDatePicker
             className="w-full p-2 border border-gray-300 rounded-md focus:ring focus:ring-cyan-300"
-            required
+            value={formData.start_date}
+            onChange={(value) => handleNepaliDateChange("start_date", value)}
+            options={{ calenderLocale: "ne", valueLocale: "en" }}
           />
         </div>
 
         {/* End Date */}
         <div>
           <label className="block text-gray-700">End Date</label>
-          <input
-            type="date"
-            name="end_date"
+          <NepaliDatePicker
+            className="w-full p-2 border border-gray-300 rounded-md focus:ring focus:ring-cyan-300"
             value={formData.end_date}
+            onChange={(value) => handleNepaliDateChange("end_date", value)}
+            options={{ calenderLocale: "ne", valueLocale: "en" }}
+          />
+        </div>
+
+        {/* festival Dropdown */}
+        <div>
+          <label className="block text-gray-700">Jatra</label>
+          <select
+            name="festival"
+            value={formData.festival}
             onChange={handleChange}
             className="w-full p-2 border border-gray-300 rounded-md focus:ring focus:ring-cyan-300"
             required
-          />
+          >
+            <option value="">Select festival</option>
+            {festivalOptions.map((option) => (
+              <option key={option.id} value={option.id}>
+                {option.name}
+              </option>
+            ))}
+          </select>
         </div>
 
         {/* Tithi From */}
@@ -127,7 +168,6 @@ const AddParva = () => {
             value={formData.tithi_from}
             onChange={handleChange}
             className="w-full p-2 border border-gray-300 rounded-md focus:ring focus:ring-cyan-300"
-            placeholder="Enter Tithi"
           />
         </div>
 
@@ -140,7 +180,6 @@ const AddParva = () => {
             value={formData.tithi_to}
             onChange={handleChange}
             className="w-full p-2 border border-gray-300 rounded-md focus:ring focus:ring-cyan-300"
-            placeholder="Enter Tithi"
           />
         </div>
 
@@ -152,7 +191,6 @@ const AddParva = () => {
             value={formData.description}
             onChange={handleChange}
             className="w-full p-2 border border-gray-300 rounded-md focus:ring focus:ring-cyan-300"
-            placeholder="Enter description"
           />
         </div>
 
@@ -189,45 +227,18 @@ const AddParva = () => {
             value={formData.contactperson}
             onChange={handleChange}
             className="w-full p-2 border border-gray-300 rounded-md focus:ring focus:ring-cyan-300"
-            required
           />
         </div>
 
-        {/* Contact Number */}
+        {/* Contact No */}
         <div>
-          <label className="block text-gray-700">Contact Number</label>
+          <label className="block text-gray-700">Contact No</label>
           <input
             type="text"
             name="contact_no"
             value={formData.contact_no}
             onChange={handleChange}
             className="w-full p-2 border border-gray-300 rounded-md focus:ring focus:ring-cyan-300"
-            required
-          />
-        </div>
-
-        {/* Status */}
-        <div className="flex items-center">
-          <input
-            type="checkbox"
-            name="status"
-            checked={formData.status}
-            onChange={handleChange}
-            className="h-4 w-4 text-cyan-600 border-gray-300 rounded focus:ring focus:ring-cyan-300"
-          />
-          <label className="ml-2 text-gray-700">Status</label>
-        </div>
-
-        {/* Festival (optional) */}
-        <div>
-          <label className="block text-gray-700">Festival (Optional)</label>
-          <input
-            type="text"
-            name="festival"
-            value={formData.festival || ""}
-            onChange={handleChange}
-            className="w-full p-2 border border-gray-300 rounded-md focus:ring focus:ring-cyan-300"
-            placeholder="Enter Festival ID (if any)"
           />
         </div>
 

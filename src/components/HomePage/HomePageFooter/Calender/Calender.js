@@ -6,13 +6,16 @@ import { useSelector } from "react-redux";
 import img from "../../../../media/DonationPage/5.png";
 import { useEditing } from "../../../../context/EditingProvider";
 import AddJatraParva from "./AddJatraParva";
+import Modal from "react-modal";
+
 export const Calendar = () => {
   const [calendarData, setCalendarData] = useState(null);
   const [error, setError] = useState(null);
   const [year, setYear] = useState(null);
   const [month, setMonth] = useState(null);
   const [selectedEvent, setSelectedEvent] = useState(null);
-  const [today, setToday] = useState(null);
+  const [today, setToday] = useState(null); // Store today's date object
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const baseUrl = useSelector((state) => state.baseUrl).backend;
   const { isEditing } = useEditing();
   const nepaliMonth = [
@@ -38,12 +41,15 @@ export const Calendar = () => {
           `${baseUrl}api/calendar/?year=2081&month=5`
         );
         const data = response.data;
+
+        // Set today with the format from the API (for comparison)
         const [todayYear, todayMonth, todayDay] = data.today
           .split("/")
           .map(Number);
         setYear(todayYear);
         setMonth(todayMonth);
-        setToday(todayDay);
+        setToday({ year: todayYear, month: todayMonth, day: todayDay });
+
         fetchCalendarData(todayYear, todayMonth);
       } catch (error) {
         setError("Error fetching initial calendar data");
@@ -53,7 +59,7 @@ export const Calendar = () => {
     fetchInitialData();
   }, []);
 
-  const handlePrev = async () => {
+  const handlePrev = () => {
     if (month === 1) {
       setMonth(12);
       setYear((prevYear) => {
@@ -68,7 +74,7 @@ export const Calendar = () => {
     }
   };
 
-  const handleNext = async () => {
+  const handleNext = () => {
     if (month === 12) {
       setMonth(1);
       setYear((prevYear) => {
@@ -103,6 +109,7 @@ export const Calendar = () => {
 
     if (event) {
       setSelectedEvent(event);
+      setIsModalOpen(true); // Open modal when event is clicked
     } else {
       setSelectedEvent(null);
     }
@@ -142,12 +149,19 @@ export const Calendar = () => {
     }
 
     daysArray.forEach((day) => {
+      const isToday =
+        today &&
+        day === today.day &&
+        month === today.month &&
+        year === today.year;
+      const isFestival = eventDates[day];
+
       calendarGrid.push(
         <div
           key={day}
-          className={`text-center py-1 border border-black bg-white hover:bg-cyan-200 rounded-md cursor-pointer ${
-            eventDates[day] ? "text-red-600 font-bold" : ""
-          } ${day === today ? "bg-yellow-300" : ""}`}
+          className={`text-center py-1 border border-black rounded-md cursor-pointer ${
+            isFestival ? "bg-red-200 text-red-600 font-bold" : ""
+          } ${isToday ? "bg-yellow-300" : ""} hover:bg-cyan-200`}
           onClick={() => handleDateClick(day)}
         >
           {day}
@@ -176,7 +190,7 @@ export const Calendar = () => {
 
     const upcomingFestivals = calendarData.festivals.filter((festival) => {
       const startDate = new Date(festival.start_date).getDate();
-      return startDate >= today;
+      return startDate >= today.day;
     });
 
     if (upcomingFestivals.length === 0) {
@@ -189,11 +203,15 @@ export const Calendar = () => {
         <ul className="list-disc pl-5 space-y-2 mt-2">
           {upcomingFestivals.map((festival, index) => {
             const startDate = new Date(festival.start_date).getDate();
-            const daysLeft = startDate - today;
+            const daysLeft = startDate - today.day;
 
             return (
-              <li key={index} className="text-sm">
-                <strong>{festival.name}</strong> - {festival.start_date}
+              <li
+                key={index}
+                className="text-sm cursor-pointer"
+                onClick={() => handleDateClick(startDate)}
+              >
+                <strong>{startDate}</strong>
                 {daysLeft >= 0 ? (
                   <span className="ml-2 text-gray-500">
                     ({daysLeft} days left)
@@ -206,6 +224,13 @@ export const Calendar = () => {
       </div>
     );
   };
+
+  // Close the modal
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedEvent(null);
+  };
+
   const [isJatraOpen, setJatraOpen] = useState(false);
   return (
     <div className="flex flex-col items-start justify-center min-h-screen py-4 bg-gray-100/10 md:items-center">
@@ -223,7 +248,7 @@ export const Calendar = () => {
       )}
       {isJatraOpen && <AddJatraParva setJatraOpen={setJatraOpen} />}
       <div className="flex flex-wrap items-start justify-center w-full p-4 mx-auto md:w-3/4 lg:w-2/3">
-        <div className="bg-white shadow-xl rounded-lg overflow-hidden w-full md:w-1/2  flex flex-col">
+        <div className="bg-white shadow-xl rounded-lg overflow-hidden w-full md:w-1/2 flex flex-col">
           <img src={img} className="w-full" />
           <div className="flex items-center justify-between px-6 py-3 bg-cyan-600">
             <div>
@@ -235,8 +260,10 @@ export const Calendar = () => {
               />
             </div>
             <div className="flex gap-3">
-              <h2 className="text-lg text-white">{year}</h2>
-              <h2 className="text-lg text-white">{nepaliMonth[month]}</h2>
+              <h2 className="text-white font-semibold text-lg">{year}</h2>
+              <h2 className="text-white font-semibold text-lg">
+                {nepaliMonth[month]}
+              </h2>
             </div>
             <div>
               <FontAwesomeIcon
@@ -247,28 +274,33 @@ export const Calendar = () => {
               />
             </div>
           </div>
-          {error && (
-            <div className="py-2 text-center text-red-500">{error}</div>
-          )}
           {renderCalendar()}
         </div>
 
-        <div className="flex flex-col items-center justify-start w-full h-[100%] mt-4 md:w-1/2 p-4 text-gray-800 bg-white shadow-xl rounded-lg">
-          {selectedEvent && (
-            <>
-              <h3 className="text-xl font-bold">{selectedEvent.name}</h3>
-              <img
-                src={`${selectedEvent.image}`}
-                alt={selectedEvent.name}
-                className="w-1/2 h-auto mt-4 rounded-lg shadow"
-              />
-              <p className="mt-2 text-sm">{selectedEvent.description}</p>
-            </>
-          )}
-
+        <div className="mt-4 md:mt-0 md:ml-4 w-full md:w-1/3">
           {renderUpcomingHolidays()}
         </div>
       </div>
+
+      {/* Modal for showing event description */}
+      {selectedEvent && (
+        <Modal
+          isOpen={isModalOpen}
+          onRequestClose={closeModal}
+          contentLabel="Event Description"
+          className="modal"
+          overlayClassName="overlay"
+        >
+          <h2 className="text-xl font-semibold">{selectedEvent.title}</h2>
+          <p className="mt-2">{selectedEvent.description}</p>
+          <button
+            onClick={closeModal}
+            className="mt-4 px-4 py-2 bg-cyan-600 text-white rounded-md"
+          >
+            Close
+          </button>
+        </Modal>
+      )}
     </div>
   );
 };
