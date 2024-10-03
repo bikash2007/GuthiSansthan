@@ -13,7 +13,6 @@ export const ParvaDetailDescription = ({
 }) => {
   const [isDonation, setIsDonation] = useState(false);
   const isMobile = useMediaQuery("(max-width:800px)");
-  console.log(loc);
   return (
     <>
       <div className="w-full py-2 bg-slate-600/40  flex flex-col items-center">
@@ -42,7 +41,7 @@ export const ParvaDetailDescription = ({
           <div className="w-full justify-end px-2 flex mb-7">
             <button
               onClick={() => setIsDonation(true)}
-              className={` py-2 no-underline px-5 text-lg bg-red-600 text-white flex items-center justify-center mx-2 rounded-full hover:bg-red-700 cursor-pointer shadow-sm font-bold`}
+              className={` py-2 no-underline px-5 text-lg  bg-red-600 text-white flex items-center justify-center mx-2 rounded-full hover:bg-red-700 cursor-pointer shadow-sm font-bold`}
             >
               Donate
             </button>
@@ -56,7 +55,7 @@ export const ParvaDetailDescription = ({
           <FontAwesomeIcon
             icon={faClose}
             size={"2x"}
-            className="absolute top-0 right-1 text-red-600"
+            className="absolute top-0 right-1 cursor-pointer text-red-600"
             onClick={() => setIsDonation(false)}
           />
         </div>

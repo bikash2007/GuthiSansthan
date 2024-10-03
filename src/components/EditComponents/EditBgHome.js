@@ -22,7 +22,7 @@ export const EditBgHome = ({
   const [image, setImage] = useState(!isActualUploadedSame);
   const [creditName, setCreditName] = useState(""); // New state for credit name
   const dispatch = useDispatch();
-  const { isEditing, setIsEditing } = useEditing();
+  const { isEditing } = useEditing();
   const baseUrl = useSelector((state) => state.baseUrl).backend;
   const homePageDetail = useSelector((state) => state.homePageDetail);
 
@@ -31,7 +31,6 @@ export const EditBgHome = ({
     const file = document.getElementById("edit-bg-home-" + imageId).files[0];
     setHomePageBg(file);
     if (file.type.startsWith("image/")) {
-      console.log("image");
       dispatch(
         setNewImage({
           url: URL.createObjectURL(file),
@@ -40,7 +39,6 @@ export const EditBgHome = ({
         })
       );
     } else {
-      console.log("video");
       dispatch(
         setNewImage({
           url: URL.createObjectURL(file),
@@ -69,7 +67,6 @@ export const EditBgHome = ({
       activate_loader(true);
       const response = await fetch(url);
       const blob = await response.blob();
-      console.log("image id", imageId);
 
       if (homePageDetail["bg-video"].isVideo) {
         imageForm.append("video", homePageBg);
@@ -79,28 +76,20 @@ export const EditBgHome = ({
         imageForm.append("component_type", "image");
       }
 
-      // Patch the credit information to the API
-      imageForm.append(
-        "credit",
-        JSON.stringify({
-          name: creditName,
-          component_type: "text",
-        })
-      );
+      // First patch the image or video to the components API
+      await axios.patch(`${baseUrl}api/components/${imageId}/`, imageForm);
 
-      const apiResponse = await axios.patch(
-        baseUrl + "api/components/" + imageId + "/",
-        imageForm
-      );
+      // Then patch the credit information to the credit component API
+      const creditData = {
+        name: creditName,
+        component_type: "text",
+      };
 
-      if (homePageDetail["bg-video"].isVideo) {
-        console.log("Successfully uploaded the video");
-        showAlert("Successfully changed the background video", "green");
-      } else {
-        console.log("Successfully uploaded the image");
-        showAlert("Successfully changed the background image", "green");
-      }
+      await axios.patch(`${baseUrl}api/components/40/`, {
+        text: creditData,
+      });
 
+      showAlert("Successfully changed the background", "green");
       setContentHidden(false);
       setImage(false);
       fetchHomeData();
@@ -141,7 +130,7 @@ export const EditBgHome = ({
                 >
                   <FontAwesomeIcon icon={faAdd} className="text-white" />
                   <div className="text-white text-[10px] md:text-[20px]">
-                    Upload BackGround video or Image
+                    Upload Background video or Image
                   </div>
                 </label>
                 <input

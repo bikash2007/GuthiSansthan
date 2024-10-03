@@ -7,6 +7,8 @@ import img from "../../../../media/DonationPage/5.png";
 import { useEditing } from "../../../../context/EditingProvider";
 import AddJatraParva from "./AddJatraParva";
 import Modal from "react-modal";
+import ParvaDetails from "./ParvaDetails";
+import { Link, useNavigate } from "react-router-dom";
 
 export const Calendar = () => {
   const [calendarData, setCalendarData] = useState(null);
@@ -174,7 +176,7 @@ export const Calendar = () => {
         {daysOfWeek.map((day) => (
           <div
             key={day}
-            className="py-1 text-sm font-semibold text-center border-2 rounded-md md:text-lg border-cyan-400 bg-slate-200"
+            className="px-1 text-sm font-semibold text-center border-2 rounded-md md:text-lg border-cyan-400 bg-slate-200"
           >
             {day.slice(0, 3)}
           </div>
@@ -211,12 +213,26 @@ export const Calendar = () => {
                 className="text-sm cursor-pointer"
                 onClick={() => handleDateClick(startDate)}
               >
-                <strong>{startDate}</strong>
+                <strong className="font-semibold text-white text-sm ">
+                  ({startDate})-
+                  <span className="text-black text-lg font-abc">
+                    {festival.name}
+                  </span>
+                </strong>
                 {daysLeft >= 0 ? (
-                  <span className="ml-2 text-gray-500">
+                  <span className="ml-2 text-zinc-800">
                     ({daysLeft} days left)
                   </span>
                 ) : null}
+                <br></br>
+                <span>{festival.description}</span>
+                {festival.parva.map((item) => (
+                  <li>{item.name}</li>
+                ))}
+                <br></br>
+                <Link to={"/jatra-parva"} className="">
+                  see more..
+                </Link>
               </li>
             );
           })}
@@ -232,6 +248,7 @@ export const Calendar = () => {
   };
 
   const [isJatraOpen, setJatraOpen] = useState(false);
+  const [parvaDetails, setParvaDetails] = useState(false);
   return (
     <div className="flex flex-col items-start justify-center min-h-screen py-4 bg-gray-100/10 md:items-center">
       {isEditing && (
@@ -240,17 +257,17 @@ export const Calendar = () => {
             onClick={() => {
               setJatraOpen(true);
             }}
-            className="bg-green-700 hover:bg-green-800 rounded-md px-3 py-1"
+            className="bg-green-700 hover:bg-green-800 text-white font-semibold rounded-md px-3 py-1"
           >
             Add Jatra/Parva
           </button>
         </div>
       )}
       {isJatraOpen && <AddJatraParva setJatraOpen={setJatraOpen} />}
-      <div className="flex flex-wrap items-start justify-center w-full p-4 mx-auto md:w-3/4 lg:w-2/3">
-        <div className="bg-white shadow-xl rounded-lg overflow-hidden w-full md:w-1/2 flex flex-col">
+      <div className="flex flex-wrap items-start justify-start w-full  p-4 mx-auto gap-3">
+        <div className="bg-white shadow-xl rounded-lg overflow-hidden w-full md:w-1/3  flex flex-wrap ">
           <img src={img} className="w-full" />
-          <div className="flex items-center justify-between px-6 py-3 bg-cyan-600">
+          <div className="flex items-center w-full justify-between px-6 py-3 bg-cyan-600">
             <div>
               <FontAwesomeIcon
                 size="2x"
@@ -277,11 +294,23 @@ export const Calendar = () => {
           {renderCalendar()}
         </div>
 
-        <div className="mt-4 md:mt-0 md:ml-4 w-full md:w-1/3">
+        <div className="w-full md:w-1/2 rounded-md bg-zinc-600/30 backdrop-blur-sm">
           {renderUpcomingHolidays()}
         </div>
       </div>
-
+      <button
+        onClick={() => {
+          setParvaDetails(!parvaDetails);
+        }}
+        className={`${
+          parvaDetails
+            ? "bg-red-700 hover:bg-red-800"
+            : "bg-green-700 hover:bg-green-800"
+        } text-white font-semibold rounded-md px-3 py-1`}
+      >
+        {parvaDetails ? "cancel" : " veiw Parva Details"}
+      </button>
+      {parvaDetails && <ParvaDetails festival={calendarData} />}
       {/* Modal for showing event description */}
       {selectedEvent && (
         <Modal

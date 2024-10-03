@@ -39,26 +39,35 @@ export const EditText = ({
   });
   const dispatch = useDispatch();
 
+  // Update textData only when prevTextData changes and is different
   useEffect(() => {
-    setTextData((prev) => ({
-      ...prev,
-      ...prevTextData,
-    }));
+    if (JSON.stringify(prevTextData) !== JSON.stringify(textData)) {
+      setTextData((prev) => ({
+        ...prev,
+        ...prevTextData,
+      }));
+    }
   }, [prevTextData]);
 
+  // Update style only when styling changes and is different
   useEffect(() => {
-    setStyle((prev) => ({
-      ...prev,
-      ...styling,
-    }));
+    if (JSON.stringify(styling) !== JSON.stringify(style)) {
+      setStyle((prev) => ({
+        ...prev,
+        ...styling,
+      }));
+    }
   }, [styling]);
 
+  // Set editor data when textData or language changes
   useEffect(() => {
-    setEditorData(textData[language] || "");
+    if (textData[language] !== editorData) {
+      setEditorData(textData[language] || "");
+    }
   }, [language, textData]);
 
-  const handleChange = (value, language) => {
-    setTextData((prevData) => ({ ...prevData, [language]: value }));
+  const handleChange = (value, lang) => {
+    setTextData((prevData) => ({ ...prevData, [lang]: value }));
   };
 
   const handleSubmit = async () => {
@@ -69,10 +78,10 @@ export const EditText = ({
 
     try {
       activate_loader(true);
-      const response = await axios.patch(
-        `${baseUrl}api/components/${textId}/`,
-        { text: textData, styling: style }
-      );
+      await axios.patch(`${baseUrl}api/components/${textId}/`, {
+        text: textData,
+        styling: style,
+      });
       dispatch(setNewData({ text: textData, styling: style }));
       addLanguage({ key: keyName, lngs: textData });
       setActivateEdit(false);
@@ -205,32 +214,30 @@ export const EditText = ({
                       />
                     </div>
                   </div>
-                  {usedLngs.map((value, index) => (
-                    <>
-                      {language === value && (
+                  {usedLngs.map(
+                    (value) =>
+                      language === value && (
                         <textarea
+                          key={value} // Add a key to avoid warning
                           value={textData[value]}
                           onChange={(e) =>
                             handleChange(e.target.value, language)
                           }
                           className={`${style.bold ? "font-bold" : ""} ${
                             style.italic ? "italic" : ""
-                          } text-[${style.fontSize}px] ${
-                            style.underline ? "underline" : ""
                           } h-full w-full p-2 bg-slate-600/30`}
                           style={{
                             color: style.color,
                             fontSize: `${style.fontSize}px`,
                           }}
                         />
-                      )}
-                    </>
-                  ))}
+                      )
+                  )}
                 </div>
                 <div className="flex flex-row text-white items-center justify-center w-full gap-2">
                   <div
                     className="z-50 cursor-pointer flex items-center justify-center m-2 bg-red-600 py-1 font-normal px-2 border border-white hover:bg-red-700 text-[15px] w-fit h-fit rounded-md"
-                    onClick={() => removeUpdate}
+                    onClick={removeUpdate} // Call the function correctly
                   >
                     Remove
                   </div>

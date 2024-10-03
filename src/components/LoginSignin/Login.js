@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useSelector } from "react-redux";
+
 export const Login = () => {
   const isMobile = useMediaQuery("(max-width:800px)");
   const { t } = useTranslation();
@@ -16,6 +17,7 @@ export const Login = () => {
   const passRef = useRef();
   const navigate = useNavigate();
   const baseUrl = useSelector((state) => state.baseUrl).backend;
+
   const handleSubmit = async () => {
     const username = userRef.current.value.trim();
     const password = passRef.current.value.trim();
@@ -54,6 +56,13 @@ export const Login = () => {
     } catch (error) {
       console.error("Error:", error);
       toast.error("Invalid username or password");
+    }
+  };
+
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault(); // Prevent default form submission behavior
+      handleSubmit();
     }
   };
 
@@ -96,6 +105,7 @@ export const Login = () => {
                   ref={userRef}
                   type="text"
                   className="text-black w-[350px] h-10 rounded border  focus:outline-cyan-600"
+                  onKeyDown={handleKeyDown} // Add keyDown event handler
                 />
               </div>
               <div>
@@ -106,6 +116,7 @@ export const Login = () => {
                   ref={passRef}
                   type="password"
                   className="text-black w-[350px] h-10 rounded focus:outline-cyan-600"
+                  onKeyDown={handleKeyDown} // Add keyDown event handler
                 />
               </div>
               <br />
@@ -114,15 +125,10 @@ export const Login = () => {
                 <div className="mx-3 text-white"> Or</div>
                 <div className="bg-zinc-800 h-[1px] w-1/3"></div>
               </div>
-              {/* <div className="w-full flex justify-center my-2 items-center bg-white hover:bg-blue-500 h-24">
-                <button className="text-black px-3 h-fit border border-black rounded-md py-2 items-center justify-center gap-2 flex">
-                  <FontAwesomeIcon icon={faGoogle} /> Sign In with Google
-                </button>
-              </div> */}
               <div className="items-end justify-end">
                 <button
                   onClick={handleSubmit}
-                  className="rounded-full px-4 py-1 font-bold text-white bg-blue-600 text-align-center mt-2"
+                  className="rounded-full px-4 py-1 font-bold text-white bg-cyan-500 font-abc text-align-center mt-2"
                 >
                   <h5>{t("log-in")}</h5>
                 </button>

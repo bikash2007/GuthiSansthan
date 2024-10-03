@@ -84,9 +84,7 @@ export const HeaderTop = () => {
   const saveBlur = async (blurValue) => {
     try {
       await axios.patch(`${baseUrl}api/global-components/6/`, {
-        blur: {
-          text: { value: blurValue },
-        },
+        text: { value: blurValue },
       });
     } catch (error) {
       console.error("Error saving blur value:", error);
@@ -222,15 +220,24 @@ export const HeaderTop = () => {
         </div>
 
         {!token && (
-          <Link
-            to="/sign-up"
-            className={`${
-              isMobile ? "text-[12px]" : "px-2 py-1"
-            } no-underline bg-gray-300/30 backdrop-blur-sm text-neutral-200 hover:text-white flex items-center justify-center gap-1 rounded-full hover:scale-110 transition-all ease-linear duration-75 cursor-pointer shadow-sm font-light`}
-          >
-            {t("sign-up")}
-            <FontAwesomeIcon icon={faUserCircle} className="scale-125" />
-          </Link>
+          <div className="flex gap-2">
+            <Link
+              to="/sign-up"
+              className={`${
+                isMobile ? "text-[12px]" : "px-2 py-1"
+              } no-underline bg-white backdrop-blur-sm text-base border-2 border-cyan-500  text-cyan-500 font-abc  flex items-center justify-center gap-1 rounded-full hover:scale-110 transition-all ease-linear duration-75 cursor-pointer shadow-sm `}
+            >
+              {t("sign-up")}
+            </Link>
+            <Link
+              to="/log-in"
+              className={`${
+                isMobile ? "text-[12px]" : "px-2 py-1"
+              } no-underline bg-cyan-500 backdrop-blur-sm border-2 text-neutral-200 font-abc hover:text-white flex items-center justify-center gap-1 rounded-full hover:scale-110 transition-all ease-linear duration-75 cursor-pointer shadow-sm font-medium`}
+            >
+              {t("sign-in")}
+            </Link>
+          </div>
         )}
         {token && (
           <div className="relative text-left text-white" ref={dropdownRef}>

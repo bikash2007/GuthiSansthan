@@ -93,9 +93,9 @@ export const HomePage = () => {
   }, []);
   const fetchCredit = async () => {
     try {
-      const response = await axios.get(`${baseUrl}api/pages/`);
-      console.log("credit", response.data[0].components.credit.text.English);
-      setCreditName(response.data[0].components.credit.text.English);
+      const response = await axios.get(`${baseUrl}api/components/40/`);
+      console.log("credit", response.data.text.Name);
+      setCreditName(response.data.text.Name);
     } catch (error) {
       console.log("hello");
     }
