@@ -4,14 +4,28 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useSelector } from "react-redux";
 
 import { ParvaInstance } from "../../JataraMandir/Parva/ParvaInstance";
-export const BranchFestival = ({ branchName, festival }) => {
+import { useEffect, useState } from "react";
+import axios from "axios";
+export const BranchFestival = ({ branchName, branchId }) => {
   const { isEditing, setIsEditing } = useEditing();
   const baseUrl = useSelector((state) => state.baseUrl).backend;
+  const [festival, setFestival] = useState([]);
 
-  const fetchBranchAllParva = () => {
-    console.log("fetcing alll parva of" + branchName);
-    console.log(festival);
+  useEffect(() => {
+    fetchBranchAllParva();
+  }, [baseUrl, branchId]); // Added dependency array
+
+  const fetchBranchAllParva = async () => {
+    try {
+      const response = await axios.get(
+        `${baseUrl}api/branches/${branchId}/get-festivals/`
+      );
+      setFestival(response.data); // Axios stores data in response.data
+    } catch (error) {
+      console.error("Error fetching festivals:", error);
+    }
   };
+
   return (
     <>
       <div className="w-full  rounded-md h-fit flex items-center justify-center flex-wrap px-2 gap-4">

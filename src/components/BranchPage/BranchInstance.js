@@ -8,9 +8,7 @@ import { useSelector } from "react-redux";
 export const BranchInstance = ({
   imgUrl,
   name,
-  festivals,
-  notices,
-  articles,
+
   branchHead,
   branchId,
   onRemove,
@@ -38,9 +36,6 @@ export const BranchInstance = ({
         state={{
           name: name,
           img: imgUrl,
-          festivals: festivals,
-          notices: notices,
-          articles: articles,
           branchHead: branchHead,
           branchId: branchId,
           branchDetails: branchDetails,

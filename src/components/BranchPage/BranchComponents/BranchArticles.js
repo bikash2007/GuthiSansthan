@@ -4,9 +4,28 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { useEditing } from "../../../context/EditingProvider";
-export const BranchArticles = ({ branchName, articles }) => {
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import axios from "axios";
+export const BranchArticles = ({ branchName, branchId }) => {
   const { isEditing, setIsEditing } = useEditing();
+  const baseUrl = useSelector((state) => state.baseUrl).backend;
+  const [articles, setarticles] = useState([]);
 
+  useEffect(() => {
+    fetchBranchAllParva();
+  }, [baseUrl, branchId]); // Added dependency array
+
+  const fetchBranchAllParva = async () => {
+    try {
+      const response = await axios.get(
+        `${baseUrl}api/branches/${branchId}/get-articles/`
+      );
+      setarticles(response.data); // Axios stores data in response.data
+    } catch (error) {
+      console.error("Error fetching articles:", error);
+    }
+  };
   return (
     <div className="w-full rounded-lg">
       {isEditing && (

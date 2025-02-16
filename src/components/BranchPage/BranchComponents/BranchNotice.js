@@ -3,9 +3,29 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useEditing } from "../../../context/EditingProvider";
 import { InstanceNotice } from "../../Articles/NoticeSection/InstanceNotice";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { useSelector } from "react-redux";
 
-export const BranchNotice = ({ branchName, notices }) => {
+export const BranchNotice = ({ branchName, branchId }) => {
   const { isEditing } = useEditing();
+  const baseUrl = useSelector((state) => state.baseUrl).backend;
+  const [notices, setNotices] = useState([]);
+
+  useEffect(() => {
+    fetchBranchAllNotice();
+  }, [baseUrl, branchId]); // Add dependencies to prevent infinite calls
+
+  const fetchBranchAllNotice = async () => {
+    try {
+      const response = await axios.get(
+        `${baseUrl}api/branches/${branchId}/get-notices/`
+      );
+      setNotices(response.data); // axios stores data in response.data
+    } catch (error) {
+      console.error("Error fetching notices:", error);
+    }
+  };
 
   return (
     <div className="w-full  h-full flex flex-col items-center justify-center">
