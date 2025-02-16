@@ -8,7 +8,7 @@ export const BaseUrlSlice = createSlice({
     //  'backend':'https://guthi.pythonanywhere.com/',
     //  'backend':'https://4.145.89.69/',
     // backend: "https://ingnepal.org.np/",
-    backend: "https://ingnepal.org.np/",
+    backend: "https://api.guthisansthan.org.np/",
     // backend: "http://192.168.1.142:8000/",
 
     //    'backend':'http://127.0.0.1:8000/',

@@ -92,9 +92,6 @@ export const BranchMainPage = () => {
             key={item.id}
             imgUrl={item.image}
             name={item.name}
-            festivals={item.festivals}
-            notices={item.notices}
-            articles={item.articles}
             branchHead={item.branch_head_info}
             branchId={item.id}
             branchDetails={item}

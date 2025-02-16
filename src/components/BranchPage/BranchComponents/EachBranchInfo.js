@@ -164,19 +164,19 @@ export const EachBranchInfo = () => {
         <div className="flex items-center justify-center w-full pt-8">
           {section === "article" && (
             <BranchArticles
-              articles={loc.state.articles}
+              branchId={loc.state.branchId}
               branchName={loc.state.name}
             />
           )}
           {section === "notice" && (
             <BranchNotice
-              notices={loc.state.notices}
+              branchId={loc.state.branchId}
               branchName={loc.state.name}
             />
           )}
           {section === "festival" && (
             <BranchFestival
-              festival={loc.state.festivals}
+              branchId={loc.state.branchId}
               branchName={loc.state.name}
             />
           )}
