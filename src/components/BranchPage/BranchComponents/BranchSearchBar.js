@@ -1,14 +1,16 @@
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 
 const BranchSearchBar = ({ headUserId }) => {
   const [inpVal, setInpVal] = useState("");
   const [result, setResult] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
+  const baseUrl = useSelector((state) => state.baseUrl).backend;
 
   const fetchData = async (val) => {
-    fetch("https://ingnepal.org.np/api/users/?search=" + val)
+    fetch(`${baseUrl}api/users/?search=` + val)
       .then((response) => response.json())
       .then((json) => {
         const filteredResult = json.filter((user) => {

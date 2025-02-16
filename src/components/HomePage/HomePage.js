@@ -110,7 +110,7 @@ export const HomePage = () => {
         style={{ height: `${isEditing ? "calc(100vh - 100px)" : "100%"}` }}
         className="flex flex-col items-center justify-start h-full relative overflow-hidden"
       >
-        <div className="absolute top-0 left-0 w-full h-full bg-black opacity-20 -z-10"></div>
+        <div className="absolute top-0 left-0 w-full h-full bg-black opacity-40 -z-10"></div>
         <Link to={"/articles"} className="relative z-30 w-full">
           <h3 className="absolute left-0 top-0 bg-[#00ADEF] backdrop-blur-3xl text-white py-1 font-semibold text-base flex justify-center items-center h-[40px] px-2  z-40">
             {t("notice")}
@@ -156,7 +156,7 @@ export const HomePage = () => {
           >
             {homePageDetail["bg-video"].isImage && (
               <div
-                className="bg-cover bg-center fixed -z-10 w-full h-screen top-0"
+                className="bg-cover bg-center fixed -z-20 w-full h-screen top-0"
                 style={{
                   backgroundImage: `url(${homePageDetail["bg-video"].url})`,
                 }}

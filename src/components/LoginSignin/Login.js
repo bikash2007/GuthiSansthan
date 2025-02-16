@@ -47,6 +47,7 @@ export const Login = () => {
       console.log(result);
       sessionStorage.setItem("username", result.username);
       sessionStorage.setItem("email", result.email);
+      sessionStorage.setItem("userId", result.id);
       sessionStorage.setItem("firstname", result.first_name);
       sessionStorage.setItem("lastname", result.last_name);
       sessionStorage.setItem("superUser", result.is_superuser);
