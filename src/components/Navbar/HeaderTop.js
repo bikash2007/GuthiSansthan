@@ -57,9 +57,17 @@ export const HeaderTop = () => {
     const fetchInitialBlur = async () => {
       try {
         const response = await axios.get(`${baseUrl}api/global-components/6/`);
-        const initialBlurValue = response.data.blur.text.value; // Adjust based on your API structure
-        console.log(initialBlurValue);
-        setBlur(initialBlurValue);
+        if (
+          response.data &&
+          response.data.text &&
+          response.data.text.value !== undefined
+        ) {
+          const initialBlurValue = Number(response.data.text.value);
+          console.log(initialBlurValue);
+          setBlur(initialBlurValue);
+        } else {
+          console.error("Unexpected API response:", response.data);
+        }
       } catch (error) {
         console.error("Error fetching initial blur value:", error);
       }
@@ -77,16 +85,14 @@ export const HeaderTop = () => {
   const handleBlurChange = async (event) => {
     const newBlur = Number(event.target.value);
     setBlur(newBlur);
-    await saveBlur(newBlur); // Call saveBlur function
+    saveBlur(newBlur);
   };
 
   // Function to save blur to the API
   const saveBlur = async (blurValue) => {
     try {
       await axios.patch(`${baseUrl}api/global-components/6/`, {
-        blur: {
-          text: { value: blurValue },
-        },
+        text: { value: blurValue },
       });
     } catch (error) {
       console.error("Error saving blur value:", error);
@@ -173,7 +179,7 @@ export const HeaderTop = () => {
           <br />
         </span>
         <h4
-          className="text-white font-bold text-base lg:text-5xl hover:text-cyan-500"
+          className="text-white font-bold text-sm md:text-5xl hover:text-cyan-500"
           style={{ textShadow: "0px 0px 10px rgba(0, 255, 255, 0.8)" }}
         >
           {t("logo")}
@@ -209,28 +215,55 @@ export const HeaderTop = () => {
           ref={divRef}
           className="relative flex gap-1 items-center w-auto lg:w-auto"
         >
-          <select
-            value={selectLanguage}
-            onChange={handleLanguageChange}
-            className="bg-gray-300/30 text-black rounded-full px-2 py-1 cursor-pointer w-auto lg:w-auto backdrop-blur-sm border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          >
-            <option value="Nepali">Nepali</option>
-            <option value="English">English</option>
-            {/* <option value="newari">Newari</option> */}
-            {/* <option value="mithila">Mithila</option> */}
-          </select>
+          <div className="relative w-auto lg:w-auto">
+            <select
+              value={selectLanguage}
+              onChange={handleLanguageChange}
+              className="bg-gray-300/30 text-cyan-400 rounded-full px-4 py-1 cursor-pointer w-full backdrop-blur-sm border focus:outline-none focus:ring-2 focus:ring-blue-500 appearance-none pr-12"
+            >
+              <option value="Nepali ">Nepali </option>
+              <option value="English">English </option>
+              {/* <option value="newari">Newari</option> */}
+              {/* <option value="mithila">Mithila</option> */}
+            </select>
+            <span className="absolute right-1 top-1/2 transform -translate-y-1/2 pointer-events-none text-white ">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                className="w-5 h-5"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M19 9l-7 7-7-7"
+                />
+              </svg>
+            </span>
+          </div>
         </div>
 
         {!token && (
-          <Link
-            to="/sign-up"
-            className={`${
-              isMobile ? "text-[12px]" : "px-2 py-1"
-            } no-underline bg-gray-300/30 backdrop-blur-sm text-neutral-200 hover:text-white flex items-center justify-center gap-1 rounded-full hover:scale-110 transition-all ease-linear duration-75 cursor-pointer shadow-sm font-light`}
-          >
-            {t("sign-up")}
-            <FontAwesomeIcon icon={faUserCircle} className="scale-125" />
-          </Link>
+          <div className="flex flex-col md:flex-row gap-2">
+            <Link
+              to="/sign-up"
+              className={`${
+                isMobile ? "text-[10px]" : "px-2 py-1"
+              } no-underline bg-white backdrop-blur-sm text-sm md:text-base border-2 border-cyan-500  text-cyan-500 font-abc  flex items-center justify-center gap-1 rounded-full hover:scale-110 transition-all ease-linear duration-75 cursor-pointer shadow-sm `}
+            >
+              {t("sign-up")}
+            </Link>
+            <Link
+              to="/log-in"
+              className={`${
+                isMobile ? "text-[12px]" : "px-2 py-1"
+              } no-underline bg-cyan-500 backdrop-blur-sm border-2 text-neutral-200 font-abc hover:text-white flex items-center justify-center gap-1 rounded-full hover:scale-110 transition-all ease-linear duration-75 cursor-pointer shadow-sm font-medium`}
+            >
+              {t("sign-in")}
+            </Link>
+          </div>
         )}
         {token && (
           <div className="relative text-left text-white" ref={dropdownRef}>
@@ -241,7 +274,7 @@ export const HeaderTop = () => {
               onClick={toggleDropdown}
             />
             {isOpen && (
-              <div className="absolute right-0 mt-2 w-fit bg-zinc-700/30 backdrop-blur-sm border border-gray-300 rounded-lg shadow-lg z-40">
+              <div className="absolute right-0 mt-2 w-fit bg-zinc-700/80 backdrop-blur-lg border font-semibold border-gray-300 rounded-lg shadow-lg z-40">
                 <Link
                   to="/user/profile"
                   className="block px-1 py-2 text-sm text-white no-underline hover:bg-cyan-400/30 hover:text-red-500"

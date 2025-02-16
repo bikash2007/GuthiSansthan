@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { NepaliDatePicker } from "nepali-datepicker-reactjs";
 import "nepali-datepicker-reactjs/dist/index.css";
 import { useMediaQuery } from "@mui/material";
@@ -22,7 +22,27 @@ export const AddJatra = ({ fetchAllParva, parvaAddingUrl }) => {
   const [addParvaActivate, setAddParvaActivate] = useState(false);
   const [imagePreview, setImagePreview] = useState(null);
   const [qrPreview, setQrPreview] = useState(null);
+  const [loading, setLoading] = useState(false); // State to track loading
+  const [branches, setBranches] = useState([]); // Store branches
+  const [selectedBranch, setSelectedBranch] = useState(""); // Selected branch
   const isMobile = useMediaQuery("(max-width:800px)");
+
+  // Fetch branches from the API
+  useEffect(() => {
+    const fetchBranches = async () => {
+      try {
+        const response = await axios.get(
+          "https://ingnepal.org.np/api/branches/"
+        );
+        setBranches(response.data); // Assuming response is in proper format
+      } catch (error) {
+        console.error("Error fetching branches:", error);
+        showAlert("Error fetching branches", "red");
+      }
+    };
+
+    fetchBranches();
+  }, []);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -44,16 +64,18 @@ export const AddJatra = ({ fetchAllParva, parvaAddingUrl }) => {
 
   const handleSubmit = async () => {
     const name = nameRef.current.value.trim();
-    const location = branchRef.current.value.trim();
-    const image = photoRef.current.files[0];
-    const qrcode = qrRef.current.files[0];
+    const location = selectedBranch; // Use selected branch from dropdown
+    const image = photoRef.current ? photoRef.current.files[0] : null;
+    const qrcode = qrRef.current ? qrRef.current.files[0] : null;
     const description = desRef.current.value.trim();
 
-    // Validate if all fields are filled
-    if (!name || !startDate || !endDate || !image || !qrcode || !description) {
-      showAlert("Please fill out all fields.", "red");
+    // Validate if required fields are filled
+    if (!name || !startDate || !endDate || !description) {
+      showAlert("Please fill out all required fields.", "red");
       return;
     }
+
+    setLoading(true); // Start loading
 
     const formData = new FormData();
     formData.append("name", name);
@@ -73,14 +95,15 @@ export const AddJatra = ({ fetchAllParva, parvaAddingUrl }) => {
       });
 
       showAlert("Jatra added successfully!", "green");
+      window.location.reload();
       fetchAllParva();
       setAddParvaActivate(false);
 
       // Clear the form after submission
       nameRef.current.value = "";
-      branchRef.current.value = "";
-      photoRef.current.value = "";
-      qrRef.current.value = "";
+      setSelectedBranch("");
+      if (photoRef.current) photoRef.current.value = "";
+      if (qrRef.current) qrRef.current.value = "";
       desRef.current.value = "";
       setStartDate("");
       setEndDate("");
@@ -89,13 +112,15 @@ export const AddJatra = ({ fetchAllParva, parvaAddingUrl }) => {
     } catch (error) {
       console.error("Error:", error);
       showAlert("There was an error submitting the form.", "red");
+    } finally {
+      setLoading(false); // Stop loading
     }
   };
 
   return (
     <>
       <div className="flex w-full h-fit items-center justify-center mt-96">
-        <div className="flex flex-col w-[90%] mt-11 bg-white/50 backdrop-blur-sm rounded-lg lg:w-[50%] p-3 gap-2 mb-12">
+        <div className="flex flex-col w-[90%] mt-64 bg-white/50 backdrop-blur-sm rounded-lg lg:w-[50%] p-3 gap-2 mb-12">
           <h1 className="font-semibold tracking-wider my-2">Jatra Form</h1>
           <div className="flex flex-col flex-wrap py-1 border-y-2 border-b-zinc-700/5 lg:flex-row gap-2 items-center">
             <label className="font-semibold text-lg">Jatra Name:</label>
@@ -103,16 +128,28 @@ export const AddJatra = ({ fetchAllParva, parvaAddingUrl }) => {
               type="text"
               ref={nameRef}
               className="w-full lg:w-2/3 h-12 rounded-md px-3 py-2 border border-zinc-900"
+              required
             />
           </div>
+
           <div className="flex flex-col flex-wrap py-1 border-y-2 border-b-zinc-700/5 lg:flex-row gap-2 items-center">
-            <label className="font-semibold text-lg">Branch location:</label>
-            <input
-              type="text"
-              ref={branchRef}
+            <label className="font-semibold text-lg">
+              Branch location (optional):
+            </label>
+            <select
               className="w-full lg:w-2/3 h-12 rounded-md px-3 py-2 border border-zinc-900"
-            />
+              value={selectedBranch}
+              onChange={(e) => setSelectedBranch(e.target.value)}
+            >
+              <option value="">Select a branch</option>
+              {branches.map((branch) => (
+                <option key={branch.id} value={branch.name}>
+                  {branch.name}
+                </option>
+              ))}
+            </select>
           </div>
+
           <div className="flex flex-col flex-wrap py-1 border-y-2 border-b-zinc-700/5 lg:flex-row gap-2 items-center">
             <label className="font-semibold text-lg">Starting date (BS):</label>
             <NepaliDatePicker
@@ -121,8 +158,10 @@ export const AddJatra = ({ fetchAllParva, parvaAddingUrl }) => {
               value={startDate}
               onChange={(value) => setStartDate(value)}
               options={{ calenderLocale: "ne", valueLocale: "en" }}
+              required
             />
           </div>
+
           <div className="flex flex-col flex-wrap py-1 border-y-2 border-b-zinc-700/5 lg:flex-row gap-2 items-center">
             <label className="font-semibold text-lg">Ending date (BS):</label>
             <NepaliDatePicker
@@ -131,10 +170,14 @@ export const AddJatra = ({ fetchAllParva, parvaAddingUrl }) => {
               value={endDate}
               onChange={(value) => setEndDate(value)}
               options={{ calenderLocale: "ne", valueLocale: "en" }}
+              required
             />
           </div>
+
           <div className="flex flex-col flex-wrap py-1 border-y-2 border-b-zinc-700/5 lg:flex-row gap-2 items-center">
-            <label className="font-semibold text-lg">Upload Images:</label>
+            <label className="font-semibold text-lg">
+              Upload Images (optional):
+            </label>
             <div className="relative">
               {imagePreview ? (
                 <div className="relative">
@@ -148,7 +191,7 @@ export const AddJatra = ({ fetchAllParva, parvaAddingUrl }) => {
                     className="absolute top-0 right-0 bg-red-600 text-white p-1 rounded-full"
                     onClick={() => {
                       setImagePreview(null);
-                      photoRef.current.value = null;
+                      if (photoRef.current) photoRef.current.value = null;
                     }}
                   >
                     <FontAwesomeIcon icon={faClose} />
@@ -172,29 +215,34 @@ export const AddJatra = ({ fetchAllParva, parvaAddingUrl }) => {
               />
             </div>
           </div>
+
           <div className="flex flex-wrap flex-col py-1 border-y-2 border-b-zinc-700/5 lg:flex-row gap-2 items-center">
             <label className="font-semibold text-lg">Description:</label>
             <textarea
               ref={desRef}
               className="w-full lg:w-2/3 rounded-md h-44 px-2 py-3 border border-cyan-400"
+              required
             />
           </div>
+
           <div className="flex flex-col flex-wrap py-1 border-y-2 border-b-zinc-700/5 lg:flex-row gap-2 items-center">
-            <label className="font-semibold text-lg">Upload QR Code:</label>
+            <label className="font-semibold text-lg">
+              Upload QR code (optional):
+            </label>
             <div className="relative">
               {qrPreview ? (
                 <div className="relative">
                   <img
                     src={qrPreview}
-                    alt="QR Preview"
-                    className="w-full min-w-32 h-32 object-cover rounded-md"
+                    alt="QR Code Preview"
+                    className="w-full h-32 object-cover rounded-md"
                   />
                   <button
                     type="button"
                     className="absolute top-0 right-0 bg-red-600 text-white p-1 rounded-full"
                     onClick={() => {
                       setQrPreview(null);
-                      qrRef.current.value = null;
+                      if (qrRef.current) qrRef.current.value = null;
                     }}
                   >
                     <FontAwesomeIcon icon={faClose} />
@@ -218,14 +266,15 @@ export const AddJatra = ({ fetchAllParva, parvaAddingUrl }) => {
               />
             </div>
           </div>
-          <div className="flex items-center justify-center mt-4">
-            <button
-              className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600"
-              onClick={handleSubmit}
-            >
-              Submit
-            </button>
-          </div>
+
+          <button
+            type="button"
+            onClick={handleSubmit}
+            disabled={loading} // Disable button while loading
+            className="bg-primary text-white p-2 rounded-md hover:bg-opacity-80 w-fit self-center px-12 mt-3"
+          >
+            {loading ? "Submitting..." : "Submit"}
+          </button>
         </div>
       </div>
     </>

@@ -21,7 +21,7 @@ const JatraMandir = () => {
               : "bg-white text-cyan-500 dark:bg-gray-700 dark:text-cyan-300"
           } font-semibold focus:outline-none`}
         >
-          Parva
+          Jatra
         </button>
         <button
           onClick={() => handleTabSwitch("temple")}

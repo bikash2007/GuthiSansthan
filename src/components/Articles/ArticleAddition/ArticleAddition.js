@@ -13,6 +13,7 @@ export const ArticleAddition = () => {
   const articlePageDetail = useSelector((state) => state.articlePageDetail);
   const loc = useLocation();
   const token = sessionStorage.getItem("token");
+  const userId = sessionStorage.getItem("userId");
 
   const handleImageChange = (e) => {
     setImage(e.target.files[0]);
@@ -26,7 +27,7 @@ export const ArticleAddition = () => {
       finalFormData.append("title", title);
       finalFormData.append("text", description);
       finalFormData.append("image", image);
-      finalFormData.append("created_by", 1); // Replace with the actual user ID
+      finalFormData.append("created_by", userId); // Replace with the actual user ID
 
       const response = await axios.post(
         baseUrl + articlePageDetail.dynamicUrl,
@@ -48,9 +49,7 @@ export const ArticleAddition = () => {
 
   return (
     <div className="flex items-center justify-center w-[1500px] h-[550px] mt-4">
-      <div
-      
-      className="w-full max-w-xl px-6 py-6 h-[590px] bg-gray-600/30 rounded-lg shadow-lg  backdrop-blur-xl hover:shadow-2xl transition-shadow duration-300 ease-in-out">
+      <div className="w-full max-w-xl px-6 py-6 h-[590px] bg-gray-600/30 rounded-lg shadow-lg  backdrop-blur-xl hover:shadow-2xl transition-shadow duration-300 ease-in-out">
         <h1 className="mt-4 mb-6 text-4xl font-bold text-center text-white font-poppins">
           Add New Article
         </h1>

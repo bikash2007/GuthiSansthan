@@ -89,7 +89,7 @@ export const ParvaInstance = ({
         <div
           className={`${
             isMobile ? "text-[15px]" : "text-[20px]"
-          }   items-center bg-orange-700 backdrop-blur-lg mb-4 justify-center flex text-white font-bold z-10`}
+          }   items-center bg-orange-700 cursor-pointer backdrop-blur-lg mb-4 justify-center flex text-white font-bold z-10`}
           onClick={handleContent}
         >
           {name}
@@ -104,7 +104,7 @@ export const ParvaInstance = ({
           <FontAwesomeIcon
             icon={faClose}
             size={"2x"}
-            className="absolute top-0 right-1 text-red-600"
+            className="absolute top-0 right-1 cursor-pointer text-red-600"
             onClick={hideContent}
           />
           {!isParvaEditingActivate && (
