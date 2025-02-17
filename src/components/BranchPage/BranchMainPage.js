@@ -33,8 +33,12 @@ export const BranchMainPage = () => {
         const bgData = response.data.components["bg-video"];
         if (bgData) {
           setBackground({
-            image: bgData.image ? `https://ingnepal.org.np${bgData.image}` : "",
-            video: bgData.video ? `https://ingnepal.org.np${bgData.video}` : "",
+            image: bgData.image
+              ? `https://api.guthisansthan.org.np${bgData.image}`
+              : "",
+            video: bgData.video
+              ? `https://api.guthisansthan.org.np${bgData.video}`
+              : "",
           });
         }
       } catch (error) {

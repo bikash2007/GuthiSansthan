@@ -3,25 +3,26 @@ import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import "@fontsource/poppins"; // Ensure Poppins font is imported
+import "@fontsource/poppins";
+import { useSelector } from "react-redux";
 
 const NoticeForm = () => {
   const titleRef = useRef();
   const textRef = useRef();
   const photoRef = useRef();
-  const branchRef = useRef(); // Reference for branch dropdown
-  const [branches, setBranches] = useState([]); // State to hold branch data
+  const branchRef = useRef();
+  const [branches, setBranches] = useState([]);
+  const [displayPopup, setDisplayPopup] = useState(false); // Checkbox state
+
   const navigate = useNavigate();
   const token = sessionStorage.getItem("token");
+  const baseUrl = useSelector((state) => state.baseUrl).backend;
 
-  // Fetch branches when component mounts
   useEffect(() => {
     const fetchBranches = async () => {
       try {
-        const response = await axios.get(
-          "https://ingnepal.org.np/api/branches/"
-        );
-        setBranches(response.data); // Set the branch data from the API
+        const response = await axios.get(`${baseUrl}api/branches/`);
+        setBranches(response.data);
       } catch (error) {
         console.error("Error fetching branches:", error);
         toast.error("Failed to load branches.");
@@ -37,25 +38,22 @@ const NoticeForm = () => {
     const title = titleRef.current.value;
     const text = textRef.current.value;
     const image = photoRef.current.files[0];
-    const branchId = branchRef.current.value; // Get selected branch ID
+    const branchId = branchRef.current.value;
 
     const formData = new FormData();
     formData.append("title", title);
     formData.append("text", text);
     formData.append("image", image);
-    formData.append("branch", branchId); // Add selected branch to form data
+    formData.append("branch", branchId);
+    formData.append("display_popup", displayPopup); // Include checkbox value
 
     try {
-      const response = await axios.post(
-        "https://ingnepal.org.np/api/notices/",
-        formData,
-        {
-          headers: {
-            Authorization: `Token ${token}`,
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      const response = await axios.post(`${baseUrl}api/notices/`, formData, {
+        headers: {
+          Authorization: `Token ${token}`,
+          "Content-Type": "multipart/form-data",
+        },
+      });
 
       if (response.status === 201) {
         toast.success("Successfully added!");
@@ -127,6 +125,22 @@ const NoticeForm = () => {
                 </option>
               ))}
             </select>
+          </div>
+          {/* Display Popup Checkbox */}
+          <div className="flex items-center">
+            <input
+              type="checkbox"
+              id="displayPopup"
+              checked={displayPopup}
+              onChange={(e) => setDisplayPopup(e.target.checked)}
+              className="w-5 h-5 text-green-600 bg-gray-200 border-gray-300 rounded focus:ring-green-500"
+            />
+            <label
+              htmlFor="displayPopup"
+              className="ml-3 text-lg font-medium text-white font-poppins"
+            >
+              Show as Popup
+            </label>
           </div>
           <button
             type="submit"

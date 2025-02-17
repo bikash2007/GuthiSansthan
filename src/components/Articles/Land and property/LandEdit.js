@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 const LandEdit = ({ land, onClose, onSave }) => {
   const [formData, setFormData] = useState({
     title: "",
     file: null,
   });
-
+  const baseUrl = useSelector((state) => state.baseUrl).backend;
   useEffect(() => {
     if (land) {
       setFormData({
@@ -33,7 +34,7 @@ const LandEdit = ({ land, onClose, onSave }) => {
 
     try {
       const response = await axios.patch(
-        `https://ingnepal.org.np/api/rates/${land.id}/`,
+        `${baseUrl}api/rates/${land.id}/`,
         data,
         {
           headers: {
