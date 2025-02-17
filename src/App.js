@@ -94,9 +94,7 @@ function App() {
       }
     };
     if (!globalDetail.isFetched) fetchGlobalData();
-    setPopup(true);
   }, []);
-  const [popup, setPopup] = useState(false);
 
   return (
     <div className={`App relative ${location.pathname === "" ? "" : ""}`}>
@@ -105,7 +103,7 @@ function App() {
       <LoaderBox />
       <ArticleDisplay />
       <MoreDescriptionDiv />
-      {popup && <Popup />}
+
       <HeaderMain />
       <div
         className={`${location.pathname === "/" ? "" : "mb-[100px]"} h-full `}

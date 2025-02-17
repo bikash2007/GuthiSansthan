@@ -6,17 +6,16 @@ import { toast } from "react-toastify";
 import { useEditing } from "../../../context/EditingProvider";
 import { InstanceNotice } from "./InstanceNotice"; // Adjust the path based on your project structure
 import NoticeForm from "./NoticeForm";
+import { useSelector } from "react-redux";
 
 export const Notices = () => {
   const [notices, setNotices] = useState([]);
   const { isEditing } = useEditing();
-
+  const baseUrl = useSelector((state) => state.baseUrl).backend;
   useEffect(() => {
     const fetchNotices = async () => {
       try {
-        const response = await axios.get(
-          "https://ingnepal.org.np/api/notices/"
-        );
+        const response = await axios.get(`${baseUrl}api/notices/`);
         if (response.status === 200) {
           setNotices(response.data);
         } else {
@@ -33,9 +32,7 @@ export const Notices = () => {
 
   const handleDeleteNotice = async (id) => {
     try {
-      const response = await axios.delete(
-        `https://ingnepal.org.np/api/notices/${id}/`
-      );
+      const response = await axios.delete(`${baseUrl}api/notices/${id}/`);
       if (response.status === 204) {
         setNotices((prevNotices) =>
           prevNotices.filter((notice) => notice.id !== id)

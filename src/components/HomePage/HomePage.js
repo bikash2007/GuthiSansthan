@@ -21,6 +21,7 @@ import { EditBgHome } from "../EditComponents/EditBgHome";
 import { useEditing } from "../../context/EditingProvider";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAdd, faSearch } from "@fortawesome/free-solid-svg-icons";
+import Popup from "./Popup";
 
 export const HomePage = () => {
   const { i18n, t } = useTranslation();
@@ -31,6 +32,28 @@ export const HomePage = () => {
   const { isEditing } = useEditing();
   const [notices, setNotices] = useState([]);
   const [creditName, setCreditName] = useState();
+  const [showPopup, setShowPopup] = useState(false);
+
+  useEffect(() => {
+    // Show popup only if it's the first visit or page reload
+    const popupShown = sessionStorage.getItem("popupShown");
+
+    if (!popupShown) {
+      setShowPopup(true);
+      sessionStorage.setItem("popupShown", "true"); // Store that popup has been shown
+    }
+
+    // Reset popup on page unload (so it shows on next reload)
+    const resetPopup = () => {
+      sessionStorage.removeItem("popupShown");
+    };
+
+    window.addEventListener("beforeunload", resetPopup);
+
+    return () => {
+      window.removeEventListener("beforeunload", resetPopup);
+    };
+  }, []);
   const fetchNotices = async () => {
     try {
       const response = await axios.get(`${baseUrl}api/notices/get-latest/`);
@@ -101,109 +124,112 @@ export const HomePage = () => {
     }
   };
   return (
-    <div
-      style={{
-        height: `${isMobile ? "calc(100vh - 80px)" : "calc(100vh - 100px)"}`,
-      }}
-    >
+    <>
+      {showPopup && <Popup />}
       <div
-        style={{ height: `${isEditing ? "calc(100vh - 100px)" : "100%"}` }}
-        className="flex flex-col items-center justify-start h-full relative overflow-hidden"
+        style={{
+          height: `${isMobile ? "calc(100vh - 80px)" : "calc(100vh - 100px)"}`,
+        }}
       >
-        <div className="absolute top-0 left-0 w-full h-full bg-black opacity-40 -z-10"></div>
-        <Link to={"/articles"} className="relative z-30 w-full">
-          <h3 className="absolute left-0 top-0 bg-[#00ADEF] backdrop-blur-3xl text-white py-1 font-semibold text-base flex justify-center items-center h-[40px] px-2  z-40">
-            {t("notice")}
-          </h3>
-          <div className="absolute left-[60px] top-0 bg-[#00ADEF] backdrop-blur-3xl text-white font-semibold text-base flex justify-center items-center h-[40px] px-1  z-30"></div>
-        </Link>
-        <div className="w-full h-[40px] bg-cyan-700/60 flex items-center  backdrop-blur-xl relative overflow-hidden">
-          <div className="w-full scrolling-text  items-center  absolute right-0 flex flex-row gap-6   py-2 text-white font-semibold">
-            {notices.map((item) => (
-              <a
-                href={`${item.image}`}
-                className="font-semibold no-underline hover:text-cyan-500 hover:underline text-white text-xl"
-                target="_main"
-                key={item.id}
-              >
-                <p className="font-thin mt-3">{item.title}</p>
-              </a>
-            ))}
-          </div>
-        </div>
-        {isEditing && (
-          <Link
-            to={"/super-user/add-notices"}
-            className="absolute top-10 left-2 h-6 w-6 flex justify-center items-center z-30 bg-white rounded-full"
-          >
-            <FontAwesomeIcon icon={faAdd} />
-          </Link>
-        )}
-
         <div
           style={{ height: `${isEditing ? "calc(100vh - 100px)" : "100%"}` }}
-          className="w-full flex flex-col items-start justify-start h-screen relative overflow-hidden"
+          className="flex flex-col items-center justify-start h-full relative overflow-hidden"
         >
-          <EditBgHome
-            fetchHomeData={fetchHomeData}
-            imageId={homePageDetail["bg-video"].id}
-            url={homePageDetail["bg-video"].video}
-            setNewImage={setNewBgVideo}
-            isActualUploadedSame={
-              homePageDetail["bg-video"].video ===
-              homePageDetail["bg-video"].actualVideo
-            }
-          >
-            {homePageDetail["bg-video"].isImage && (
-              <div
-                className="bg-cover bg-center fixed -z-20 w-full h-screen top-0"
-                style={{
-                  backgroundImage: `url(${homePageDetail["bg-video"].url})`,
-                }}
-              ></div>
-            )}
-            {homePageDetail["bg-video"].isVideo && (
-              <>
-                <video
-                  key={homePageDetail["bg-video"].id}
-                  autoPlay
-                  loop
-                  muted
-                  className="top-0 video-background fixed inset-0 w-full h-screen object-cover -z-30"
+          <div className="absolute top-0 left-0 w-full h-full bg-black opacity-40 -z-10"></div>
+          <Link to={"/articles"} className="relative z-30 w-full">
+            <h3 className="absolute left-0 top-0 bg-[#00ADEF] backdrop-blur-3xl text-white py-1 font-semibold text-base flex justify-center items-center h-[40px] px-2  z-40">
+              {t("notice")}
+            </h3>
+            <div className="absolute left-[60px] top-0 bg-[#00ADEF] backdrop-blur-3xl text-white font-semibold text-base flex justify-center items-center h-[40px] px-1  z-30"></div>
+          </Link>
+          <div className="w-full h-[40px] bg-cyan-700/60 flex items-center  backdrop-blur-xl relative overflow-hidden">
+            <div className="w-full scrolling-text  items-center  absolute right-0 flex flex-row gap-6   py-2 text-white font-semibold">
+              {notices.map((item) => (
+                <a
+                  href={`${item.image}`}
+                  className="font-semibold no-underline hover:text-cyan-500 hover:underline text-white text-xl"
+                  target="_main"
+                  key={item.id}
                 >
-                  <source
-                    src={homePageDetail["bg-video"].url}
-                    type="video/mp4"
-                  />
-                  Your browser does not support the video tag.
-                </video>
-              </>
-            )}
-          </EditBgHome>
-
-          <NepalFlagSlider />
-          <div className="absolute right-4 bottom-32 z-20">
-            <div className="relative h-8 w-36 text-center rounded-lg backdrop-blur-3xl bg-gray-100/20 border border-gray-300/40 shadow-lg px-4 transition-all duration-300 ease-in-out focus-within:w-96">
-              <input
-                type="search"
-                placeholder="Search"
-                className="w-full h-full text-white placeholder-gray-400 bg-transparent outline-none"
-              />
-              <FontAwesomeIcon
-                icon={faSearch}
-                className="absolute right-2 top-1/2 transform -translate-y-1/2 text-white placeholder:text-white"
-              />
+                  <p className="font-thin mt-3">{item.title}</p>
+                </a>
+              ))}
             </div>
           </div>
-
-          {creditName && (
-            <h4 className="text-white text-base font-semibold absolute bottom-44 left-3">
-              Photo by {creditName}
-            </h4>
+          {isEditing && (
+            <Link
+              to={"/super-user/add-notices"}
+              className="absolute top-10 left-2 h-6 w-6 flex justify-center items-center z-30 bg-white rounded-full"
+            >
+              <FontAwesomeIcon icon={faAdd} />
+            </Link>
           )}
-          <HomePageFooter />
+
+          <div
+            style={{ height: `${isEditing ? "calc(100vh - 100px)" : "100%"}` }}
+            className="w-full flex flex-col items-start justify-start h-screen relative overflow-hidden"
+          >
+            <EditBgHome
+              fetchHomeData={fetchHomeData}
+              imageId={homePageDetail["bg-video"].id}
+              url={homePageDetail["bg-video"].video}
+              setNewImage={setNewBgVideo}
+              isActualUploadedSame={
+                homePageDetail["bg-video"].video ===
+                homePageDetail["bg-video"].actualVideo
+              }
+            >
+              {homePageDetail["bg-video"].isImage && (
+                <div
+                  className="bg-cover bg-center fixed -z-20 w-full h-screen top-0"
+                  style={{
+                    backgroundImage: `url(${homePageDetail["bg-video"].url})`,
+                  }}
+                ></div>
+              )}
+              {homePageDetail["bg-video"].isVideo && (
+                <>
+                  <video
+                    key={homePageDetail["bg-video"].id}
+                    autoPlay
+                    loop
+                    muted
+                    className="top-0 video-background fixed inset-0 w-full h-screen object-cover -z-30"
+                  >
+                    <source
+                      src={homePageDetail["bg-video"].url}
+                      type="video/mp4"
+                    />
+                    Your browser does not support the video tag.
+                  </video>
+                </>
+              )}
+            </EditBgHome>
+
+            <NepalFlagSlider />
+            <div className="absolute right-4 bottom-32 z-20">
+              <div className="relative h-8 w-36 text-center rounded-lg backdrop-blur-3xl bg-gray-100/20 border border-gray-300/40 shadow-lg px-4 transition-all duration-300 ease-in-out focus-within:w-96">
+                <input
+                  type="search"
+                  placeholder="Search"
+                  className="w-full h-full text-white placeholder-gray-400 bg-transparent outline-none"
+                />
+                <FontAwesomeIcon
+                  icon={faSearch}
+                  className="absolute right-2 top-1/2 transform -translate-y-1/2 text-white placeholder:text-white"
+                />
+              </div>
+            </div>
+
+            {creditName && (
+              <h4 className="text-white text-base font-semibold absolute bottom-44 left-3">
+                Photo by {creditName}
+              </h4>
+            )}
+            <HomePageFooter />
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 const EditLaw = ({ law, onClose, onSave }) => {
   const [formData, setFormData] = useState({
@@ -8,7 +9,7 @@ const EditLaw = ({ law, onClose, onSave }) => {
   });
 
   const wrapperRef = useRef(null);
-
+  const baseUrl = useSelector((state) => state.baseUrl).backend;
   useEffect(() => {
     if (law) {
       setFormData({
@@ -24,7 +25,7 @@ const EditLaw = ({ law, onClose, onSave }) => {
     };
 
     document.addEventListener("mousedown", handleClickOutside);
-    
+
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
@@ -47,7 +48,7 @@ const EditLaw = ({ law, onClose, onSave }) => {
 
     try {
       const response = await axios.patch(
-        `https://ingnepal.org.np/api/laws/${law.id}/`,
+        `${baseUrl}api/laws/${law.id}/`,
         data,
         {
           headers: {
@@ -71,7 +72,10 @@ const EditLaw = ({ law, onClose, onSave }) => {
 
   return (
     <div className="flex items-center justify-center mt-3">
-      <div ref={wrapperRef} className="w-full max-w-xl p-6 transition-shadow duration-300 ease-in-out rounded-lg shadow-lg bg-gray-600/30 backdrop-blur-xl hover:shadow-2xl">
+      <div
+        ref={wrapperRef}
+        className="w-full max-w-xl p-6 transition-shadow duration-300 ease-in-out rounded-lg shadow-lg bg-gray-600/30 backdrop-blur-xl hover:shadow-2xl"
+      >
         <h3 className="mb-5 text-2xl font-semibold text-center text-white font-poppins">
           Edit Document
         </h3>

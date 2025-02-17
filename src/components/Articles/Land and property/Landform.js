@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 
 export default function Landform() {
   const [formData, setFormData] = useState({
@@ -13,7 +14,7 @@ export default function Landform() {
       [name]: files ? files[0] : value,
     }));
   };
-
+  const baseUrl = useSelector((state) => state.baseUrl).backend;
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -22,7 +23,7 @@ export default function Landform() {
     if (formData.file) data.append("file", formData.file);
 
     try {
-      const response = await fetch("https://ingnepal.org.np/api/rates/", {
+      const response = await fetch(`${baseUrl}api/rates/`, {
         method: "POST",
         body: data,
       });

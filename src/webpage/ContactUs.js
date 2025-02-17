@@ -88,7 +88,7 @@ export const ContactUs = () => {
 
   useEffect(() => {
     axios
-      .get("https://ingnepal.org.np/api/guthi-contact/1/")
+      .get(`${baseUrl}api/guthi-contact/1/`)
       .then((response) => {
         setContactInfo(response.data);
       })
@@ -101,7 +101,7 @@ export const ContactUs = () => {
 
   useEffect(() => {
     axios
-      .get("https://ingnepal.org.np/api/contacts/")
+      .get(`${baseUrl}api/contacts/`)
       .then((response) => {
         setSpokesperson(response.data);
       })
@@ -117,7 +117,7 @@ export const ContactUs = () => {
 
   const handleRemoveSpokesperson = async (id) => {
     try {
-      await axios.delete(`https://ingnepal.org.np/api/contacts/${id}/`);
+      await axios.delete(`${baseUrl}api/contacts/${id}/`);
       // Remove the spokesperson from the state
       setSpokesperson(spokesperson.filter((item) => item.id !== id));
       showAlert("Spokesperson removed successfully", "green");

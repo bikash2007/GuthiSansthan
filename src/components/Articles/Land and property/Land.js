@@ -6,6 +6,7 @@ import axios from "axios";
 import Instanceland from "./Instanceland";
 import LandEdit from "./LandEdit";
 import Landform from "./Landform";
+import { useSelector } from "react-redux";
 
 export default function Land() {
   const [landList, setLandList] = useState([]);
@@ -13,14 +14,14 @@ export default function Land() {
   const [isAddFormVisible, setIsAddFormVisible] = useState(false);
   const [isEditFormVisible, setIsEditFormVisible] = useState(false);
   const [editingLand, setEditingLand] = useState(null);
-
+  const baseUrl = useSelector((state) => state.baseUrl).backend;
   useEffect(() => {
     fetchLands();
   }, []);
 
   const fetchLands = async () => {
     try {
-      const response = await axios.get("https://ingnepal.org.np/api/rates/");
+      const response = await axios.get(`${baseUrl}api/rates/`);
       setLandList(response.data);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -29,7 +30,7 @@ export default function Land() {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`https://ingnepal.org.np/api/rates/${id}/`);
+      await axios.delete(`${baseUrl}api/rates/${id}/`);
       setLandList(landList.filter((land) => land.id !== id));
     } catch (error) {
       console.error("Error deleting the land:", error);

@@ -1,11 +1,12 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 
 export default function Lawform() {
   const [formData, setFormData] = useState({
     title: "",
     file: null,
   });
-
+  const baseUrl = useSelector((state) => state.baseUrl).backend;
   const handleChange = (e) => {
     const { name, value, files } = e.target;
     setFormData((prevData) => ({
@@ -22,7 +23,7 @@ export default function Lawform() {
     data.append("file", formData.file);
 
     try {
-      const response = await fetch("https://ingnepal.org.np/api/laws/", {
+      const response = await fetch(`${baseUrl}api/laws/`, {
         method: "POST",
         body: data,
       });

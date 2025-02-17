@@ -5,6 +5,7 @@ import Lawform from "./Lawform";
 import EditLaw from "./EditLaw";
 import { motion } from "framer-motion";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 export default function Law() {
   const [lawList, setLawList] = useState([]);
@@ -12,14 +13,14 @@ export default function Law() {
   const [isAddFormVisible, setIsAddFormVisible] = useState(false);
   const [isEditFormVisible, setIsEditFormVisible] = useState(false);
   const [editingLaw, setEditingLaw] = useState(null);
-
+  const baseUrl = useSelector((state) => state.baseUrl).backend;
   useEffect(() => {
     fetchLaws();
   }, []);
 
   const fetchLaws = async () => {
     try {
-      const response = await axios.get("https://ingnepal.org.np/api/laws/");
+      const response = await axios.get(`${baseUrl}api/laws/`);
       setLawList(response.data);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -28,7 +29,7 @@ export default function Law() {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`https://ingnepal.org.np/api/laws/${id}/`);
+      await axios.delete(`${baseUrl}api/laws/${id}/`);
       setLawList(lawList.filter((law) => law.id !== id));
     } catch (error) {
       console.error("Error deleting the law:", error);
@@ -79,7 +80,9 @@ export default function Law() {
                   />
                 ))
               ) : (
-                <h1 className="font-bold text-center text-white">No Law at this moment</h1>
+                <h1 className="font-bold text-center text-white">
+                  No Law at this moment
+                </h1>
               )}
             </div>
           </div>
