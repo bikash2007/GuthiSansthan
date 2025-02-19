@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 
 export default function Report() {
   const [formData, setFormData] = useState({
@@ -14,12 +15,12 @@ export default function Report() {
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
-
+  const baseUrl = useSelector((state) => state.baseUrl).backend;
   useEffect(() => {
     // Fetch branches from the API
     const fetchBranches = async () => {
       try {
-        const response = await fetch("https://ingnepal.org.np/api/branches/");
+        const response = await fetch(`${baseUrl}api/branches/`);
         const data = await response.json();
         setBranches(data); // Save branches to state
       } catch (error) {

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 const AddTeam = () => {
   const [teamData, setTeamData] = useState({
@@ -10,7 +11,7 @@ const AddTeam = () => {
     post: { English: "", Newari: "", Nepali: "", Mithila: "" }, // Optional
     branch: { English: "", Newari: "", Nepali: "", Mithila: "" }, // Updated to match JSON structure
   });
-
+  const baseUrl = useSelector((state) => state.baseUrl).backend;
   const handleChange = (e, key, lang = null) => {
     if (key === "photo") {
       setTeamData((prevData) => ({
@@ -52,7 +53,7 @@ const AddTeam = () => {
 
     // Post data to the teams API
     axios
-      .post("https://ingnepal.org.np/api/teams/", formData, {
+      .post(`${baseUrl}api/teams/`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

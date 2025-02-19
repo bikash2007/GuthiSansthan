@@ -7,6 +7,7 @@ import EditTeams from "./EditTeams";
 import { useEditing } from "../../../../context/EditingProvider";
 import axios from "axios";
 import p2 from "../../../../media/Teams/p2.png";
+import { useSelector } from "react-redux";
 
 export const Teams = () => {
   const { t } = useTranslation();
@@ -16,11 +17,11 @@ export const Teams = () => {
   const [error, setError] = useState(null);
   const [selectedTeamMember, setSelectedTeamMember] = useState(null);
   const [isEditingMode, setIsEditingMode] = useState(false); // State for add/edit mode
-
+  const baseUrl = useSelector((state) => state.baseUrl).backend;
   useEffect(() => {
     const fetchTeamData = async () => {
       try {
-        const response = await axios.get("https://ingnepal.org.np/api/teams/");
+        const response = await axios.get(`${baseUrl}api/teams/`);
         setTeamData(response.data);
       } catch (err) {
         setError(err.message);
@@ -40,7 +41,7 @@ export const Teams = () => {
 
   const handleRemove = async (id) => {
     try {
-      await axios.delete(`https://ingnepal.org.np/api/teams/${id}`);
+      await axios.delete(`${baseUrl}api/teams/${id}`);
       setTeamData((prevData) => prevData.filter((team) => team.id !== id));
     } catch (error) {
       console.error("There was an error removing the team member!", error);

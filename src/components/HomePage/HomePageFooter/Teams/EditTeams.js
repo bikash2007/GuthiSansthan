@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 const EditTeams = ({ teamMember }) => {
   const [teamData, setTeamData] = useState({
@@ -10,7 +11,7 @@ const EditTeams = ({ teamMember }) => {
     post: { English: "", Newari: "", Nepali: "", Mithila: "" },
     branch: { English: "", Newari: "", Nepali: "", Mithila: "" },
   });
-
+  const baseUrl = useSelector((state) => state.baseUrl).backend;
   useEffect(() => {
     if (teamMember) {
       setTeamData({
@@ -89,15 +90,11 @@ const EditTeams = ({ teamMember }) => {
     }
 
     try {
-      await axios.patch(
-        `https://ingnepal.org.np/api/teams/${teamMember.id}/`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      await axios.patch(`${baseUrl}api/teams/${teamMember.id}/`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
       window.location.reload();
       console.log("Team member updated successfully!");
       // Handle success, e.g., notify user or update the UI
